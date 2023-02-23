@@ -1,14 +1,19 @@
 import { useEffect, useReducer } from 'react';
 import { getSnowboarders } from '../../airtable-utils';
-import { removeDupes } from 'utils/utils';
-import {
-  roundOneMatchups,
-  quarterFinalMatchups,
-  semiFinalMatchups,
-  finalsMatchup,
-  winner,
-} from './matchups';
+import { roundOneMatchups, testingRoundTwoMatchups } from './matchups';
 import { useUser } from 'context/user-context/user-context';
+
+const formatMatchups = data => {
+  const dataIntoArray = Object.entries(data);
+  return dataIntoArray.map(matchup => {
+    const [matchupId, { snowboarders, winner }] = matchup;
+    return {
+      matchupId,
+      snowboarders,
+      winner,
+    };
+  });
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -18,25 +23,11 @@ const reducer = (state, action) => {
         roundOneMatchups: action.roundOneMatchups,
         isRoundOneLoading: action.isLoading,
       };
-    case 'SET_QUARTER_FINAL_MATCHUPS':
+    case 'SET_ROUND_WINNER':
       return {
         ...state,
+        roundOneMatchups: action.roundOneMatchups,
         quarterFinalMatchups: action.quarterFinalMatchups,
-      };
-    case 'SET_SEMI_FINAL_MATCHUPS':
-      return {
-        ...state,
-        semiFinalMatchups: action.semiFinalMatchups,
-      };
-    case 'SET_FINALS_MATCHUP':
-      return {
-        ...state,
-        finalsMatchup: action.finalsMatchup,
-      };
-    case 'SET_WINNER':
-      return {
-        ...state,
-        winner: action.winner,
       };
     default:
       return state;
@@ -53,62 +44,15 @@ const initialState = {
 };
 
 const setRoundOneMatchups = ({ snowboarders = [] }) => {
-  return roundOneMatchups.map(currentRound => {
-    for (let i = 0; i < snowboarders.length; i++) {
-      const currentSnowboarder = snowboarders[i];
-      const isSnowboarderInCurrentRound =
-        currentRound.acceptedRoundIds.includes(currentSnowboarder.matchupId);
-      if (isSnowboarderInCurrentRound) {
-        currentRound.snowboarders.push(currentSnowboarder);
-      }
-    }
-    currentRound.snowboarders = removeDupes(currentRound.snowboarders);
-    return currentRound;
-  });
-};
-
-const setRoundMatchups = ({ snowboarders = [], acceptedMatchups = [] }) => {
-  return acceptedMatchups.map(currentRound => {
-    for (let i = 0; i < snowboarders.length; i++) {
-      const currentSnowboarder = snowboarders[i];
-      const isSnowboarderInCurrentRound =
-        currentRound.acceptedRoundIds.includes(
-          currentSnowboarder.matchupId.split('_P')[0]
-        );
-      if (isSnowboarderInCurrentRound) {
-        currentRound.snowboarders.push(currentSnowboarder);
-      }
-    }
-    currentRound.snowboarders = removeDupes(currentRound.snowboarders);
-    return currentRound;
-  });
-};
-
-const mapRoundNumberToRoundData = {
-  2: {
-    airtableColumn: 'quarterFinalMatchups',
-    acceptedMatchups: quarterFinalMatchups,
-    dispatchKey: 'SET_QUARTER_FINAL_MATCHUPS',
-    actionKey: 'quarterFinalMatchups',
-  },
-  3: {
-    airtableColumn: 'semiFinalMatchups',
-    acceptedMatchups: semiFinalMatchups,
-    dispatchKey: 'SET_SEMI_FINAL_MATCHUPS',
-    actionKey: 'semiFinalMatchups',
-  },
-  4: {
-    airtableColumn: 'finalsMatchup',
-    acceptedMatchups: finalsMatchup,
-    dispatchKey: 'SET_FINALS_MATCHUP',
-    actionKey: 'finalsMatchup',
-  },
-  5: {
-    airtableColumn: 'winner',
-    acceptedMatchups: winner,
-    dispatchKey: 'SET_WINNER',
-    actionKey: 'winner',
-  },
+  for (let i = 0; i < snowboarders.length; i++) {
+    const currentSnowboarder = snowboarders[i];
+    const currentSnowboardersRoundOneMatchupId =
+      currentSnowboarder.matchupId.split('_P')[0];
+    const currentRound = roundOneMatchups[currentSnowboardersRoundOneMatchupId];
+    currentRound.snowboarders.push(currentSnowboarder);
+  }
+  const formattedRoundOneMatchups = formatMatchups(roundOneMatchups);
+  return formattedRoundOneMatchups;
 };
 
 export default function useMatchupData() {
@@ -126,34 +70,35 @@ export default function useMatchupData() {
       });
     };
 
-    const updatedRoundMatchups = async ({ roundNumber }) => {
-      const { airtableColumn, acceptedMatchups, dispatchKey, actionKey } =
-        mapRoundNumberToRoundData[roundNumber];
-      const hasSelectedWinners = userTeam[airtableColumn].length > 0;
-      if (hasSelectedWinners) {
-        const updatedMatchup = setRoundMatchups({
-          snowboarders: userTeam[airtableColumn],
-          acceptedMatchups,
-        });
-        await dispatch({
-          type: dispatchKey,
-          [actionKey]: updatedMatchup,
-        });
-      }
-    };
-
     const runUseEffect = async () => {
       if (userTeam) {
         await updateRoundOnematchups();
-        await updatedRoundMatchups({ roundNumber: 2 });
-        await updatedRoundMatchups({ roundNumber: 3 });
-        await updatedRoundMatchups({ roundNumber: 4 });
-        await updatedRoundMatchups({ roundNumber: 5 });
       }
     };
     runUseEffect();
     () => runUseEffect();
   }, [userTeam]);
 
-  return allMatchups;
+  return {
+    allMatchups,
+    setWinner: player => {
+      const { matchupId } = player;
+      // Setting winner of current round
+      const currentRound = roundOneMatchups[matchupId];
+      currentRound.winner = player;
+
+      // Send updated selections to round two data
+      const updatedRoundTwo = testingRoundTwoMatchups(roundOneMatchups);
+
+      // Format both rounds
+      const formattedRoundOneMatchups = formatMatchups(roundOneMatchups);
+      const quarterFinalMatchups = formatMatchups(updatedRoundTwo);
+
+      dispatch({
+        type: 'SET_ROUND_WINNER',
+        quarterFinalMatchups,
+        roundOneMatchups: formattedRoundOneMatchups,
+      });
+    },
+  };
 }

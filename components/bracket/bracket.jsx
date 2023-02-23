@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import Player from 'components/player';
+import styles from './bracket.module.scss';
 
 export const getPlayerRowHeight = round => {
   let start = 1;
@@ -9,64 +9,23 @@ export const getPlayerRowHeight = round => {
   return start * 50;
 };
 
-export default function Bracket({ snowboarders = [], round }) {
-  const [selectedWinner, setSelectedWinner] = useState({ name: '', id: '' });
-  const isNotFinal = round !== 5;
-  const bothSnowboardersSelected = snowboarders.length === 2;
-  if (isNotFinal && !bothSnowboardersSelected) snowboarders.push(undefined); // Creating empty array item for extra vertical spacing in case some players have not yet been selected
+export default function Bracket({ snowboarders = [], round, matchupId }) {
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        borderTop: '1px solid white',
-        borderBottom: '1px solid white',
-      }}
-    >
+    <div className={styles.bracket} style={{}}>
       <div>
-        {snowboarders
-          .slice()
-          .sort((a, b) => {
-            const aMatchup = a.matchupId;
-            const bMatchup = b.matchupId;
-            if (aMatchup > bMatchup) return 1;
-            return -1;
-          })
-          .map((snowboarder, index) => {
-            // Adding extra vertical spacing in case some players have not yet been selected
-            if (!snowboarder)
-              return (
-                <div
-                  key={index}
-                  style={{ height: `${getPlayerRowHeight(round)}px` }}
-                ></div>
-              );
-            const { name, id } = snowboarder;
-            return (
-              <Player
-                key={name}
-                name={name}
-                id={id}
-                setWinner={setSelectedWinner}
-                round={round}
-              />
-            );
-          })}
+        {snowboarders.slice().map((snowboarder, index) => {
+          const { name, id } = snowboarder;
+          return (
+            <Player
+              key={name}
+              name={name}
+              id={id}
+              round={round}
+              matchupId={matchupId}
+            />
+          );
+        })}
       </div>
-
-      {selectedWinner.name && (
-        // <p style={{ marginLeft: '20px' }} data-winner={selectedWinner.id}>
-        <p
-          style={{ marginLeft: '20px' }}
-          data-roundonewinner={selectedWinner.id}
-          data-roundtwowinner={selectedWinner.id}
-          data-roundthreewinner={selectedWinner.id}
-          data-roundfourwinner={selectedWinner.id}
-        >
-          {selectedWinner.name}
-        </p>
-      )}
     </div>
   );
 }
