@@ -17,7 +17,7 @@ export default function Bracket({ snowboarders = [], round, matchupId }) {
           const { name, id } = snowboarder;
           return (
             <Player
-              key={name}
+              key={`matchup-${matchupId}-${index}`}
               name={name}
               id={id}
               round={round}
