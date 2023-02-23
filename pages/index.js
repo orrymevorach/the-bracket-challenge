@@ -21,6 +21,9 @@ export default function Home() {
     roundOneMatchups = [],
     roundTwoMatchups = [],
     roundThreeMatchups = [],
+    isRoundOneLoading,
+    isRoundTwoLoading,
+    isRoundThreeLoading,
   } = useMatchups();
 
   const handleSubmit = ({ round }) => {
@@ -46,9 +49,21 @@ export default function Home() {
         <h2 style={{ marginBottom: '50px' }}>Welcome: {currentUser}!</h2>
         <h2>Matchups:</h2>
         <div style={{ display: 'flex' }}>
-          <BracketColumn matchups={roundOneMatchups} round={1} />
-          <BracketColumn matchups={roundTwoMatchups} round={2} />
-          <BracketColumn matchups={roundThreeMatchups} round={3} />
+          <BracketColumn
+            matchups={roundOneMatchups}
+            round={1}
+            isLoading={isRoundOneLoading}
+          />
+          <BracketColumn
+            matchups={roundTwoMatchups}
+            round={2}
+            isLoading={isRoundTwoLoading}
+          />
+          <BracketColumn
+            matchups={roundThreeMatchups}
+            round={3}
+            isLoading={isRoundThreeLoading}
+          />
         </div>
         <button onClick={() => handleSubmit({ round: 1 })}>
           Submit Round 1

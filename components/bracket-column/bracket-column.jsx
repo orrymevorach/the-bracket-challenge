@@ -1,6 +1,8 @@
 import Bracket from 'components/bracket';
+import Loader from 'components/loader';
 
-export default function BracketColumn({ matchups, round }) {
+export default function BracketColumn({ matchups, round, isLoading }) {
+  if (isLoading) return <Loader />;
   return (
     <div>
       {matchups
