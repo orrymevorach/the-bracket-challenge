@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"],
+      "@variables": ["styles/variables.module.scss"],
+      "@animations": ["styles/animations.module.scss"],
+      "constants": ["utils/constants.js"],
+      "graphql/*": ["graphql/*"],
+      "airtable-utils": ["airtable-utils/index.js"]
+    }
+  }
+}
