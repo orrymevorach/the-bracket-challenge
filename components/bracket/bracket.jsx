@@ -11,7 +11,9 @@ export const getPlayerRowHeight = round => {
 
 export default function Bracket({ snowboarders = [], round }) {
   const [selectedWinner, setSelectedWinner] = useState({ name: '', id: '' });
-  if (snowboarders.length !== 2) snowboarders.push(undefined); // Creating empty array item for extra vertical spacing in case some players have not yet been selected
+  const isNotFinal = round !== 5;
+  const bothSnowboardersSelected = snowboarders.length === 2;
+  if (isNotFinal && !bothSnowboardersSelected) snowboarders.push(undefined); // Creating empty array item for extra vertical spacing in case some players have not yet been selected
   return (
     <div
       style={{

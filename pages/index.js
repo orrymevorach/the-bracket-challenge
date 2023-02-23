@@ -28,9 +28,10 @@ const mapRoundNumberToRoundData = {
 export default function Home() {
   const {
     roundOneMatchups = [],
-    roundTwoMatchups = [],
-    roundThreeMatchups = [],
-    roundFourMatchups = [],
+    quarterFinalMatchups = [],
+    semiFinalMatchups = [],
+    finalsMatchup = [],
+    winner,
     isRoundOneLoading,
   } = useMatchups();
   const { isLoading: isUserDataLoading } = useUser();
@@ -64,18 +65,23 @@ export default function Home() {
             isLoading={isRoundOneLoading}
           />
           <BracketColumn
-            matchups={roundTwoMatchups}
+            matchups={quarterFinalMatchups}
             round={2}
             isLoading={isUserDataLoading}
           />
           <BracketColumn
-            matchups={roundThreeMatchups}
+            matchups={semiFinalMatchups}
             round={3}
             isLoading={isUserDataLoading}
           />
           <BracketColumn
-            matchups={roundFourMatchups}
+            matchups={finalsMatchup}
             round={4}
+            isLoading={isUserDataLoading}
+          />
+          <BracketColumn
+            matchups={winner}
+            round={5}
             isLoading={isUserDataLoading}
           />
         </div>
@@ -83,13 +89,13 @@ export default function Home() {
           Submit Round 1
         </button>
         <button onClick={() => handleSubmit({ round: 2 })}>
-          Submit Round 2
+          Submit Quarter Final
         </button>
         <button onClick={() => handleSubmit({ round: 3 })}>
-          Submit Round 3
+          Submit Semi Final
         </button>
         <button onClick={() => handleSubmit({ round: 4 })}>
-          Submit Round 4
+          Submit Winner
         </button>
       </div>
     </div>

@@ -3,9 +3,10 @@ import { getSnowboarders } from '../../airtable-utils';
 import { removeDupes } from 'utils/utils';
 import {
   roundOneMatchups,
-  roundTwoMatchups,
-  roundThreeMatchups,
-  roundFourMatchups,
+  quarterFinalMatchups,
+  semiFinalMatchups,
+  finalsMatchup,
+  winner,
 } from './matchups';
 import { useUser } from 'context/user-context/user-context';
 
@@ -17,20 +18,25 @@ const reducer = (state, action) => {
         roundOneMatchups: action.roundOneMatchups,
         isRoundOneLoading: action.isLoading,
       };
-    case 'SET_ROUND_TWO_MATCHUPS':
+    case 'SET_QUARTER_FINAL_MATCHUPS':
       return {
         ...state,
-        roundTwoMatchups: action.roundTwoMatchups,
+        quarterFinalMatchups: action.quarterFinalMatchups,
       };
-    case 'SET_ROUND_THREE_MATCHUPS':
+    case 'SET_SEMI_FINAL_MATCHUPS':
       return {
         ...state,
-        roundThreeMatchups: action.roundThreeMatchups,
+        semiFinalMatchups: action.semiFinalMatchups,
       };
-    case 'SET_ROUND_FOUR_MATCHUPS':
+    case 'SET_FINALS_MATCHUP':
       return {
         ...state,
-        roundFourMatchups: action.roundFourMatchups,
+        finalsMatchup: action.finalsMatchup,
+      };
+    case 'SET_WINNER':
+      return {
+        ...state,
+        winner: action.winner,
       };
     default:
       return state;
@@ -39,9 +45,10 @@ const reducer = (state, action) => {
 
 const initialState = {
   roundOneMatchups: [],
-  roundTwoMatchups: [],
-  roundThreeMatchups: [],
-  roundFourMatchups: [],
+  quarterFinalMatchups: [],
+  semiFinalMatchups: [],
+  finalsMatchup: [],
+  winner: [],
   isRoundOneLoading: true,
 };
 
@@ -80,21 +87,27 @@ const setRoundMatchups = ({ snowboarders = [], acceptedMatchups = [] }) => {
 const mapRoundNumberToRoundData = {
   2: {
     airtableColumn: 'quarterFinalMatchups',
-    acceptedMatchups: roundTwoMatchups,
-    dispatchKey: 'SET_ROUND_TWO_MATCHUPS',
-    actionKey: 'roundTwoMatchups',
+    acceptedMatchups: quarterFinalMatchups,
+    dispatchKey: 'SET_QUARTER_FINAL_MATCHUPS',
+    actionKey: 'quarterFinalMatchups',
   },
   3: {
     airtableColumn: 'semiFinalMatchups',
-    acceptedMatchups: roundThreeMatchups,
-    dispatchKey: 'SET_ROUND_THREE_MATCHUPS',
-    actionKey: 'roundThreeMatchups',
+    acceptedMatchups: semiFinalMatchups,
+    dispatchKey: 'SET_SEMI_FINAL_MATCHUPS',
+    actionKey: 'semiFinalMatchups',
   },
   4: {
     airtableColumn: 'finalsMatchup',
-    acceptedMatchups: roundFourMatchups,
-    dispatchKey: 'SET_ROUND_FOUR_MATCHUPS',
-    actionKey: 'roundFourMatchups',
+    acceptedMatchups: finalsMatchup,
+    dispatchKey: 'SET_FINALS_MATCHUP',
+    actionKey: 'finalsMatchup',
+  },
+  5: {
+    airtableColumn: 'winner',
+    acceptedMatchups: winner,
+    dispatchKey: 'SET_WINNER',
+    actionKey: 'winner',
   },
 };
 
@@ -135,6 +148,7 @@ export default function useMatchupData() {
         await updatedRoundMatchups({ roundNumber: 2 });
         await updatedRoundMatchups({ roundNumber: 3 });
         await updatedRoundMatchups({ roundNumber: 4 });
+        await updatedRoundMatchups({ roundNumber: 5 });
       }
     };
     runUseEffect();
