@@ -76,3 +76,20 @@ export const roundThreeMatchups = [
     snowboarders: [],
   },
 ];
+
+export const roundFourMatchups = [
+  {
+    id: 'R4_M1',
+    acceptedRoundIds: [
+      'R1_M1',
+      'R1_M2',
+      'R1_M3',
+      'R1_M4',
+      'R1_M5',
+      'R1_M6',
+      'R1_M7',
+      'R1_M8',
+    ],
+    snowboarders: [],
+  },
+];

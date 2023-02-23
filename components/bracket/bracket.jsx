@@ -60,6 +60,7 @@ export default function Bracket({ snowboarders = [], round }) {
           data-roundonewinner={selectedWinner.id}
           data-roundtwowinner={selectedWinner.id}
           data-roundthreewinner={selectedWinner.id}
+          data-roundfourwinner={selectedWinner.id}
         >
           {selectedWinner.name}
         </p>

@@ -18,6 +18,10 @@ const mapRoundNumberToRoundData = {
     dataAttribute: 'roundthreewinner',
     airtableColumnName: 'round3Winners',
   },
+  4: {
+    dataAttribute: 'roundfourwinner',
+    airtableColumnName: 'round4Winners',
+  },
 };
 
 export default function Home() {
@@ -25,9 +29,11 @@ export default function Home() {
     roundOneMatchups = [],
     roundTwoMatchups = [],
     roundThreeMatchups = [],
+    roundFourMatchups = [],
     isRoundOneLoading,
     isRoundTwoLoading,
     isRoundThreeLoading,
+    isRoundFourLoading,
   } = useMatchups();
 
   const handleSubmit = ({ round }) => {
@@ -68,6 +74,11 @@ export default function Home() {
             round={3}
             isLoading={isRoundThreeLoading}
           />
+          <BracketColumn
+            matchups={roundFourMatchups}
+            round={4}
+            isLoading={isRoundFourLoading}
+          />
         </div>
         <button onClick={() => handleSubmit({ round: 1 })}>
           Submit Round 1
@@ -77,6 +88,9 @@ export default function Home() {
         </button>
         <button onClick={() => handleSubmit({ round: 3 })}>
           Submit Round 3
+        </button>
+        <button onClick={() => handleSubmit({ round: 4 })}>
+          Submit Round 4
         </button>
       </div>
     </div>

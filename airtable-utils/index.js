@@ -32,12 +32,19 @@ export const updateUserTeam = async ({
   round1Winners,
   round2Winners,
   round3Winners,
+  round4Winners,
   id,
 }) => {
   try {
     const { data } = await client.mutate({
       mutation: UPDATE_USER_TEAM,
-      variables: { round1Winners, round2Winners, round3Winners, id },
+      variables: {
+        round1Winners,
+        round2Winners,
+        round3Winners,
+        round4Winners,
+        id,
+      },
     });
     return data;
   } catch (error) {
