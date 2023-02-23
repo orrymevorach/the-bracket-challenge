@@ -10,7 +10,7 @@ export const getSnowboarders = async () => {
     const { data, loading } = await client.query({
       query: GET_SNOWBOARDERS,
     });
-    return { snowboarders: data.snowboarders, loading };
+    return { snowboarders: data.snowboarders, isLoading: loading };
   } catch (error) {
     console.log(error);
   }
@@ -22,17 +22,22 @@ export const getUserTeam = async ({ name }) => {
       query: GET_USER_TEAM,
       variables: { name },
     });
-    return { userTeam: data.userTeams[0], loading };
+    return { userTeam: data.userTeams[0], isLoading: loading };
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateUserTeam = async ({ round1Winners, round2Winners, id }) => {
+export const updateUserTeam = async ({
+  round1Winners,
+  round2Winners,
+  round3Winners,
+  id,
+}) => {
   try {
     const { data } = await client.mutate({
       mutation: UPDATE_USER_TEAM,
-      variables: { round1Winners, round2Winners, id },
+      variables: { round1Winners, round2Winners, round3Winners, id },
     });
     return data;
   } catch (error) {

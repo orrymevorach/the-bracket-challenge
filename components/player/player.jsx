@@ -1,5 +1,7 @@
+import { getPlayerRowHeight } from 'components/bracket/bracket';
+
 export default function Player({ name, setWinner, id, round }) {
-  const height = round * 50;
+  const height = getPlayerRowHeight(round);
   return (
     <div
       style={{

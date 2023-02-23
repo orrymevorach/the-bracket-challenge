@@ -24,6 +24,11 @@ export const GET_USER_TEAM = gql`
         matchupId
         id
       }
+      round3Winners {
+        name
+        matchupId
+        id
+      }
     }
   }
 `;
@@ -33,11 +38,13 @@ export const UPDATE_USER_TEAM = gql`
     $id: String
     $round1Winners: [String]
     $round2Winners: [String]
+    $round3Winners: [String]
   ) {
     update_userTeams(
       id: $id
       round1Winners: $round1Winners
       round2Winners: $round2Winners
+      round3Winners: $round3Winners
     ) {
       id
     }

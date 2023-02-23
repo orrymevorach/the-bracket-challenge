@@ -14,6 +14,10 @@ const mapRoundNumberToRoundData = {
     dataAttribute: 'roundtwowinner',
     airtableColumnName: 'round2Winners',
   },
+  3: {
+    dataAttribute: 'roundthreewinner',
+    airtableColumnName: 'round3Winners',
+  },
 };
 
 export default function Home() {
@@ -70,6 +74,9 @@ export default function Home() {
         </button>
         <button onClick={() => handleSubmit({ round: 2 })}>
           Submit Round 2
+        </button>
+        <button onClick={() => handleSubmit({ round: 3 })}>
+          Submit Round 3
         </button>
       </div>
     </div>
