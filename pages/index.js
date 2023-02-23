@@ -1,31 +1,40 @@
-import { useContext } from 'react';
 import { updateUserTeam } from 'airtable-utils';
 import BracketColumn from 'components/bracket-column';
-import { MatchupContext } from 'context/matchup-context';
+import { useMatchups } from 'context/matchup-context/matchup-context';
 
 const currentUser = 'Orry'; // This will come from auth
+
+const mapRoundNumberToRoundData = {
+  1: {
+    dataAttribute: 'roundonewinner',
+    airtableColumnName: 'round1Winners',
+  },
+
+  2: {
+    dataAttribute: 'roundtwowinner',
+    airtableColumnName: 'round2Winners',
+  },
+};
 
 export default function Home() {
   const {
     roundOneMatchups = [],
     roundTwoMatchups = [],
-    roundThreeMatchups,
-  } = useContext(MatchupContext);
+    roundThreeMatchups = [],
+  } = useMatchups();
 
-  const handleSubmit = () => {
-    const round1Winners = Array.from(
-      document.querySelectorAll('[data-roundonewinner]')
-    ).map(node => node.dataset.roundonewinner);
-    updateUserTeam({ round1Winners, id: 'recwCoP3EjsoG40yr' });
+  const handleSubmit = ({ round }) => {
+    const { dataAttribute, airtableColumnName } =
+      mapRoundNumberToRoundData[round];
+    const roundWinners = Array.from(
+      document.querySelectorAll(`[data-${dataAttribute}]`)
+    ).map(node => node.dataset[dataAttribute]);
+    updateUserTeam({
+      [airtableColumnName]: roundWinners,
+      id: 'recwCoP3EjsoG40yr',
+    });
   };
 
-  const handleSubmitRoundTwo = () => {
-    const round2Winners = Array.from(
-      document.querySelectorAll('[data-roundtwowinner]')
-    ).map(node => node.dataset.roundtwowinner);
-
-    updateUserTeam({ round2Winners, id: 'recwCoP3EjsoG40yr' });
-  };
   return (
     <div
       style={{
@@ -39,10 +48,14 @@ export default function Home() {
         <div style={{ display: 'flex' }}>
           <BracketColumn matchups={roundOneMatchups} round={1} />
           <BracketColumn matchups={roundTwoMatchups} round={2} />
-          {/* <BracketColumn matchups={roundThreeMatchups} round={3} /> */}
+          <BracketColumn matchups={roundThreeMatchups} round={3} />
         </div>
-        <button onClick={handleSubmit}>Submit Round 1</button>
-        <button onClick={handleSubmitRoundTwo}>Submit Round 2</button>
+        <button onClick={() => handleSubmit({ round: 1 })}>
+          Submit Round 1
+        </button>
+        <button onClick={() => handleSubmit({ round: 2 })}>
+          Submit Round 2
+        </button>
       </div>
     </div>
   );

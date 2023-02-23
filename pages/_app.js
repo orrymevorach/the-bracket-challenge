@@ -1,4 +1,4 @@
-import { MatchupDataProvider } from 'context/matchup-context';
+import { MatchupDataProvider } from 'context/matchup-context/matchup-context';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {

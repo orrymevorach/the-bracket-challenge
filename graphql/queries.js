@@ -5,7 +5,7 @@ export const GET_SNOWBOARDERS = gql`
     snowboarders {
       name
       id
-      matchups
+      matchupId
     }
   }
 `;
@@ -16,12 +16,12 @@ export const GET_USER_TEAM = gql`
       name
       round1Winners {
         name
-        matchups
+        matchupId
         id
       }
       round2Winners {
         name
-        matchups
+        matchupId
         id
       }
     }

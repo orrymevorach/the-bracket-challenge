@@ -18,8 +18,8 @@ export default function Bracket({ snowboarders = [], round }) {
         {snowboarders
           .slice()
           .sort((a, b) => {
-            const aMatchup = a.matchups;
-            const bMatchup = b.matchups;
+            const aMatchup = a.matchupId;
+            const bMatchup = b.matchupId;
             if (aMatchup > bMatchup) return 1;
             return -1;
           })

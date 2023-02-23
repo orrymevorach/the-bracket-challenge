@@ -1,1 +1,1 @@
-export { default as useMatchupData } from './useMatchupData';
+export { default as useMatchupData } from '../context/matchup-context/useMatchupData';

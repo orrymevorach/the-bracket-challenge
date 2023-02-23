@@ -1,8 +1,12 @@
 import { useMatchupData } from 'hooks';
 
-const { createContext } = require('react');
+const { createContext, useContext } = require('react');
 
-export const MatchupContext = createContext();
+const MatchupContext = createContext();
+
+export const useMatchups = () => {
+  return useContext(MatchupContext);
+};
 
 export const MatchupDataProvider = ({ children }) => {
   const matchupData = useMatchupData();
