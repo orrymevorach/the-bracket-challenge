@@ -1,26 +1,27 @@
 import { updateUserTeam } from 'airtable-utils';
 import BracketColumn from 'components/bracket-column';
 import { useMatchups } from 'context/matchup-context/matchup-context';
+import { useUser } from 'context/user-context/user-context';
 
 const currentUser = 'Orry'; // This will come from auth
 
 const mapRoundNumberToRoundData = {
   1: {
     dataAttribute: 'roundonewinner',
-    airtableColumnName: 'round1Winners',
+    airtableColumnName: 'quarterFinalMatchups',
   },
 
   2: {
     dataAttribute: 'roundtwowinner',
-    airtableColumnName: 'round2Winners',
+    airtableColumnName: 'semiFinalMatchups',
   },
   3: {
     dataAttribute: 'roundthreewinner',
-    airtableColumnName: 'round3Winners',
+    airtableColumnName: 'finalsMatchup',
   },
   4: {
     dataAttribute: 'roundfourwinner',
-    airtableColumnName: 'round4Winners',
+    airtableColumnName: 'winner',
   },
 };
 
@@ -31,10 +32,8 @@ export default function Home() {
     roundThreeMatchups = [],
     roundFourMatchups = [],
     isRoundOneLoading,
-    isRoundTwoLoading,
-    isRoundThreeLoading,
-    isRoundFourLoading,
   } = useMatchups();
+  const { isLoading: isUserDataLoading } = useUser();
 
   const handleSubmit = ({ round }) => {
     const { dataAttribute, airtableColumnName } =
@@ -67,17 +66,17 @@ export default function Home() {
           <BracketColumn
             matchups={roundTwoMatchups}
             round={2}
-            isLoading={isRoundTwoLoading}
+            isLoading={isUserDataLoading}
           />
           <BracketColumn
             matchups={roundThreeMatchups}
             round={3}
-            isLoading={isRoundThreeLoading}
+            isLoading={isUserDataLoading}
           />
           <BracketColumn
             matchups={roundFourMatchups}
             round={4}
-            isLoading={isRoundFourLoading}
+            isLoading={isUserDataLoading}
           />
         </div>
         <button onClick={() => handleSubmit({ round: 1 })}>
