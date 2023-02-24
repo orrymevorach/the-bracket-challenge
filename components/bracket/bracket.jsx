@@ -3,6 +3,10 @@ import styles from './bracket.module.scss';
 
 export const getPlayerRowHeight = round => {
   let start = 1;
+  if (round === 5) {
+    // last round should be same height as final round
+    round = round - 1;
+  }
   for (let index = 0; index < round; index++) {
     start = start * 2;
   }
@@ -11,7 +15,7 @@ export const getPlayerRowHeight = round => {
 
 export default function Bracket({ snowboarders = [], round, matchupId }) {
   return (
-    <div className={styles.bracket} style={{}}>
+    <div className={styles.bracket}>
       <div>
         {snowboarders.slice().map((snowboarder, index) => {
           const { name, id } = snowboarder;

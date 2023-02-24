@@ -2,7 +2,7 @@ import { useUser } from 'context/user-context/user-context';
 import { useEffect } from 'react';
 import { getSnowboarders } from '../../airtable-utils';
 import { roundOneMatchups } from './matchups';
-import { formatMatchups } from './useMatchupData';
+import { transformMatchupsObjectIntoArray } from './useMatchupData';
 
 const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   for (let i = 0; i < snowboarders.length; i++) {
@@ -12,7 +12,8 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
     const currentRound = roundOneMatchups[currentSnowboardersRoundOneMatchupId];
     currentRound.snowboarders.push(currentSnowboarder);
   }
-  const formattedRoundOneMatchups = formatMatchups(roundOneMatchups);
+  const formattedRoundOneMatchups =
+    transformMatchupsObjectIntoArray(roundOneMatchups);
   return formattedRoundOneMatchups;
 };
 

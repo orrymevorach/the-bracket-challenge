@@ -8,7 +8,7 @@ import {
 } from './matchups';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
 
-export const formatMatchups = data => {
+export const transformMatchupsObjectIntoArray = data => {
   const dataIntoArray = Object.entries(data);
   return dataIntoArray.map(matchup => {
     const [matchupId, { snowboarders, winner }] = matchup;
@@ -82,8 +82,10 @@ export default function useMatchupData() {
     const quarterFinalMatchups = getQuarterFinalMatchups(roundOneMatchups);
 
     // Format both rounds
-    const formattedRoundOneMatchups = formatMatchups(roundOneMatchups);
-    const formattedQuarterFinalMatchups = formatMatchups(quarterFinalMatchups);
+    const formattedRoundOneMatchups =
+      transformMatchupsObjectIntoArray(roundOneMatchups);
+    const formattedQuarterFinalMatchups =
+      transformMatchupsObjectIntoArray(quarterFinalMatchups);
 
     dispatch({
       type: 'SET_ROUND_ONE_WINNER',
@@ -149,10 +151,13 @@ export default function useMatchupData() {
     const nextMatchup = getNextMatchup(currentRoundMatchupsAsObject);
 
     // Format current and next round back to array
-    const formattedCurrentRoundMatchups = formatMatchups(
+    const formattedCurrentRoundMatchups = transformMatchupsObjectIntoArray(
       currentRoundMatchupsAsObject
     );
-    const formattedNextRoundMatchups = formatMatchups(nextMatchup);
+    const formattedNextRoundMatchups =
+      transformMatchupsObjectIntoArray(nextMatchup);
+
+    // To fix bug of certain picks being removed, everytime a slection is made, we should update every round, rather than just the current and next rounds
 
     dispatch({
       type,
