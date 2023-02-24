@@ -92,3 +92,24 @@ export const getSemiFinalMatchups = updatedRoundTwo => {
     },
   };
 };
+
+export const getFinalMatchup = updatedSemiFinal => {
+  return {
+    R4_M1: {
+      snowboarders: [
+        updatedSemiFinal['R3_M1']?.winner,
+        updatedSemiFinal['R3_M2']?.winner,
+      ],
+      winner: {},
+    },
+  };
+};
+
+export const getWinner = updatedFinal => {
+  return {
+    R5_M1: {
+      snowboarders: [updatedFinal['R4_M1']?.winner],
+      winner: {},
+    },
+  };
+};

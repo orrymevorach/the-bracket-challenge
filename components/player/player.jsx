@@ -4,12 +4,9 @@ import { useMatchups } from 'context/matchup-context/matchup-context';
 export default function Player(player) {
   const { name, round } = player;
   const height = getPlayerRowHeight(round);
-  const { setWinner, setQuarterFinalWinners } = useMatchups();
-  const mapRoundToSetFunction = {
-    1: setWinner,
-    2: setQuarterFinalWinners,
-  };
-  const handleClick = mapRoundToSetFunction[round];
+  const { setWinner, setRoundOneWinner } = useMatchups();
+
+  const handleClick = round === 1 ? setRoundOneWinner : setWinner;
   return (
     <div
       style={{

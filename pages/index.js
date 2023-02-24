@@ -1,4 +1,3 @@
-import { updateUserTeam } from 'airtable-utils';
 import BracketColumn from 'components/bracket-column';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import { useUser } from 'context/user-context/user-context';
@@ -43,7 +42,7 @@ export default function Home() {
             round={3}
             isLoading={isUserDataLoading}
           />
-          {/*<BracketColumn
+          <BracketColumn
             matchups={finalsMatchup}
             round={4}
             isLoading={isUserDataLoading}
@@ -52,7 +51,7 @@ export default function Home() {
             matchups={winner}
             round={5}
             isLoading={isUserDataLoading}
-          />  */}
+          />
         </div>
       </div>
     </div>

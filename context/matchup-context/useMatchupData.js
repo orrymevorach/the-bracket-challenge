@@ -3,6 +3,8 @@ import {
   roundOneMatchups,
   getQuarterFinalMatchups,
   getSemiFinalMatchups,
+  getFinalMatchup,
+  getWinner,
 } from './matchups';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
 
@@ -26,18 +28,30 @@ const reducer = (state, action) => {
         roundOneMatchups: action.roundOneMatchups,
         isRoundOneLoading: action.isLoading,
       };
-    case 'SET_ROUND_WINNER':
+    case 'SET_ROUND_ONE_WINNER':
       return {
         ...state,
         roundOneMatchups: action.roundOneMatchups,
         quarterFinalMatchups: action.quarterFinalMatchups,
       };
-    case 'SET_ROUND_TWO_WINNER':
+    case 'SET_QUARTER_FINAL_WINNER':
       return {
         ...state,
         quarterFinalMatchups: action.quarterFinalMatchups,
         semiFinalMatchups: action.semiFinalMatchups,
       };
+    case 'SET_SEMI_FINAL_WINNER':
+      return {
+        ...state,
+        semiFinalMatchups: action.semiFinalMatchups,
+        finalsMatchup: action.finalsMatchup,
+      };
+    case 'SET_WINNER': {
+      return {
+        ...state,
+        winner: action.winner,
+      };
+    }
 
     default:
       return state;
@@ -58,7 +72,7 @@ export default function useMatchupData() {
 
   useSetInitialMatchups({ dispatch });
 
-  const setWinner = player => {
+  const setRoundOneWinner = player => {
     const { matchupId } = player;
     // Setting winner of current round
     const currentRound = roundOneMatchups[matchupId];
@@ -72,7 +86,7 @@ export default function useMatchupData() {
     const formattedQuarterFinalMatchups = formatMatchups(quarterFinalMatchups);
 
     dispatch({
-      type: 'SET_ROUND_WINNER',
+      type: 'SET_ROUND_ONE_WINNER',
       roundOneMatchups: formattedRoundOneMatchups,
       quarterFinalMatchups: formattedQuarterFinalMatchups,
     });
@@ -89,40 +103,67 @@ export default function useMatchupData() {
     }, {});
   };
 
-  const setQuarterFinalWinners = player => {
-    const { matchupId } = player;
+  const allRounds = {
+    2: {
+      currentRound: allMatchups.quarterFinalMatchups,
+      getNextMatchup: getSemiFinalMatchups,
+      type: 'SET_QUARTER_FINAL_WINNER',
+      currentRoundKey: 'quarterFinalMatchups',
+      nextRoundKey: 'semiFinalMatchups',
+    },
+    3: {
+      currentRound: allMatchups.semiFinalMatchups,
+      getNextMatchup: getFinalMatchup,
+      type: 'SET_SEMI_FINAL_WINNER',
+      currentRoundKey: 'semiFinalMatchups',
+      nextRoundKey: 'finalsMatchup',
+    },
+    4: {
+      currentRound: allMatchups.finalsMatchup,
+      getNextMatchup: getWinner,
+      type: 'SET_WINNER',
+      currentRoundKey: 'finalsMatchup',
+      nextRoundKey: 'winner',
+    },
+  };
 
-    // Get latest data from state
-    const latestQuarterFinalData = allMatchups.quarterFinalMatchups;
+  const setWinner = player => {
+    const { matchupId, round } = player;
+    const {
+      currentRound,
+      getNextMatchup,
+      type,
+      currentRoundKey,
+      nextRoundKey,
+    } = allRounds[round];
 
     // Transform latest data from array to object so that we can map to specific matchup
-    const quarterFinalMatchupsObject = transformMatchupsArrayToObject(
-      latestQuarterFinalData
+    const currentRoundMatchupsAsObject =
+      transformMatchupsArrayToObject(currentRound);
+
+    // Get current matchup and set winner
+    const currentMatchup = currentRoundMatchupsAsObject[matchupId];
+    currentMatchup.winner = player;
+
+    // Get next round matchups using updated matchups with winner selections and format back to array
+    const nextMatchup = getNextMatchup(currentRoundMatchupsAsObject);
+
+    // Format current and next round back to array
+    const formattedCurrentRoundMatchups = formatMatchups(
+      currentRoundMatchupsAsObject
     );
-
-    // Get current round and set winner
-    const currentRound = quarterFinalMatchupsObject[matchupId];
-    currentRound.winner = player;
-
-    // Get semi finals matchups using updated quarter finals data
-    const semiFinalMatchups = getSemiFinalMatchups(quarterFinalMatchupsObject);
-
-    // // Format both rounds
-    const formattedQuarterFinalMatchups = formatMatchups(
-      quarterFinalMatchupsObject
-    );
-    const formattedSemiFinalMatchups = formatMatchups(semiFinalMatchups);
+    const formattedNextRoundMatchups = formatMatchups(nextMatchup);
 
     dispatch({
-      type: 'SET_ROUND_TWO_WINNER',
-      quarterFinalMatchups: formattedQuarterFinalMatchups,
-      semiFinalMatchups: formattedSemiFinalMatchups,
+      type,
+      [currentRoundKey]: formattedCurrentRoundMatchups,
+      [nextRoundKey]: formattedNextRoundMatchups,
     });
   };
 
   return {
     allMatchups,
+    setRoundOneWinner,
     setWinner,
-    setQuarterFinalWinners,
   };
 }

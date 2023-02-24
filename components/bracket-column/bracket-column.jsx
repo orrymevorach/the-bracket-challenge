@@ -18,7 +18,7 @@ export default function BracketColumn({ matchups, round, isLoading }) {
     <div>
       {matchups
         .slice()
-        .sort(sortFunction)
+        // .sort(sortFunction)
         .map(({ matchupId, snowboarders }) => {
           return (
             <Bracket
