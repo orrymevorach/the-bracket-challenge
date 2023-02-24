@@ -17,7 +17,6 @@ export default function Home() {
     },
   } = useMatchups();
   const { isLoading: isUserDataLoading } = useUser();
-
   return (
     <div
       style={{
@@ -39,12 +38,12 @@ export default function Home() {
             round={2}
             isLoading={isUserDataLoading}
           />
-          {/* <BracketColumn
+          <BracketColumn
             matchups={semiFinalMatchups}
             round={3}
             isLoading={isUserDataLoading}
           />
-          <BracketColumn
+          {/*<BracketColumn
             matchups={finalsMatchup}
             round={4}
             isLoading={isUserDataLoading}

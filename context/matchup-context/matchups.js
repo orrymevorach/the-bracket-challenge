@@ -41,76 +41,54 @@ export const roundOneMatchups = {
   },
 };
 
-export const testingRoundTwoMatchups = updatedRoundOne => {
+export const getQuarterFinalMatchups = updatedRoundOne => {
   return {
     R2_M1: {
       snowboarders: [
-        updatedRoundOne['R1_M1'].winner,
-        updatedRoundOne['R1_M2'].winner,
+        updatedRoundOne['R1_M1']?.winner,
+        updatedRoundOne['R1_M2']?.winner,
       ],
-      nextRound: 'R3_M1',
       winner: {},
     },
     R2_M2: {
       snowboarders: [
-        updatedRoundOne['R1_M3'].winner,
-        updatedRoundOne['R1_M4'].winner,
+        updatedRoundOne['R1_M3']?.winner,
+        updatedRoundOne['R1_M4']?.winner,
       ],
-      nextRound: 'R3_M1',
       winner: {},
     },
     R2_M3: {
       snowboarders: [
-        updatedRoundOne['R1_M5'].winner,
-        updatedRoundOne['R1_M6'].winner,
+        updatedRoundOne['R1_M5']?.winner,
+        updatedRoundOne['R1_M6']?.winner,
       ],
-      nextRound: 'R3_M2',
       winner: {},
     },
     R2_M4: {
       snowboarders: [
-        updatedRoundOne['R1_M7'].winner,
-        updatedRoundOne['R1_M8'].winner,
+        updatedRoundOne['R1_M7']?.winner,
+        updatedRoundOne['R1_M8']?.winner,
       ],
-      nextRound: 'R3_M2',
       winner: {},
     },
   };
 };
 
-// export const testingRoundThreeMatchups = updatedRoundOne => {
-//   return {
-//     R2_M1: {
-//       snowboarders: [
-//         updatedRoundOne['R1_M1'].winner,
-//         updatedRoundOne['R1_M2'].winner,
-//       ],
-//       nextRound: 'R3_M1',
-//       winner: {},
-//     },
-//     R2_M2: {
-//       snowboarders: [
-//         updatedRoundOne['R1_M3'].winner,
-//         updatedRoundOne['R1_M4'].winner,
-//       ],
-//       nextRound: 'R3_M1',
-//       winner: {},
-//     },
-//     R2_M3: {
-//       snowboarders: [
-//         updatedRoundOne['R1_M5'].winner,
-//         updatedRoundOne['R1_M6'].winner,
-//       ],
-//       nextRound: 'R3_M2',
-//       winner: {},
-//     },
-//     R2_M4: {
-//       snowboarders: [
-//         updatedRoundOne['R1_M7'].winner,
-//         updatedRoundOne['R1_M8'].winner,
-//       ],
-//       nextRound: 'R3_M2',
-//       winner: {},
-//     },
-//   };
-// };
+export const getSemiFinalMatchups = updatedRoundTwo => {
+  return {
+    R3_M1: {
+      snowboarders: [
+        updatedRoundTwo['R2_M1']?.winner,
+        updatedRoundTwo['R2_M2']?.winner,
+      ],
+      winner: {},
+    },
+    R3_M2: {
+      snowboarders: [
+        updatedRoundTwo['R2_M3']?.winner,
+        updatedRoundTwo['R2_M4']?.winner,
+      ],
+      winner: {},
+    },
+  };
+};
