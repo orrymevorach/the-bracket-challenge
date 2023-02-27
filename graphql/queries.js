@@ -6,6 +6,7 @@ export const GET_SNOWBOARDERS = gql`
       name
       id
       matchupId
+      country
     }
   }
 `;

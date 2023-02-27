@@ -2,7 +2,7 @@ import { useUser } from 'context/user-context/user-context';
 import { useEffect } from 'react';
 import { getSnowboarders } from '../../airtable-utils';
 import { roundOneMatchups } from './matchups';
-import { transformMatchupsObjectIntoArray } from './useMatchupData';
+import { transformMatchupsObjectIntoArray } from './matchup-utils';
 
 const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   for (let i = 0; i < snowboarders.length; i++) {

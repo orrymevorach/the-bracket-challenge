@@ -7,18 +7,10 @@ import {
   getWinner,
 } from './matchups';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
-
-export const transformMatchupsObjectIntoArray = data => {
-  const dataIntoArray = Object.entries(data);
-  return dataIntoArray.map(matchup => {
-    const [matchupId, { snowboarders, winner }] = matchup;
-    return {
-      matchupId,
-      snowboarders,
-      winner,
-    };
-  });
-};
+import {
+  transformMatchupsArrayToObject,
+  transformMatchupsObjectIntoArray,
+} from './matchup-utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -92,17 +84,6 @@ export default function useMatchupData() {
       roundOneMatchups: formattedRoundOneMatchups,
       quarterFinalMatchups: formattedQuarterFinalMatchups,
     });
-  };
-
-  const transformMatchupsArrayToObject = data => {
-    return data.reduce((acc, curr) => {
-      const matchup = {
-        snowboarders: curr.snowboarders,
-        winner: curr.winner,
-      };
-      acc[curr.matchupId] = matchup;
-      return acc;
-    }, {});
   };
 
   const allRounds = {

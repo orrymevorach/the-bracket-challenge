@@ -10,20 +10,24 @@ export const getPlayerRowHeight = round => {
   for (let index = 0; index < round; index++) {
     start = start * 2;
   }
-  return start * 50;
+  return start * 70;
 };
 
 export default function Bracket({ snowboarders = [], round, matchupId }) {
+  const height = getPlayerRowHeight(round);
   return (
-    <div className={styles.bracket}>
+    <div
+      className={styles.bracket}
+      style={{
+        height: `${height}px`,
+      }}
+    >
       <div>
         {snowboarders.slice().map((snowboarder, index) => {
-          const { name, id } = snowboarder;
           return (
             <Player
               key={`matchup-${matchupId}-${index}`}
-              name={name}
-              id={id}
+              {...snowboarder}
               round={round}
               matchupId={matchupId}
             />

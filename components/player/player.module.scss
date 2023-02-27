@@ -1,10 +1,41 @@
+$grey: #1f1f1f;
+$lightGrey: #929292;
+
 .playerContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: $grey;
+  border: 1px solid $lightGrey;
+  width: 140px;
+  height: 55px;
+  margin: 5px 0;
+  transition: 0.3s;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid blue;
+    transition: 0.3s;
+  }
 }
 
 .selectButton {
   margin-top: 5px;
+}
+
+.flag {
+  width: 20px;
+}
+
+.textFlagContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.playerName {
+  font-size: 14px;
+  text-align: left;
 }
