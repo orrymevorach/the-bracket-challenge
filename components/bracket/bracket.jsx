@@ -3,9 +3,13 @@ import styles from './bracket.module.scss';
 
 export const getPlayerRowHeight = round => {
   let start = 1;
-  if (round === 5) {
+  if (round === 4) {
     // last round should be same height as final round
     round = round - 1;
+  }
+  if (round === 5) {
+    // last round should be same height as final round
+    round = round - 2;
   }
   for (let index = 0; index < round; index++) {
     start = start * 2;

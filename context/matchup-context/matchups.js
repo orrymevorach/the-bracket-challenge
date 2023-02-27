@@ -41,7 +41,7 @@ export const roundOneMatchups = {
   },
 };
 
-export const getQuarterFinalMatchups = updatedRoundOne => {
+export const getQuarterFinalMatchups = (updatedRoundOne = roundOneMatchups) => {
   return {
     R2_M1: {
       snowboarders: [
@@ -74,7 +74,9 @@ export const getQuarterFinalMatchups = updatedRoundOne => {
   };
 };
 
-export const getSemiFinalMatchups = updatedRoundTwo => {
+export const getSemiFinalMatchups = (
+  updatedRoundTwo = getQuarterFinalMatchups()
+) => {
   return {
     R3_M1: {
       snowboarders: [
@@ -93,7 +95,7 @@ export const getSemiFinalMatchups = updatedRoundTwo => {
   };
 };
 
-export const getFinalMatchup = updatedSemiFinal => {
+export const getFinalMatchup = (updatedSemiFinal = getSemiFinalMatchups()) => {
   return {
     R4_M1: {
       snowboarders: [

@@ -19,6 +19,9 @@ const reducer = (state, action) => {
         ...state,
         roundOneMatchups: action.roundOneMatchups,
         isRoundOneLoading: action.isLoading,
+        quarterFinalMatchups: action.quarterFinalMatchups,
+        semiFinalMatchups: action.semiFinalMatchups,
+        finalsMatchup: action.finalsMatchup,
       };
     case 'SET_ROUND_ONE_WINNER':
       return {
