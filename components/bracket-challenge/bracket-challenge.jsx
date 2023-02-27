@@ -2,6 +2,7 @@ import BracketColumn from 'components/bracket-column';
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import { split } from 'utils/utils';
+import Loader from 'components/loader';
 
 export default function BracketChallenge() {
   const {
@@ -14,6 +15,14 @@ export default function BracketChallenge() {
       isRoundOneLoading,
     },
   } = useMatchups();
+
+  if (isRoundOneLoading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    );
+  }
 
   const [firstHalfRoundOne, secondHalfRoundOne] = split(roundOneMatchups);
   const [firstHalfQuarterFinal, secondHalfQuarterFinal] =
@@ -40,11 +49,7 @@ export default function BracketChallenge() {
   return (
     <div className={styles.row}>
       <div className={styles.row}>
-        <BracketColumn
-          matchups={firstHalfRoundOne}
-          round={1}
-          isLoading={isRoundOneLoading}
-        />
+        <BracketColumn matchups={firstHalfRoundOne} round={1} />
         <BracketColumn matchups={firstHalfQuarterFinal} round={2} />
         <BracketColumn matchups={firstHalfSemiFinal} round={3} />
         <BracketColumn matchups={updatedFirstHalfFinal} round={4} />
@@ -54,11 +59,7 @@ export default function BracketChallenge() {
         <BracketColumn matchups={updatedSecondHalfFinal} round={4} />
         <BracketColumn matchups={secondHalfSemiFinal} round={3} />
         <BracketColumn matchups={secondHalfQuarterFinal} round={2} />
-        <BracketColumn
-          matchups={secondHalfRoundOne}
-          round={1}
-          isLoading={isRoundOneLoading}
-        />
+        <BracketColumn matchups={secondHalfRoundOne} round={1} />
       </div>
     </div>
   );
