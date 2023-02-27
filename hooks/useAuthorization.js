@@ -3,12 +3,12 @@ import { auth } from 'firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const useAuthorization = () => {
-  const [user, setUser] = useState(null);
+  const [userAuthData, setUserAuthData] = useState(null);
   useEffect(() => {
     const handleLoginOnPageLoad = onAuthStateChanged(
       auth,
       async firebaseUser => {
-        setUser({
+        setUserAuthData({
           name: firebaseUser.displayName,
           uid: firebaseUser.uid,
         });
@@ -17,7 +17,7 @@ const useAuthorization = () => {
 
     return () => handleLoginOnPageLoad();
   }, []);
-  return { user };
+  return { userAuthData };
 };
 
 export default useAuthorization;

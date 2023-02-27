@@ -1,15 +1,15 @@
 import { createUser, getUser } from 'airtable-utils/member-utils';
 import Button from 'components/button';
-import { useAuth } from 'context/user-context/auth-context';
+import { useUser } from 'context/user-context/user-context';
 import { useEffect } from 'react';
 import styles from './team-dashboard.module.scss';
 
 export default function TeamDashboard() {
-  const { user } = useAuth();
+  const { authData } = useUser();
   useEffect(() => {
     const handleGetTeamDashboard = async () => {
-      if (user) {
-        const { uid } = user;
+      if (authData) {
+        const { uid } = authData;
         const { userTeamData } = await getUser({ uid });
         if (!userTeamData) {
           await createUser({ uid });
@@ -17,16 +17,18 @@ export default function TeamDashboard() {
       }
     };
     return () => handleGetTeamDashboard();
-  }, [user]);
+  }, [authData]);
 
   return (
     <div className={styles.teamDashboard}>
-      <Button>Create League</Button>
-      <Button>Join League</Button>
-      <Button>Create/View Bracket</Button>
-      {user && (
+      <div className={styles.buttonContainer}>
+        <Button>Create League</Button>
+        <Button>Join League</Button>
+        <Button>Create/View Bracket</Button>
+      </div>
+      {authData && (
         <>
-          <h3>Welcome {user.name}!</h3>
+          <h3>Welcome {authData.name}!</h3>
           <h3>Leagues:</h3>
           <ul>
             <li></li>

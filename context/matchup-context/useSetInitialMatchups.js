@@ -1,4 +1,3 @@
-import { useUser } from 'context/user-context/user-context';
 import { useEffect } from 'react';
 import { getSnowboarders } from '../../airtable-utils';
 import {
@@ -23,7 +22,6 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
 };
 
 export const useSetInitialMatchups = ({ dispatch }) => {
-  const { userTeam } = useUser();
   useEffect(() => {
     const setRoundOneMatchups = async () => {
       const { snowboarders, isLoading } = await getSnowboarders();
@@ -44,13 +42,7 @@ export const useSetInitialMatchups = ({ dispatch }) => {
         finalsMatchup,
       });
     };
-
-    const runUseEffect = async () => {
-      if (userTeam) {
-        await setRoundOneMatchups();
-      }
-    };
-    runUseEffect();
-    () => runUseEffect();
-  }, [userTeam, dispatch]);
+    setRoundOneMatchups();
+    () => setRoundOneMatchups();
+  }, [dispatch]);
 };

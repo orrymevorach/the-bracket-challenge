@@ -1,13 +1,20 @@
 import Login from 'components/login';
-import TeamDashboard from 'components/team-dashboard';
-import { useAuth } from 'context/user-context/auth-context';
+import { useUser } from 'context/user-context/user-context';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styles from './home.module.scss';
 
 export default function Home() {
-  const { user } = useAuth();
+  const { authData } = useUser();
+  const router = useRouter();
+  useEffect(() => {
+    if (authData) {
+      router.push('/dashboard');
+    }
+  }, [authData, router]);
   return (
     <div className={styles.homeContainer}>
-      {!user ? <Login /> : <TeamDashboard />}
+      <Login />
     </div>
   );
 }
