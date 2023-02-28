@@ -8,10 +8,12 @@ const useAuthorization = () => {
     const handleLoginOnPageLoad = onAuthStateChanged(
       auth,
       async firebaseUser => {
-        setUserAuthData({
-          name: firebaseUser.displayName,
-          uid: firebaseUser.uid,
-        });
+        if (firebaseUser) {
+          setUserAuthData({
+            name: firebaseUser.displayName,
+            uid: firebaseUser.uid,
+          });
+        }
       }
     );
 

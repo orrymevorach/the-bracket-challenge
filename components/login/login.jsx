@@ -28,11 +28,9 @@ export default function Login() {
   const authButtonData = Object.values(buttonDataMap);
   const signIn = async () => {
     try {
-      const {
-        user: { uid },
-      } = await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
   return (

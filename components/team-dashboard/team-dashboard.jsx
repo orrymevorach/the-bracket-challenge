@@ -25,7 +25,7 @@ export default function TeamDashboard() {
       <div className={styles.buttonContainer}>
         <Button href={getHref('create-league')}>Create League</Button>
         <Button href={getHref('join-league')}>Join League</Button>
-        <Button>Create/View Bracket</Button>
+        <Button href="bracket">Create/View Bracket</Button>
       </div>
       <Leagues />
     </div>
