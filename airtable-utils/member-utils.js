@@ -4,6 +4,7 @@ import {
   CREATE_LEAGUE,
   CREATE_USER,
   GET_USER,
+  JOIN_LEAGUE,
 } from 'graphql/member-queries';
 
 export const getUser = async ({ uid }) => {
@@ -62,11 +63,25 @@ export const createLeague = async ({
 
 export const addLeagueId = async ({ leagueId, id }) => {
   try {
-    const { data, loading } = await client.mutate({
+    await client.mutate({
       mutation: ADD_LEAGUE_ID,
       variables: {
         leagueId,
         id,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const joinLeague = async ({ id, memberRecordId }) => {
+  try {
+    await client.mutate({
+      mutation: JOIN_LEAGUE,
+      variables: {
+        id,
+        memberRecordId,
       },
     });
   } catch (err) {

@@ -38,7 +38,9 @@ export default function TeamDashboard() {
         <Button handleClick={() => router.push('/create-league')}>
           Create League
         </Button>
-        <Button>Join League</Button>
+        <Button handleClick={() => router.push('/join-league')}>
+          Join League
+        </Button>
         <Button>Create/View Bracket</Button>
       </div>
     </div>

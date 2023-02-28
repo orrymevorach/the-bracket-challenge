@@ -14,7 +14,7 @@ export default function CreateLeague() {
     airtableRecordData: { userAirtableRecordId },
   } = useUser();
 
-  if (!authData || !userAirtableRecordId) return <Loader />;
+  if (!authData || !userAirtableRecordId || isLoading) return <Loader />;
 
   const handleSubmit = e => {
     e.preventDefault();

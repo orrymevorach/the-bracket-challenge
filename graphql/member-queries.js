@@ -41,3 +41,11 @@ export const ADD_LEAGUE_ID = gql`
     }
   }
 `;
+
+export const JOIN_LEAGUE = gql`
+  mutation AddLeagueId($id: String, $memberRecordId: String) {
+    update_leagues(id: $id, members: [$memberRecordId]) {
+      id
+    }
+  }
+`;
