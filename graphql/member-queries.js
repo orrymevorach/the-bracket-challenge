@@ -17,13 +17,26 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_LEAGUE = gql`
-  mutation CreateLeague($name: String, $leagueId: String, $adminUid: String) {
+  mutation CreateLeague(
+    $name: String
+    $leagueId: String
+    $adminUid: String
+    $adminAirtableRecordId: String
+  ) {
     insert_leagues(
       name: $name
       leagueId: $leagueId
       adminUid: $adminUid
-      members: [$adminUid]
+      members: [$adminAirtableRecordId]
     ) {
+      id
+    }
+  }
+`;
+
+export const ADD_LEAGUE_ID = gql`
+  mutation AddLeagueId($leagueId: String, $id: String) {
+    update_leagues(id: $id, leagueId: $leagueId) {
       id
     }
   }

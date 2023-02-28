@@ -1,9 +1,14 @@
 html {
   background-color: black;
+  color: white;
 }
 
 button {
   border: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 a {

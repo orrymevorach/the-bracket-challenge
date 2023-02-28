@@ -9,8 +9,13 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }) => {
   const { userAuthData } = useAuthorization();
+  const [userAirtableRecordId, setUserAirtableRecordId] = useState('');
   const value = {
     authData: userAuthData,
+    airtableRecordData: {
+      userAirtableRecordId,
+      setUserAirtableRecordId,
+    },
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

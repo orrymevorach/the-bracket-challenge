@@ -1,5 +1,10 @@
 import { client } from 'graphql/apollo-config';
-import { CREATE_LEAGUE, CREATE_USER, GET_USER } from 'graphql/member-queries';
+import {
+  ADD_LEAGUE_ID,
+  CREATE_LEAGUE,
+  CREATE_USER,
+  GET_USER,
+} from 'graphql/member-queries';
 
 export const getUser = async ({ uid }) => {
   try {
@@ -23,12 +28,20 @@ export const createUser = async ({ uid }) => {
         uid,
       },
     });
+    return {
+      airtableRecordId: data.insert_members[0].id,
+    };
   } catch (error) {
     console.log(error);
   }
 };
 
-export const createLeague = async ({ name, leagueId, adminUid }) => {
+export const createLeague = async ({
+  name,
+  leagueId,
+  adminUid,
+  adminAirtableRecordId,
+}) => {
   try {
     const { data } = await client.mutate({
       mutation: CREATE_LEAGUE,
@@ -36,9 +49,27 @@ export const createLeague = async ({ name, leagueId, adminUid }) => {
         name,
         leagueId,
         adminUid,
+        adminAirtableRecordId,
       },
     });
+    return {
+      leagueRecordId: data.insert_leagues[0].id,
+    };
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const addLeagueId = async ({ leagueId, id }) => {
+  try {
+    const { data, loading } = await client.mutate({
+      mutation: ADD_LEAGUE_ID,
+      variables: {
+        leagueId,
+        id,
+      },
+    });
+  } catch (err) {
+    console.error(err);
   }
 };

@@ -42,7 +42,6 @@ export const useSetInitialMatchups = ({ dispatch }) => {
         finalsMatchup,
       });
     };
-    setRoundOneMatchups();
-    () => setRoundOneMatchups();
+    return () => setRoundOneMatchups();
   }, [dispatch]);
 };
