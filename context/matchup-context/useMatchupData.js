@@ -63,7 +63,6 @@ const initialState = {
 };
 
 export default function useMatchupData() {
-  console.log('level 1');
   const [allMatchups, dispatch] = useReducer(reducer, initialState);
 
   useSetInitialMatchups({ dispatch });
