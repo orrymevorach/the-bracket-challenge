@@ -3,27 +3,23 @@ import Loader from 'components/loader/loader';
 import { useUser } from 'context/user-context/user-context';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
 import styles from './join-league.module.scss';
 
 export default function JoinLeague() {
   const [leagueId, setLeagueId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const uid = router.query.uid;
 
-  const {
-    authData,
-    airtableRecordData: { userAirtableRecordId },
-  } = useUser();
+  const { userTeamData, isUserTeamDataLoading } = useUser();
 
-  if (!authData || !userAirtableRecordId || isLoading) return <Loader />;
+  if (isLoading || isUserTeamDataLoading) return <Loader />;
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    joinLeague({ id: leagueId, memberRecordId: userAirtableRecordId }).then(
-      () => router.push('/dashboard')
-    );
+    await joinLeague({ id: leagueId, memberRecordId: userTeamData.id });
+    window.location = `/dashboard?uid=${uid}`; // Using window.location so that dashboard refreshes, so that it displays new team.
   };
 
   return (

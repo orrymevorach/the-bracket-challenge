@@ -9,7 +9,12 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     if (authData) {
-      router.push('/dashboard');
+      router.push({
+        pathname: '/dashboard',
+        query: {
+          uid: authData.uid,
+        },
+      });
     }
   }, [authData, router]);
   return (

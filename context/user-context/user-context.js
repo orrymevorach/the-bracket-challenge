@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useAuthorization } from 'hooks';
+import { createContext, useContext, useState } from 'react';
+import { useAuthorization, useUserTeamData } from 'hooks';
 
 const UserContext = createContext();
 
@@ -8,14 +8,20 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  const { userAuthData } = useAuthorization();
   const [userAirtableRecordId, setUserAirtableRecordId] = useState('');
+  const { userAuthData } = useAuthorization();
+  const { userTeamData, isLoading: isUserTeamDataLoading } = useUserTeamData({
+    userAuthData,
+  });
+
   const value = {
     authData: userAuthData,
     airtableRecordData: {
       userAirtableRecordId,
       setUserAirtableRecordId,
     },
+    userTeamData,
+    isUserTeamDataLoading,
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

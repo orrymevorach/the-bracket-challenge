@@ -30,7 +30,7 @@ export const createUser = async ({ uid }) => {
       },
     });
     return {
-      airtableRecordId: data.insert_members[0].id,
+      userTeamData: data.insert_members[0],
     };
   } catch (error) {
     console.log(error);
@@ -39,7 +39,6 @@ export const createUser = async ({ uid }) => {
 
 export const createLeague = async ({
   name,
-  leagueId,
   adminUid,
   adminAirtableRecordId,
 }) => {
@@ -48,7 +47,6 @@ export const createLeague = async ({
       mutation: CREATE_LEAGUE,
       variables: {
         name,
-        leagueId,
         adminUid,
         adminAirtableRecordId,
       },

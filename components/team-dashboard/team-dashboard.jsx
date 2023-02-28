@@ -1,48 +1,33 @@
-import { createUser, getUser } from 'airtable-utils/member-utils';
 import Button from 'components/button';
 import { useUser } from 'context/user-context/user-context';
-import { useEffect } from 'react';
 import styles from './team-dashboard.module.scss';
 import { useRouter } from 'next/router';
+import Loader from 'components/loader/loader';
+import Leagues from './leagues';
 
 export default function TeamDashboard() {
   const router = useRouter();
-  const {
-    authData,
-    airtableRecordData: { setUserAirtableRecordId },
-  } = useUser();
+  const uid = router.query.uid;
+  const { authData, isUserTeamDataLoading } = useUser();
 
-  useEffect(() => {
-    const handleGetTeamDashboard = async () => {
-      if (authData) {
-        const { uid } = authData;
-        const { userTeamData } = await getUser({ uid });
+  if (isUserTeamDataLoading) return <Loader />;
 
-        if (userTeamData) {
-          setUserAirtableRecordId(userTeamData.id);
-        } else {
-          const { airtableRecordId } = await createUser({ uid });
-          setUserAirtableRecordId(airtableRecordId);
-        }
-      }
-    };
-    return () => handleGetTeamDashboard();
-  }, [authData, setUserAirtableRecordId]);
-
-  if (!authData) return;
+  const getHref = pathname => ({
+    pathname,
+    query: {
+      uid: uid,
+    },
+  });
 
   return (
     <div className={styles.teamDashboard}>
       <h3>Welcome {authData.name}!</h3>
       <div className={styles.buttonContainer}>
-        <Button handleClick={() => router.push('/create-league')}>
-          Create League
-        </Button>
-        <Button handleClick={() => router.push('/join-league')}>
-          Join League
-        </Button>
+        <Button href={getHref('create-league')}>Create League</Button>
+        <Button href={getHref('join-league')}>Join League</Button>
         <Button>Create/View Bracket</Button>
       </div>
+      <Leagues />
     </div>
   );
 }

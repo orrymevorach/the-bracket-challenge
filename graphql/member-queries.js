@@ -4,6 +4,10 @@ export const GET_USER = gql`
   query GetUser($uid: String) {
     members(uid: $uid) {
       id
+      leagues {
+        id
+        name
+      }
     }
   }
 `;
@@ -19,13 +23,11 @@ export const CREATE_USER = gql`
 export const CREATE_LEAGUE = gql`
   mutation CreateLeague(
     $name: String
-    $leagueId: String
     $adminUid: String
     $adminAirtableRecordId: String
   ) {
     insert_leagues(
       name: $name
-      leagueId: $leagueId
       adminUid: $adminUid
       members: [$adminAirtableRecordId]
     ) {
