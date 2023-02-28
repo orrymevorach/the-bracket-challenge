@@ -1,13 +1,12 @@
 import Button from 'components/button';
 import { useUser } from 'context/user-context/user-context';
 import styles from './team-dashboard.module.scss';
-import { useRouter } from 'next/router';
 import Loader from 'components/loader/loader';
 import Leagues from './leagues';
+import { getUid } from 'utils/utils';
 
 export default function TeamDashboard() {
-  const router = useRouter();
-  const uid = router.query.uid;
+  const uid = getUid();
   const { authData, isUserTeamDataLoading } = useUser();
 
   if (isUserTeamDataLoading) return <Loader />;
@@ -15,7 +14,7 @@ export default function TeamDashboard() {
   const getHref = pathname => ({
     pathname,
     query: {
-      uid: uid,
+      uid,
     },
   });
 

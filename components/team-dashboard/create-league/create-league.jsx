@@ -3,14 +3,13 @@ import styles from './create-league.module.scss';
 import { addLeagueId, createLeague } from 'airtable-utils/member-utils';
 import { useUser } from 'context/user-context/user-context';
 import Loader from 'components/loader/loader';
-import { useRouter } from 'next/router';
+import { getUid } from 'utils/utils';
 
 export default function CreateLeague() {
   const [leagueName, setLeagueName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { userTeamData, isUserTeamDataLoading } = useUser();
-  const router = useRouter();
-  const uid = router.query.uid;
+  const uid = getUid();
   if (isLoading || isUserTeamDataLoading) return <Loader />;
 
   const handleSubmit = async e => {
@@ -25,7 +24,7 @@ export default function CreateLeague() {
     });
     await addLeagueId({ leagueId: leagueRecordId, id: leagueRecordId });
     setIsLoading(false);
-    window.location = `/dashboard?uid=${uid}`; // Using window.location so that dashboard refreshes, so that it displays new team.
+    window.location = '/dashboard';
   };
 
   return (
