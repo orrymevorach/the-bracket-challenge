@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getSnowboarders } from '../../airtable-utils';
+import { getSnowboarders } from '../../airtable-utils/index';
 import {
   getFinalMatchup,
   getQuarterFinalMatchups,
@@ -22,8 +22,11 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
 };
 
 export const useSetInitialMatchups = ({ dispatch }) => {
+  console.log('use set init matchups');
   useEffect(() => {
+    console.log('inside use effect');
     const setRoundOneMatchups = async () => {
+      console.log('before getting snowboarders');
       const { snowboarders, isLoading } = await getSnowboarders();
       console.log('snowboarders', snowboarders);
       const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
