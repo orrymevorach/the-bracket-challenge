@@ -16,6 +16,8 @@ export default function BracketChallenge() {
     },
   } = useMatchups();
 
+  console.log('isRoundOneLoading', isRoundOneLoading);
+  console.log('roundOneMatchups', roundOneMatchups);
   if (isRoundOneLoading) {
     return (
       <div className={styles.loaderContainer}>

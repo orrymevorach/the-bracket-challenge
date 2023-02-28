@@ -1,4 +1,4 @@
-import BracketChallenge from 'components/bracket-challenge/bracket-challenge';
+import BracketChallenge from 'components/bracket-challenge';
 
 export default function Bracket() {
   return <BracketChallenge />;
