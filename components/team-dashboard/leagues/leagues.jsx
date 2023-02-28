@@ -1,5 +1,7 @@
-import Loader from 'components/loader/loader';
 import { useUser } from 'context/user-context/user-context';
+import Loader from 'components/loader';
+import Button from 'components/button';
+import styles from './leagues.module.scss';
 
 export default function Teams() {
   const { userTeamData, isUserTeamDataLoading } = useUser();
@@ -11,8 +13,9 @@ export default function Teams() {
       <h3>Leagues</h3>
       {leagues.map(({ name }) => {
         return (
-          <div key={name}>
-            <p> {name}</p>
+          <div key={name} className={styles.leagueContainer}>
+            <p>{name}</p>
+            <Button href={`/league/${name}`}>View League</Button>
           </div>
         );
       })}

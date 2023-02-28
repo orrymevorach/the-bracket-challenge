@@ -13,9 +13,14 @@ export const GET_USER = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation CreateUser($uid: String) {
-    insert_members(uid: $uid) {
+  mutation CreateUser($uid: String, $name: String) {
+    insert_members(uid: $uid, name: $name) {
       id
+      name
+      leagues {
+        id
+        name
+      }
     }
   }
 `;
@@ -48,6 +53,17 @@ export const JOIN_LEAGUE = gql`
   mutation AddLeagueId($id: String, $memberRecordId: String) {
     update_leagues(id: $id, members: [$memberRecordId]) {
       id
+    }
+  }
+`;
+
+export const GET_LEAGUE = gql`
+  query GetLeague($name: String) {
+    leagues(name: $name) {
+      members {
+        uid
+        name
+      }
     }
   }
 `;
