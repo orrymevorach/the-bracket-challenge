@@ -13,6 +13,7 @@ import {
 } from './matchup-utils';
 
 const reducer = (state, action) => {
+  console.log('action', action);
   switch (action.type) {
     case 'SET_ROUND_ONE_MATCHUPS':
       return {

@@ -25,7 +25,9 @@ export const useSetInitialMatchups = ({ dispatch }) => {
   useEffect(() => {
     const setRoundOneMatchups = async () => {
       const { snowboarders, isLoading } = await getSnowboarders();
+      console.log('snowboarders', snowboarders);
       const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
+      console.log('roundOneMatchups', roundOneMatchups);
       const quarterFinalMatchups = transformMatchupsObjectIntoArray(
         getQuarterFinalMatchups()
       );
