@@ -9,7 +9,7 @@ import { useUser } from 'context/user-context/user-context';
 
 export default function BracketChallenge() {
   const { allMatchups } = useMatchups();
-  const { userTeamData } = useUser();
+  const { userTeamData, isUserTeamDataLoading } = useUser();
 
   const {
     roundOneMatchups = [],
@@ -19,7 +19,7 @@ export default function BracketChallenge() {
     winner,
   } = allMatchups;
 
-  if (!roundOneMatchups.length) {
+  if (isUserTeamDataLoading) {
     return (
       <div className={styles.loaderContainer}>
         <Loader />

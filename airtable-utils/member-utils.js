@@ -1,6 +1,7 @@
 import { client } from 'graphql/apollo-config';
 import {
   ADD_LEAGUE_ID,
+  CREATE_BRACKET,
   CREATE_LEAGUE,
   CREATE_USER,
   GET_LEAGUE,
@@ -98,6 +99,21 @@ export const getLeague = async ({ name }) => {
       },
     });
     return { league: data.leagues[0] };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createBracket = async ({ name, memberId, uid }) => {
+  try {
+    await client.mutate({
+      mutation: CREATE_BRACKET,
+      variables: {
+        name,
+        memberId,
+      },
+      awaitRefetchQueries: true,
+    });
   } catch (error) {
     console.log(error);
   }

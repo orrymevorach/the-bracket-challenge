@@ -71,3 +71,11 @@ export const GET_LEAGUE = gql`
     }
   }
 `;
+
+export const CREATE_BRACKET = gql`
+  mutation CreateBracket($name: String, $memberId: String) {
+    insert_userBrackets(name: $name, memberId: [$memberId]) {
+      id
+    }
+  }
+`;
