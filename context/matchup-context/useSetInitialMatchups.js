@@ -14,7 +14,10 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
     const currentSnowboardersRoundOneMatchupId =
       currentSnowboarder.matchupId.split('_P')[0];
     const currentRound = roundOneMatchups[currentSnowboardersRoundOneMatchupId];
-    currentRound.snowboarders.push(currentSnowboarder);
+    // limit the array to 2 to avoid pushing duplicates
+    if (currentRound.snowboarders.length < 2) {
+      currentRound.snowboarders.push(currentSnowboarder);
+    }
   }
   const formattedRoundOneMatchups =
     transformMatchupsObjectIntoArray(roundOneMatchups);
@@ -24,7 +27,7 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
 export const useSetInitialMatchups = ({ dispatch }) => {
   useEffect(() => {
     const setRoundOneMatchups = async () => {
-      const { snowboarders, isLoading } = await getSnowboarders();
+      const { snowboarders } = await getSnowboarders();
       const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
       const quarterFinalMatchups = transformMatchupsObjectIntoArray(
         getQuarterFinalMatchups()
@@ -36,7 +39,6 @@ export const useSetInitialMatchups = ({ dispatch }) => {
       await dispatch({
         type: 'SET_ROUND_ONE_MATCHUPS',
         roundOneMatchups,
-        isLoading,
         quarterFinalMatchups,
         semiFinalMatchups,
         finalsMatchup,

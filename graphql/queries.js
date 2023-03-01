@@ -47,7 +47,7 @@ export const UPDATE_USER_TEAM = gql`
     $finalsMatchup: [String]
     $winner: [String]
   ) {
-    update_userTeams(
+    update_userBrackets(
       id: $id
       quarterFinalMatchups: $quarterFinalMatchups
       semiFinalMatchups: $semiFinalMatchups

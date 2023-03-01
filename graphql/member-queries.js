@@ -8,6 +8,10 @@ export const GET_USER = gql`
         id
         name
       }
+      brackets {
+        id
+        name
+      }
     }
   }
 `;

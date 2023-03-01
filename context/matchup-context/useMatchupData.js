@@ -18,7 +18,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         roundOneMatchups: action.roundOneMatchups,
-        isRoundOneLoading: action.isLoading,
         quarterFinalMatchups: action.quarterFinalMatchups,
         semiFinalMatchups: action.semiFinalMatchups,
         finalsMatchup: action.finalsMatchup,
@@ -59,7 +58,6 @@ const initialState = {
   semiFinalMatchups: [],
   finalsMatchup: [],
   winner: [],
-  isRoundOneLoading: true,
 };
 
 export default function useMatchupData() {
