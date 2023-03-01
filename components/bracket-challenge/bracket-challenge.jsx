@@ -20,11 +20,7 @@ export default function BracketChallenge() {
   } = allMatchups;
 
   if (isUserTeamDataLoading) {
-    return (
-      <div className={styles.loaderContainer}>
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   const [firstHalfRoundOne, secondHalfRoundOne] = split(roundOneMatchups);
@@ -74,8 +70,13 @@ export default function BracketChallenge() {
     });
   };
   return (
-    <div>
-      <Button handleClick={() => handleSubmit()}>Submit</Button>
+    <div className={styles.bracketChallengeContainer}>
+      <Button
+        classNames={styles.submitButton}
+        handleClick={() => handleSubmit()}
+      >
+        Submit
+      </Button>
       <div className={styles.row}>
         <div className={styles.row}>
           <BracketColumn matchups={firstHalfRoundOne} round={1} />
@@ -83,7 +84,17 @@ export default function BracketChallenge() {
           <BracketColumn matchups={firstHalfSemiFinal} round={3} />
           <BracketColumn matchups={updatedFirstHalfFinal} round={4} />
         </div>
-        <BracketColumn matchups={winner} round={5} />
+        {winner.length ? (
+          <>
+            <h3>Winner!</h3>
+            <div className={styles.winner}>
+              <BracketColumn matchups={winner} round={5} />
+            </div>
+          </>
+        ) : (
+          ''
+        )}
+
         <div className={styles.row}>
           <BracketColumn matchups={updatedSecondHalfFinal} round={4} />
           <BracketColumn matchups={secondHalfSemiFinal} round={3} />
