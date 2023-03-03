@@ -54,8 +54,10 @@ export const createLeague = async ({
         adminAirtableRecordId,
       },
     });
+    const { id, members } = data.insert_leagues[0];
     return {
-      leagueRecordId: data.insert_leagues[0].id,
+      leagueRecordId: id,
+      userTeamData: members[0],
     };
   } catch (error) {
     console.log(error);
@@ -78,13 +80,17 @@ export const addLeagueId = async ({ leagueId, id }) => {
 
 export const joinLeague = async ({ id, memberRecordId }) => {
   try {
-    await client.mutate({
+    const { data } = await client.mutate({
       mutation: JOIN_LEAGUE,
       variables: {
         id,
         memberRecordId,
       },
     });
+    const { members } = data.update_leagues[0];
+    return {
+      userTeamData: members[0],
+    };
   } catch (err) {
     console.error(err);
   }
@@ -104,9 +110,9 @@ export const getLeague = async ({ name }) => {
   }
 };
 
-export const createBracket = async ({ name, memberId, uid }) => {
+export const createBracket = async ({ name, memberId }) => {
   try {
-    await client.mutate({
+    const { data } = await client.mutate({
       mutation: CREATE_BRACKET,
       variables: {
         name,
@@ -114,6 +120,11 @@ export const createBracket = async ({ name, memberId, uid }) => {
       },
       awaitRefetchQueries: true,
     });
+    const { memberId: allMemberIds } = data.insert_userBrackets[0];
+    const userTeamData = allMemberIds.find(member => member.id === memberId);
+    return {
+      userTeamData,
+    };
   } catch (error) {
     console.log(error);
   }

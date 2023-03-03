@@ -1,32 +1,34 @@
 import { gql } from '@apollo/client';
 
+const USER_FRAGMENT = gql`
+  fragment UserFields on members {
+    id
+    leagues {
+      id
+      name
+    }
+    brackets {
+      id
+      name
+    }
+  }
+`;
 export const GET_USER = gql`
   query GetUser($uid: String) {
     members(uid: $uid) {
-      id
-      leagues {
-        id
-        name
-      }
-      brackets {
-        id
-        name
-      }
+      ...UserFields
     }
   }
+  ${USER_FRAGMENT}
 `;
 
 export const CREATE_USER = gql`
   mutation CreateUser($uid: String, $name: String) {
     insert_members(uid: $uid, name: $name) {
-      id
-      name
-      leagues {
-        id
-        name
-      }
+      ...UserFields
     }
   }
+  ${USER_FRAGMENT}
 `;
 
 export const CREATE_LEAGUE = gql`
@@ -41,8 +43,12 @@ export const CREATE_LEAGUE = gql`
       members: [$adminAirtableRecordId]
     ) {
       id
+      members {
+        ...UserFields
+      }
     }
   }
+  ${USER_FRAGMENT}
 `;
 
 export const ADD_LEAGUE_ID = gql`
@@ -57,8 +63,12 @@ export const JOIN_LEAGUE = gql`
   mutation AddLeagueId($id: String, $memberRecordId: String) {
     update_leagues(id: $id, members: [$memberRecordId]) {
       id
+      members {
+        ...UserFields
+      }
     }
   }
+  ${USER_FRAGMENT}
 `;
 
 export const GET_LEAGUE = gql`
@@ -76,6 +86,10 @@ export const CREATE_BRACKET = gql`
   mutation CreateBracket($name: String, $memberId: String) {
     insert_userBrackets(name: $name, memberId: [$memberId]) {
       id
+      memberId {
+        ...UserFields
+      }
     }
   }
+  ${USER_FRAGMENT}
 `;

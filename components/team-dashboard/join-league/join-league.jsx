@@ -1,22 +1,29 @@
 import { joinLeague } from 'airtable-utils/member-utils';
 import Loader from 'components/loader/loader';
 import { useUser } from 'context/user-context/user-context';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './join-league.module.scss';
 
 export default function JoinLeague() {
+  const router = useRouter();
   const [leagueId, setLeagueId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { userTeamData, isUserTeamDataLoading } = useUser();
+  const { userTeamData, isUserTeamDataLoading, setUserTeamData } = useUser();
 
   if (isLoading || isUserTeamDataLoading) return <Loader />;
 
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    await joinLeague({ id: leagueId, memberRecordId: userTeamData.id });
-    window.location = '/dashboard';
+    const { userTeamData: updatedUserTeamData } = await joinLeague({
+      id: leagueId,
+      memberRecordId: userTeamData.id,
+    });
+    setIsLoading(false);
+    setUserTeamData(updatedUserTeamData);
+    router.push('/dashboard');
   };
 
   return (

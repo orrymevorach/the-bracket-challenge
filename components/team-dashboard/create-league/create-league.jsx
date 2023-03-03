@@ -4,11 +4,13 @@ import { addLeagueId, createLeague } from 'airtable-utils/member-utils';
 import { useUser } from 'context/user-context/user-context';
 import Loader from 'components/loader/loader';
 import { getUid } from 'utils/utils';
+import { useRouter } from 'next/router';
 
 export default function CreateLeague() {
+  const router = useRouter();
   const [leagueName, setLeagueName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { userTeamData, isUserTeamDataLoading } = useUser();
+  const { userTeamData, isUserTeamDataLoading, setUserTeamData } = useUser();
   const uid = getUid();
   if (isLoading || isUserTeamDataLoading) return <Loader />;
 
@@ -17,14 +19,16 @@ export default function CreateLeague() {
     setIsLoading(true);
     // Create the league in airtable, then set the record ID that airtable creates as the id so that we can use it later
     // The route to the dashboard
-    const { leagueRecordId } = await createLeague({
-      name: leagueName,
-      adminUid: uid,
-      adminAirtableRecordId: userTeamData.id,
-    });
+    const { leagueRecordId, userTeamData: updatedUserTeamData } =
+      await createLeague({
+        name: leagueName,
+        adminUid: uid,
+        adminAirtableRecordId: userTeamData.id,
+      });
     await addLeagueId({ leagueId: leagueRecordId, id: leagueRecordId });
     setIsLoading(false);
-    window.location = '/dashboard';
+    setUserTeamData(updatedUserTeamData);
+    router.push('/dashboard');
   };
 
   return (

@@ -26,6 +26,7 @@ export default function useUserTeamData({ userAuthData }) {
   }, [userAuthData]);
   return {
     userTeamData,
+    setUserTeamData,
     isLoading,
   };
 }

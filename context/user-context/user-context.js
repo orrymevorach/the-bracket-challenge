@@ -9,7 +9,11 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }) => {
   const { userAuthData } = useAuthorization();
-  const { userTeamData, isLoading: isUserTeamDataLoading } = useUserTeamData({
+  const {
+    userTeamData,
+    isLoading: isUserTeamDataLoading,
+    setUserTeamData,
+  } = useUserTeamData({
     userAuthData,
   });
 
@@ -17,6 +21,7 @@ export const UserProvider = ({ children }) => {
     authData: userAuthData,
     userTeamData,
     isUserTeamDataLoading,
+    setUserTeamData,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
