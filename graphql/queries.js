@@ -42,16 +42,16 @@ export const GET_USER_TEAM = gql`
 export const UPDATE_USER_TEAM = gql`
   mutation UPDATE_USER_TEAM(
     $id: String
-    $quarterFinalMatchups: [String]
-    $semiFinalMatchups: [String]
-    $finalsMatchup: [String]
+    $roundOneWinners: [String]
+    $quarterFinalWinners: [String]
+    $semiFinalWinners: [String]
     $winner: [String]
   ) {
     update_userBrackets(
       id: $id
-      quarterFinalMatchups: $quarterFinalMatchups
-      semiFinalMatchups: $semiFinalMatchups
-      finalsMatchup: $finalsMatchup
+      roundOneWinners: $roundOneWinners
+      quarterFinalWinners: $quarterFinalWinners
+      semiFinalWinners: $semiFinalWinners
       winner: $winner
     ) {
       id

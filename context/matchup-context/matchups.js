@@ -130,6 +130,7 @@ export const getWinner = ({
   return {
     R5_M1: {
       snowboarders: [existingSelectionsInPreviousRound['R4_M1']?.winner],
+      winner: existingSelectionsInPreviousRound['R4_M1']?.winner,
     },
   };
 };

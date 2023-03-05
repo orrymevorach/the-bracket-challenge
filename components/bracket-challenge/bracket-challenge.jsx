@@ -52,19 +52,23 @@ export default function BracketChallenge() {
     const matchupWinnerRecords = allMatchupsAsArray
       .map(([_, roundData]) => {
         const winners = roundData
-          .map(round => round.winner.id)
+          .map(round => round.winner?.id)
           .filter(id => id);
         return winners;
       })
       .filter(selection => !!selection);
 
-    const [quarterFinalMatchups, semiFinalMatchups, finalsMatchup, winner] =
-      matchupWinnerRecords;
-
-    await updateUserTeam({
+    const [
+      roundOneMatchups,
       quarterFinalMatchups,
       semiFinalMatchups,
       finalsMatchup,
+      winner,
+    ] = matchupWinnerRecords;
+    await updateUserTeam({
+      roundOneWinners: roundOneMatchups,
+      quarterFinalWinners: quarterFinalMatchups,
+      semiFinalWinners: semiFinalMatchups,
       winner,
       id: userTeamData.brackets[0].id,
     });

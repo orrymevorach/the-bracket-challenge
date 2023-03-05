@@ -13,24 +13,23 @@ export const getSnowboarders = async () => {
 };
 
 export const updateUserTeam = async ({
-  quarterFinalMatchups,
-  semiFinalMatchups,
-  finalsMatchup,
+  roundOneWinners,
+  quarterFinalWinners,
+  semiFinalWinners,
   winner,
   id,
 }) => {
   try {
-    const { data } = await client.mutate({
+    await client.mutate({
       mutation: UPDATE_USER_TEAM,
       variables: {
-        quarterFinalMatchups,
-        semiFinalMatchups,
-        finalsMatchup,
+        roundOneWinners,
+        quarterFinalWinners,
+        semiFinalWinners,
         winner,
         id,
       },
     });
-    return data;
   } catch (error) {
     console.log(error);
   }
