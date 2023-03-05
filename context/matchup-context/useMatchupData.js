@@ -1,6 +1,5 @@
 import { useReducer } from 'react';
 import {
-  roundOneMatchups,
   getQuarterFinalMatchups,
   getSemiFinalMatchups,
   getFinalMatchup,
@@ -21,6 +20,7 @@ const reducer = (state, action) => {
         quarterFinalMatchups: action.quarterFinalMatchups,
         semiFinalMatchups: action.semiFinalMatchups,
         finalsMatchup: action.finalsMatchup,
+        winner: action.winner,
       };
     case 'SET_ROUND_ONE_WINNER':
       return {
@@ -61,85 +61,71 @@ const initialState = {
 };
 
 export default function useMatchupData() {
-  const [allMatchups, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useSetInitialMatchups({ dispatch });
 
-  const setRoundOneWinner = player => {
-    const { matchupId } = player;
-    // Setting winner of current round
-    const currentRound = roundOneMatchups[matchupId];
-    currentRound.winner = player;
-
-    // Get quarter final data using round one data
-    const quarterFinalMatchups = getQuarterFinalMatchups(roundOneMatchups);
-
-    // Format both rounds
-    const formattedRoundOneMatchups =
-      transformMatchupsObjectIntoArray(roundOneMatchups);
-    const formattedQuarterFinalMatchups =
-      transformMatchupsObjectIntoArray(quarterFinalMatchups);
-
-    dispatch({
-      type: 'SET_ROUND_ONE_WINNER',
-      roundOneMatchups: formattedRoundOneMatchups,
-      quarterFinalMatchups: formattedQuarterFinalMatchups,
-    });
-  };
-
   const allRounds = {
+    1: {
+      currentRoundMatchups: state.roundOneMatchups,
+      nextRoundMatchups: state.quarterFinalMatchups,
+      getNextRoundMatchups: getQuarterFinalMatchups,
+      currentRoundKey: 'roundOneMatchups',
+      nextRoundKey: 'quarterFinalMatchups',
+      type: 'SET_ROUND_ONE_WINNER',
+    },
     2: {
-      currentRound: allMatchups.quarterFinalMatchups,
-      getNextMatchup: getSemiFinalMatchups,
-      type: 'SET_QUARTER_FINAL_WINNER',
+      currentRoundMatchups: state.quarterFinalMatchups,
+      nextRoundMatchups: state.semiFinalMatchups,
+      getNextRoundMatchups: getSemiFinalMatchups,
       currentRoundKey: 'quarterFinalMatchups',
       nextRoundKey: 'semiFinalMatchups',
+      type: 'SET_QUARTER_FINAL_WINNER',
     },
     3: {
-      currentRound: allMatchups.semiFinalMatchups,
-      getNextMatchup: getFinalMatchup,
-      type: 'SET_SEMI_FINAL_WINNER',
+      currentRoundMatchups: state.semiFinalMatchups,
+      nextRoundMatchups: state.finalsMatchup,
+      getNextRoundMatchups: getFinalMatchup,
       currentRoundKey: 'semiFinalMatchups',
       nextRoundKey: 'finalsMatchup',
+      type: 'SET_SEMI_FINAL_WINNER',
     },
     4: {
-      currentRound: allMatchups.finalsMatchup,
-      getNextMatchup: getWinner,
-      type: 'SET_WINNER',
+      currentRoundMatchups: state.finalsMatchup,
+      nextRoundMatchups: state.winner,
+      getNextRoundMatchups: getWinner,
       currentRoundKey: 'finalsMatchup',
       nextRoundKey: 'winner',
+      type: 'SET_WINNER',
     },
   };
-
-  const setWinner = player => {
-    const { matchupId, round } = player;
+  const setWinner = ({ player, matchupId }) => {
+    const { round } = player;
     const {
-      currentRound,
-      getNextMatchup,
-      type,
+      currentRoundMatchups,
+      nextRoundMatchups,
       currentRoundKey,
       nextRoundKey,
+      type,
+      getNextRoundMatchups,
     } = allRounds[round];
 
-    // Transform latest data from array to object so that we can map to specific matchup
     const currentRoundMatchupsAsObject =
-      transformMatchupsArrayToObject(currentRound);
+      transformMatchupsArrayToObject(currentRoundMatchups);
 
-    // Get current matchup and set winner
     const currentMatchup = currentRoundMatchupsAsObject[matchupId];
     currentMatchup.winner = player;
 
-    // Get next round matchups using updated matchups with winner selections and format back to array
-    const nextMatchup = getNextMatchup(currentRoundMatchupsAsObject);
+    const nextRound = getNextRoundMatchups({
+      existingSelectionsInPreviousRound: currentRoundMatchupsAsObject,
+      existingSelectionsInCurrentRound: nextRoundMatchups,
+    });
 
-    // Format current and next round back to array
     const formattedCurrentRoundMatchups = transformMatchupsObjectIntoArray(
       currentRoundMatchupsAsObject
     );
     const formattedNextRoundMatchups =
-      transformMatchupsObjectIntoArray(nextMatchup);
-
-    // To fix bug of certain picks being removed, everytime a slection is made, we should update every round, rather than just the current and next rounds
+      transformMatchupsObjectIntoArray(nextRound);
 
     dispatch({
       type,
@@ -149,8 +135,7 @@ export default function useMatchupData() {
   };
 
   return {
-    allMatchups,
-    setRoundOneWinner,
+    allMatchups: state,
     setWinner,
   };
 }

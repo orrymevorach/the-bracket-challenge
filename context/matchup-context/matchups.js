@@ -1,4 +1,4 @@
-export const roundOneMatchups = {
+export const getRoundOneMatchups = () => ({
   R1_M1: {
     nextRound: 'R2_M1',
     snowboarders: [],
@@ -39,79 +39,97 @@ export const roundOneMatchups = {
     snowboarders: [],
     winner: {},
   },
-};
+});
 
-export const getQuarterFinalMatchups = (updatedRoundOne = roundOneMatchups) => {
+export const getQuarterFinalMatchups = ({
+  existingSelectionsInPreviousRound = getRoundOneMatchups(),
+  existingSelectionsInCurrentRound = [],
+}) => {
+  const [
+    matchupOneWinner = {},
+    matchupTwoWinner = {},
+    matchupThreeWinner = {},
+    matchupFourWinner = {},
+  ] = existingSelectionsInCurrentRound;
+
   return {
     R2_M1: {
       snowboarders: [
-        updatedRoundOne['R1_M1']?.winner,
-        updatedRoundOne['R1_M2']?.winner,
+        existingSelectionsInPreviousRound['R1_M1']?.winner,
+        existingSelectionsInPreviousRound['R1_M2']?.winner,
       ],
-      winner: {},
+      winner: matchupOneWinner.winner,
     },
     R2_M2: {
       snowboarders: [
-        updatedRoundOne['R1_M3']?.winner,
-        updatedRoundOne['R1_M4']?.winner,
+        existingSelectionsInPreviousRound['R1_M3']?.winner,
+        existingSelectionsInPreviousRound['R1_M4']?.winner,
       ],
-      winner: {},
+      winner: matchupTwoWinner.winner,
     },
     R2_M3: {
       snowboarders: [
-        updatedRoundOne['R1_M5']?.winner,
-        updatedRoundOne['R1_M6']?.winner,
+        existingSelectionsInPreviousRound['R1_M5']?.winner,
+        existingSelectionsInPreviousRound['R1_M6']?.winner,
       ],
-      winner: {},
+      winner: matchupThreeWinner.winner,
     },
     R2_M4: {
       snowboarders: [
-        updatedRoundOne['R1_M7']?.winner,
-        updatedRoundOne['R1_M8']?.winner,
+        existingSelectionsInPreviousRound['R1_M7']?.winner,
+        existingSelectionsInPreviousRound['R1_M8']?.winner,
       ],
-      winner: {},
+      winner: matchupFourWinner.winner,
     },
   };
 };
 
-export const getSemiFinalMatchups = (
-  updatedRoundTwo = getQuarterFinalMatchups()
-) => {
+export const getSemiFinalMatchups = ({
+  existingSelectionsInPreviousRound = getQuarterFinalMatchups({}),
+  existingSelectionsInCurrentRound = [],
+}) => {
+  const [matchupOneWinner = {}, matchupTwoWinner = {}] =
+    existingSelectionsInCurrentRound;
   return {
     R3_M1: {
       snowboarders: [
-        updatedRoundTwo['R2_M1']?.winner,
-        updatedRoundTwo['R2_M2']?.winner,
+        existingSelectionsInPreviousRound['R2_M1']?.winner,
+        existingSelectionsInPreviousRound['R2_M2']?.winner,
       ],
-      winner: {},
+      winner: matchupOneWinner.winner,
     },
     R3_M2: {
       snowboarders: [
-        updatedRoundTwo['R2_M3']?.winner,
-        updatedRoundTwo['R2_M4']?.winner,
+        existingSelectionsInPreviousRound['R2_M3']?.winner,
+        existingSelectionsInPreviousRound['R2_M4']?.winner,
       ],
-      winner: {},
+      winner: matchupTwoWinner.winner,
     },
   };
 };
 
-export const getFinalMatchup = (updatedSemiFinal = getSemiFinalMatchups()) => {
+export const getFinalMatchup = ({
+  existingSelectionsInPreviousRound = getSemiFinalMatchups({}),
+  existingSelectionsInCurrentRound = [],
+}) => {
+  const [finalsSelection = {}] = existingSelectionsInCurrentRound;
   return {
     R4_M1: {
       snowboarders: [
-        updatedSemiFinal['R3_M1']?.winner,
-        updatedSemiFinal['R3_M2']?.winner,
+        existingSelectionsInPreviousRound['R3_M1']?.winner,
+        existingSelectionsInPreviousRound['R3_M2']?.winner,
       ],
-      winner: {},
+      winner: finalsSelection.winner,
     },
   };
 };
 
-export const getWinner = updatedFinal => {
+export const getWinner = ({
+  existingSelectionsInPreviousRound = getFinalMatchup({}),
+}) => {
   return {
     R5_M1: {
-      snowboarders: [updatedFinal['R4_M1']?.winner],
-      winner: {},
+      snowboarders: [existingSelectionsInPreviousRound['R4_M1']?.winner],
     },
   };
 };

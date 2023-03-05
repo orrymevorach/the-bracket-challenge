@@ -3,10 +3,8 @@ import { useMatchups } from 'context/matchup-context/matchup-context';
 import Image from 'next/image';
 
 export default function Player(player) {
-  const { name, round, country } = player;
-  const { setWinner, setRoundOneWinner } = useMatchups();
-
-  const handleClick = round === 1 ? setRoundOneWinner : setWinner;
+  const { name, country, matchupId } = player;
+  const { setWinner } = useMatchups();
 
   const mapCountryToFlagImg = {
     USA: '/flags/USA.svg',
@@ -21,7 +19,7 @@ export default function Player(player) {
   return (
     <button
       className={styles.playerContainer}
-      onClick={() => handleClick(player)}
+      onClick={() => setWinner({ player, matchupId })}
     >
       <div className={styles.textFlagContainer}>
         <div>

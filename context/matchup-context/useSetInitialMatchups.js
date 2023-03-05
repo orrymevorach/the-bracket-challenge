@@ -4,11 +4,13 @@ import {
   getFinalMatchup,
   getQuarterFinalMatchups,
   getSemiFinalMatchups,
-  roundOneMatchups,
+  getWinner,
+  getRoundOneMatchups,
 } from './matchups';
 import { transformMatchupsObjectIntoArray } from './matchup-utils';
 
 const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
+  const roundOneMatchups = getRoundOneMatchups();
   for (let i = 0; i < snowboarders.length; i++) {
     const currentSnowboarder = snowboarders[i];
     const currentSnowboardersRoundOneMatchupId =
@@ -30,18 +32,23 @@ export const useSetInitialMatchups = ({ dispatch }) => {
       const { snowboarders } = await getSnowboarders();
       const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
       const quarterFinalMatchups = transformMatchupsObjectIntoArray(
-        getQuarterFinalMatchups()
+        getQuarterFinalMatchups({})
       );
       const semiFinalMatchups = transformMatchupsObjectIntoArray(
-        getSemiFinalMatchups()
+        getSemiFinalMatchups({})
       );
-      const finalsMatchup = transformMatchupsObjectIntoArray(getFinalMatchup());
+      const finalsMatchup = transformMatchupsObjectIntoArray(
+        getFinalMatchup({})
+      );
+
+      const winner = transformMatchupsObjectIntoArray(getWinner({}));
       await dispatch({
         type: 'SET_ROUND_ONE_MATCHUPS',
         roundOneMatchups,
         quarterFinalMatchups,
         semiFinalMatchups,
         finalsMatchup,
+        winner,
       });
     };
     setRoundOneMatchups();
