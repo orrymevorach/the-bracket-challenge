@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { getSnowboarders } from '../../airtable-utils';
 import {
   getFinalMatchup,
   getQuarterFinalMatchups,
@@ -26,10 +25,9 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   return formattedRoundOneMatchups;
 };
 
-export const useSetInitialMatchups = ({ dispatch }) => {
+export const useSetInitialMatchups = ({ dispatch, snowboarders }) => {
   useEffect(() => {
     const setRoundOneMatchups = async () => {
-      const { snowboarders } = await getSnowboarders();
       const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
       const quarterFinalMatchups = transformMatchupsObjectIntoArray(
         getQuarterFinalMatchups({})
@@ -52,5 +50,5 @@ export const useSetInitialMatchups = ({ dispatch }) => {
       });
     };
     setRoundOneMatchups();
-  }, [dispatch]);
+  }, [dispatch, snowboarders]);
 };

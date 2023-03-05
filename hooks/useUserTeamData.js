@@ -1,4 +1,4 @@
-import { getUser, createUser } from 'airtable-utils/member-utils';
+import { getUser, createUser } from 'airtable-utils';
 import { useEffect, useState } from 'react';
 
 export default function useUserTeamData({ userAuthData }) {

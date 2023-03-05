@@ -5,7 +5,6 @@ import {
   getFinalMatchup,
   getWinner,
 } from './matchups';
-import { useSetInitialMatchups } from './useSetInitialMatchups';
 import {
   transformMatchupsArrayToObject,
   transformMatchupsObjectIntoArray,
@@ -60,10 +59,8 @@ const initialState = {
   winner: [],
 };
 
-export default function useMatchupData() {
+export default function useSetMatchupSelections() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useSetInitialMatchups({ dispatch });
 
   const allRounds = {
     1: {
@@ -137,5 +134,6 @@ export default function useMatchupData() {
   return {
     allMatchups: state,
     setWinner,
+    dispatch,
   };
 }

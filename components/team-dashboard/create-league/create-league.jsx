@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './create-league.module.scss';
-import { addLeagueId, createLeague } from 'airtable-utils/member-utils';
+import { addLeagueId, createLeague } from 'airtable-utils';
 import { useUser } from 'context/user-context/user-context';
 import Loader from 'components/loader/loader';
 import { getUid } from 'utils/utils';

@@ -1,4 +1,4 @@
-import { joinLeague } from 'airtable-utils/member-utils';
+import { joinLeague } from 'airtable-utils';
 import Loader from 'components/loader/loader';
 import { useUser } from 'context/user-context/user-context';
 import { useRouter } from 'next/router';

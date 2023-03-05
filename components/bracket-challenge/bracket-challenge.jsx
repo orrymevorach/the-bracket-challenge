@@ -4,7 +4,7 @@ import { useMatchups } from 'context/matchup-context/matchup-context';
 import { split } from 'utils/utils';
 import Loader from 'components/loader';
 import Button from 'components/button/button';
-import { updateUserTeam } from 'airtable-utils';
+import { updateUserBracket } from 'airtable-utils';
 import { useUser } from 'context/user-context/user-context';
 
 export default function BracketChallenge() {
@@ -65,7 +65,7 @@ export default function BracketChallenge() {
       finalsMatchup,
       winner,
     ] = matchupWinnerRecords;
-    await updateUserTeam({
+    await updateUserBracket({
       roundOneWinners: roundOneMatchups,
       quarterFinalWinners: quarterFinalMatchups,
       semiFinalWinners: semiFinalMatchups,
