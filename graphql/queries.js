@@ -299,3 +299,106 @@ export const UPDATE_USER_BRACKET = gql`
 //     }
 //   }
 // `;
+
+export const GET_WINNERS = gql`
+  query GetWinners($name: String) {
+    winners(name: $name) {
+      r1M1 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M2 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M3 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M4 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M5 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M6 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M7 {
+        name
+        id
+        matchupId
+        country
+      }
+      r1M8 {
+        name
+        id
+        matchupId
+        country
+      }
+      r2M1 {
+        name
+        id
+        matchupId
+        country
+      }
+      r2M2 {
+        name
+        id
+        matchupId
+        country
+      }
+      r2M3 {
+        name
+        id
+        matchupId
+        country
+      }
+      r2M4 {
+        name
+        id
+        matchupId
+        country
+      }
+      r3M1 {
+        name
+        id
+        matchupId
+        country
+      }
+      r3M2 {
+        name
+        id
+        matchupId
+        country
+      }
+      r4M1 {
+        name
+        id
+        matchupId
+        country
+      }
+      r5M1 {
+        name
+        id
+        matchupId
+        country
+      }
+    }
+  }
+`;

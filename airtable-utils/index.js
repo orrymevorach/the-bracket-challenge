@@ -10,6 +10,7 @@ import {
   GET_USER,
   JOIN_LEAGUE,
   GET_BRACKET,
+  GET_WINNERS,
 } from 'graphql/queries';
 
 export const getSnowboarders = async () => {
@@ -187,25 +188,16 @@ export const updateUserBracket = async ({ rounds, id }) => {
   }
 };
 
-// export const updateUserBracket = async ({
-//   roundOneWinners,
-//   quarterFinalWinners,
-//   semiFinalWinners,
-//   winner,
-//   id,
-// }) => {
-//   try {
-//     await client.mutate({
-//       mutation: UPDATE_USER_BRACKET,
-//       variables: {
-//         roundOneWinners,
-//         quarterFinalWinners,
-//         semiFinalWinners,
-//         winner,
-//         id,
-//       },
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const getWinners = async ({ name }) => {
+  try {
+    const { data } = await client.query({
+      query: GET_WINNERS,
+      variables: {
+        name,
+      },
+    });
+    return data.winners[0];
+  } catch (error) {
+    console.log(error);
+  }
+};

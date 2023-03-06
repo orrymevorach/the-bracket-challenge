@@ -28,10 +28,9 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
 export const useSetInitialMatchups = ({
   dispatch,
   snowboarders,
-  allMatchups,
+  hasSetRoundOneMatchups,
 }) => {
   useEffect(() => {
-    const { hasSetRoundOneMatchups } = allMatchups;
     if (!hasSetRoundOneMatchups && snowboarders.length > 0) {
       const setRoundOneMatchups = async () => {
         const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
@@ -57,5 +56,5 @@ export const useSetInitialMatchups = ({
       };
       setRoundOneMatchups();
     }
-  }, [dispatch, snowboarders, allMatchups]);
+  }, [dispatch, snowboarders, hasSetRoundOneMatchups]);
 };

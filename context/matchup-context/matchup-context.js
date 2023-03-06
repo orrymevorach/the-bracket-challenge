@@ -1,8 +1,8 @@
 import useSetMatchupSelections from './useSetMatchupSelections';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
-
 import useGetSavedSelections from './useGetSavedSelections';
 import useGetSnowboarders from './useGetSnowboarders';
+import useApplyLiveResults from './useApplyLiveResults';
 
 const { createContext, useContext } = require('react');
 
@@ -22,6 +22,7 @@ export const MatchupDataProvider = ({ children }) => {
   });
 
   useGetSavedSelections({ matchupData });
+  useApplyLiveResults({ matchupData });
 
   return (
     <MatchupContext.Provider value={matchupData}>

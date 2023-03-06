@@ -17,7 +17,13 @@ export const getPlayerRowHeight = round => {
   return start * 70;
 };
 
-export default function Bracket({ snowboarders = [], round, matchupId }) {
+export default function Bracket({
+  snowboarders = [],
+  round,
+  matchupId,
+  winner,
+  correctWinner,
+}) {
   const height = getPlayerRowHeight(round);
   return (
     <div
@@ -34,6 +40,8 @@ export default function Bracket({ snowboarders = [], round, matchupId }) {
               {...snowboarder}
               round={round}
               matchupId={matchupId}
+              selectedWinner={winner}
+              correctWinner={correctWinner}
             />
           );
         })}

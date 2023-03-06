@@ -117,10 +117,8 @@ const addSnowboardersToRoundData = ({ selections, state }) => {
 export default function useGetSavedSelections({ matchupData }) {
   const bracketData = useGetBracket();
   useEffect(() => {
-    const {
-      allMatchups: { hasSetRoundOneMatchups, hasSetUserSelections },
-      dispatch,
-    } = matchupData;
+    const { dispatch, hasSetRoundOneMatchups, hasSetUserSelections } =
+      matchupData;
     if (bracketData && hasSetRoundOneMatchups && !hasSetUserSelections) {
       const allMatchupWithSelections = addSavedSelectionsToRoundData({
         bracketData,
