@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
 import useSetMatchupSelections from './useSetMatchupSelections';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
-import { getSnowboarders } from '../../airtable-utils';
+
+import useGetSavedSelections from './useGetSavedSelections';
+import useGetSnowboarders from './useGetSnowboarders';
 
 const { createContext, useContext } = require('react');
 
@@ -11,27 +12,20 @@ export const useMatchups = () => {
   return useContext(MatchupContext);
 };
 
-const useGetSnowboarders = () => {
-  const [snowboarders, setSnowboarders] = useState([]);
-  useEffect(() => {
-    const getSnowboardersData = async () => {
-      const data = await getSnowboarders();
-      setSnowboarders(data.snowboarders);
-    };
-    getSnowboardersData();
-  }, []);
-  return snowboarders;
-};
-
 export const MatchupDataProvider = ({ children }) => {
   const snowboarders = useGetSnowboarders();
   const matchupData = useSetMatchupSelections();
-  useSetInitialMatchups({ dispatch: matchupData.dispatch, snowboarders });
-  const value = {
-    ...matchupData,
+  useSetInitialMatchups({
+    dispatch: matchupData.dispatch,
     snowboarders,
-  };
+    allMatchups: matchupData.allMatchups,
+  });
+
+  useGetSavedSelections({ matchupData });
+
   return (
-    <MatchupContext.Provider value={value}>{children}</MatchupContext.Provider>
+    <MatchupContext.Provider value={matchupData}>
+      {children}
+    </MatchupContext.Provider>
   );
 };

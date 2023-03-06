@@ -45,33 +45,18 @@ export default function BracketChallenge() {
       snowboarders: secondHalfFinal,
     },
   ];
-  const handleSubmit = async () => {
-    // Convert latest data to array
-    const allMatchupsAsArray = Object.entries(allMatchups);
-    // For each round, return an array of records of each matchup winner
-    const matchupWinnerRecords = allMatchupsAsArray
-      .map(([_, roundData]) => {
-        const winners = roundData
-          .map(round => round.winner?.id)
-          .filter(id => id);
-        return winners;
-      })
-      .filter(selection => !!selection);
 
-    const [
-      roundOneMatchups,
-      quarterFinalMatchups,
-      semiFinalMatchups,
-      finalsMatchup,
-      winner,
-    ] = matchupWinnerRecords;
-    await updateUserBracket({
-      roundOneWinners: roundOneMatchups,
-      quarterFinalWinners: quarterFinalMatchups,
-      semiFinalWinners: semiFinalMatchups,
-      winner,
-      id: userTeamData.brackets[0].id,
-    });
+  const handleSubmit = async () => {
+    const allMatchupsAsArray = Object.entries(allMatchups);
+    const rounds = allMatchupsAsArray.reduce((acc, curr) => {
+      const [_, roundMatchups] = curr;
+      for (let matchup of roundMatchups) {
+        acc[matchup.matchupId] = matchup.winner?.id;
+      }
+      return acc;
+    }, {});
+
+    await updateUserBracket({ rounds, id: userTeamData.brackets[0].id });
   };
   return (
     <div className={styles.bracketChallengeContainer}>

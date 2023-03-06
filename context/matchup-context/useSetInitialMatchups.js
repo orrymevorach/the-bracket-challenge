@@ -25,30 +25,37 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   return formattedRoundOneMatchups;
 };
 
-export const useSetInitialMatchups = ({ dispatch, snowboarders }) => {
+export const useSetInitialMatchups = ({
+  dispatch,
+  snowboarders,
+  allMatchups,
+}) => {
   useEffect(() => {
-    const setRoundOneMatchups = async () => {
-      const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
-      const quarterFinalMatchups = transformMatchupsObjectIntoArray(
-        getQuarterFinalMatchups({})
-      );
-      const semiFinalMatchups = transformMatchupsObjectIntoArray(
-        getSemiFinalMatchups({})
-      );
-      const finalsMatchup = transformMatchupsObjectIntoArray(
-        getFinalMatchup({})
-      );
+    const { hasSetRoundOneMatchups } = allMatchups;
+    if (!hasSetRoundOneMatchups && snowboarders.length > 0) {
+      const setRoundOneMatchups = async () => {
+        const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
+        const quarterFinalMatchups = transformMatchupsObjectIntoArray(
+          getQuarterFinalMatchups({})
+        );
+        const semiFinalMatchups = transformMatchupsObjectIntoArray(
+          getSemiFinalMatchups({})
+        );
+        const finalsMatchup = transformMatchupsObjectIntoArray(
+          getFinalMatchup({})
+        );
 
-      const winner = transformMatchupsObjectIntoArray(getWinner({}));
-      await dispatch({
-        type: 'SET_ROUND_ONE_MATCHUPS',
-        roundOneMatchups,
-        quarterFinalMatchups,
-        semiFinalMatchups,
-        finalsMatchup,
-        winner,
-      });
-    };
-    setRoundOneMatchups();
-  }, [dispatch, snowboarders]);
+        const winner = transformMatchupsObjectIntoArray(getWinner({}));
+        await dispatch({
+          type: 'SET_ROUND_ONE_MATCHUPS',
+          roundOneMatchups,
+          quarterFinalMatchups,
+          semiFinalMatchups,
+          finalsMatchup,
+          winner,
+        });
+      };
+      setRoundOneMatchups();
+    }
+  }, [dispatch, snowboarders, allMatchups]);
 };

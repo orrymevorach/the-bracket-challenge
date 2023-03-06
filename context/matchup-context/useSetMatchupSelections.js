@@ -20,6 +20,17 @@ const reducer = (state, action) => {
         semiFinalMatchups: action.semiFinalMatchups,
         finalsMatchup: action.finalsMatchup,
         winner: action.winner,
+        hasSetRoundOneMatchups: true,
+      };
+    case 'SET_SAVED_SELECTIONS':
+      return {
+        ...state,
+        roundOneMatchups: action.roundOneMatchups,
+        quarterFinalMatchups: action.quarterFinalMatchups,
+        semiFinalMatchups: action.semiFinalMatchups,
+        finalsMatchup: action.finalsMatchup,
+        winner: action.winner,
+        hasSetUserSelections: true,
       };
     case 'SET_ROUND_ONE_WINNER':
       return {
@@ -57,6 +68,8 @@ const initialState = {
   semiFinalMatchups: [],
   finalsMatchup: [],
   winner: [],
+  hasSetRoundOneMatchups: false,
+  hasSetUserSelections: false,
 };
 
 export default function useSetMatchupSelections() {

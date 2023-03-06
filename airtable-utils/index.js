@@ -9,6 +9,7 @@ import {
   GET_LEAGUE,
   GET_USER,
   JOIN_LEAGUE,
+  GET_BRACKET,
 } from 'graphql/queries';
 
 export const getSnowboarders = async () => {
@@ -17,29 +18,6 @@ export const getSnowboarders = async () => {
       query: GET_SNOWBOARDERS,
     });
     return { snowboarders: data.snowboarders, isLoading: loading };
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateUserBracket = async ({
-  roundOneWinners,
-  quarterFinalWinners,
-  semiFinalWinners,
-  winner,
-  id,
-}) => {
-  try {
-    await client.mutate({
-      mutation: UPDATE_USER_BRACKET,
-      variables: {
-        roundOneWinners,
-        quarterFinalWinners,
-        semiFinalWinners,
-        winner,
-        id,
-      },
-    });
   } catch (error) {
     console.log(error);
   }
@@ -166,16 +144,68 @@ export const createBracket = async ({ name, memberId }) => {
   }
 };
 
-export const getBracket = async ({ name }) => {
+export const getBracket = async ({ memberId }) => {
   try {
     const { data } = await client.query({
-      query: GET_LEAGUE,
+      query: GET_BRACKET,
       variables: {
-        name,
+        memberId,
       },
     });
-    return { league: data.leagues[0] };
+    return data.userBrackets[0];
   } catch (error) {
     console.log(error);
   }
 };
+
+export const updateUserBracket = async ({ rounds, id }) => {
+  try {
+    await client.mutate({
+      mutation: UPDATE_USER_BRACKET,
+      variables: {
+        R1_M1: rounds['R1_M1'],
+        R1_M2: rounds['R1_M2'],
+        R1_M3: rounds['R1_M3'],
+        R1_M4: rounds['R1_M4'],
+        R1_M5: rounds['R1_M5'],
+        R1_M6: rounds['R1_M6'],
+        R1_M7: rounds['R1_M7'],
+        R1_M8: rounds['R1_M8'],
+        R2_M1: rounds['R2_M1'],
+        R2_M2: rounds['R2_M2'],
+        R2_M3: rounds['R2_M3'],
+        R2_M4: rounds['R2_M4'],
+        R3_M1: rounds['R3_M1'],
+        R3_M2: rounds['R3_M2'],
+        R4_M1: rounds['R4_M1'],
+        R5_M1: rounds['R5_M1'],
+        id,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const updateUserBracket = async ({
+//   roundOneWinners,
+//   quarterFinalWinners,
+//   semiFinalWinners,
+//   winner,
+//   id,
+// }) => {
+//   try {
+//     await client.mutate({
+//       mutation: UPDATE_USER_BRACKET,
+//       variables: {
+//         roundOneWinners,
+//         quarterFinalWinners,
+//         semiFinalWinners,
+//         winner,
+//         id,
+//       },
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
