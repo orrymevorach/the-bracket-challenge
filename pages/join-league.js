@@ -1,4 +1,4 @@
-import JoinLeague from 'components/team-dashboard/join-league';
+import JoinLeague from 'components/join-league';
 
 export default function Dashboard() {
   return <JoinLeague />;

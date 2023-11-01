@@ -1,4 +1,4 @@
-import CreateLeague from 'components/team-dashboard/create-league/create-league';
+import CreateLeague from 'components/create-league/create-league';
 
 export default function Dashboard() {
   return <CreateLeague />;

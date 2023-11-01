@@ -1,4 +1,4 @@
-import Bracket from 'components/bracket';
+import Bracket from 'components/bracket-challenge/bracket';
 import styles from './bracket-column.module.scss';
 
 export default function BracketColumn({ matchups, round }) {

@@ -1,4 +1,4 @@
-import BracketColumn from 'components/bracket-column';
+import BracketColumn from 'components/bracket-challenge/bracket-column';
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import { split } from 'utils/utils';
