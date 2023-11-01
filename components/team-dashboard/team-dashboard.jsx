@@ -1,7 +1,7 @@
-import Button from 'components/button';
+import Button from 'components/shared/button';
 import { useUser } from 'context/user-context/user-context';
 import styles from './team-dashboard.module.scss';
-import Loader from 'components/loader/loader';
+import Loader from 'components/shared/loader/loader';
 import Leagues from './leagues';
 
 export default function TeamDashboard() {
@@ -18,7 +18,7 @@ export default function TeamDashboard() {
       <div className={styles.buttonContainer}>
         <Button href="/create-league">Create League</Button>
         <Button href="/join-league">Join League</Button>
-        <Button href="/bracket">{buttonText}</Button>
+        <Button href="/bracket-challenge">{buttonText}</Button>
       </div>
       <Leagues />
     </div>

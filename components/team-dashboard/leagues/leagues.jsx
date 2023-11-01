@@ -1,6 +1,6 @@
 import { useUser } from 'context/user-context/user-context';
-import Loader from 'components/loader';
-import Button from 'components/button';
+import Loader from 'components/shared/loader';
+import Button from 'components/shared/button';
 import styles from './leagues.module.scss';
 
 export default function Teams() {

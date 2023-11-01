@@ -2,8 +2,8 @@ import BracketColumn from 'components/bracket-column';
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import { split } from 'utils/utils';
-import Loader from 'components/loader';
-import Button from 'components/button/button';
+import Loader from 'components/shared/loader';
+import Button from 'components/shared/button/button';
 import { updateUserBracket } from 'airtable-utils';
 import { useUser } from 'context/user-context/user-context';
 

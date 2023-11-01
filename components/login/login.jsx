@@ -3,7 +3,7 @@ import { initFirebaseAuth, auth } from 'firebaseConfig';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPlus } from '@fortawesome/free-solid-svg-icons';
-import Button from 'components/button/button';
+import Button from 'components/shared/button/button';
 
 initFirebaseAuth();
 

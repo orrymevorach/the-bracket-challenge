@@ -1,5 +1,5 @@
 import { joinLeague } from 'airtable-utils';
-import Loader from 'components/loader/loader';
+import Loader from 'components/shared/loader/loader';
 import { useUser } from 'context/user-context/user-context';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

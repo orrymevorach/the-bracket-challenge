@@ -1,6 +1,6 @@
 import { getLeague } from 'airtable-utils';
-import Button from 'components/button/button';
-import Loader from 'components/loader/loader';
+import Button from 'components/shared/button/button';
+import Loader from 'components/shared/loader/loader';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styles from './league.module.scss';
