@@ -1,0 +1,39 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.inputContainer {
+  @include mixins.fontSecondary;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.input {
+  width: 300px;
+  border-radius: 10px;
+  input {
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+  }
+}
+
+.label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.error {
+  color: red;
+  font-size: 16px;
+  margin-bottom: 10px;
+  @include mixins.fontSecondaryLight;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .inputContainer,
+  .input {
+    width: 100%;
+  }
+}

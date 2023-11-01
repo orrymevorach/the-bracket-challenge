@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { auth } from 'firebaseConfig';
+import { auth } from '@/components/login/firebase-utils';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const useAuthorization = () => {

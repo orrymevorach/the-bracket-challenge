@@ -1,26 +1,69 @@
-import styles from './button.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import clsx from 'clsx';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import styles from './button.module.scss';
 import Link from 'next/link';
+import clsx from 'clsx';
+
+const ButtonContents = ({ isLoading, children }) => {
+  return (
+    <>
+      {isLoading ? (
+        <FontAwesomeIcon icon={faSpinner} className={styles.spinnerIcon} />
+      ) : (
+        children
+      )}
+    </>
+  );
+};
 
 export default function Button({
-  handleClick,
   children,
-  classNames,
-  icon,
-  href,
+  isLoading = false,
+  isDisabled = false,
+  href = null,
+  handleClick = null,
+  classNames = '',
+  isLight = false,
+  isAnchor = false,
+  isSmall = false,
+  isInverted = false,
 }) {
-  if (href)
+  const classnames = clsx(
+    styles.button,
+    classNames,
+    isLight && styles.light,
+    isSmall && styles.small,
+    isInverted && styles.inverted
+  );
+
+  if (isAnchor) {
     return (
-      <Link href={href} className={clsx(styles.button, classNames)}>
-        {icon && <FontAwesomeIcon icon={icon} />}
-        <p>{children}</p>
+      <a href={href} className={classnames}>
+        {children}
+      </a>
+    );
+  }
+  if (href) {
+    return (
+      <Link href={href} className={classnames}>
+        {children}
       </Link>
     );
+  }
+  if (handleClick) {
+    return (
+      <button
+        className={classnames}
+        disabled={isDisabled}
+        onClick={handleClick}
+      >
+        <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
+      </button>
+    );
+  }
   return (
-    <button onClick={handleClick} className={clsx(styles.button, classNames)}>
-      {icon && <FontAwesomeIcon icon={icon} />}
-      <p>{children}</p>
+    <button className={classnames} type="submit" disabled={isDisabled}>
+      <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
     </button>
   );
 }

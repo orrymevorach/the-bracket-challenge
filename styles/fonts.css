@@ -8,21 +8,20 @@
 
 @font-face {
   font-family: 'Aktiv Grotesk Regular';
-  src: url('../asset/fonts/Aktiv Grotesk/AktivGrotesk-Regular.ttf')
-    format('ttf');
+  src: url('../asset/fonts/AktivGrotesk/AktivGrotesk-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Aktiv Grotesk Light';
-  src: url('../asset/fonts/Aktiv Grotesk/AktivGrotesk-Light.ttf') format('ttf');
+  src: url('../asset/fonts/AktivGrotesk/AktivGrotesk-Light.ttf');
 }
 
 @font-face {
   font-family: 'Aktiv Grotesk Medium';
-  src: url('../asset/fonts/Aktiv Grotesk/AktivGrotesk-Medium.ttf') format('ttf');
+  src: url('../asset/fonts/AktivGrotesk/AktivGrotesk-Medium.ttf');
 }
 
 @font-face {
   font-family: 'Aktiv Grotesk Bold';
-  src: url('../asset/fonts/Aktiv Grotesk/AktivGrotesk-Bold.ttf') format('ttf');
+  src: url('../asset/fonts/AktivGrotesk/AktivGrotesk-Bold.ttf');
 }
