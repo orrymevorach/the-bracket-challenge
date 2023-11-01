@@ -35,16 +35,22 @@ export default function Login() {
   };
   return (
     <div className={styles.loginContainer}>
-      {authButtonData.map(({ icon, classNames, text }) => (
-        <Button
-          key={text}
-          handleClick={signIn}
-          classNames={classNames}
-          icon={icon}
-        >
-          {text}
-        </Button>
-      ))}
+      <h1 className={styles.title}>
+        Natural Selection Tour <br />
+        Bracket Challenge
+      </h1>
+      <div className={styles.buttonContainer}>
+        {authButtonData.map(({ icon, classNames, text }) => (
+          <Button
+            key={text}
+            handleClick={signIn}
+            classNames={classNames}
+            icon={icon}
+          >
+            {text}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 }

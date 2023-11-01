@@ -5,8 +5,9 @@
       "components/*": ["components/*"],
       "hooks/*": ["hooks/*"],
       "@variables": ["styles/variables.module.scss"],
+      "@mixins": ["styles/mixins.module.scss"],
       "@animations": ["styles/animations.module.scss"],
-      "constants": ["utils/constants.js"],
+      "utils": ["utils/constants.js"],
       "graphql/*": ["graphql/*"],
       "airtable-utils": ["airtable-utils/index.js"]
     }

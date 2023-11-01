@@ -1,15 +1,13 @@
-@import '@variables';
-
-$grey: #1f1f1f;
-$lightGrey: #929292;
+@use '@variables' as variables;
+@use '@mixins' as mixins;
 
 .playerContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: $grey;
-  border: 1px solid $lightGrey;
+  background-color: variables.$grey;
+  border: 1px solid variables.$lightGrey;
   width: 160px;
   height: 55px;
   margin: 5px 0;
@@ -48,7 +46,7 @@ $lightGrey: #929292;
 .playerName {
   font-size: 13px;
   text-align: left;
-  font-family: $fontPrimary;
-  color: $white;
+  @include mixins.fontPrimary;
+  color: variables.$white;
   margin: 0;
 }

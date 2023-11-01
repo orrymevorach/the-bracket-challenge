@@ -1,10 +1,27 @@
-@import '@variables';
+@use '@variables' as variables;
+@use '@mixins' as mixins;
 
 button.googleButton {
-  background-color: $googleRed;
+  background-color: variables.$googleRed;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  @include mixins.fontPrimary;
+  color: white;
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 50px;
 }
 
 .loginContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

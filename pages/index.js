@@ -3,7 +3,7 @@ import { useUser } from 'context/user-context/user-context';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import styles from './home.module.scss';
+import { ROUTES } from 'utils/constants';
 
 export default function Home() {
   const { authData } = useUser();
@@ -12,13 +12,9 @@ export default function Home() {
     if (authData) {
       Cookies.set('uid', authData.uid);
       router.push({
-        pathname: '/dashboard',
+        pathname: ROUTES.DASHBOARD,
       });
     }
   }, [authData, router]);
-  return (
-    <div className={styles.homeContainer}>
-      <Login />
-    </div>
-  );
+  return <Login />;
 }
