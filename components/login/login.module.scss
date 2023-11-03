@@ -1,15 +1,6 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
-button.googleButton {
-  background-color: variables.$googleRed;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-}
-
 .title {
   @include mixins.fontPrimary;
   color: white;
@@ -24,4 +15,26 @@ button.googleButton {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.orText {
+  @include mixins.fontSecondaryMedium;
+  text-transform: uppercase;
+  margin: 25px 0;
+  position: relative;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 110px;
+    height: 2px;
+    background-color: white;
+    top: 6px;
+  }
+  &:before {
+    right: 50px;
+  }
+  &:after {
+    left: 50px;
+  }
 }

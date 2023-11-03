@@ -1,4 +1,4 @@
-import { getUser, createUser } from 'airtable-utils';
+import { getUser } from 'airtable-utils';
 import { useEffect, useState } from 'react';
 
 export default function useUserTeamData({ userAuthData }) {
@@ -10,13 +10,6 @@ export default function useUserTeamData({ userAuthData }) {
 
       if (userTeamData) {
         setUserTeamData(userTeamData);
-        setIsLoading(false);
-      } else {
-        const newUserResponse = await createUser({
-          uid: userAuthData.uid,
-          name: userAuthData.name,
-        });
-        setUserTeamData(newUserResponse.userTeamData);
         setIsLoading(false);
       }
     };

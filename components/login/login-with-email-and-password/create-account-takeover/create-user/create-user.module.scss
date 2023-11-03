@@ -1,0 +1,45 @@
+@use '@mixins' as mixins;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.heading,
+.text,
+.label,
+.error {
+  color: black;
+  @include mixins.fontSecondary;
+  letter-spacing: 1px;
+}
+
+.heading {
+  @include mixins.fontPrimary;
+  font-size: 24px;
+  margin: 20px 0 40px;
+}
+
+.text {
+  margin-bottom: 15px;
+}
+
+.error {
+  color: red;
+  width: 100%;
+  padding: 0 40px 30px;
+}
+
+.label {
+  color: black;
+}
+
+.inputContainer {
+  margin-bottom: 30px;
+}

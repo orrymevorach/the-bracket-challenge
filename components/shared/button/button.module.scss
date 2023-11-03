@@ -1,21 +1,52 @@
-@import '@variables';
+@use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .button {
-  color: $white;
-  background-color: blue;
-  padding: 13px;
+  @include mixins.fontSecondary;
+  color: white;
   border: none;
-  border-radius: 2px;
-  width: 250px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: variables.$borderRadius;
+  min-width: 100px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 2px solid white;
+  background-color: black;
   display: flex;
-  margin: 0 20px;
   align-items: center;
-  p {
-    margin: 0 auto;
-    display: block;
+  justify-content: center;
+  .spinnerIcon {
+    animation: rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  &:hover {
+    color: black;
+    background-color: white;
+    transition: 0.2s;
+    border: 2px solid black;
+  }
+  &.light {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+  &.small {
+    padding: 4px 0;
+    min-width: 80px;
+    @include mixins.fontSecondaryLight;
+    margin-top: 10px;
   }
 }
 
-.googleButton {
-  background-color: $googleRed;
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

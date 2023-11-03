@@ -10,10 +10,11 @@ export default function Input({
   error,
   classNames,
   handleChange,
+  labelClassNames = '',
 }) {
   return (
     <div className={styles.inputContainer}>
-      <label htmlFor={id} className={styles.label}>
+      <label htmlFor={id} className={clsx(styles.label, labelClassNames)}>
         {label}
       </label>
       {error && <p className={styles.error}>{error}</p>}

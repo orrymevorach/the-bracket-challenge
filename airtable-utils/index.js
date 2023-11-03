@@ -38,13 +38,14 @@ export const getUser = async ({ uid }) => {
   }
 };
 
-export const createUser = async ({ uid, name }) => {
+export const createUser = async ({ uid, name, email }) => {
   try {
     const { data, loading } = await client.mutate({
       mutation: CREATE_USER,
       variables: {
         uid,
         name,
+        email,
       },
     });
     return {

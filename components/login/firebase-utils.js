@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -32,9 +33,59 @@ export const signInWithFirebaseEmailAndPassword = ({ email, password }) => {
     .then(response => response)
     .catch(error => {
       return {
-        error: {
-          code: error.code,
-        },
+        error,
       };
     });
+};
+
+export const createFirebaseUser = ({ email, password }) => {
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then(response => response)
+    .catch(error => {
+      return {
+        error,
+      };
+    });
+};
+
+export const errors = {
+  'auth/invalid-email': {
+    type: 'email',
+    message:
+      'We do not have a record of this email. Please create an account, or sign in with Google.',
+  },
+  'auth/user-not-found': {
+    type: 'email',
+    message:
+      'We do not have a record of this email. Please create an account, or sign in with Google.',
+  },
+  'auth/email-already-in-use': {
+    type: 'email',
+    message:
+      'This email is already in use. Please log in using your existing email and password.',
+  },
+  'auth/missing-password': {
+    type: 'password',
+    message: 'Please enter your password',
+  },
+  'auth/weak-password': {
+    type: 'password',
+    message:
+      'Password should be at least 6 characters. Please enter a stronger password.',
+  },
+  'auth/operation-not-allowed': {
+    type: 'password',
+    message:
+      'This password does not match the one we have on file for this email. Please double check your spelling, or contact your space admin',
+  },
+  'auth/wrong-password': {
+    type: 'password',
+    message:
+      'This password does not match the one we have on file for this email. Please try again.',
+  },
+  GENERIC: {
+    type: 'email',
+    message:
+      "We're sorry, an unknown error has occured. Please contact your space admin",
+  },
 };
