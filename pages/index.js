@@ -1,4 +1,4 @@
-import Login from 'components/login';
+import Login from 'components/login/login';
 import { useUser } from 'context/user-context/user-context';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';

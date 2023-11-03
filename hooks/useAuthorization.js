@@ -4,21 +4,21 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 const useAuthorization = () => {
   const [userAuthData, setUserAuthData] = useState(null);
-  useEffect(() => {
-    const handleLoginOnPageLoad = onAuthStateChanged(
-      auth,
-      async firebaseUser => {
-        if (firebaseUser) {
-          setUserAuthData({
-            name: firebaseUser.displayName,
-            uid: firebaseUser.uid,
-          });
-        }
-      }
-    );
+  // useEffect(() => {
+  //   const handleLoginOnPageLoad = onAuthStateChanged(
+  //     auth,
+  //     async firebaseUser => {
+  //       if (firebaseUser) {
+  //         setUserAuthData({
+  //           name: firebaseUser.displayName,
+  //           uid: firebaseUser.uid,
+  //         });
+  //       }
+  //     }
+  //   );
 
-    return () => handleLoginOnPageLoad();
-  }, []);
+  //   return () => handleLoginOnPageLoad();
+  // }, []);
   return { userAuthData };
 };
 

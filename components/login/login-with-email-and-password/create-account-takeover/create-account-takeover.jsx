@@ -2,7 +2,7 @@ import Takeover from '@/components/shared/takeover/takeover';
 import styles from './create-account-takeover.module.scss';
 import { useState } from 'react';
 import Button from '@/components/shared/button/button';
-import CreateUser from './create-user';
+import CreateUser from './create-user/create-user';
 
 export default function CreateAccountTakeover({ email, setIsCreatingNewUser }) {
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);

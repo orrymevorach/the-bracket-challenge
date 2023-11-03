@@ -1,8 +1,8 @@
-import Button from 'components/shared/button';
+import Button from 'components/shared/button/button';
 import { useUser } from 'context/user-context/user-context';
 import styles from './team-dashboard.module.scss';
 import Loader from 'components/shared/loader/loader';
-import Leagues from './leagues';
+import Leagues from './leagues/leagues';
 
 export default function TeamDashboard() {
   const { authData, isUserTeamDataLoading, userTeamData } = useUser();
