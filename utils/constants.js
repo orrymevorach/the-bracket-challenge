@@ -5,3 +5,7 @@ export const ROUTES = {
   JOIN_LEAGUE: '/join-league',
   BRACKET_CHALLENGE: '/bracket-challenge',
 };
+
+export const COOKIES = {
+  UID: 'uid',
+};

@@ -1,5 +1,7 @@
-import { createContext, useContext } from 'react';
-import { useAuthorization, useUserTeamData } from 'hooks';
+import { createContext, useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { COOKIES } from '@/utils/constants';
+import useUserData from '@/hooks/useUser';
 
 const UserContext = createContext();
 
@@ -8,21 +10,16 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  const { userAuthData } = useAuthorization();
-  const {
-    userTeamData,
-    isLoading: isUserTeamDataLoading,
-    setUserTeamData,
-  } = useUserTeamData({
-    userAuthData,
-  });
+  const [uid, setUid] = useState();
+  useEffect(() => {
+    if (!uid) {
+      const uidCookie = Cookies.get(COOKIES.UID);
+      setUid(uidCookie);
+    }
+  }, [uid]);
+  const userData = useUserData({ uid });
 
-  const value = {
-    authData: userAuthData,
-    userTeamData,
-    isUserTeamDataLoading,
-    setUserTeamData,
-  };
-
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={userData}>{children}</UserContext.Provider>
+  );
 };

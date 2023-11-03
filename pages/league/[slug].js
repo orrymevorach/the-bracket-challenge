@@ -1,4 +1,4 @@
-import { getLeague } from 'airtable-utils';
+import { getLeague } from '@/lib/airtable';
 import Button from 'components/shared/button/button';
 import Loader from 'components/shared/loader/loader';
 import { useRouter } from 'next/router';

@@ -3,7 +3,7 @@ import styles from './create-user.module.scss';
 import { useState } from 'react';
 import Button from '@/components/shared/button/button';
 import { createFirebaseUser, errors } from '../../../firebase-utils';
-import { createUser } from '@/airtable-utils';
+import { createUser } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
 

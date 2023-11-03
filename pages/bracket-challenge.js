@@ -1,4 +1,4 @@
-import { createBracket } from 'airtable-utils';
+import { createBracket } from '@/lib/airtable';
 import BracketChallenge from 'components/bracket-challenge/bracket-challenge';
 import { useUser } from 'context/user-context/user-context';
 import { useEffect } from 'react';

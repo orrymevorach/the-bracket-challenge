@@ -4,10 +4,10 @@ import Button from 'components/shared/button/button';
 import styles from './leagues.module.scss';
 
 export default function Teams() {
-  const { userTeamData, isUserTeamDataLoading } = useUser();
-  const { leagues } = userTeamData;
+  const userData = useUser();
 
-  if (isUserTeamDataLoading) return <Loader />;
+  if (userData.isLoading) return <Loader />;
+  const leagues = userData.leagues || [];
   return (
     <div>
       <h3>Leagues</h3>

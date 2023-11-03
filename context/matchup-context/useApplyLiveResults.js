@@ -1,4 +1,4 @@
-import { getWinners } from 'airtable-utils';
+import { getWinners } from '@/lib/airtable';
 import { useState, useEffect } from 'react';
 
 const useGetWinners = () => {

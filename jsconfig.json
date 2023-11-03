@@ -10,7 +10,7 @@
       "@animations": ["styles/animations.module.scss"],
       "utils": ["utils/constants.js"],
       "graphql/*": ["graphql/*"],
-      "airtable-utils": ["airtable-utils/index.js"]
+      "lib": ["lib/*"]
     }
   }
 }

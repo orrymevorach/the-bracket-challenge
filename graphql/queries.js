@@ -42,6 +42,7 @@ export const GET_USER_TEAM = gql`
 const USER_FRAGMENT = gql`
   fragment UserFields on members {
     id
+    name
     leagues {
       id
       name

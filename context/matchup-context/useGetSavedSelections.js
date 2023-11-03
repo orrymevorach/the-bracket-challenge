@@ -1,4 +1,4 @@
-import { getBracket } from 'airtable-utils';
+import { getBracket } from '@/lib/airtable';
 import { useState, useEffect } from 'react';
 import {
   transformMatchupsArrayToObject,

@@ -1,4 +1,4 @@
-import { getSnowboarders } from 'airtable-utils';
+import { getSnowboarders } from '@/lib/airtable';
 import { useEffect, useState } from 'react';
 
 export default function useGetSnowboarders() {

@@ -6,8 +6,16 @@ button.googleButton {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   width: 220px;
+  transition: 0.2s;
   p {
     padding-left: 20px;
     color: black;
+  }
+  &:hover {
+    transition: 0.2s;
+    border: 2px solid white;
+    p {
+      color: white;
+    }
   }
 }
