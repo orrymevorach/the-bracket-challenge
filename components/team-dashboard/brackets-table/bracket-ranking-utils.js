@@ -44,19 +44,20 @@ function addRankingsToObjects({ inputArray = [] }) {
   return rankedObjects;
 }
 
-export const getRanking = ({ leagueData, winners, userName }) => {
-  const userWithNumberOfCorrectPicks = leagueData.brackets.map(team => {
+export const getRanking = ({ leagueData, winners, bracketName }) => {
+  const usersWithNumberOfCorrectPicks = leagueData.brackets.map(team => {
     const numberOfCorrectPicks = countWinners({ bracketData: team, winners });
     return {
       userName: team.userName[0],
       numberOfCorrectPicks,
+      bracketName: team.name,
     };
   });
-  const leageuWithRankings = addRankingsToObjects({
-    inputArray: userWithNumberOfCorrectPicks,
+  const leagueWithRankings = addRankingsToObjects({
+    inputArray: usersWithNumberOfCorrectPicks,
   });
-  const currentUserRanking = leageuWithRankings.find(
-    team => team.userName === userName
+  const currentUserRanking = leagueWithRankings.find(
+    team => team.bracketName === bracketName
   ).ranking;
   return currentUserRanking;
 };

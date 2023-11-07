@@ -116,6 +116,7 @@ export const GET_LEAGUE = gql`
   query GetLeague($name: String) {
     leagues(name: $name) {
       brackets {
+        name
         userName
         r1M1 {
           name

@@ -24,7 +24,11 @@ export default function BracketsTable({ brackets = [], name: userName }) {
             bracketData: bracket,
             winners,
           });
-          const ranking = getRanking({ leagueData, winners, userName });
+          const ranking = getRanking({
+            leagueData,
+            winners,
+            bracketName: name,
+          });
           return {
             id,
             leagueName,
