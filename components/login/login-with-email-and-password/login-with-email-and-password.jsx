@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styles from './login-with-email-and-password.module.scss';
 import { useRouter } from 'next/router';
-import { ROUTES } from 'utils/constants';
+import { COOKIES, ROUTES } from 'utils/constants';
 import Button from '@/components/shared/button/button';
 import { errors, signInWithFirebaseEmailAndPassword } from '../firebase-utils';
 import Input from '@/components/shared/input/input';
 import CreateAccountTakeover from './create-account-takeover/create-account-takeover';
+import Cookies from 'js-cookie';
 
 export default function LoginWithEmailAndPassword() {
   const [email, setEmail] = useState('');
@@ -25,6 +26,7 @@ export default function LoginWithEmailAndPassword() {
 
     if (response?.user) {
       setError('');
+      Cookies.set(COOKIES.UID, response.user.uid);
       router.push(ROUTES.DASHBOARD);
     } else if (
       response.error.code === 'auth/invalid-email' ||

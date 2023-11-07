@@ -50,6 +50,7 @@ const USER_FRAGMENT = gql`
     brackets {
       id
       name
+      leagueName
     }
   }
 `;
@@ -63,8 +64,8 @@ export const GET_USER = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation CreateUser($uid: String, $name: String) {
-    insert_members(uid: $uid, name: $name) {
+  mutation CreateUser($uid: String, $name: String, $email: String) {
+    insert_members(uid: $uid, name: $name, emailAddress: $email) {
       ...UserFields
     }
   }
@@ -114,9 +115,32 @@ export const JOIN_LEAGUE = gql`
 export const GET_LEAGUE = gql`
   query GetLeague($name: String) {
     leagues(name: $name) {
-      members {
-        uid
-        name
+      brackets {
+        userName
+        r1M1 {
+          name
+        }
+        r1M2 {
+          name
+        }
+        r1M3 {
+          name
+        }
+        r1M4 {
+          name
+        }
+        r1M5 {
+          name
+        }
+        r1M6 {
+          name
+        }
+        r1M7 {
+          name
+        }
+        r1M8 {
+          name
+        }
       }
     }
   }
@@ -135,8 +159,8 @@ export const CREATE_BRACKET = gql`
 `;
 
 export const GET_BRACKET = gql`
-  query GetBracket($memberId: [String]) {
-    userBrackets(memberId: $memberId) {
+  query GetBracket($recId: String) {
+    userBrackets(id: $recId) {
       r1M1 {
         name
         id

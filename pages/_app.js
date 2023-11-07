@@ -5,9 +5,9 @@ import { UserProvider } from 'context/user-context/user-context';
 export default function App({ Component, pageProps }) {
   return (
     <UserProvider>
-      <MatchupDataProvider>
-        <Component {...pageProps} />
-      </MatchupDataProvider>
+      {/* <MatchupDataProvider> */}
+      <Component {...pageProps} />
+      {/* </MatchupDataProvider> */}
     </UserProvider>
   );
 }

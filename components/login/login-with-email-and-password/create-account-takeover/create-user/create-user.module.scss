@@ -17,7 +17,6 @@
 .error {
   color: black;
   @include mixins.fontSecondary;
-  letter-spacing: 1px;
 }
 
 .heading {

@@ -1,0 +1,8 @@
+@use '@mixins' as mixins;
+
+.container {
+  table {
+    color: white;
+    @include mixins.fontSecondary;
+  }
+}

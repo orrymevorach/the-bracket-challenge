@@ -2,10 +2,14 @@ import styles from './login.module.scss';
 import { initFirebaseAuth } from '@/components/login/firebase-utils';
 import LoginWithEmailAndPassword from './login-with-email-and-password/login-with-email-and-password';
 import LoginWithGoogle from './login-with-google/login-with-google';
+import Cookies from 'js-cookie';
+import { COOKIES } from '@/utils/constants';
 
 initFirebaseAuth();
 
 export default function Login() {
+  // Remove previous cookies so no conflict on login
+  Cookies.remove(COOKIES.UID);
   return (
     <div className={styles.loginContainer}>
       <h1 className={styles.title}>

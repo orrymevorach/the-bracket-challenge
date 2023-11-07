@@ -1,3 +1,14 @@
 .leagueContainer {
   display: flex;
 }
+
+.createButton {
+  border-radius: 3px;
+  height: 170px;
+  width: 180px;
+  flex-direction: column;
+}
+
+.icon {
+  margin-bottom: 20px;
+}

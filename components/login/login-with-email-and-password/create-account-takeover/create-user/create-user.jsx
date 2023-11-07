@@ -5,7 +5,8 @@ import Button from '@/components/shared/button/button';
 import { createFirebaseUser, errors } from '../../../firebase-utils';
 import { createUser } from '@/lib/airtable';
 import { useRouter } from 'next/router';
-import { ROUTES } from '@/utils/constants';
+import { COOKIES, ROUTES } from '@/utils/constants';
+import Cookies from 'js-cookie';
 
 export default function CreateUser({ email }) {
   const [name, setName] = useState('');
@@ -42,6 +43,7 @@ export default function CreateUser({ email }) {
         name: name,
         email: emailInput,
       });
+      Cookies.set(COOKIES.UID, response.user.uid);
       setIsLoading(false);
       router.push(ROUTES.DASHBOARD);
     } catch (error) {
