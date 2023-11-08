@@ -11,11 +11,12 @@ export const WinnersProvider = ({ children }) => {
   const [winners, setWinners] = useState();
   useEffect(() => {
     const getWinnersData = async () => {
-      const winnersData = await getWinners({ name: 'Mens Winners' });
+      const winnersData = await getWinners();
       setWinners(winnersData);
     };
     getWinnersData();
   }, []);
+
   return (
     <WinnersContext.Provider value={winners}>
       {children}

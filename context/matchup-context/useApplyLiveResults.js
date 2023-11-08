@@ -5,7 +5,7 @@ const useGetWinners = () => {
   const [winners, setWinners] = useState([]);
   useEffect(() => {
     const getRoundWinners = async () => {
-      const roundWinners = await getWinners({ name: 'Mens Winners' });
+      const roundWinners = await getWinners();
       setWinners(roundWinners);
     };
     getRoundWinners();

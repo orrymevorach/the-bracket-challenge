@@ -1,0 +1,25 @@
+@use '@mixins' as mixins;
+
+.roundHeadingButton {
+  @include mixins.fontPrimary;
+  font-size: 24px;
+  width: 25%;
+  text-align: center;
+  background: none;
+  border: none;
+  color: white;
+  position: relative;
+  margin-bottom: 30px;
+  &.active {
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      width: 100px;
+      height: 2px;
+      background-color: yellow;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}

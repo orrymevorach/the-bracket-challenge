@@ -1,0 +1,13 @@
+@use '@mixins' as mixins;
+
+.resultsText {
+  @include mixins.fontPrimary;
+  font-size: 48px;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.roundHeadingContainer {
+  display: flex;
+  justify-content: space-between;
+}

@@ -118,28 +118,28 @@ export const GET_LEAGUE = gql`
       brackets {
         name
         userName
-        r1M1 {
+        dR1M1 {
           name
         }
-        r1M2 {
+        dR1M2 {
           name
         }
-        r1M3 {
+        dR1M3 {
           name
         }
-        r1M4 {
+        dR1M4 {
           name
         }
-        r1M5 {
+        dR1M5 {
           name
         }
-        r1M6 {
+        dR1M6 {
           name
         }
-        r1M7 {
+        dR1M7 {
           name
         }
-        r1M8 {
+        dR1M8 {
           name
         }
       }
@@ -162,101 +162,29 @@ export const CREATE_BRACKET = gql`
 export const GET_BRACKET = gql`
   query GetBracket($recId: String) {
     userBrackets(id: $recId) {
-      r1M1 {
+      dR1M1 {
         name
-        id
-        matchupId
-        country
       }
-      r1M2 {
+      dR1M2 {
         name
-        id
-        matchupId
-        country
       }
-      r1M3 {
+      dR1M3 {
         name
-        id
-        matchupId
-        country
       }
-      r1M4 {
+      dR1M4 {
         name
-        id
-        matchupId
-        country
       }
-      r1M5 {
+      dR1M5 {
         name
-        id
-        matchupId
-        country
       }
-      r1M6 {
+      dR1M6 {
         name
-        id
-        matchupId
-        country
       }
-      r1M7 {
+      dR1M7 {
         name
-        id
-        matchupId
-        country
       }
-      r1M8 {
+      dR1M8 {
         name
-        id
-        matchupId
-        country
-      }
-      r2M1 {
-        name
-        id
-        matchupId
-        country
-      }
-      r2M2 {
-        name
-        id
-        matchupId
-        country
-      }
-      r2M3 {
-        name
-        id
-        matchupId
-        country
-      }
-      r2M4 {
-        name
-        id
-        matchupId
-        country
-      }
-      r3M1 {
-        name
-        id
-        matchupId
-        country
-      }
-      r3M2 {
-        name
-        id
-        matchupId
-        country
-      }
-      r4M1 {
-        name
-        id
-        matchupId
-        country
-      }
-      r5M1 {
-        name
-        id
-        matchupId
-        country
       }
     }
   }
@@ -329,101 +257,29 @@ export const UPDATE_USER_BRACKET = gql`
 export const GET_WINNERS = gql`
   query GetWinners($name: String) {
     winners(name: $name) {
-      r1M1 {
+      dR1M1 {
         name
-        id
-        matchupId
-        country
       }
-      r1M2 {
+      dR1M2 {
         name
-        id
-        matchupId
-        country
       }
-      r1M3 {
+      dR1M3 {
         name
-        id
-        matchupId
-        country
       }
-      r1M4 {
+      dR1M4 {
         name
-        id
-        matchupId
-        country
       }
-      r1M5 {
+      dR1M5 {
         name
-        id
-        matchupId
-        country
       }
-      r1M6 {
+      dR1M6 {
         name
-        id
-        matchupId
-        country
       }
-      r1M7 {
+      dR1M7 {
         name
-        id
-        matchupId
-        country
       }
-      r1M8 {
+      dR1M8 {
         name
-        id
-        matchupId
-        country
-      }
-      r2M1 {
-        name
-        id
-        matchupId
-        country
-      }
-      r2M2 {
-        name
-        id
-        matchupId
-        country
-      }
-      r2M3 {
-        name
-        id
-        matchupId
-        country
-      }
-      r2M4 {
-        name
-        id
-        matchupId
-        country
-      }
-      r3M1 {
-        name
-        id
-        matchupId
-        country
-      }
-      r3M2 {
-        name
-        id
-        matchupId
-        country
-      }
-      r4M1 {
-        name
-        id
-        matchupId
-        country
-      }
-      r5M1 {
-        name
-        id
-        matchupId
-        country
       }
     }
   }
