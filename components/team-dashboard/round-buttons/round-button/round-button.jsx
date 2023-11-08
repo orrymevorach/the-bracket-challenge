@@ -7,11 +7,19 @@ export default function RoundButton({
   setCurrentRound,
   currentRound,
   currentHoverRound,
+  setIsLoading,
 }) {
   const isCurrentRounnd = currentHoverRound
     ? !!(currentHoverRound.name === round.name)
     : !!(round.name === currentRound.name);
 
+  const handleClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentRound(round);
+      setIsLoading(false);
+    }, 300);
+  };
   return (
     <button
       key={round.name}
@@ -19,11 +27,11 @@ export default function RoundButton({
         styles.roundHeadingButton,
         isCurrentRounnd && styles.active
       )}
-      onClick={() => setCurrentRound(round)}
+      onClick={handleClick}
       onMouseOver={() => setCurrentHoverRound(round)}
       onMouseLeave={() => setCurrentHoverRound(null)}
     >
-      {round.name}
+      {round.displayName}
     </button>
   );
 }

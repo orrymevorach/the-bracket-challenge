@@ -4,23 +4,13 @@ import Loader from 'components/shared/loader/loader';
 import BracketsTable from './brackets-table/brackets-table';
 import useDashboardRankings from './useDashboardRankings';
 import { useWinners } from '@/context/winners-context/winners-context';
-import RoundButtons from './round-buttons/round-buttons';
+import RoundButtons, { ROUNDS } from './round-buttons/round-buttons';
 import { useState } from 'react';
+import Button from '../shared/button/button';
 
-export const ROUNDS = [
-  {
-    name: 'Duels',
-  },
-  {
-    name: 'Revelstoke',
-  },
-  {
-    name: 'Selkirk Tangiers',
-  },
-];
-const defaultRound = { name: 'Overall' };
 export default function TeamDashboard() {
-  const [currentRound, setCurrentRound] = useState(defaultRound);
+  const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useUser();
   const winnersData = useWinners();
   const { bracketData } = useDashboardRankings({
@@ -34,20 +24,24 @@ export default function TeamDashboard() {
 
   return (
     <div className={styles.teamDashboard}>
-      <p className={styles.name}>Welcome, {firstName}!</p>
+      <div className={styles.topContainer}>
+        <p className={styles.name}>Hello, {firstName}!</p>
+        <Button>Log Out</Button>
+      </div>
+      <p className={styles.resultsText}>Results</p>
       <RoundButtons
-        defaultRound={defaultRound}
         currentRound={currentRound}
         setCurrentRound={setCurrentRound}
+        setIsLoading={setIsLoading}
       />
-      {hasBracketData ? (
+      {!isLoading && hasBracketData ? (
         <BracketsTable
           {...user}
           brackets={bracketData}
           currentRound={currentRound.name}
         />
       ) : (
-        <Loader />
+        <Loader isFullPage={false} classNames={styles.loader} />
       )}
     </div>
   );

@@ -1,40 +1,44 @@
 import { useState } from 'react';
 import styles from './round-buttons.module.scss';
 import RoundButton from './round-button/round-button';
-import { ROUNDS } from '../team-dashboard';
+
+export const ROUNDS = [
+  {
+    displayName: 'Overall',
+    name: 'Overall',
+  },
+  {
+    displayName: 'NST Duels',
+    name: 'Duels',
+  },
+  {
+    displayName: 'Revelstoke Mountain Resort',
+    name: 'Revelstoke',
+  },
+  {
+    displayName: 'Selkirk Tangiers',
+    name: 'Selkirk',
+  },
+];
 
 export default function RoundButtons({
-  defaultRound,
   setCurrentRound,
   currentRound,
+  setIsLoading,
 }) {
   const [currentHoverRound, setCurrentHoverRound] = useState(null);
-
+  const props = {
+    setCurrentHoverRound,
+    setCurrentRound,
+    currentRound,
+    currentHoverRound,
+    setIsLoading,
+  };
   return (
-    <>
-      <p className={styles.resultsText}>Results</p>
-      <div className={styles.roundHeadingContainer}>
-        <RoundButton
-          key="Overall"
-          round={defaultRound}
-          setCurrentHoverRound={setCurrentHoverRound}
-          setCurrentRound={setCurrentRound}
-          currentRound={currentRound}
-          currentHoverRound={currentHoverRound}
-        />
-        {ROUNDS.map(round => {
-          return (
-            <RoundButton
-              key={round.name}
-              round={round}
-              setCurrentHoverRound={setCurrentHoverRound}
-              setCurrentRound={setCurrentRound}
-              currentRound={currentRound}
-              currentHoverRound={currentHoverRound}
-            />
-          );
-        })}
-      </div>
-    </>
+    <div className={styles.roundHeadingContainer}>
+      {ROUNDS.map(round => {
+        return <RoundButton {...props} key={round.name} round={round} />;
+      })}
+    </div>
   );
 }

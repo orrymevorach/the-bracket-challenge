@@ -1,8 +1,54 @@
 @use '@mixins' as mixins;
 
 .container {
-  table {
-    color: white;
-    @include mixins.fontSecondary;
+  margin-top: 40px;
+}
+
+.table {
+  color: white;
+  @include mixins.fontSecondary;
+  td {
+    text-align: center;
+    position: relative;
+    height: 60px;
+    width: 250px;
+    // Vertical line
+    &:after {
+      content: '';
+      position: absolute;
+      background-color: rgba(white, 0.3);
+      right: 0px;
+      height: 104%;
+      width: 1px;
+      top: 0;
+    }
+    &:last-of-type {
+      &:after {
+        background-color: rgba(0, 0, 0, 0);
+      }
+    }
+  }
+  tr {
+    position: relative;
+    @include mixins.fontSecondaryLight;
+    margin: 0 auto;
+    &:before {
+      content: '';
+      position: absolute;
+      background-color: rgba(white, 0.3);
+      right: 0px;
+      height: 1px;
+      width: 101%;
+      bottom: 0;
+    }
+    &:last-of-type:before {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    &.titleRow {
+      font-size: 20px;
+      height: 50px;
+      @include mixins.fontSecondaryBold;
+      letter-spacing: -1px;
+    }
   }
 }
