@@ -1,6 +1,6 @@
 import styles from './brackets-table.module.scss';
 
-export default function BracketsTable({ brackets = [] }) {
+export default function BracketsTable({ brackets = [], currentRound }) {
   return (
     <div className={styles.container}>
       <table>
@@ -14,6 +14,7 @@ export default function BracketsTable({ brackets = [] }) {
         </thead>
         <tbody>
           {brackets.map((bracket, index) => {
+            const currentSelectedRound = bracket.selectedWinners[currentRound];
             return (
               <tr key={bracket.name}>
                 <td>
@@ -21,7 +22,7 @@ export default function BracketsTable({ brackets = [] }) {
                 </td>
                 <td>{bracket.leagueName}</td>
                 <td>
-                  {`${bracket.numberOfCorrectPicks}/${bracket.numberOfWinners}`}
+                  {`${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`}
                 </td>
                 <td>{bracket.ranking}</td>
               </tr>

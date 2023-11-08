@@ -1,22 +1,13 @@
 import { useState } from 'react';
 import styles from './round-buttons.module.scss';
 import RoundButton from './round-button/round-button';
+import { ROUNDS } from '../team-dashboard';
 
-const ROUNDS = [
-  {
-    name: 'NST Duels',
-  },
-  {
-    name: 'Revelstoke Mountain Resort',
-  },
-  {
-    name: 'Selkirk Tangiers',
-  },
-];
-const defaultRound = { name: 'Total' };
-
-export default function RoundButtons() {
-  const [currentRound, setCurrentRound] = useState(defaultRound);
+export default function RoundButtons({
+  defaultRound,
+  setCurrentRound,
+  currentRound,
+}) {
   const [currentHoverRound, setCurrentHoverRound] = useState(null);
 
   return (
@@ -24,7 +15,7 @@ export default function RoundButtons() {
       <p className={styles.resultsText}>Results</p>
       <div className={styles.roundHeadingContainer}>
         <RoundButton
-          key="Total"
+          key="Overall"
           round={defaultRound}
           setCurrentHoverRound={setCurrentHoverRound}
           setCurrentRound={setCurrentRound}

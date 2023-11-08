@@ -54,6 +54,7 @@ const USER_FRAGMENT = gql`
     }
   }
 `;
+
 export const GET_USER = gql`
   query GetUser($uid: String) {
     members(uid: $uid) {
@@ -142,6 +143,9 @@ export const GET_LEAGUE = gql`
         dR1M8 {
           name
         }
+        rR1M1 {
+          name
+        }
       }
     }
   }
@@ -184,6 +188,9 @@ export const GET_BRACKET = gql`
         name
       }
       dR1M8 {
+        name
+      }
+      rR1M1 {
         name
       }
     }
@@ -279,6 +286,9 @@ export const GET_WINNERS = gql`
         name
       }
       dR1M8 {
+        name
+      }
+      rR1M1 {
         name
       }
     }

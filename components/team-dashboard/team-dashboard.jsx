@@ -5,8 +5,22 @@ import BracketsTable from './brackets-table/brackets-table';
 import useDashboardRankings from './useDashboardRankings';
 import { useWinners } from '@/context/winners-context/winners-context';
 import RoundButtons from './round-buttons/round-buttons';
+import { useState } from 'react';
 
+export const ROUNDS = [
+  {
+    name: 'Duels',
+  },
+  {
+    name: 'Revelstoke',
+  },
+  {
+    name: 'Selkirk Tangiers',
+  },
+];
+const defaultRound = { name: 'Overall' };
 export default function TeamDashboard() {
+  const [currentRound, setCurrentRound] = useState(defaultRound);
   const user = useUser();
   const winnersData = useWinners();
   const { bracketData } = useDashboardRankings({
@@ -21,9 +35,17 @@ export default function TeamDashboard() {
   return (
     <div className={styles.teamDashboard}>
       <p className={styles.name}>Welcome, {firstName}!</p>
-      <RoundButtons />
+      <RoundButtons
+        defaultRound={defaultRound}
+        currentRound={currentRound}
+        setCurrentRound={setCurrentRound}
+      />
       {hasBracketData ? (
-        <BracketsTable {...user} brackets={bracketData} />
+        <BracketsTable
+          {...user}
+          brackets={bracketData}
+          currentRound={currentRound.name}
+        />
       ) : (
         <Loader />
       )}

@@ -1,21 +1,3 @@
-export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
-  if (!bracketData || !winners) return;
-  let count = 0;
-
-  for (const key in bracketData) {
-    if (
-      bracketData.hasOwnProperty(key) &&
-      winners.hasOwnProperty(key) &&
-      bracketData[key][0]?.name !== undefined &&
-      bracketData[key][0]?.name === winners[key][0]?.name
-    ) {
-      count++;
-    }
-  }
-
-  return count;
-};
-
 function addRankingsToObjects({ inputArray = [] }) {
   if (inputArray.length === 0) return [];
 
@@ -59,45 +41,88 @@ export const getRanking = ({ leagueData, bracketName, winnersData }) => {
   return currentUserRanking;
 };
 
-export function countNumberOfWinners({ winners }) {
+function countNumberOfWinnersInEachRound({ winnersData }) {
+  let overallWinners = 0;
+  let duelsWinners = 0;
+  let revelstokeWinners = 0;
+
+  for (const key in winnersData) {
+    if (
+      winnersData.hasOwnProperty(key) &&
+      Array.isArray(winnersData[key]) &&
+      winnersData[key].length > 0
+    ) {
+      if (key.includes('dR')) {
+        duelsWinners++;
+      } else if (key.includes('rR')) {
+        revelstokeWinners++;
+      }
+      overallWinners++;
+    }
+  }
+
+  return {
+    Duels: duelsWinners,
+    Revelstoke: revelstokeWinners,
+    Overall: overallWinners,
+  };
+}
+
+export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
+  if (!bracketData || !winners) return;
   let count = 0;
 
-  for (const key in winners) {
+  for (const key in bracketData) {
     if (
+      bracketData.hasOwnProperty(key) &&
       winners.hasOwnProperty(key) &&
-      Array.isArray(winners[key]) &&
-      winners[key].length > 0
+      bracketData[key][0]?.name !== undefined &&
+      bracketData[key][0]?.name === winners[key][0]?.name
     ) {
       count++;
     }
   }
 
   return count;
+};
+
+export function addNumberOfCorrectPicksToRoundData({
+  bracketData,
+  winnersData,
+}) {
+  const numberOfWinnersInRound = countNumberOfWinnersInEachRound({
+    winnersData,
+  });
+  for (const key in bracketData) {
+    const numberOfCorrectPicks = countNumberOfCorrectPicks({
+      bracketData: bracketData[key],
+      winners: winnersData,
+    });
+    bracketData[key].numberOfCorrectPicks = numberOfCorrectPicks;
+    bracketData[key].numberOfWinnersInRound = numberOfWinnersInRound[key];
+  }
 }
 
-// export function sortWinnersIntoRounds(winnersObject) {
-//   // Check if the input is an array with at least one element
-//   if (typeof winnersObject !== 'object' || winnersObject === null) {
-//     return {};
-//   }
+export function sortSelectionsIntoRounds(winnersData) {
+  const duelsWinners = {};
+  const revelstokeWinners = {};
+  const overallWinners = {};
 
-//   const duelsWinners = {};
-//   const revelstokeWinners = {};
+  // Iterate through the each winner in the winners object and sort it into a round based on the key
+  for (const key in winnersData) {
+    if (key.startsWith('dR')) {
+      duelsWinners[key] = winnersData[key];
+    } else if (key.startsWith('rR')) {
+      revelstokeWinners[key] = winnersData[key];
+    }
+    overallWinners[key] = winnersData[key];
+  }
 
-//   // Iterate through the keys of the duelsWinners
-//   for (const key in winnersObject) {
-//     // Check if the key starts with "dR1"
-//     if (key.startsWith('dR')) {
-//       const newKey = key.replace('dR', 'r');
-//       duelsWinners[newKey] = winnersObject[key];
-//     } else if (key.startsWith('rR')) {
-//       const newKey = key.replace('rR', 'r');
-//       revelstokeWinners[newKey] = winnersObject[key];
-//     }
-//   }
-//   // Create the final object with the "Duels" key and the duelsObject
-//   const resultObject = { Duels: duelsWinners, Revelstoke: revelstokeWinners };
+  const resultObject = {
+    Duels: duelsWinners,
+    Revelstoke: revelstokeWinners,
+    Overall: overallWinners,
+  };
 
-//   // Return the final result
-//   return resultObject;
-// }
+  return resultObject;
+}
