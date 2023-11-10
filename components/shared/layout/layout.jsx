@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const { pathname } = router;
   const firstName = user.name?.split(' ')[0];
-  if (user.isLoading) return <Loader />;
+  if (user.isLoading) return <Loader isFullPage />;
   return (
     <div className={styles.layout}>
       <div className={styles.topContainer}>

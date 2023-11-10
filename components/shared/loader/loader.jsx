@@ -8,7 +8,7 @@ export default function Loader({
   size = '2xl',
   classNames = '',
   color = 'white',
-  isFullPage = 'false',
+  isFullPage = false,
 }) {
   if (isDotted) {
     return (

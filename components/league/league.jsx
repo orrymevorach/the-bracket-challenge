@@ -22,20 +22,18 @@ export default function League() {
   return (
     <Layout>
       <p className={styles.heading}>{slug} Rankings</p>
+      <RoundButtons
+        currentRound={currentRound}
+        setCurrentRound={setCurrentRound}
+        setIsLoading={setIsLoading}
+      />
       {!isLoading && hasLeagueData ? (
-        <>
-          <RoundButtons
-            currentRound={currentRound}
-            setCurrentRound={setCurrentRound}
-            setIsLoading={setIsLoading}
-          />
-          <LeagueRankingsTable
-            leagueData={leagueData}
-            currentRound={currentRound.name}
-          />
-        </>
+        <LeagueRankingsTable
+          leagueData={leagueData}
+          currentRound={currentRound.name}
+        />
       ) : (
-        <Loader />
+        <Loader classNames={styles.loader} />
       )}
     </Layout>
   );
