@@ -1,4 +1,4 @@
-import { getLeague } from '@/lib/airtable';
+import { getLeagueBrackets } from '@/lib/airtable';
 import { useEffect, useState } from 'react';
 import { useWinners } from '@/context/winners-context/winners-context';
 import {
@@ -12,7 +12,7 @@ export default function useLeagueRankings({ slug }) {
   const winnersData = useWinners();
   useEffect(() => {
     const handleGetLeagueData = async () => {
-      const league = await getLeague({ name: slug });
+      const league = await getLeagueBrackets({ name: slug });
       const leagueWithRankingsAndNumberOfCorrectPicks = league.brackets.map(
         bracket => {
           const rank = getRanking({

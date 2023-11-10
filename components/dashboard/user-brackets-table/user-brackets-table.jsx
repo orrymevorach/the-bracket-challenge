@@ -1,5 +1,7 @@
 import styles from './user-brackets-table.module.scss';
 import Link from 'next/link';
+import clsx from 'clsx';
+import Button from '@/components/shared/button/button';
 
 export default function UserBracketsTable({ leagues = [], currentRound }) {
   return (
@@ -19,20 +21,36 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
             const currentSelectedRound = hasSelectedWinners
               ? league.selectedWinners[currentRound]
               : '';
-            const ranking = league.ranking || 'NA';
             const correctPicks = hasSelectedWinners
               ? `${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`
-              : 'NA';
-
+              : '';
+            const ranking = league.ranking || (
+              <Button isSmall classNames={styles.createBracketButton}>
+                Create Bracket
+              </Button>
+            );
             return (
               <tr key={league.leagueName}>
-                <td className={styles.leagueName}>
+                <td className={clsx(styles.leagueName)}>
                   <Link href={`/league/${league.leagueName}`}>
                     {league.leagueName}
                   </Link>
                 </td>
-                <td className={styles.teamName}>{league.bracketName}</td>
-                <td>{ranking}</td>
+                <td
+                  className={clsx(
+                    styles.teamName,
+                    !hasSelectedWinners && styles.noSelectedWinners
+                  )}
+                >
+                  {league.bracketName}
+                </td>
+                <td
+                  className={clsx(
+                    !hasSelectedWinners && styles.noSelectedWinners
+                  )}
+                >
+                  {ranking}
+                </td>
 
                 <td>{correctPicks}</td>
               </tr>

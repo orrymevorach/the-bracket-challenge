@@ -82,19 +82,15 @@ export const CREATE_LEAGUE = gql`
 `;
 
 export const JOIN_LEAGUE = gql`
-  mutation AddLeagueId($id: String, $memberRecordId: String) {
-    update_leagues(id: $id, members: [$memberRecordId]) {
+  mutation JoinLeague($id: String, $memberRecordIds: [String]) {
+    update_leagues(id: $id, members: $memberRecordIds) {
       id
-      members {
-        ...UserFields
-      }
     }
   }
-  ${USER_FRAGMENT}
 `;
 
-export const GET_LEAGUE = gql`
-  query GetLeague($name: String) {
+export const GET_LEAGUE_BRACKETS = gql`
+  query GetLeagueBrackets($name: String) {
     leagues(name: $name) {
       brackets {
         name
@@ -126,6 +122,16 @@ export const GET_LEAGUE = gql`
         rR1M1 {
           name
         }
+      }
+    }
+  }
+`;
+
+export const GET_LEAGUE_MEMBERS = gql`
+  query GetLeagueMembers($id: String) {
+    leagues(id: $id) {
+      members {
+        id
       }
     }
   }

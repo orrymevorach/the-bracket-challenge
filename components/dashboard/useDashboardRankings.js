@@ -26,7 +26,8 @@ export default function useDashboardRankings({
           );
           if (!userBracket) {
             return {
-              bracketName: 'NA',
+              id: league.id,
+              bracketName: '',
               leagueName: league.name,
             };
           }
@@ -43,6 +44,7 @@ export default function useDashboardRankings({
             bracketName: userBracket.name,
           });
           return {
+            id: league.id,
             bracketName: userBracket.name,
             leagueName: league.name,
             ranking,

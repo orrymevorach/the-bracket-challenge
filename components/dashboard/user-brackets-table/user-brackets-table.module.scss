@@ -10,7 +10,7 @@
   td {
     text-align: center;
     position: relative;
-    height: 60px;
+    height: 65px;
     width: 250px;
     // Vertical line
     &:after {
@@ -25,6 +25,11 @@
     &:last-of-type {
       &:after {
         background-color: rgba(0, 0, 0, 0);
+      }
+    }
+    &.noSelectedWinners {
+      &:after {
+        display: none;
       }
     }
   }
@@ -56,4 +61,10 @@
 .leagueName a {
   color: white;
   text-decoration: underline;
+}
+
+.createBracketButton {
+  margin-left: 60px;
+  position: relative;
+  top: -5px;
 }

@@ -42,6 +42,9 @@
     min-width: 80px;
     @include mixins.fontSecondaryLight;
     margin-top: 10px;
+    &:hover {
+      @include mixins.fontSecondary;
+    }
   }
 }
 

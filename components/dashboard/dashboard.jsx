@@ -8,11 +8,13 @@ import { ROUNDS } from '../league/round-buttons/round-buttons';
 import Layout from '../shared/layout/layout';
 import Button from '../shared/button/button';
 import { useState } from 'react';
-import CreateLeagueTakeover from '../create-league-takeover/create-league-takeover';
+import CreateLeagueTakeover from './create-league-takeover/create-league-takeover';
+import JoinLeagueTakeover from './join-league-takeover/join-league-takeover';
 
 export default function Dashboard() {
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
     useState(false);
+  const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
   const user = useUser();
   const winnersData = useWinners();
   const { leagueData } = useDashboardRankings({
@@ -20,7 +22,7 @@ export default function Dashboard() {
     winnersData,
     userName: user.name,
   });
-  if (user.isLoading) return <Loader />;
+  if (user.isLoading) return <Loader isFullPage />;
   const hasLeagueData = !!leagueData;
 
   return (
@@ -28,8 +30,16 @@ export default function Dashboard() {
       {showCreateLeagueTakeover && (
         <CreateLeagueTakeover setShowTakeover={setShowCreateLeagueTakeover} />
       )}
+      {showJoinLeagueTakeover && (
+        <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
+      )}
       <div className={styles.buttonsContainer}>
-        <Button classNames={styles.button}>Join League</Button>
+        <Button
+          handleClick={() => setShowJoinLeagueTakeover(true)}
+          classNames={styles.button}
+        >
+          Join League
+        </Button>
         <Button
           handleClick={() => setShowCreateLeagueTakeover(true)}
           classNames={styles.button}
