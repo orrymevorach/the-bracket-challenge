@@ -1,10 +1,10 @@
 import { WinnersProvider } from '@/context/winners-context/winners-context';
-import TeamDashboard from 'components/team-dashboard/team-dashboard';
+import Dashboard from '@/components/dashboard/dashboard';
 
-export default function Dashboard() {
+export default function DashboardPage() {
   return (
     <WinnersProvider>
-      <TeamDashboard />
+      <Dashboard />
     </WinnersProvider>
   );
 }

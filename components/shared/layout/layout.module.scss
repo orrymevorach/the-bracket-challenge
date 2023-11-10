@@ -1,0 +1,29 @@
+@use '@mixins' as mixins;
+
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: block;
+  background-color: rgba(white, 0.1);
+  padding: 0 80px;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+}
+
+.buttonsContainer {
+  display: flex;
+}
+
+.button {
+  margin-right: 20px;
+}
+
+.name {
+  font-size: 24px;
+  @include mixins.fontSecondaryLight;
+  letter-spacing: -1px;
+}

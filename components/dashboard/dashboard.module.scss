@@ -1,0 +1,14 @@
+@use '@mixins' as mixins;
+
+.heading {
+  @include mixins.fontSecondaryBold;
+  font-size: 28px;
+  margin-top: 80px;
+  letter-spacing: -1px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
