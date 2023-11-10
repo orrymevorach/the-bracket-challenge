@@ -1,0 +1,32 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  background-color: black;
+  width: 100%;
+  left: 0;
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid white;
+}
+
+.link {
+  color: white;
+  text-decoration: underline;
+}
+
+.column {
+  width: 33.3%;
+  &:nth-child(2) {
+    text-align: center;
+  }
+  &:nth-child(3) {
+    text-align: right;
+  }
+}
+
+.text {
+  letter-spacing: -1px;
+  word-spacing: 2px;
+  font-size: 18px;
+}
