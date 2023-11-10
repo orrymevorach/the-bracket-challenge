@@ -14,7 +14,11 @@ export default function LeagueSummaryTable({ leagueData, currentRound }) {
       <tbody>
         {leagueData
           .sort((a, b) => {
-            if (a.rank > b.rank) return 1;
+            const removeTieStringAndConvertToFloat = rank =>
+              parseFloat(rank.replace('T-', ''));
+            const aFloat = removeTieStringAndConvertToFloat(a.rank);
+            const bFloat = removeTieStringAndConvertToFloat(b.rank);
+            if (aFloat > bFloat) return 1;
             return -1;
           })
           .map(({ name, rank, selectedWinners }) => {

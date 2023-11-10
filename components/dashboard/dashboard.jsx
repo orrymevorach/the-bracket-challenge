@@ -6,25 +6,42 @@ import useDashboardRankings from './useDashboardRankings';
 import { useWinners } from '@/context/winners-context/winners-context';
 import { ROUNDS } from '../league/round-buttons/round-buttons';
 import Layout from '../shared/layout/layout';
+import Button from '../shared/button/button';
+import { useState } from 'react';
+import CreateLeagueTakeover from '../create-league-takeover/create-league-takeover';
 
 export default function Dashboard() {
+  const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
+    useState(false);
   const user = useUser();
   const winnersData = useWinners();
-  const { bracketData } = useDashboardRankings({
-    userBrackets: user.brackets,
+  const { leagueData } = useDashboardRankings({
+    userLeagues: user.leagues,
     winnersData,
+    userName: user.name,
   });
   if (user.isLoading) return <Loader />;
-
-  const hasBracketData = !!bracketData;
+  const hasLeagueData = !!leagueData;
 
   return (
     <Layout>
+      {showCreateLeagueTakeover && (
+        <CreateLeagueTakeover setShowTakeover={setShowCreateLeagueTakeover} />
+      )}
+      <div className={styles.buttonsContainer}>
+        <Button classNames={styles.button}>Join League</Button>
+        <Button
+          handleClick={() => setShowCreateLeagueTakeover(true)}
+          classNames={styles.button}
+        >
+          Create League
+        </Button>
+      </div>
       <p className={styles.heading}>Your Leagues</p>
-      {hasBracketData ? (
+      {hasLeagueData ? (
         <UserBracketsTable
           {...user}
-          brackets={bracketData}
+          leagues={leagueData}
           currentRound={ROUNDS[0].name}
         />
       ) : (

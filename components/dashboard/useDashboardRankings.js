@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getBracket, getLeague } from '@/lib/airtable';
+import { getBracket } from '@/lib/airtable';
 import {
   addNumberOfCorrectPicksToRoundData,
   getRanking,
@@ -7,50 +7,57 @@ import {
 } from './bracket-ranking-utils';
 
 export default function useDashboardRankings({
-  userBrackets = [],
+  userLeagues = [],
   winnersData,
+  userName,
 }) {
-  const [bracketData, setBracketData] = useState(null);
+  const [leagueData, setLeagueData] = useState(null);
 
   // Adding data to brackets
   // 1. getting number of correct picks in each bracket, of all the announced winners
   // 2. get the ranking of each bracket compared to brackets in other leagues
 
   useEffect(() => {
-    const getBracketData = async () => {
-      const userBracketsWithRankingData = await Promise.all(
-        userBrackets.map(async userBracket => {
-          const { id, leagueName, name } = userBracket;
-          const bracket = await getBracket({ recId: id });
+    const getLeagueData = async () => {
+      const userLeaguesWithBracketRankingData = await Promise.all(
+        userLeagues.map(async league => {
+          const userBracket = league.brackets.find(
+            bracket => bracket.userName[0] === userName
+          );
+          if (!userBracket) {
+            return {
+              bracketName: 'NA',
+              leagueName: league.name,
+            };
+          }
+          const bracket = await getBracket({ recId: userBracket.id });
           const selectionsSortedByRoundWithNumberOfWinnersPerRound =
             sortSelectionsIntoRounds(bracket);
           addNumberOfCorrectPicksToRoundData({
             bracketData: selectionsSortedByRoundWithNumberOfWinnersPerRound,
             winnersData,
           });
-          const leagueData = await getLeague({ name: leagueName });
-
           const ranking = getRanking({
-            leagueData,
+            leagueData: league,
             winnersData,
-            bracketName: name,
+            bracketName: userBracket.name,
           });
-
           return {
-            ...userBracket,
+            bracketName: userBracket.name,
+            leagueName: league.name,
             ranking,
             selectedWinners: selectionsSortedByRoundWithNumberOfWinnersPerRound,
           };
         })
       );
 
-      setBracketData(userBracketsWithRankingData);
+      setLeagueData(userLeaguesWithBracketRankingData);
     };
-    if (!bracketData && winnersData && userBrackets.length) {
-      getBracketData();
+    if (!leagueData && winnersData && userLeagues.length && userName) {
+      getLeagueData();
     }
-  }, [bracketData, winnersData, userBrackets]);
+  }, [winnersData, userLeagues, userName, leagueData]);
   return {
-    bracketData,
+    leagueData,
   };
 }

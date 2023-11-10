@@ -7,7 +7,7 @@ import RoundButtons, {
   ROUNDS,
 } from '@/components/league/round-buttons/round-buttons';
 import useLeagueRankings from '@/components/league/useLeagueRankings';
-import LeagueSummaryTable from '@/components/league/league-rankings-table/league-rankings-table';
+import LeagueRankingsTable from '@/components/league/league-rankings-table/league-rankings-table';
 
 export default function League() {
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
@@ -29,7 +29,7 @@ export default function League() {
             setCurrentRound={setCurrentRound}
             setIsLoading={setIsLoading}
           />
-          <LeagueSummaryTable
+          <LeagueRankingsTable
             leagueData={leagueData}
             currentRound={currentRound.name}
           />

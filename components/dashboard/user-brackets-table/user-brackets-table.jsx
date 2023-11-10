@@ -1,7 +1,7 @@
 import styles from './user-brackets-table.module.scss';
 import Link from 'next/link';
 
-export default function UserBracketsTable({ brackets = [], currentRound }) {
+export default function UserBracketsTable({ leagues = [], currentRound }) {
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -14,21 +14,27 @@ export default function UserBracketsTable({ brackets = [], currentRound }) {
           </tr>
         </thead>
         <tbody>
-          {brackets.map(bracket => {
-            const currentSelectedRound = bracket.selectedWinners[currentRound];
+          {leagues.map(league => {
+            const hasSelectedWinners = !!league.selectedWinners;
+            const currentSelectedRound = hasSelectedWinners
+              ? league.selectedWinners[currentRound]
+              : '';
+            const ranking = league.ranking || 'NA';
+            const correctPicks = hasSelectedWinners
+              ? `${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`
+              : 'NA';
+
             return (
-              <tr key={bracket.name}>
+              <tr key={league.leagueName}>
                 <td className={styles.leagueName}>
-                  <Link href={`/league/${bracket.leagueName}`}>
-                    {bracket.leagueName}
+                  <Link href={`/league/${league.leagueName}`}>
+                    {league.leagueName}
                   </Link>
                 </td>
-                <td className={styles.teamName}>{bracket.name}</td>
-                <td>{bracket.ranking}</td>
+                <td className={styles.teamName}>{league.bracketName}</td>
+                <td>{ranking}</td>
 
-                <td>
-                  {`${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`}
-                </td>
+                <td>{correctPicks}</td>
               </tr>
             );
           })}

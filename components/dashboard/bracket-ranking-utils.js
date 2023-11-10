@@ -35,10 +35,10 @@ export const getRanking = ({ leagueData, bracketName, winnersData }) => {
   const leagueWithRankings = addRankingsToObjects({
     inputArray: usersWithNumberOfCorrectPicks,
   });
-  const currentUserRanking = leagueWithRankings.find(
+  const currentUserBracket = leagueWithRankings.find(
     team => team.bracketName === bracketName
-  ).ranking;
-  return currentUserRanking;
+  );
+  return currentUserBracket?.ranking || '';
 };
 
 function countNumberOfWinnersInEachRound({ winnersData }) {

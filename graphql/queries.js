@@ -46,11 +46,11 @@ const USER_FRAGMENT = gql`
     leagues {
       id
       name
-    }
-    brackets {
-      id
-      name
-      leagueName
+      brackets {
+        id
+        userName
+        name
+      }
     }
   }
 `;
@@ -74,28 +74,8 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_LEAGUE = gql`
-  mutation CreateLeague(
-    $name: String
-    $adminUid: String
-    $adminAirtableRecordId: String
-  ) {
-    insert_leagues(
-      name: $name
-      adminUid: $adminUid
-      members: [$adminAirtableRecordId]
-    ) {
-      id
-      members {
-        ...UserFields
-      }
-    }
-  }
-  ${USER_FRAGMENT}
-`;
-
-export const ADD_LEAGUE_ID = gql`
-  mutation AddLeagueId($leagueId: String, $id: String) {
-    update_leagues(id: $id, leagueId: $leagueId) {
+  mutation CreateLeague($name: String, $memberRecordId: String) {
+    insert_leagues(name: $name, members: [$memberRecordId]) {
       id
     }
   }
