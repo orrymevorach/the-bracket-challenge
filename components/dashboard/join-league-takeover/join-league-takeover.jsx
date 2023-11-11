@@ -37,21 +37,25 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
       {isLoading ? (
         <Loader color="black" />
       ) : (
-        <form
-          action="#"
-          onSubmit={e => handleSubmit(e)}
-          className={styles.form}
-        >
-          <p className={styles.label}>League ID</p>
-          <Input
-            type="text"
-            id="leagueId"
-            value={leagueId}
-            handleChange={e => setLeagueId(e.target.value)}
-            classNames={styles.input}
-          />
-          <Button classNames={styles.button}>Join League</Button>
-        </form>
+        <>
+          <p className={styles.title}>Join League</p>
+          <form
+            action="#"
+            onSubmit={e => handleSubmit(e)}
+            className={styles.form}
+          >
+            <Input
+              type="text"
+              id="leagueId"
+              value={leagueId}
+              handleChange={e => setLeagueId(e.target.value)}
+              classNames={styles.input}
+              label="Enter the ID for the league you would like to join"
+              labelClassNames={styles.label}
+            />
+            <Button classNames={styles.button}>Join League</Button>
+          </form>
+        </>
       )}
     </Takeover>
   );

@@ -7,6 +7,7 @@
 .table {
   color: white;
   @include mixins.fontSecondary;
+  margin-top: 50px;
   td {
     text-align: center;
     position: relative;
@@ -18,7 +19,7 @@
       position: absolute;
       background-color: rgba(white, 0.3);
       right: 0px;
-      height: 104%;
+      height: 101%;
       width: 1px;
       top: 0;
     }
@@ -31,6 +32,9 @@
       &:after {
         display: none;
       }
+    }
+    &.rankColumn {
+      width: 100px;
     }
   }
   tr {

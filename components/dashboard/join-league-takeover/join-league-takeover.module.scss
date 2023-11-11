@@ -6,15 +6,19 @@
   height: 300px;
 }
 
-.label {
+.title {
   color: black;
   @include mixins.fontPrimary;
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .input {
   width: 400px;
+}
+
+.label {
+  color: black;
 }
 
 .button {

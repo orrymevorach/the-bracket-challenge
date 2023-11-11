@@ -28,7 +28,7 @@ export default function LeagueSummaryTable({ leagueData, currentRound }) {
               selectedWinners[currentRound].numberOfWinnersInRound;
             return (
               <tr key={name} className={bracketStyles.titleRow}>
-                <td>{rank}</td>
+                <td className={bracketStyles.rankColumn}>{rank}</td>
                 <td>
                   <p className={bracketStyles.nameColumn}>{name}</p>
                 </td>

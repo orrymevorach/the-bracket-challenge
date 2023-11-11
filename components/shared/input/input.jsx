@@ -11,6 +11,7 @@ export default function Input({
   classNames,
   handleChange,
   labelClassNames = '',
+  placeholder = '',
 }) {
   return (
     <div className={styles.inputContainer}>
@@ -26,6 +27,7 @@ export default function Input({
         value={value}
         className={clsx(styles.input, classNames)}
         size="small"
+        placeholder={placeholder}
       />
     </div>
   );

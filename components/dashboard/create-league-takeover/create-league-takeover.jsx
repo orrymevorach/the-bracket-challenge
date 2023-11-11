@@ -32,22 +32,26 @@ export default function CreateLeagueTakeover({ setShowTakeover }) {
       {isLoading ? (
         <Loader color="black" />
       ) : (
-        <form
-          action="#"
-          onSubmit={e => handleSubmit(e)}
-          className={styles.form}
-        >
-          <p className={styles.label}>League Name</p>
-          <Input
-            handleChange={e => setLeagueName(e.target.value)}
-            type="text"
-            id="leagueName"
-            name="leagueName"
-            value={leagueName}
-            classNames={styles.input}
-          />
-          <Button classNames={styles.button}>Create League</Button>
-        </form>
+        <>
+          <p className={styles.title}>Create League</p>
+          <form
+            action="#"
+            onSubmit={e => handleSubmit(e)}
+            className={styles.form}
+          >
+            <Input
+              handleChange={e => setLeagueName(e.target.value)}
+              type="text"
+              id="leagueName"
+              name="leagueName"
+              value={leagueName}
+              classNames={styles.input}
+              label="Enter a name for your league"
+              labelClassNames={styles.label}
+            />
+            <Button classNames={styles.button}>Create League</Button>
+          </form>
+        </>
       )}
     </Takeover>
   );
