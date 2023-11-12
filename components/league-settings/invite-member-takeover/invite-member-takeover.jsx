@@ -1,16 +1,22 @@
 import { useState } from 'react';
 import { ROUTES } from '@/utils/constants';
 import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import { inviteMember } from '@/lib/mailgun';
+import useUser from '@/context/user-context/useUser';
 
 export default function InviteMemberTakeover({
   setShowTakeover,
   classNames = '',
   leagueId,
 }) {
-  const [membersName, setMemberName] = useState('');
-
+  const [memberEmail, setMemberEmail] = useState('');
+  const user = useUser();
   const handleSubmit = async () => {
-    // Send invite email to new user
+    const res = await inviteMember({
+      email: memberEmail,
+      leagueId,
+      admin: user.name,
+    });
     window.location = `${ROUTES.LEAGUE}/${leagueId}`;
   };
 
@@ -21,8 +27,8 @@ export default function InviteMemberTakeover({
       title="Invite Member"
       label="Email Address"
       buttonLabel="Invite"
-      inputValue={membersName}
-      setInputValue={setMemberName}
+      inputValue={memberEmail}
+      setInputValue={setMemberEmail}
       classNames={classNames}
     />
   );
