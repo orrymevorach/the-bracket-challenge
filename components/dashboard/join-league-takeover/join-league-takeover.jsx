@@ -26,7 +26,7 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
       memberRecordIds,
     });
     setIsLoading(false);
-    window.location = ROUTES.DASHBOARD;
+    window.location = `${ROUTES.LEAGUE}/${leagueId}`;
   };
 
   return (

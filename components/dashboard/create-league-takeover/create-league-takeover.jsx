@@ -21,7 +21,7 @@ export default function CreateLeagueTakeover({ setShowTakeover }) {
       memberRecordId: user.id,
     });
     setIsLoading(false);
-    window.location = ROUTES.DASHBOARD;
+    window.location = `${ROUTES.LEAGUE}/${response.id}`;
   };
 
   return (

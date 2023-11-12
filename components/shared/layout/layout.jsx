@@ -25,22 +25,24 @@ export default function Layout({ children }) {
   };
 
   return (
-    <div className={styles.layout}>
-      <div className={styles.topContainer}>
-        <p className={styles.name}>Hello, {firstName}!</p>
-        <div className={styles.buttonsContainer}>
-          {pathname !== ROUTES.DASHBOARD && (
-            <Button classNames={styles.button} href={ROUTES.DASHBOARD}>
-              Back to dashboard
+    <>
+      <div className={styles.layout}>
+        <div className={styles.topContainer}>
+          <p className={styles.name}>Hello, {firstName}!</p>
+          <div className={styles.buttonsContainer}>
+            {pathname !== ROUTES.DASHBOARD && (
+              <Button classNames={styles.button} href={ROUTES.DASHBOARD}>
+                Back to dashboard
+              </Button>
+            )}
+            <Button isLoading={isLoading} handleClick={handleSignOut}>
+              Sign Out
             </Button>
-          )}
-          <Button isLoading={isLoading} handleClick={handleSignOut}>
-            Sign Out
-          </Button>
+          </div>
         </div>
+        {children}
       </div>
-      {children}
       <Footer />
-    </div>
+    </>
   );
 }

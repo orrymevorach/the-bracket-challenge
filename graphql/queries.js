@@ -90,8 +90,8 @@ export const JOIN_LEAGUE = gql`
 `;
 
 export const GET_LEAGUE_BRACKETS = gql`
-  query GetLeagueBrackets($name: String) {
-    leagues(name: $name) {
+  query GetLeagueBrackets($id: String) {
+    leagues(id: $id) {
       brackets {
         name
         userName
@@ -123,6 +123,14 @@ export const GET_LEAGUE_BRACKETS = gql`
           name
         }
       }
+    }
+  }
+`;
+
+export const GET_LEAGUE_NAME = gql`
+  query GetLeagueName($id: String) {
+    leagues(id: $id) {
+      name
     }
   }
 `;

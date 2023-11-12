@@ -32,9 +32,7 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
             return (
               <tr key={league.leagueName}>
                 <td className={clsx(styles.leagueName)}>
-                  <Link href={`/league/${league.leagueName}`}>
-                    {league.leagueName}
-                  </Link>
+                  <Link href={`/league/${league.id}`}>{league.leagueName}</Link>
                 </td>
                 <td
                   className={clsx(
