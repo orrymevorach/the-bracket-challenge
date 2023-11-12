@@ -6,8 +6,12 @@ import {
   getRanking,
   sortSelectionsIntoRounds,
 } from '@/components/dashboard/bracket-ranking-utils';
+import { useRouter } from 'next/router';
 
-export default function useGetLeagueRankings({ slug }) {
+export default function useGetLeagueRankings() {
+  const {
+    query: { slug },
+  } = useRouter();
   const [bracketsSortedByRankings, setBracketsSortedByRankings] =
     useState(null);
   const winnersData = useWinners();

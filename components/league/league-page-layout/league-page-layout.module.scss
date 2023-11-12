@@ -1,0 +1,21 @@
+@use '@mixins' as mixins;
+
+.heading,
+.leagueName {
+  @include mixins.fontPrimary;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.leagueName {
+  font-size: 48px;
+  margin: 20px 0 100px;
+}
+
+.loader {
+  position: relative;
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+}

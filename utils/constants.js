@@ -3,6 +3,7 @@ export const ROUTES = {
   DASHBOARD: '/dashboard',
   BRACKET_CHALLENGE: '/bracket-challenge',
   LEAGUE: '/league',
+  LEAGUE_SETTINGS: '/league-settings',
 };
 
 export const COOKIES = {
