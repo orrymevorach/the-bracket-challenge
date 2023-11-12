@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -41,6 +42,16 @@ export const signInWithFirebaseEmailAndPassword = ({ email, password }) => {
 export const createFirebaseUser = ({ email, password }) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then(response => response)
+    .catch(error => {
+      return {
+        error,
+      };
+    });
+};
+
+export const signOutOfFirebase = () => {
+  return signOut(auth)
+    .then(() => {})
     .catch(error => {
       return {
         error,
