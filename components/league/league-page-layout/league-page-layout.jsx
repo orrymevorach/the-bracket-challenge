@@ -1,14 +1,10 @@
 import styles from './league-page-layout.module.scss';
 import Loader from 'components/shared/loader/loader';
-import { useRouter } from 'next/router';
 import Layout from '@/components/shared/layout/layout';
-import useGetLeagueConfig from '../useGetLeagueConfig';
+import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
 
 export default function LeaguePageLayout({ children, title }) {
-  const {
-    query: { slug },
-  } = useRouter();
-  const { name } = useGetLeagueConfig({ slug });
+  const { name } = useLeagueConfig();
   return (
     <Layout>
       {name ? (

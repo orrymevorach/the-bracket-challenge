@@ -4,13 +4,13 @@
     "paths": {
       "@/*": ["./*"],
       "components/*": ["components/*"],
-      "hooks/*": ["hooks/*"],
       "@variables": ["styles/variables.module.scss"],
       "@mixins": ["styles/mixins.module.scss"],
       "@animations": ["styles/animations.module.scss"],
       "utils": ["utils/constants.js"],
       "graphql/*": ["graphql/*"],
-      "lib": ["lib/*"]
+      "lib": ["lib/*"],
+      "context": ["context/*"]
     }
   }
 }

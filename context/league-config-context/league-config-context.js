@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import useGetLeagueConfig from '@/components/league/useGetLeagueConfig';
+import useGetLeagueConfig from '@/context/league-config-context/useGetLeagueConfig';
 
 const LeagueConfigContext = createContext();
 

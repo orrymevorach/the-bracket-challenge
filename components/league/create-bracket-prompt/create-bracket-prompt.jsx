@@ -1,6 +1,6 @@
 import Button from '@/components/shared/button/button';
 import styles from './create-bracket-prompt.module.scss';
-import useUser from '@/hooks/useUser';
+import useUser from '@/context/user-context/useUser';
 
 export default function CreateBracketPrompt({ brackets = [] }) {
   const user = useUser();

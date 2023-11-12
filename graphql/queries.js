@@ -148,6 +148,7 @@ export const GET_LEAGUE_MEMBERS = gql`
     leagues(id: $id) {
       members {
         id
+        name
       }
     }
   }
@@ -293,6 +294,14 @@ export const GET_WINNERS = gql`
       rR1M1 {
         name
       }
+    }
+  }
+`;
+
+export const EDIT_LEAGUE_NAME = gql`
+  mutation EditLeagueName($id: String, $leagueName: String) {
+    update_leagues(id: $id, name: $leagueName) {
+      id
     }
   }
 `;

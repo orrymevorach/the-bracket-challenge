@@ -16,5 +16,6 @@ export default function useGetLeagueConfig() {
       getLeagueConfigData();
     }
   }, [leagueConfig, slug]);
+
   return leagueConfig;
 }

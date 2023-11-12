@@ -24,6 +24,7 @@
     background-color: white;
     transition: 0.2s;
     border: 2px solid black;
+    svg,
     p {
       color: black;
     }
@@ -45,6 +46,10 @@
     &:hover {
       @include mixins.fontSecondary;
     }
+  }
+  svg {
+    position: relative;
+    top: -2px;
   }
 }
 

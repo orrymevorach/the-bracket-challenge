@@ -1,4 +1,4 @@
-import useUser from '@/hooks/useUser';
+import useUser from '@/context/user-context/useUser';
 import Button from '../button/button';
 import styles from './layout.module.scss';
 import Loader from '../loader/loader';
