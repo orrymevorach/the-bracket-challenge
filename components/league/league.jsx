@@ -25,28 +25,36 @@ export default function League() {
   const hasBracketData =
     !!bracketsSortedByRankings && bracketsSortedByRankings.length > 0;
   const currentUserHasBracket = hasBracketData
-    ? bracketsSortedByRankings.find(
-        ({ userName }) => user.name === userName[0].name
-      )
+    ? bracketsSortedByRankings.find(({ userName }) => user.name === userName[0])
     : null;
   return (
     <Layout>
       <p className={styles.heading}>League Rankings:</p>
       <p className={styles.leagueName}>{leagueName}</p>
-      <RoundButtons
-        currentRound={currentRound}
-        setCurrentRound={setCurrentRound}
-        setIsLoading={setIsLoading}
-      />
-      {isLoading && <Loader classNames={styles.loader} />}
       {!currentUserHasBracket && (
-        <Button classNames={styles.createBracketButton}>Create Bracket</Button>
+        <div className={styles.informationContainer}>
+          <p>
+            Time to pick your winners! Click the button below to set your
+            bracket.
+          </p>
+          <Button classNames={styles.createBracketButton}>
+            Create Bracket
+          </Button>
+        </div>
       )}
+      {isLoading && <Loader classNames={styles.loader} />}
       {!isLoading && hasBracketData && (
-        <LeagueRankingsTable
-          leagueData={bracketsSortedByRankings}
-          currentRound={currentRound.name}
-        />
+        <>
+          <RoundButtons
+            currentRound={currentRound}
+            setCurrentRound={setCurrentRound}
+            setIsLoading={setIsLoading}
+          />
+          <LeagueRankingsTable
+            leagueData={bracketsSortedByRankings}
+            currentRound={currentRound.name}
+          />
+        </>
       )}
     </Layout>
   );
