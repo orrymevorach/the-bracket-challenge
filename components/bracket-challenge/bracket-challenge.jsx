@@ -5,11 +5,9 @@ import { split } from 'utils/utils';
 import Loader from 'components/shared/loader/loader';
 import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
-import { useUser } from 'context/user-context/user-context';
 
 export default function BracketChallenge() {
   const { allMatchups } = useMatchups();
-  const { userTeamData, isUserTeamDataLoading } = useUser();
 
   const {
     roundOneMatchups = [],
@@ -19,8 +17,8 @@ export default function BracketChallenge() {
     winner,
   } = allMatchups;
 
-  if (isUserTeamDataLoading) {
-    return <Loader />;
+  if (!allMatchups.roundOneMatchups.length) {
+    return <Loader isDotted />;
   }
 
   const [firstHalfRoundOne, secondHalfRoundOne] = split(roundOneMatchups);
@@ -74,12 +72,14 @@ export default function BracketChallenge() {
           <BracketColumn matchups={updatedFirstHalfFinal} round={4} />
         </div>
         {winner.length ? (
-          <>
-            <h3>Winner!</h3>
-            <div className={styles.winner}>
-              <BracketColumn matchups={winner} round={5} />
-            </div>
-          </>
+          <div className={styles.winnerContainer}>
+            <h3>🏆</h3>
+            <BracketColumn
+              matchups={winner}
+              round={5}
+              bracketClassNames={styles.winnersBracket}
+            />
+          </div>
         ) : (
           ''
         )}

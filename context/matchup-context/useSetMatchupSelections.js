@@ -32,16 +32,16 @@ const reducer = (state, action) => {
         winner: action.winner,
         hasSetUserSelections: true,
       };
-    case 'SET_SAVED_SELECTIONS':
-      return {
-        ...state,
-        roundOneMatchups: action.roundOneMatchups,
-        quarterFinalMatchups: action.quarterFinalMatchups,
-        semiFinalMatchups: action.semiFinalMatchups,
-        finalsMatchup: action.finalsMatchup,
-        winner: action.winner,
-        hasCorrectWinners: true,
-      };
+    // case 'SET_SAVED_SELECTIONS':
+    //   return {
+    //     ...state,
+    //     roundOneMatchups: action.roundOneMatchups,
+    //     quarterFinalMatchups: action.quarterFinalMatchups,
+    //     semiFinalMatchups: action.semiFinalMatchups,
+    //     finalsMatchup: action.finalsMatchup,
+    //     winner: action.winner,
+    //     hasCorrectWinners: true,
+    //   };
     case 'SET_ROUND_ONE_WINNER':
       return {
         ...state,

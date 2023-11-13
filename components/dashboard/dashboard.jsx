@@ -4,7 +4,7 @@ import Loader from 'components/shared/loader/loader';
 import UserBracketsTable from './user-brackets-table/user-brackets-table';
 import useDashboardRankings from './useDashboardRankings';
 import { useWinners } from '@/context/winners-context/winners-context';
-import { ROUNDS } from '../league/round-buttons/round-buttons';
+import { ROUNDS } from '../league/league';
 import Layout from '../shared/layout/layout';
 import Button from '../shared/button/button';
 import { useState } from 'react';

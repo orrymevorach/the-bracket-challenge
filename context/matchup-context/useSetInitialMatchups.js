@@ -7,13 +7,13 @@ import {
   getRoundOneMatchups,
 } from './matchups';
 import { transformMatchupsObjectIntoArray } from './matchup-utils';
+import useGetSnowboarders from './useGetSnowboarders';
 
 const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   const roundOneMatchups = getRoundOneMatchups();
   for (let i = 0; i < snowboarders.length; i++) {
     const currentSnowboarder = snowboarders[i];
-    const currentSnowboardersRoundOneMatchupId =
-      currentSnowboarder.matchupId.split('_P')[0];
+    const currentSnowboardersRoundOneMatchupId = currentSnowboarder.matchupId;
     const currentRound = roundOneMatchups[currentSnowboardersRoundOneMatchupId];
     // limit the array to 2 to avoid pushing duplicates
     if (currentRound.snowboarders.length < 2) {
@@ -25,13 +25,10 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   return formattedRoundOneMatchups;
 };
 
-export const useSetInitialMatchups = ({
-  dispatch,
-  snowboarders,
-  hasSetRoundOneMatchups,
-}) => {
+export const useSetInitialMatchups = ({ dispatch }) => {
+  const snowboarders = useGetSnowboarders();
   useEffect(() => {
-    if (!hasSetRoundOneMatchups && snowboarders.length > 0) {
+    if (snowboarders.length > 0) {
       const setRoundOneMatchups = async () => {
         const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
         const quarterFinalMatchups = transformMatchupsObjectIntoArray(
@@ -56,5 +53,5 @@ export const useSetInitialMatchups = ({
       };
       setRoundOneMatchups();
     }
-  }, [dispatch, snowboarders, hasSetRoundOneMatchups]);
+  }, [dispatch, snowboarders]);
 };

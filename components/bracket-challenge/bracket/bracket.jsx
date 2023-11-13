@@ -1,5 +1,6 @@
 import Player from 'components/bracket-challenge/player/player';
 import styles from './bracket.module.scss';
+import clsx from 'clsx';
 
 export const getPlayerRowHeight = round => {
   let start = 1;
@@ -23,11 +24,12 @@ export default function Bracket({
   matchupId,
   winner,
   correctWinner,
+  bracketClassNames = '',
 }) {
   const height = getPlayerRowHeight(round);
   return (
     <div
-      className={styles.bracket}
+      className={clsx(styles.bracket, bracketClassNames)}
       style={{
         height: `${height}px`,
       }}

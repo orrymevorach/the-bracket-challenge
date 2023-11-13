@@ -2,22 +2,30 @@
   display: flex;
 }
 
+.bracketChallengeContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.winnerContainer {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.winnersBracket {
+  height: auto !important;
+}
+
 .submitButton {
   display: block;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 100px;
+  bottom: -50px;
   z-index: 10;
-}
-
-.winner {
-  position: absolute;
-  top: -150px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.bracketChallengeContainer {
-  position: relative;
 }

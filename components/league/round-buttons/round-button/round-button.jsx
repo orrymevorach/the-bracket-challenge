@@ -7,7 +7,7 @@ export default function RoundButton({
   setCurrentRound,
   currentRound,
   currentHoverRound,
-  setIsLoading,
+  setIsLoading = () => {},
 }) {
   const isCurrentRounnd = currentHoverRound
     ? !!(currentHoverRound.name === round.name)

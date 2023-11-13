@@ -1,14 +1,31 @@
 import styles from './league.module.scss';
 import Loader from 'components/shared/loader/loader';
 import { useState } from 'react';
-import RoundButtons, {
-  ROUNDS,
-} from '@/components/league/round-buttons/round-buttons';
+import RoundButtons from '@/components/league/round-buttons/round-buttons';
 import useGetLeagueRankings from '@/components/league/useGetLeagueRankings';
 import LeagueRankingsTable from '@/components/league/league-rankings-table/league-rankings-table';
 import LeaguePageLayout from './league-page-layout/league-page-layout';
 import SettingsButton from './settings-button/settings-button';
 import CreateBracketPrompt from './create-bracket-prompt/create-bracket-prompt';
+
+export const ROUNDS = [
+  {
+    displayName: 'Overall',
+    name: 'Overall',
+  },
+  {
+    displayName: 'NST Duels',
+    name: 'Duels',
+  },
+  {
+    displayName: 'Revelstoke Mountain Resort',
+    name: 'Revelstoke',
+  },
+  {
+    displayName: 'Selkirk Tangiers',
+    name: 'Selkirk',
+  },
+];
 
 export default function League() {
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
@@ -30,6 +47,7 @@ export default function League() {
             currentRound={currentRound}
             setCurrentRound={setCurrentRound}
             setIsLoading={setIsLoading}
+            rounds={ROUNDS}
           />
           <LeagueRankingsTable
             leagueData={bracketsSortedByRankings}
