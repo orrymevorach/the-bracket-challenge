@@ -2,6 +2,7 @@ import styles from './user-brackets-table.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
 import Button from '@/components/shared/button/button';
+import { ROUTES } from '@/utils/constants';
 
 export default function UserBracketsTable({ leagues = [], currentRound }) {
   return (
@@ -25,7 +26,11 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
               ? `${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`
               : '';
             const ranking = league.ranking || (
-              <Button isSmall classNames={styles.createBracketButton}>
+              <Button
+                isSmall
+                classNames={styles.createBracketButton}
+                href={ROUTES.BRACKET_CHALLENGE}
+              >
                 Create Bracket
               </Button>
             );

@@ -21,8 +21,8 @@ export const MatchupDataProvider = ({ children }) => {
     allMatchups: matchupData.allMatchups,
   });
 
-  useGetSavedSelections({ matchupData });
-  useApplyLiveResults({ matchupData });
+  // useGetSavedSelections({ matchupData });
+  // useApplyLiveResults({ matchupData });
 
   return (
     <MatchupContext.Provider value={matchupData}>

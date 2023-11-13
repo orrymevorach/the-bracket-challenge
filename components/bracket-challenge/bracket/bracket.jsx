@@ -1,4 +1,4 @@
-import Player from 'components/bracket-challenge/player';
+import Player from 'components/bracket-challenge/player/player';
 import styles from './bracket.module.scss';
 
 export const getPlayerRowHeight = round => {

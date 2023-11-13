@@ -1,3 +1,4 @@
+import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import { createBracket } from '@/lib/airtable';
 import BracketChallenge from 'components/bracket-challenge/bracket-challenge';
 import { useUser } from 'context/user-context/user-context';
@@ -24,5 +25,9 @@ const useBracket = () => {
 
 export default function Bracket() {
   useBracket();
-  return <BracketChallenge />;
+  return (
+    <MatchupDataProvider>
+      <BracketChallenge />
+    </MatchupDataProvider>
+  );
 }

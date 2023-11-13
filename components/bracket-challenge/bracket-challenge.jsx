@@ -1,8 +1,8 @@
-import BracketColumn from 'components/bracket-challenge/bracket-column';
+import BracketColumn from 'components/bracket-challenge/bracket-column/bracket-column';
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import { split } from 'utils/utils';
-import Loader from 'components/shared/loader';
+import Loader from 'components/shared/loader/loader';
 import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
 import { useUser } from 'context/user-context/user-context';
