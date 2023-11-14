@@ -23,6 +23,15 @@ export default function BracketChallengeContainer() {
     }
   }, [router]);
 
+  const currentWomensRoundName = `${currentRoundName}Women`;
+  const mapRoundToBracketConfig = {
+    Duels: 'sixteenSingle',
+    DuelsWomen: 'eightSingle',
+    Revelstoke: 'eightMulti',
+    RevelstokeWomen: 'fourMulti',
+    Selkirk: 'eightMulti',
+    SelkirkWomen: 'fourMulti',
+  };
   return (
     <>
       {isSettingName ? (
@@ -39,9 +48,26 @@ export default function BracketChallengeContainer() {
           {isLoading ? (
             <Loader classNames={styles.loader} />
           ) : (
-            <MatchupDataProvider snowboarders={snowboarders[currentRoundName]}>
-              <BracketChallenge currentRound={currentRoundName} />
-            </MatchupDataProvider>
+            <>
+              <MatchupDataProvider
+                snowboarders={snowboarders[currentRoundName]}
+              >
+                <BracketChallenge
+                  currentRound={currentRoundName}
+                  bracketConfig={mapRoundToBracketConfig[currentRoundName]}
+                />
+              </MatchupDataProvider>
+              <MatchupDataProvider
+                snowboarders={snowboarders[currentWomensRoundName]}
+              >
+                <BracketChallenge
+                  currentRound={currentWomensRoundName}
+                  bracketConfig={
+                    mapRoundToBracketConfig[currentWomensRoundName]
+                  }
+                />
+              </MatchupDataProvider>
+            </>
           )}
         </>
       )}

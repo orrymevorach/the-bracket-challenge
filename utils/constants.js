@@ -18,8 +18,11 @@ export const ROUND_NAMES = {
 
 export const ROUND_SUFFIXES = {
   Duels: 'D_',
+  DuelsWomen: 'DW_',
   Revelstoke: 'R_',
+  RevelstokeWomen: 'RW_',
   Selkirk: 'S_',
+  SelkirkWomen: 'SW_',
 };
 
 const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;

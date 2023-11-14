@@ -1,4 +1,3 @@
-import BracketColumn from 'components/bracket-challenge/bracket-column/bracket-column';
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import { split } from 'utils/utils';
@@ -8,11 +7,26 @@ import { updateUserBracket } from '@/lib/airtable';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { ROUND_NAMES, ROUND_SUFFIXES } from '@/utils/constants';
-import clsx from 'clsx';
+import GroupOfEightOneRound from './bracket-groups/group-of-eight-single-round';
+import GroupOfEightMultiRound from './bracket-groups/group-of-eight-multi-round';
+import GroupOfSixteenMultiRound from './bracket-groups/group-of-sixteen-multi-round';
+import GroupOfSixteenSingleRound from './bracket-groups/group-of-sixteen-single-round';
+import GroupOfFourMultiRound from './bracket-groups/group-of-four-multi-round';
 
 const { DUELS } = ROUND_NAMES;
 
-export default function BracketChallenge({ currentRound }) {
+const mapConfigToBracket = {
+  eightSingle: GroupOfEightOneRound,
+  eightMulti: GroupOfEightMultiRound,
+  sixteenSingle: GroupOfSixteenSingleRound,
+  sixteenMulti: GroupOfSixteenMultiRound,
+  fourMulti: GroupOfFourMultiRound,
+};
+
+export default function BracketChallenge({
+  currentRound,
+  bracketConfig = 'sixteenSingle',
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { matchups } = useMatchups();
   const router = useRouter();
@@ -36,7 +50,6 @@ export default function BracketChallenge({ currentRound }) {
   const [firstHalfFinal, secondHalfFinal] = split(
     finalsMatchup.length ? finalsMatchup[0].snowboarders : []
   );
-
   // This can be cleaned up. Final only has one matchup, and we need to show them on different sides
   const updatedFirstHalfFinal = [
     {
@@ -51,7 +64,6 @@ export default function BracketChallenge({ currentRound }) {
       snowboarders: secondHalfFinal,
     },
   ];
-
   const handleSubmit = async () => {
     setIsSubmitting(true);
     const matchupsAsArray = Object.entries(matchups);
@@ -67,6 +79,8 @@ export default function BracketChallenge({ currentRound }) {
     await updateUserBracket({ rounds, id: router.query.bracketId });
     setIsSubmitting(false);
   };
+
+  const Component = mapConfigToBracket[bracketConfig];
   return (
     <div className={styles.bracketChallengeContainer}>
       <Button
@@ -76,59 +90,19 @@ export default function BracketChallenge({ currentRound }) {
       >
         Submit
       </Button>
-      {currentRound !== DUELS ? (
-        <div className={styles.row}>
-          <div className={styles.row}>
-            <BracketColumn matchups={firstHalfRoundOne} round={1} />
-            <BracketColumn matchups={firstHalfQuarterFinal} round={2} />
-            <BracketColumn matchups={firstHalfSemiFinal} round={3} />
-            <BracketColumn
-              matchups={updatedFirstHalfFinal}
-              round={4}
-              isChampion={currentRound !== DUELS}
-            />
-          </div>
-        </div>
-      ) : (
-        <div className={styles.row}>
-          <div className={clsx(styles.row, styles.left)}>
-            <BracketColumn
-              matchups={firstHalfRoundOne}
-              round={1}
-              bracketClassNames={styles.duelsBracket}
-            />
-            <BracketColumn
-              matchups={firstHalfQuarterFinal}
-              round={2}
-              bracketClassNames={styles.duelsBracket}
-            />
-          </div>
-          <div className={styles.row}>
-            <BracketColumn
-              matchups={secondHalfQuarterFinal}
-              round={2}
-              bracketClassNames={styles.duelsBracket}
-            />
-            <BracketColumn
-              matchups={secondHalfRoundOne}
-              round={1}
-              bracketClassNames={styles.duelsBracket}
-            />
-          </div>
-        </div>
-      )}
-      {/* {currentRound === REVELSTOKE && winner.length ? (
-          <div className={styles.winnerContainer}>
-            <BracketColumn
-              matchups={winner}
-              round={5}
-              bracketClassNames={styles.winnersBracket}
-              isChampion
-            />
-          </div>
-        ) : (
-          ''
-        )} */}
+      <Component
+        firstHalfRoundOne={firstHalfRoundOne}
+        firstHalfQuarterFinal={firstHalfQuarterFinal}
+        firstHalfSemiFinal={firstHalfSemiFinal}
+        firstHalfFinal={firstHalfFinal}
+        secondHalfRoundOne={secondHalfRoundOne}
+        secondHalfQuarterFinal={secondHalfQuarterFinal}
+        secondHalfSemiFinal={secondHalfSemiFinal}
+        secondHalfFinal={secondHalfFinal}
+        winner={winner}
+        updatedFirstHalfFinal={updatedFirstHalfFinal}
+        updatedSecondHalfFinal={updatedSecondHalfFinal}
+      />
     </div>
   );
 }
