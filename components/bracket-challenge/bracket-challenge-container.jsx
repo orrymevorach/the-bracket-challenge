@@ -5,29 +5,24 @@ import Loader from '../shared/loader/loader';
 import styles from './bracket-challenge-container.module.scss';
 import { useRouter } from 'next/router';
 import RevelstokeBracket from './revelstoke-bracket/revelstoke-bracket';
+import SelkirkBracket from './selkirk-bracket/selkirk-bracket';
+import { ROUND_NAMES } from '@/utils/constants';
 
+const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;
 export const ROUNDS = [
   {
     displayName: 'NST Duels',
-    name: 'Duels',
+    name: DUELS,
   },
   {
     displayName: 'Revelstoke Mountain Resort',
-    name: 'Revelstoke',
+    name: REVELSTOKE,
   },
   {
     displayName: 'Selkirk Tangiers',
-    name: 'Selkirk',
+    name: SELKIRK,
   },
 ];
-
-const ROUND_NAMES = {
-  DUELS: 'Duels',
-  REVELSTOKE: 'Revelstoke',
-  SELKIRK: 'Selkirk',
-};
-
-const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;
 
 export default function BracketChallengeContainer() {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,6 +53,7 @@ export default function BracketChallengeContainer() {
           {!isLoading && currentRoundName === REVELSTOKE && (
             <RevelstokeBracket />
           )}
+          {!isLoading && currentRoundName === SELKIRK && <SelkirkBracket />}
         </>
       )}
     </>

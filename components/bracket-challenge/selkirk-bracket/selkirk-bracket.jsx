@@ -3,11 +3,11 @@ import { useSnowboarders } from '@/context/snowboarders-context/snowboarders-con
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import { ROUND_NAMES } from '@/utils/constants';
 
-export default function RevelstokeBracket() {
+export default function SelkirkBracket() {
   const snowboarders = useSnowboarders();
   return (
-    <MatchupDataProvider snowboarders={snowboarders.revelstoke}>
-      <BracketChallenge currentRound={ROUND_NAMES.REVELSTOKE} />
+    <MatchupDataProvider snowboarders={snowboarders.selkirk}>
+      <BracketChallenge currentRound={ROUND_NAMES.SELKIRK} />
     </MatchupDataProvider>
   );
 }

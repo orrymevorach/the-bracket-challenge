@@ -15,7 +15,7 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
     const currentSnowboardersRoundOneMatchupId = currentSnowboarder.matchupId;
     const currentRound = roundOneMatchups[currentSnowboardersRoundOneMatchupId];
     // limit the array to 2 to avoid pushing duplicates
-    if (currentRound.snowboarders.length < 2) {
+    if (currentRound?.snowboarders?.length < 2) {
       currentRound.snowboarders.push(currentSnowboarder);
     }
   }

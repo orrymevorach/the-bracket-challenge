@@ -166,7 +166,7 @@ export default function useSetMatchupSelections() {
     hasCorrectWinners,
   } = state;
   return {
-    revelstokeMatchups: {
+    matchups: {
       roundOneMatchups,
       quarterFinalMatchups,
       semiFinalMatchups,

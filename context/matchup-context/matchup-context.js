@@ -12,9 +12,9 @@ export const useMatchups = () => {
 };
 
 export const MatchupDataProvider = ({ snowboarders, children }) => {
-  const revelstokeMatchupData = useSetMatchupSelections();
+  const matchupData = useSetMatchupSelections();
   useSetInitialMatchups({
-    dispatch: revelstokeMatchupData.dispatch,
+    dispatch: matchupData.dispatch,
     snowboarders,
   });
 
@@ -22,7 +22,7 @@ export const MatchupDataProvider = ({ snowboarders, children }) => {
   // useApplyLiveResults({ matchupData });
 
   return (
-    <MatchupContext.Provider value={revelstokeMatchupData}>
+    <MatchupContext.Provider value={matchupData}>
       {children}
     </MatchupContext.Provider>
   );

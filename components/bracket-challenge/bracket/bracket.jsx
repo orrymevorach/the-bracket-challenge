@@ -25,6 +25,7 @@ export default function Bracket({
   winner,
   correctWinner,
   bracketClassNames = '',
+  isChampion = false,
 }) {
   const height = getPlayerRowHeight(round);
   return (
@@ -44,6 +45,7 @@ export default function Bracket({
               matchupId={matchupId}
               selectedWinner={winner}
               correctWinner={correctWinner}
+              isChampion={isChampion}
             />
           );
         })}

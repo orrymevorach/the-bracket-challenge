@@ -5,8 +5,9 @@ export const GET_SNOWBOARDERS = gql`
     snowboarders {
       name
       id
-      revelstokeMatchupId
       duelsMatchupId
+      revelstokeMatchupId
+      selkirkMatchupId
       country
     }
   }
@@ -179,7 +180,13 @@ export const UPDATE_USER_BRACKET = gql`
     $R_R3_M1: [String]
     $R_R3_M2: [String]
     $R_R4_M1: [String]
-    $R_R5_M1: [String]
+    $S_R1_M1: [String]
+    $S_R1_M2: [String]
+    $S_R1_M3: [String]
+    $S_R1_M4: [String]
+    $S_R2_M1: [String]
+    $S_R2_M2: [String]
+    $S_R3_M1: [String]
   ) {
     update_userBrackets(
       id: $id
@@ -198,7 +205,13 @@ export const UPDATE_USER_BRACKET = gql`
       rR3M1: $R_R3_M1
       rR3M2: $R_R3_M2
       rR4M1: $R_R4_M1
-      rR5M1: $R_R5_M1
+      sR1M1: $S_R1_M1
+      sR1M2: $S_R1_M2
+      sR1M3: $S_R1_M3
+      sR1M4: $S_R1_M4
+      sR2M1: $S_R2_M1
+      sR2M2: $S_R2_M2
+      sR3M1: $S_R3_M1
     ) {
       id
     }

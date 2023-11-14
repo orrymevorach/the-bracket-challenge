@@ -5,12 +5,15 @@ import { split } from 'utils/utils';
 import Loader from 'components/shared/loader/loader';
 import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { ROUND_NAMES } from '@/utils/constants';
 
-export default function BracketChallenge() {
+const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;
+
+export default function BracketChallenge({ currentRound }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { revelstokeMatchups } = useMatchups();
+  const { matchups } = useMatchups();
   const router = useRouter();
 
   const {
@@ -19,9 +22,9 @@ export default function BracketChallenge() {
     semiFinalMatchups = [],
     finalsMatchup = [],
     winner,
-  } = revelstokeMatchups;
+  } = matchups;
 
-  if (!revelstokeMatchups.roundOneMatchups.length) {
+  if (!matchups.roundOneMatchups.length) {
     return <Loader isDotted />;
   }
 
@@ -36,25 +39,27 @@ export default function BracketChallenge() {
   // This can be cleaned up. Final only has one matchup, and we need to show them on different sides
   const updatedFirstHalfFinal = [
     {
-      matchupId: 'R_R4_M1',
+      matchupId: 'R4_M1',
       snowboarders: firstHalfFinal,
     },
   ];
 
   const updatedSecondHalfFinal = [
     {
-      matchupId: 'R_R4_M1',
+      matchupId: 'R4_M1',
       snowboarders: secondHalfFinal,
     },
   ];
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    const matchupsAsArray = Object.entries(revelstokeMatchups);
+    const matchupsAsArray = Object.entries(matchups);
     const rounds = matchupsAsArray.reduce((acc, curr) => {
       const [_, roundMatchups] = curr;
       for (let matchup of roundMatchups) {
-        acc[matchup.matchupId] = matchup.winner?.id;
+        const suffix = suffixes[currentRound];
+        const key = `${suffix}${matchup.matchupId}`;
+        acc[key] = matchup.winner?.id;
       }
       return acc;
     }, {});
@@ -75,27 +80,32 @@ export default function BracketChallenge() {
           <BracketColumn matchups={firstHalfRoundOne} round={1} />
           <BracketColumn matchups={firstHalfQuarterFinal} round={2} />
           <BracketColumn matchups={firstHalfSemiFinal} round={3} />
-          <BracketColumn matchups={updatedFirstHalfFinal} round={4} />
+          <BracketColumn
+            matchups={updatedFirstHalfFinal}
+            round={4}
+            isChampion={currentRound === SELKIRK}
+          />
         </div>
-        {winner.length ? (
+        {currentRound === REVELSTOKE && winner.length ? (
           <div className={styles.winnerContainer}>
-            <h3>🏆</h3>
             <BracketColumn
               matchups={winner}
               round={5}
               bracketClassNames={styles.winnersBracket}
+              isChampion
             />
           </div>
         ) : (
           ''
         )}
-
-        <div className={styles.row}>
-          <BracketColumn matchups={updatedSecondHalfFinal} round={4} />
-          <BracketColumn matchups={secondHalfSemiFinal} round={3} />
-          <BracketColumn matchups={secondHalfQuarterFinal} round={2} />
-          <BracketColumn matchups={secondHalfRoundOne} round={1} />
-        </div>
+        {currentRound === REVELSTOKE && (
+          <div className={styles.row}>
+            <BracketColumn matchups={updatedSecondHalfFinal} round={4} />
+            <BracketColumn matchups={secondHalfSemiFinal} round={3} />
+            <BracketColumn matchups={secondHalfQuarterFinal} round={2} />
+            <BracketColumn matchups={secondHalfRoundOne} round={1} />
+          </div>
+        )}
       </div>
     </div>
   );

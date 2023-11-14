@@ -3,7 +3,7 @@ import { useMatchups } from 'context/matchup-context/matchup-context';
 import Image from 'next/image';
 
 export default function Player(player) {
-  const { name, country, matchupId } = player;
+  const { name, country, matchupId, isChampion } = player;
   const { setWinner } = useMatchups();
 
   const mapCountryToFlagImg = {
@@ -17,25 +17,28 @@ export default function Player(player) {
   const flagImage = mapCountryToFlagImg[country];
   const [firstName, lastName] = name ? name.split(' ') : '';
   return (
-    <button
-      className={styles.playerContainer}
-      onClick={() => setWinner({ player, matchupId })}
-    >
-      <div className={styles.textFlagContainer}>
-        <div>
-          <p className={styles.playerName}>{firstName}</p>
-          <p className={styles.playerName}>{lastName}</p>
+    <div>
+      {isChampion && <p className={styles.trophy}>🏆</p>}
+      <button
+        className={styles.playerContainer}
+        onClick={() => setWinner({ player, matchupId })}
+      >
+        <div className={styles.textFlagContainer}>
+          <div>
+            <p className={styles.playerName}>{firstName}</p>
+            <p className={styles.playerName}>{lastName}</p>
+          </div>
+          {flagImage && (
+            <Image
+              src={flagImage}
+              alt={`${country} flag`}
+              className={styles.flag}
+              width="50"
+              height="50"
+            />
+          )}
         </div>
-        {flagImage && (
-          <Image
-            src={flagImage}
-            alt={`${country} flag`}
-            className={styles.flag}
-            width="50"
-            height="50"
-          />
-        )}
-      </div>
-    </button>
+      </button>
+    </div>
   );
 }

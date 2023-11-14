@@ -5,6 +5,7 @@ export default function BracketColumn({
   matchups,
   round,
   bracketClassNames = '',
+  isChampion = false,
 }) {
   return (
     <div className={styles.bracketColumn}>
@@ -15,6 +16,7 @@ export default function BracketColumn({
             round={round}
             {...matchup}
             bracketClassNames={bracketClassNames}
+            isChampion={isChampion}
           />
         );
       })}
