@@ -5,9 +5,13 @@ import { split } from 'utils/utils';
 import Loader from 'components/shared/loader/loader';
 import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export default function BracketChallenge() {
-  const { allMatchups } = useMatchups();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { revelstokeMatchups } = useMatchups();
+  const router = useRouter();
 
   const {
     roundOneMatchups = [],
@@ -15,9 +19,9 @@ export default function BracketChallenge() {
     semiFinalMatchups = [],
     finalsMatchup = [],
     winner,
-  } = allMatchups;
+  } = revelstokeMatchups;
 
-  if (!allMatchups.roundOneMatchups.length) {
+  if (!revelstokeMatchups.roundOneMatchups.length) {
     return <Loader isDotted />;
   }
 
@@ -32,35 +36,37 @@ export default function BracketChallenge() {
   // This can be cleaned up. Final only has one matchup, and we need to show them on different sides
   const updatedFirstHalfFinal = [
     {
-      matchupId: 'R4_M1',
+      matchupId: 'R_R4_M1',
       snowboarders: firstHalfFinal,
     },
   ];
 
   const updatedSecondHalfFinal = [
     {
-      matchupId: 'R4_M1',
+      matchupId: 'R_R4_M1',
       snowboarders: secondHalfFinal,
     },
   ];
 
   const handleSubmit = async () => {
-    const allMatchupsAsArray = Object.entries(allMatchups);
-    const rounds = allMatchupsAsArray.reduce((acc, curr) => {
+    setIsSubmitting(true);
+    const matchupsAsArray = Object.entries(revelstokeMatchups);
+    const rounds = matchupsAsArray.reduce((acc, curr) => {
       const [_, roundMatchups] = curr;
       for (let matchup of roundMatchups) {
         acc[matchup.matchupId] = matchup.winner?.id;
       }
       return acc;
     }, {});
-
-    await updateUserBracket({ rounds, id: userTeamData.brackets[0].id });
+    await updateUserBracket({ rounds, id: router.query.bracketId });
+    setIsSubmitting(false);
   };
   return (
     <div className={styles.bracketChallengeContainer}>
       <Button
         classNames={styles.submitButton}
         handleClick={() => handleSubmit()}
+        isLoading={isSubmitting}
       >
         Submit
       </Button>

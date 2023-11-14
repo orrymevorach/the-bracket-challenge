@@ -5,36 +5,9 @@ export const GET_SNOWBOARDERS = gql`
     snowboarders {
       name
       id
-      matchupId
+      revelstokeMatchupId
+      duelsMatchupId
       country
-    }
-  }
-`;
-
-export const GET_USER_TEAM = gql`
-  query GetUserTeam($name: String) {
-    userTeams(name: $name) {
-      name
-      quarterFinalMatchups {
-        name
-        matchupId
-        id
-      }
-      semiFinalMatchups {
-        name
-        matchupId
-        id
-      }
-      finalsMatchup {
-        name
-        matchupId
-        id
-      }
-      winner {
-        name
-        matchupId
-        id
-      }
     }
   }
 `;
@@ -191,66 +164,46 @@ export const GET_BRACKET = gql`
 export const UPDATE_USER_BRACKET = gql`
   mutation UPDATE_USER_BRACKET(
     $id: String
-    $R1_M1: [String]
-    $R1_M2: [String]
-    $R1_M3: [String]
-    $R1_M4: [String]
-    $R1_M5: [String]
-    $R1_M6: [String]
-    $R1_M7: [String]
-    $R1_M8: [String]
-    $R2_M1: [String]
-    $R2_M2: [String]
-    $R2_M3: [String]
-    $R2_M4: [String]
-    $R3_M1: [String]
-    $R3_M2: [String]
-    $R4_M1: [String]
-    $R5_M1: [String]
+    $R_R1_M1: [String]
+    $R_R1_M2: [String]
+    $R_R1_M3: [String]
+    $R_R1_M4: [String]
+    $R_R1_M5: [String]
+    $R_R1_M6: [String]
+    $R_R1_M7: [String]
+    $R_R1_M8: [String]
+    $R_R2_M1: [String]
+    $R_R2_M2: [String]
+    $R_R2_M3: [String]
+    $R_R2_M4: [String]
+    $R_R3_M1: [String]
+    $R_R3_M2: [String]
+    $R_R4_M1: [String]
+    $R_R5_M1: [String]
   ) {
     update_userBrackets(
       id: $id
-      r1M1: $R1_M1
-      r1M2: $R1_M2
-      r1M3: $R1_M3
-      r1M4: $R1_M4
-      r1M5: $R1_M5
-      r1M6: $R1_M6
-      r1M7: $R1_M7
-      r1M8: $R1_M8
-      r2M1: $R2_M1
-      r2M2: $R2_M2
-      r2M3: $R2_M3
-      r2M4: $R2_M4
-      r3M1: $R3_M1
-      r3M2: $R3_M2
-      r4M1: $R4_M1
-      r5M1: $R5_M1
+      rR1M1: $R_R1_M1
+      rR1M2: $R_R1_M2
+      rR1M3: $R_R1_M3
+      rR1M4: $R_R1_M4
+      rR1M5: $R_R1_M5
+      rR1M6: $R_R1_M6
+      rR1M7: $R_R1_M7
+      rR1M8: $R_R1_M8
+      rR2M1: $R_R2_M1
+      rR2M2: $R_R2_M2
+      rR2M3: $R_R2_M3
+      rR2M4: $R_R2_M4
+      rR3M1: $R_R3_M1
+      rR3M2: $R_R3_M2
+      rR4M1: $R_R4_M1
+      rR5M1: $R_R5_M1
     ) {
       id
     }
   }
 `;
-
-// export const UPDATE_USER_BRACKET = gql`
-//   mutation UPDATE_USER_BRACKET(
-//     $id: String
-//     $roundOneWinners: [String]
-//     $quarterFinalWinners: [String]
-//     $semiFinalWinners: [String]
-//     $winner: [String]
-//   ) {
-//     update_userBrackets(
-//       id: $id
-//       roundOneWinners: $roundOneWinners
-//       quarterFinalWinners: $quarterFinalWinners
-//       semiFinalWinners: $semiFinalWinners
-//       winner: $winner
-//     ) {
-//       id
-//     }
-//   }
-// `;
 
 export const GET_WINNERS = gql`
   query GetWinners($name: String) {

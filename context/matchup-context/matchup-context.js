@@ -1,7 +1,7 @@
 import useSetMatchupSelections from './useSetMatchupSelections';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
-import useGetSavedSelections from './useGetSavedSelections';
-import useApplyLiveResults from './useApplyLiveResults';
+// import useGetSavedSelections from './useGetSavedSelections';
+// import useApplyLiveResults from './useApplyLiveResults';
 
 const { createContext, useContext } = require('react');
 
@@ -11,17 +11,18 @@ export const useMatchups = () => {
   return useContext(MatchupContext);
 };
 
-export const MatchupDataProvider = ({ children }) => {
-  const matchupData = useSetMatchupSelections();
+export const MatchupDataProvider = ({ snowboarders, children }) => {
+  const revelstokeMatchupData = useSetMatchupSelections();
   useSetInitialMatchups({
-    dispatch: matchupData.dispatch,
+    dispatch: revelstokeMatchupData.dispatch,
+    snowboarders,
   });
 
   // useGetSavedSelections({ matchupData });
   // useApplyLiveResults({ matchupData });
 
   return (
-    <MatchupContext.Provider value={matchupData}>
+    <MatchupContext.Provider value={revelstokeMatchupData}>
       {children}
     </MatchupContext.Provider>
   );

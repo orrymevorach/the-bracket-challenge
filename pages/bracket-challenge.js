@@ -1,10 +1,10 @@
 import BracketChallengeContainer from '@/components/bracket-challenge/bracket-challenge-container';
-import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
+import { SnowboardersProvider } from '@/context/snowboarders-context/snowboarders-context';
 
 export default function Bracket() {
   return (
-    <MatchupDataProvider>
+    <SnowboardersProvider>
       <BracketChallengeContainer />
-    </MatchupDataProvider>
+    </SnowboardersProvider>
   );
 }

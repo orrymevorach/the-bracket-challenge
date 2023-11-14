@@ -7,7 +7,6 @@ import {
   getRoundOneMatchups,
 } from './matchups';
 import { transformMatchupsObjectIntoArray } from './matchup-utils';
-import useGetSnowboarders from './useGetSnowboarders';
 
 const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   const roundOneMatchups = getRoundOneMatchups();
@@ -25,12 +24,13 @@ const addSnowboardersToMatchups = ({ snowboarders = [] }) => {
   return formattedRoundOneMatchups;
 };
 
-export const useSetInitialMatchups = ({ dispatch }) => {
-  const snowboarders = useGetSnowboarders();
+export const useSetInitialMatchups = ({ snowboarders = [], dispatch }) => {
   useEffect(() => {
     if (snowboarders.length > 0) {
       const setRoundOneMatchups = async () => {
-        const roundOneMatchups = addSnowboardersToMatchups({ snowboarders });
+        const roundOneMatchups = addSnowboardersToMatchups({
+          snowboarders,
+        });
         const quarterFinalMatchups = transformMatchupsObjectIntoArray(
           getQuarterFinalMatchups({})
         );

@@ -1,12 +1,10 @@
 import RoundButtons from '../league/round-buttons/round-buttons';
-import { useState } from 'react';
-import BracketChallenge from './bracket-challenge';
+import { useEffect, useState } from 'react';
+import SetBracketName from './set-bracket-name/set-bracket-name';
 import Loader from '../shared/loader/loader';
-import Input from '../shared/input/input';
-import Button from '../shared/button/button';
 import styles from './bracket-challenge-container.module.scss';
-import { createBracket } from '@/lib/airtable';
-import useUser from '@/context/user-context/useUser';
+import { useRouter } from 'next/router';
+import RevelstokeBracket from './revelstoke-bracket/revelstoke-bracket';
 
 export const ROUNDS = [
   {
@@ -23,49 +21,26 @@ export const ROUNDS = [
   },
 ];
 
-function SetBracketName({ setIsSettingName }) {
-  const user = useUser();
-  const [isLoading, setIsLoading] = useState(false);
-  const [bracketName, setBracketName] = useState('');
+const ROUND_NAMES = {
+  DUELS: 'Duels',
+  REVELSTOKE: 'Revelstoke',
+  SELKIRK: 'Selkirk',
+};
 
-  const handleSubmitForm = async e => {
-    e.preventDefault();
-    setIsLoading(true);
-    await createBracket({ name: bracketName, memberId: user.id });
-    setIsSettingName(false);
-  };
-
-  return (
-    <div className={styles.bracketNameContainer}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <p className={styles.title}>Enter bracket name</p>
-          <form
-            action="#"
-            onSubmit={e => handleSubmitForm(e)}
-            className={styles.form}
-          >
-            <Input
-              type="text"
-              id="input"
-              value={bracketName}
-              handleChange={e => setBracketName(e.target.value)}
-              classNames={styles.input}
-              labelClassNames={styles.label}
-            />
-            <Button classNames={styles.button}>Submit</Button>
-          </form>
-        </>
-      )}
-    </div>
-  );
-}
+const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;
 
 export default function BracketChallengeContainer() {
+  const [isLoading, setIsLoading] = useState(false);
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
+  const currentRoundName = currentRound.name;
   const [isSettingName, setIsSettingName] = useState(true);
+
+  const router = useRouter();
+  useEffect(() => {
+    if (router.query.bracketId) {
+      setIsSettingName(false);
+    }
+  }, [router]);
   return (
     <>
       {isSettingName ? (
@@ -76,8 +51,13 @@ export default function BracketChallengeContainer() {
             currentRound={currentRound}
             setCurrentRound={setCurrentRound}
             rounds={ROUNDS}
+            setIsLoading={setIsLoading}
+            classNames={styles.roundButtons}
           />
-          <BracketChallenge />
+          {isLoading && <Loader />}
+          {!isLoading && currentRoundName === REVELSTOKE && (
+            <RevelstokeBracket />
+          )}
         </>
       )}
     </>
