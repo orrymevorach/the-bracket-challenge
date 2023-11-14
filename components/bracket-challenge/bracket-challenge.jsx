@@ -72,7 +72,9 @@ export default function BracketChallenge({
       for (let matchup of roundMatchups) {
         const suffix = ROUND_SUFFIXES[currentRound];
         const key = `${suffix}${matchup.matchupId}`;
-        acc[key] = matchup.winner?.id;
+        if (matchup.winner?.id) {
+          acc[key] = matchup.winner?.id;
+        }
       }
       return acc;
     }, {});

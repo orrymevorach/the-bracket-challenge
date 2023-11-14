@@ -18,7 +18,8 @@
 }
 
 .winnersBracket {
-  height: auto !important;
+  display: flex;
+  align-items: center;
 }
 
 .submitButton {
