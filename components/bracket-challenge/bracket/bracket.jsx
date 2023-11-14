@@ -35,21 +35,19 @@ export default function Bracket({
         height: `${height}px`,
       }}
     >
-      <div>
-        {snowboarders.slice().map((snowboarder, index) => {
-          return (
-            <Player
-              key={`matchup-${matchupId}-${index}`}
-              {...snowboarder}
-              round={round}
-              matchupId={matchupId}
-              selectedWinner={winner}
-              correctWinner={correctWinner}
-              isChampion={isChampion}
-            />
-          );
-        })}
-      </div>
+      {snowboarders.slice().map((snowboarder, index) => {
+        return (
+          <Player
+            key={`matchup-${matchupId}-${index}`}
+            {...snowboarder}
+            round={round}
+            matchupId={matchupId}
+            selectedWinner={winner}
+            correctWinner={correctWinner}
+            isChampion={isChampion}
+          />
+        );
+      })}
     </div>
   );
 }

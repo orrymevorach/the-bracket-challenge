@@ -3,44 +3,46 @@ import { ROUND_SUFFIXES } from '@/utils/constants';
 import { useEffect, useState } from 'react';
 
 const sortSnowboardersByRound = ({ snowboarders }) => {
-  let duels = [];
-  let revelstoke = [];
-  let selkirk = [];
+  let Duels = [];
+  let Revelstoke = [];
+  let Selkirk = [];
 
   for (let snowboarder of snowboarders) {
-    const snowboarderCopy = { ...snowboarder };
     if (snowboarder.duelsMatchupId) {
       // Renaming field to make it generic
+      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.duelsMatchupId.replace(
         ROUND_SUFFIXES.Duels,
         ''
       );
       snowboarderCopy.matchupId = matchupId;
-      duels.push(snowboarderCopy);
+      Duels.push(snowboarderCopy);
     }
     if (snowboarder.revelstokeMatchupId) {
       // Renaming field to make it generic
+      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.revelstokeMatchupId.replace(
         ROUND_SUFFIXES.Revelstoke,
         ''
       );
       snowboarderCopy.matchupId = matchupId;
-      revelstoke.push(snowboarderCopy);
+      Revelstoke.push(snowboarderCopy);
     }
     if (snowboarder.selkirkMatchupId) {
       // Renaming field to make it generic
+      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.selkirkMatchupId.replace(
         ROUND_SUFFIXES.Selkirk,
         ''
       );
       snowboarderCopy.matchupId = matchupId;
-      selkirk.push(snowboarderCopy);
+      Selkirk.push(snowboarderCopy);
     }
   }
   return {
-    duels,
-    revelstoke,
-    selkirk,
+    Duels,
+    Revelstoke,
+    Selkirk,
   };
 };
 

@@ -21,3 +21,19 @@ export const ROUND_SUFFIXES = {
   Revelstoke: 'R_',
   Selkirk: 'S_',
 };
+
+const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;
+export const ROUNDS = [
+  {
+    displayName: 'NST Duels',
+    name: DUELS,
+  },
+  {
+    displayName: 'Revelstoke Mountain Resort',
+    name: REVELSTOKE,
+  },
+  {
+    displayName: 'Selkirk Tangiers',
+    name: SELKIRK,
+  },
+];

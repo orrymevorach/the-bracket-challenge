@@ -165,21 +165,21 @@ export const GET_BRACKET = gql`
 export const UPDATE_USER_BRACKET = gql`
   mutation UPDATE_USER_BRACKET(
     $id: String
+    $D_R1_M1: [String]
+    $D_R1_M2: [String]
+    $D_R1_M3: [String]
+    $D_R1_M4: [String]
+    $D_R1_M5: [String]
+    $D_R1_M6: [String]
+    $D_R1_M7: [String]
+    $D_R1_M8: [String]
     $R_R1_M1: [String]
     $R_R1_M2: [String]
     $R_R1_M3: [String]
     $R_R1_M4: [String]
-    $R_R1_M5: [String]
-    $R_R1_M6: [String]
-    $R_R1_M7: [String]
-    $R_R1_M8: [String]
     $R_R2_M1: [String]
     $R_R2_M2: [String]
-    $R_R2_M3: [String]
-    $R_R2_M4: [String]
     $R_R3_M1: [String]
-    $R_R3_M2: [String]
-    $R_R4_M1: [String]
     $S_R1_M1: [String]
     $S_R1_M2: [String]
     $S_R1_M3: [String]
@@ -190,21 +190,21 @@ export const UPDATE_USER_BRACKET = gql`
   ) {
     update_userBrackets(
       id: $id
+      dR1M1: $D_R1_M1
+      dR1M2: $D_R1_M2
+      dR1M3: $D_R1_M3
+      dR1M4: $D_R1_M4
+      dR1M5: $D_R1_M5
+      dR1M6: $D_R1_M6
+      dR1M7: $D_R1_M7
+      dR1M8: $D_R1_M8
       rR1M1: $R_R1_M1
       rR1M2: $R_R1_M2
       rR1M3: $R_R1_M3
       rR1M4: $R_R1_M4
-      rR1M5: $R_R1_M5
-      rR1M6: $R_R1_M6
-      rR1M7: $R_R1_M7
-      rR1M8: $R_R1_M8
       rR2M1: $R_R2_M1
       rR2M2: $R_R2_M2
-      rR2M3: $R_R2_M3
-      rR2M4: $R_R2_M4
       rR3M1: $R_R3_M1
-      rR3M2: $R_R3_M2
-      rR4M1: $R_R4_M1
       sR1M1: $S_R1_M1
       sR1M2: $S_R1_M2
       sR1M3: $S_R1_M3

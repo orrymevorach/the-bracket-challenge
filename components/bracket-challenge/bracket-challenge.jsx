@@ -7,9 +7,10 @@ import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { ROUND_NAMES } from '@/utils/constants';
+import { ROUND_NAMES, ROUND_SUFFIXES } from '@/utils/constants';
+import clsx from 'clsx';
 
-const { DUELS, REVELSTOKE, SELKIRK } = ROUND_NAMES;
+const { DUELS } = ROUND_NAMES;
 
 export default function BracketChallenge({ currentRound }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +58,7 @@ export default function BracketChallenge({ currentRound }) {
     const rounds = matchupsAsArray.reduce((acc, curr) => {
       const [_, roundMatchups] = curr;
       for (let matchup of roundMatchups) {
-        const suffix = suffixes[currentRound];
+        const suffix = ROUND_SUFFIXES[currentRound];
         const key = `${suffix}${matchup.matchupId}`;
         acc[key] = matchup.winner?.id;
       }
@@ -75,18 +76,48 @@ export default function BracketChallenge({ currentRound }) {
       >
         Submit
       </Button>
-      <div className={styles.row}>
+      {currentRound !== DUELS ? (
         <div className={styles.row}>
-          <BracketColumn matchups={firstHalfRoundOne} round={1} />
-          <BracketColumn matchups={firstHalfQuarterFinal} round={2} />
-          <BracketColumn matchups={firstHalfSemiFinal} round={3} />
-          <BracketColumn
-            matchups={updatedFirstHalfFinal}
-            round={4}
-            isChampion={currentRound === SELKIRK}
-          />
+          <div className={styles.row}>
+            <BracketColumn matchups={firstHalfRoundOne} round={1} />
+            <BracketColumn matchups={firstHalfQuarterFinal} round={2} />
+            <BracketColumn matchups={firstHalfSemiFinal} round={3} />
+            <BracketColumn
+              matchups={updatedFirstHalfFinal}
+              round={4}
+              isChampion={currentRound !== DUELS}
+            />
+          </div>
         </div>
-        {currentRound === REVELSTOKE && winner.length ? (
+      ) : (
+        <div className={styles.row}>
+          <div className={clsx(styles.row, styles.left)}>
+            <BracketColumn
+              matchups={firstHalfRoundOne}
+              round={1}
+              bracketClassNames={styles.duelsBracket}
+            />
+            <BracketColumn
+              matchups={firstHalfQuarterFinal}
+              round={2}
+              bracketClassNames={styles.duelsBracket}
+            />
+          </div>
+          <div className={styles.row}>
+            <BracketColumn
+              matchups={secondHalfQuarterFinal}
+              round={2}
+              bracketClassNames={styles.duelsBracket}
+            />
+            <BracketColumn
+              matchups={secondHalfRoundOne}
+              round={1}
+              bracketClassNames={styles.duelsBracket}
+            />
+          </div>
+        </div>
+      )}
+      {/* {currentRound === REVELSTOKE && winner.length ? (
           <div className={styles.winnerContainer}>
             <BracketColumn
               matchups={winner}
@@ -97,16 +128,7 @@ export default function BracketChallenge({ currentRound }) {
           </div>
         ) : (
           ''
-        )}
-        {currentRound === REVELSTOKE && (
-          <div className={styles.row}>
-            <BracketColumn matchups={updatedSecondHalfFinal} round={4} />
-            <BracketColumn matchups={secondHalfSemiFinal} round={3} />
-            <BracketColumn matchups={secondHalfQuarterFinal} round={2} />
-            <BracketColumn matchups={secondHalfRoundOne} round={1} />
-          </div>
-        )}
-      </div>
+        )} */}
     </div>
   );
 }
