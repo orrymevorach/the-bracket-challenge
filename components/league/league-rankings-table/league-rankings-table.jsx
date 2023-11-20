@@ -1,4 +1,6 @@
+import { ROUTES } from '@/utils/constants';
 import bracketStyles from 'components/dashboard/user-brackets-table/user-brackets-table.module.scss';
+import Link from 'next/link';
 
 export default function LeagueSummaryTable({ leagueData, currentRound }) {
   return (
@@ -21,7 +23,7 @@ export default function LeagueSummaryTable({ leagueData, currentRound }) {
             if (aFloat > bFloat) return 1;
             return -1;
           })
-          .map(({ name, rank, selectedWinners }) => {
+          .map(({ name, rank, selectedWinners, id }) => {
             const numberOfCorrectPicks =
               selectedWinners[currentRound].numberOfCorrectPicks;
             const numberOfWinnersInRound =
@@ -30,7 +32,11 @@ export default function LeagueSummaryTable({ leagueData, currentRound }) {
               <tr key={name} className={bracketStyles.titleRow}>
                 <td className={bracketStyles.rankColumn}>{rank}</td>
                 <td>
-                  <p className={bracketStyles.nameColumn}>{name}</p>
+                  <p className={bracketStyles.nameColumn}>
+                    <Link href={`${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}`}>
+                      {name}
+                    </Link>
+                  </p>
                 </td>
                 <td>
                   {numberOfCorrectPicks}/{numberOfWinnersInRound}

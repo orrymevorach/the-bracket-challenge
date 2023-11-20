@@ -3,17 +3,29 @@ import styles from './bracket-groups.module.scss';
 
 export default function GroupOfEightMultiRound({
   firstHalfRoundOne,
-  firstHalfQuarterFinal,
-  firstHalfSemiFinal,
-  updatedFirstHalfFinal,
+  secondHalfRoundOne,
+  firstHalfRoundTwo,
+  firstHalfRoundThree,
+  updatedFirstHalfRoundFour,
 }) {
   return (
     <div className={styles.row}>
       <div className={styles.row}>
-        <BracketColumn matchups={firstHalfRoundOne} round={1} />
-        <BracketColumn matchups={firstHalfQuarterFinal} round={2} />
-        <BracketColumn matchups={firstHalfSemiFinal} round={3} />
-        <BracketColumn matchups={updatedFirstHalfFinal} round={4} isChampion />
+        <div>
+          <BracketColumn matchups={firstHalfRoundOne} round={1} />
+          {/* Possible bug: If the user has made selections, second half of round is required, but if the user has not made selections, it is not required.  */}
+          {secondHalfRoundOne && (
+            <BracketColumn matchups={secondHalfRoundOne} round={1} />
+          )}
+        </div>
+
+        <BracketColumn matchups={firstHalfRoundTwo} round={2} />
+        <BracketColumn matchups={firstHalfRoundThree} round={3} />
+        <BracketColumn
+          matchups={updatedFirstHalfRoundFour}
+          round={4}
+          isChampion
+        />
       </div>
     </div>
   );

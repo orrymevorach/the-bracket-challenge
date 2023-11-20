@@ -1,6 +1,6 @@
-import useSetMatchupSelections from './useSetMatchupSelections';
+import useSetRoundProgressions from './useSetRoundProgressions';
 import { useSetInitialMatchups } from './useSetInitialMatchups';
-// import useGetSavedSelections from './useGetSavedSelections';
+import useAddUserSelectionsToRounds from './useAddUserSelectionsToRounds';
 // import useApplyLiveResults from './useApplyLiveResults';
 
 const { createContext, useContext } = require('react');
@@ -11,14 +11,19 @@ export const useMatchups = () => {
   return useContext(MatchupContext);
 };
 
-export const MatchupDataProvider = ({ snowboarders, children }) => {
-  const matchupData = useSetMatchupSelections();
+export const MatchupDataProvider = ({
+  snowboarders,
+  children,
+  winners,
+  userBracketSelections,
+}) => {
+  const matchupData = useSetRoundProgressions();
   useSetInitialMatchups({
     dispatch: matchupData.dispatch,
     snowboarders,
   });
 
-  // useGetSavedSelections({ matchupData });
+  useAddUserSelectionsToRounds({ matchupData, userBracketSelections });
   // useApplyLiveResults({ matchupData });
 
   return (

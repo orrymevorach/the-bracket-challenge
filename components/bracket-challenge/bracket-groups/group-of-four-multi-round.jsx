@@ -5,12 +5,12 @@ import Player from '../player/player';
 
 export default function GroupOfFourMultiRound({
   firstHalfRoundOne,
-  firstHalfQuarterFinal,
-  firstHalfSemiFinal,
+  firstHalfRoundTwo,
+  firstHalfRoundThree,
 }) {
   const roundOne = split(firstHalfRoundOne)[0];
-  const roundTwo = split(firstHalfQuarterFinal)[0];
-  const winner = firstHalfSemiFinal[0].snowboarders[0];
+  const roundTwo = split(firstHalfRoundTwo)[0];
+  const winner = firstHalfRoundThree[0].snowboarders[0];
   return (
     <div className={styles.row}>
       <div className={styles.row}>

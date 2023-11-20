@@ -2,7 +2,7 @@ import { getSnowboarders } from '@/lib/airtable';
 import { ROUND_SUFFIXES } from '@/utils/constants';
 import { useEffect, useState } from 'react';
 
-const sortSnowboardersByRound = ({ snowboarders }) => {
+export const sortSnowboardersByRound = ({ snowboarders }) => {
   let Duels = [];
   let DuelsWomen = [];
   let Revelstoke = [];

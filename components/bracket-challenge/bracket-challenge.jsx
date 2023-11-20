@@ -6,14 +6,12 @@ import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { ROUND_NAMES, ROUND_SUFFIXES } from '@/utils/constants';
+import { ROUND_SUFFIXES } from '@/utils/constants';
 import GroupOfEightOneRound from './bracket-groups/group-of-eight-single-round';
 import GroupOfEightMultiRound from './bracket-groups/group-of-eight-multi-round';
 import GroupOfSixteenMultiRound from './bracket-groups/group-of-sixteen-multi-round';
 import GroupOfSixteenSingleRound from './bracket-groups/group-of-sixteen-single-round';
 import GroupOfFourMultiRound from './bracket-groups/group-of-four-multi-round';
-
-const { DUELS } = ROUND_NAMES;
 
 const mapConfigToBracket = {
   eightSingle: GroupOfEightOneRound,
@@ -33,9 +31,9 @@ export default function BracketChallenge({
 
   const {
     roundOneMatchups = [],
-    quarterFinalMatchups = [],
-    semiFinalMatchups = [],
-    finalsMatchup = [],
+    roundTwoMatchups = [],
+    roundThreeMatchups = [],
+    roundFourMatchup = [],
     winner,
   } = matchups;
 
@@ -44,24 +42,23 @@ export default function BracketChallenge({
   }
 
   const [firstHalfRoundOne, secondHalfRoundOne] = split(roundOneMatchups);
-  const [firstHalfQuarterFinal, secondHalfQuarterFinal] =
-    split(quarterFinalMatchups);
-  const [firstHalfSemiFinal, secondHalfSemiFinal] = split(semiFinalMatchups);
-  const [firstHalfFinal, secondHalfFinal] = split(
-    finalsMatchup.length ? finalsMatchup[0].snowboarders : []
+  const [firstHalfRoundTwo, secondHalfRoundTwo] = split(roundTwoMatchups);
+  const [firstHalfRoundThree, secondHalfRoundThree] = split(roundThreeMatchups);
+  const [firstHalfRoundFour, secondHalfRoundFour] = split(
+    roundFourMatchup.length ? roundFourMatchup[0].snowboarders : []
   );
-  // This can be cleaned up. Final only has one matchup, and we need to show them on different sides
-  const updatedFirstHalfFinal = [
+  // This can be cleaned up. RoundFour only has one matchup, and we need to show them on different sides
+  const updatedFirstHalfRoundFour = [
     {
       matchupId: 'R4_M1',
-      snowboarders: firstHalfFinal,
+      snowboarders: firstHalfRoundFour,
     },
   ];
 
-  const updatedSecondHalfFinal = [
+  const updatedSecondHalfRoundFour = [
     {
       matchupId: 'R4_M1',
-      snowboarders: secondHalfFinal,
+      snowboarders: secondHalfRoundFour,
     },
   ];
   const handleSubmit = async () => {
@@ -94,16 +91,16 @@ export default function BracketChallenge({
       </Button>
       <Component
         firstHalfRoundOne={firstHalfRoundOne}
-        firstHalfQuarterFinal={firstHalfQuarterFinal}
-        firstHalfSemiFinal={firstHalfSemiFinal}
-        firstHalfFinal={firstHalfFinal}
+        firstHalfRoundTwo={firstHalfRoundTwo}
+        firstHalfRoundThree={firstHalfRoundThree}
+        firstHalfRoundFour={firstHalfRoundFour}
         secondHalfRoundOne={secondHalfRoundOne}
-        secondHalfQuarterFinal={secondHalfQuarterFinal}
-        secondHalfSemiFinal={secondHalfSemiFinal}
-        secondHalfFinal={secondHalfFinal}
+        secondHalfRoundTwo={secondHalfRoundTwo}
+        secondHalfRoundThree={secondHalfRoundThree}
+        secondHalfRoundFour={secondHalfRoundFour}
         winner={winner}
-        updatedFirstHalfFinal={updatedFirstHalfFinal}
-        updatedSecondHalfFinal={updatedSecondHalfFinal}
+        updatedFirstHalfRoundFour={updatedFirstHalfRoundFour}
+        updatedSecondHalfRoundFour={updatedSecondHalfRoundFour}
       />
     </div>
   );

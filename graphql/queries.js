@@ -63,6 +63,7 @@ export const GET_LEAGUE_BRACKETS = gql`
   query GetLeagueBrackets($id: String) {
     leagues(id: $id) {
       brackets {
+        id
         name
         userName
         dR1M1 {
@@ -89,7 +90,76 @@ export const GET_LEAGUE_BRACKETS = gql`
         dR1M8 {
           name
         }
+        dwR1M1 {
+          name
+        }
+        dwR1M2 {
+          name
+        }
+        dwR1M3 {
+          name
+        }
+        dwR1M4 {
+          name
+        }
         rR1M1 {
+          name
+        }
+        rR1M2 {
+          name
+        }
+        rR1M3 {
+          name
+        }
+        rR1M4 {
+          name
+        }
+        rR2M1 {
+          name
+        }
+        rR2M2 {
+          name
+        }
+        rR3M1 {
+          name
+        }
+        rwR1M1 {
+          name
+        }
+        rwR1M2 {
+          name
+        }
+        rwR2M1 {
+          name
+        }
+        sR1M1 {
+          name
+        }
+        sR1M2 {
+          name
+        }
+        sR1M3 {
+          name
+        }
+        sR1M4 {
+          name
+        }
+        sR2M1 {
+          name
+        }
+        sR2M2 {
+          name
+        }
+        sR3M1 {
+          name
+        }
+        swR1M1 {
+          name
+        }
+        swR1M2 {
+          name
+        }
+        swR2M1 {
           name
         }
       }
@@ -133,30 +203,131 @@ export const GET_BRACKET = gql`
     userBrackets(id: $recId) {
       dR1M1 {
         name
+        country
       }
       dR1M2 {
         name
+        country
       }
       dR1M3 {
         name
+        country
       }
       dR1M4 {
         name
+        country
       }
       dR1M5 {
         name
+        country
       }
       dR1M6 {
         name
+        country
       }
       dR1M7 {
         name
+        country
       }
       dR1M8 {
         name
+        country
+      }
+      dwR1M1 {
+        name
+        country
+      }
+      dwR1M2 {
+        name
+        country
+      }
+      dwR1M3 {
+        name
+        country
+      }
+      dwR1M4 {
+        name
+        country
       }
       rR1M1 {
         name
+        country
+      }
+      rR1M2 {
+        name
+        country
+      }
+      rR1M3 {
+        name
+        country
+      }
+      rR1M4 {
+        name
+        country
+      }
+      rR2M1 {
+        name
+        country
+      }
+      rR2M2 {
+        name
+        country
+      }
+      rR3M1 {
+        name
+        country
+      }
+      rwR1M1 {
+        name
+        country
+      }
+      rwR1M2 {
+        name
+        country
+      }
+      rwR2M1 {
+        name
+        country
+      }
+      sR1M1 {
+        name
+        country
+      }
+      sR1M2 {
+        name
+        country
+      }
+      sR1M3 {
+        name
+        country
+      }
+      sR1M4 {
+        name
+        country
+      }
+      sR2M1 {
+        name
+        country
+      }
+      sR2M2 {
+        name
+        country
+      }
+      sR3M1 {
+        name
+        country
+      }
+      swR1M1 {
+        name
+        country
+      }
+      swR1M2 {
+        name
+        country
+      }
+      swR2M1 {
+        name
+        country
       }
     }
   }
@@ -239,8 +410,8 @@ export const UPDATE_USER_BRACKET = gql`
 `;
 
 export const GET_WINNERS = gql`
-  query GetWinners($name: String) {
-    winners(name: $name) {
+  query GetWinners {
+    userBrackets(name: "Master Winners Bracket") {
       dR1M1 {
         name
       }
@@ -265,7 +436,76 @@ export const GET_WINNERS = gql`
       dR1M8 {
         name
       }
+      dwR1M1 {
+        name
+      }
+      dwR1M2 {
+        name
+      }
+      dwR1M3 {
+        name
+      }
+      dwR1M4 {
+        name
+      }
       rR1M1 {
+        name
+      }
+      rR1M2 {
+        name
+      }
+      rR1M3 {
+        name
+      }
+      rR1M4 {
+        name
+      }
+      rR2M1 {
+        name
+      }
+      rR2M2 {
+        name
+      }
+      rR3M1 {
+        name
+      }
+      rwR1M1 {
+        name
+      }
+      rwR1M2 {
+        name
+      }
+      rwR2M1 {
+        name
+      }
+      sR1M1 {
+        name
+      }
+      sR1M2 {
+        name
+      }
+      sR1M3 {
+        name
+      }
+      sR1M4 {
+        name
+      }
+      sR2M1 {
+        name
+      }
+      sR2M2 {
+        name
+      }
+      sR3M1 {
+        name
+      }
+      swR1M1 {
+        name
+      }
+      swR1M2 {
+        name
+      }
+      swR2M1 {
         name
       }
     }

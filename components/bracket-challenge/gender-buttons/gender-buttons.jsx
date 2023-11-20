@@ -6,7 +6,7 @@ export const GENDERS = {
   FEMALE: 'female',
 };
 
-export default function GenderButtons({ setGender, setIsLoading }) {
+export default function GenderButtons({ setGender, setIsLoading, gender }) {
   const handleSetGender = ({ gender }) => {
     setIsLoading(true);
     setTimeout(() => {
@@ -18,10 +18,16 @@ export default function GenderButtons({ setGender, setIsLoading }) {
   };
   return (
     <div className={styles.genderButtons}>
-      <Button handleClick={() => handleSetGender({ gender: GENDERS.MALE })}>
+      <Button
+        handleClick={() => handleSetGender({ gender: GENDERS.MALE })}
+        isLight={gender === GENDERS.MALE}
+      >
         Men
       </Button>
-      <Button handleClick={() => handleSetGender({ gender: GENDERS.FEMALE })}>
+      <Button
+        handleClick={() => handleSetGender({ gender: GENDERS.FEMALE })}
+        isLight={gender === GENDERS.FEMALE}
+      >
         Women
       </Button>
     </div>

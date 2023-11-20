@@ -1,8 +1,8 @@
 import { useReducer } from 'react';
 import {
-  getQuarterFinalMatchups,
-  getSemiFinalMatchups,
-  getFinalMatchup,
+  getRoundTwoMatchups,
+  getRoundThreeMatchups,
+  getRoundFourMatchup,
   getWinner,
 } from './matchups';
 import {
@@ -16,9 +16,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         roundOneMatchups: action.roundOneMatchups,
-        quarterFinalMatchups: action.quarterFinalMatchups,
-        semiFinalMatchups: action.semiFinalMatchups,
-        finalsMatchup: action.finalsMatchup,
+        roundTwoMatchups: action.roundTwoMatchups,
+        roundThreeMatchups: action.roundThreeMatchups,
+        roundFourMatchup: action.roundFourMatchup,
         winner: action.winner,
         hasSetRoundOneMatchups: true,
       };
@@ -26,9 +26,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         roundOneMatchups: action.roundOneMatchups,
-        quarterFinalMatchups: action.quarterFinalMatchups,
-        semiFinalMatchups: action.semiFinalMatchups,
-        finalsMatchup: action.finalsMatchup,
+        roundTwoMatchups: action.roundTwoMatchups,
+        roundThreeMatchups: action.roundThreeMatchups,
+        roundFourMatchup: action.roundFourMatchup,
         winner: action.winner,
         hasSetUserSelections: true,
       };
@@ -36,9 +36,9 @@ const reducer = (state, action) => {
     //   return {
     //     ...state,
     //     roundOneMatchups: action.roundOneMatchups,
-    //     quarterFinalMatchups: action.quarterFinalMatchups,
-    //     semiFinalMatchups: action.semiFinalMatchups,
-    //     finalsMatchup: action.finalsMatchup,
+    //     roundTwoMatchups: action.roundTwoMatchups,
+    //     roundThreeMatchups: action.roundThreeMatchups,
+    //     roundFourMatchup: action.roundFourMatchup,
     //     winner: action.winner,
     //     hasCorrectWinners: true,
     //   };
@@ -46,19 +46,19 @@ const reducer = (state, action) => {
       return {
         ...state,
         roundOneMatchups: action.roundOneMatchups,
-        quarterFinalMatchups: action.quarterFinalMatchups,
+        roundTwoMatchups: action.roundTwoMatchups,
       };
     case 'SET_QUARTER_FINAL_WINNER':
       return {
         ...state,
-        quarterFinalMatchups: action.quarterFinalMatchups,
-        semiFinalMatchups: action.semiFinalMatchups,
+        roundTwoMatchups: action.roundTwoMatchups,
+        roundThreeMatchups: action.roundThreeMatchups,
       };
     case 'SET_SEMI_FINAL_WINNER':
       return {
         ...state,
-        semiFinalMatchups: action.semiFinalMatchups,
-        finalsMatchup: action.finalsMatchup,
+        roundThreeMatchups: action.roundThreeMatchups,
+        roundFourMatchup: action.roundFourMatchup,
       };
     case 'SET_WINNER': {
       return {
@@ -74,48 +74,48 @@ const reducer = (state, action) => {
 
 const initialState = {
   roundOneMatchups: [],
-  quarterFinalMatchups: [],
-  semiFinalMatchups: [],
-  finalsMatchup: [],
+  roundTwoMatchups: [],
+  roundThreeMatchups: [],
+  roundFourMatchup: [],
   winner: [],
   hasSetRoundOneMatchups: false,
   hasSetUserSelections: false,
   hasCorrectWinners: false,
 };
 
-export default function useSetMatchupSelections() {
+export default function useSetRoundProgressions() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const allRounds = {
     1: {
       currentRoundMatchups: state.roundOneMatchups,
-      nextRoundMatchups: state.quarterFinalMatchups,
-      getNextRoundMatchups: getQuarterFinalMatchups,
+      nextRoundMatchups: state.roundTwoMatchups,
+      getNextRoundMatchups: getRoundTwoMatchups,
       currentRoundKey: 'roundOneMatchups',
-      nextRoundKey: 'quarterFinalMatchups',
+      nextRoundKey: 'roundTwoMatchups',
       type: 'SET_ROUND_ONE_WINNER',
     },
     2: {
-      currentRoundMatchups: state.quarterFinalMatchups,
-      nextRoundMatchups: state.semiFinalMatchups,
-      getNextRoundMatchups: getSemiFinalMatchups,
-      currentRoundKey: 'quarterFinalMatchups',
-      nextRoundKey: 'semiFinalMatchups',
+      currentRoundMatchups: state.roundTwoMatchups,
+      nextRoundMatchups: state.roundThreeMatchups,
+      getNextRoundMatchups: getRoundThreeMatchups,
+      currentRoundKey: 'roundTwoMatchups',
+      nextRoundKey: 'roundThreeMatchups',
       type: 'SET_QUARTER_FINAL_WINNER',
     },
     3: {
-      currentRoundMatchups: state.semiFinalMatchups,
-      nextRoundMatchups: state.finalsMatchup,
-      getNextRoundMatchups: getFinalMatchup,
-      currentRoundKey: 'semiFinalMatchups',
-      nextRoundKey: 'finalsMatchup',
+      currentRoundMatchups: state.roundThreeMatchups,
+      nextRoundMatchups: state.roundFourMatchup,
+      getNextRoundMatchups: getRoundFourMatchup,
+      currentRoundKey: 'roundThreeMatchups',
+      nextRoundKey: 'roundFourMatchup',
       type: 'SET_SEMI_FINAL_WINNER',
     },
     4: {
-      currentRoundMatchups: state.finalsMatchup,
+      currentRoundMatchups: state.roundFourMatchup,
       nextRoundMatchups: state.winner,
       getNextRoundMatchups: getWinner,
-      currentRoundKey: 'finalsMatchup',
+      currentRoundKey: 'roundFourMatchup',
       nextRoundKey: 'winner',
       type: 'SET_WINNER',
     },
@@ -157,9 +157,9 @@ export default function useSetMatchupSelections() {
 
   const {
     roundOneMatchups,
-    quarterFinalMatchups,
-    semiFinalMatchups,
-    finalsMatchup,
+    roundTwoMatchups,
+    roundThreeMatchups,
+    roundFourMatchup,
     winner,
     hasSetRoundOneMatchups,
     hasSetUserSelections,
@@ -168,9 +168,9 @@ export default function useSetMatchupSelections() {
   return {
     matchups: {
       roundOneMatchups,
-      quarterFinalMatchups,
-      semiFinalMatchups,
-      finalsMatchup,
+      roundTwoMatchups,
+      roundThreeMatchups,
+      roundFourMatchup,
       winner,
     },
     setWinner,

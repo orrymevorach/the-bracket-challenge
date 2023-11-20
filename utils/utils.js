@@ -11,3 +11,10 @@ export const split = data => {
 };
 
 export const getUid = () => Cookies.get('uid');
+
+export const camelToSnakeCase = str =>
+  str.replace(/[A-Z]/g, letter => `_${letter}`).toUpperCase();
+
+export const isEmpty = object => {
+  return Object.keys(object).length === 0 && object.constructor === Object;
+};

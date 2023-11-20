@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import {
-  getFinalMatchup,
-  getQuarterFinalMatchups,
-  getSemiFinalMatchups,
+  getRoundFourMatchup,
+  getRoundTwoMatchups,
+  getRoundThreeMatchups,
   getWinner,
   getRoundOneMatchups,
 } from './matchups';
@@ -31,23 +31,23 @@ export const useSetInitialMatchups = ({ snowboarders = [], dispatch }) => {
         const roundOneMatchups = addSnowboardersToMatchups({
           snowboarders,
         });
-        const quarterFinalMatchups = transformMatchupsObjectIntoArray(
-          getQuarterFinalMatchups({})
+        const roundTwoMatchups = transformMatchupsObjectIntoArray(
+          getRoundTwoMatchups({})
         );
-        const semiFinalMatchups = transformMatchupsObjectIntoArray(
-          getSemiFinalMatchups({})
+        const roundThreeMatchups = transformMatchupsObjectIntoArray(
+          getRoundThreeMatchups({})
         );
-        const finalsMatchup = transformMatchupsObjectIntoArray(
-          getFinalMatchup({})
+        const roundFourMatchup = transformMatchupsObjectIntoArray(
+          getRoundFourMatchup({})
         );
 
         const winner = transformMatchupsObjectIntoArray(getWinner({}));
         await dispatch({
           type: 'SET_ROUND_ONE_MATCHUPS',
           roundOneMatchups,
-          quarterFinalMatchups,
-          semiFinalMatchups,
-          finalsMatchup,
+          roundTwoMatchups,
+          roundThreeMatchups,
+          roundFourMatchup,
           winner,
         });
       };

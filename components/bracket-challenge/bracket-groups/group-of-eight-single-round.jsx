@@ -4,10 +4,10 @@ import styles from './bracket-groups.module.scss';
 
 export default function GroupOfEightSingleRound({
   firstHalfRoundOne,
-  firstHalfQuarterFinal,
+  firstHalfRoundTwo,
 }) {
   const [roundOneFirstHalf, roundOneSecondHalf] = split(firstHalfRoundOne);
-  const [roundTwoFirstHalf, roundTwoSecondHalf] = split(firstHalfQuarterFinal);
+  const [roundTwoFirstHalf, roundTwoSecondHalf] = split(firstHalfRoundTwo);
   return (
     <div className={styles.row}>
       <div className={styles.row}>
