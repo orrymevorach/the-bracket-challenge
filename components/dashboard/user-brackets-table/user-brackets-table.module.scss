@@ -10,6 +10,11 @@
   @include mixins.fontSecondary;
   tr {
     position: relative;
+    cursor: pointer;
+    &:hover {
+      outline: thin solid;
+    }
+
     &.titleRow {
       font-size: 18px;
       height: 50px;
@@ -37,11 +42,6 @@ td.leagueName {
   text-align: left;
 }
 
-.leagueName a {
-  text-decoration: underline;
-  margin-left: 10px;
-}
-
 .number {
   @include mixins.fontPrimary;
   background-color: #f1a494;
@@ -49,6 +49,7 @@ td.leagueName {
   padding: 10px;
   color: variables.$black;
   font-size: 18px;
+  margin-right: 10px;
 }
 
 .createBracketButton {

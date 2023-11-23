@@ -44,7 +44,7 @@ export default function League() {
 
   return (
     <LeaguePageLayout title="League Rankings:">
-      <CreateBracketPrompt brackets={bracketsSortedByRankings || []} />
+      <CreateBracketPrompt brackets={bracketsSortedByRankings} />
 
       {isLoading && <Loader classNames={styles.loader} />}
       {!isLoading && hasBracketData && (

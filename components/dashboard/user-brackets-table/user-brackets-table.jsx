@@ -3,8 +3,10 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
+import { useRouter } from 'next/router';
 
 export default function UserBracketsTable({ leagues = [], currentRound }) {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <table className={styles.table}>
@@ -26,14 +28,19 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
             const correctPicks = hasSelectedWinners
               ? `${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`
               : '';
+            const handleClick = () => {
+              router.push(`/league/${league.id}`);
+            };
             return (
-              <tr key={league.leagueName}>
+              <tr
+                className={styles.leagueRow}
+                key={league.leagueName}
+                onClick={handleClick}
+              >
                 <td className={clsx(styles.leagueName)}>
                   <p>
                     <span className={styles.number}>{index + 1}</span>{' '}
-                    <Link href={`/league/${league.id}`}>
-                      {league.leagueName}
-                    </Link>
+                    {league.leagueName}
                   </p>
                 </td>
                 <td

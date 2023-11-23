@@ -4,10 +4,10 @@ import useUser from '@/context/user-context/useUser';
 
 export default function CreateBracketPrompt({ brackets = null }) {
   const user = useUser();
-  const currentUserHasBracket = brackets.find(
-    ({ userName }) => user.name === userName[0]
-  );
-  const showPrompt = brackets.length && !currentUserHasBracket;
+  const currentUserHasBracket = brackets
+    ? brackets.find(({ userName }) => user.name === userName[0])
+    : null;
+  const showPrompt = brackets !== null && !currentUserHasBracket;
 
   return (
     <>
