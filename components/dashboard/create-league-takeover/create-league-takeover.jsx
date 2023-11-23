@@ -21,7 +21,7 @@ export default function CreateLeagueTakeover({ setShowTakeover }) {
       setShowTakeover={setShowTakeover}
       handleSubmit={handleSubmit}
       title="Create League"
-      label="Enter a name for your leage"
+      label="Enter a name for your league"
       buttonLabel="Create League"
       inputValue={leagueName}
       setInputValue={setLeagueName}

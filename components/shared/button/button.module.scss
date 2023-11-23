@@ -5,14 +5,14 @@
   @include mixins.fontSecondary;
   color: white;
   border: none;
-  padding: 14px 22px 12px;
+  padding: 12px 25px 12px;
   font-size: 16px;
   border-radius: variables.$borderRadius;
-  min-width: 100px;
+  min-width: 150px;
   cursor: pointer;
   transition: 0.2s;
-  border: 2px solid white;
-  background-color: black;
+  border: 1px solid white;
+  background-color: variables.$black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,21 +20,21 @@
     animation: rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   }
   &:hover {
-    color: black;
+    color: variables.$black;
     background-color: white;
     transition: 0.2s;
-    border: 2px solid black;
+    border: 2px solid variables.$black;
     svg,
     p {
-      color: black;
+      color: variables.$black;
     }
   }
   &.light {
     background-color: white;
-    color: black;
-    border: 2px solid black;
+    color: variables.$black;
+    border: 2px solid variables.$black;
     &:hover {
-      background-color: black;
+      background-color: variables.$black;
       color: white;
     }
   }
@@ -50,6 +50,11 @@
   svg {
     position: relative;
     top: -2px;
+  }
+  &.secondary {
+    background-color: #05bf78;
+    border: none;
+    color: variables.$black;
   }
 }
 

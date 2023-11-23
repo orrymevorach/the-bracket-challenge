@@ -48,7 +48,9 @@ export default function LeagueTakeoverLayout({
               label={label}
               labelClassNames={styles.label}
             />
-            <Button classNames={styles.button}>{buttonLabel}</Button>
+            <Button isSecondary classNames={styles.button}>
+              {buttonLabel}
+            </Button>
           </form>
         </>
       )}

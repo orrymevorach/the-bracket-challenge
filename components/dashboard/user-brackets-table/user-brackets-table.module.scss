@@ -1,4 +1,5 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .container {
   margin-top: 40px;
@@ -7,64 +8,47 @@
 .table {
   color: white;
   @include mixins.fontSecondary;
-  margin-top: 50px;
-  td {
-    text-align: center;
-    position: relative;
-    height: 65px;
-    width: 250px;
-    // Vertical line
-    &:after {
-      content: '';
-      position: absolute;
-      background-color: rgba(white, 0.3);
-      right: 0px;
-      height: 101%;
-      width: 1px;
-      top: 0;
-    }
-    &:last-of-type {
-      &:after {
-        background-color: rgba(0, 0, 0, 0);
-      }
-    }
-    &.noSelectedWinners {
-      &:after {
-        display: none;
-      }
-    }
-    &.rankColumn {
-      width: 100px;
-    }
-  }
   tr {
     position: relative;
-    @include mixins.fontSecondaryLight;
-    margin: 0 auto;
-    &:before {
-      content: '';
-      position: absolute;
-      background-color: rgba(white, 0.3);
-      right: 0px;
-      height: 1px;
-      width: 101%;
-      bottom: 0;
-    }
-    &:last-of-type:before {
-      background-color: rgba(0, 0, 0, 0);
-    }
     &.titleRow {
-      font-size: 20px;
+      font-size: 18px;
       height: 50px;
-      @include mixins.fontSecondaryBold;
-      letter-spacing: -1px;
+      &:after {
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        background-color: white;
+        bottom: 0;
+        left: 0;
+      }
     }
+  }
+  td {
+    height: 65px;
+    width: 250px;
+    text-align: center;
   }
 }
 
+.leagueHeading,
+td.leagueName {
+  width: 400px;
+  text-align: left;
+}
+
 .leagueName a {
-  color: white;
   text-decoration: underline;
+  margin-left: 10px;
+}
+
+.number {
+  @include mixins.fontPrimary;
+  background-color: #f1a494;
+  border-radius: 50%;
+  padding: 10px;
+  color: variables.$black;
+  font-size: 18px;
 }
 
 .createBracketButton {

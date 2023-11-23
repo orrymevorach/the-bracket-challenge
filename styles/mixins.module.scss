@@ -3,17 +3,21 @@
 }
 
 @mixin fontSecondaryLight {
-  font-family: 'Aktiv Grotesk Light';
+  font-family: 'Inter Light';
+  letter-spacing: 0.5px;
 }
 
 @mixin fontSecondary {
-  font-family: 'Aktiv Grotesk Regular';
+  font-family: 'Inter Regular';
+  letter-spacing: 0.5px;
 }
 
 @mixin fontSecondaryMedium {
-  font-family: 'Aktiv Grotesk Medium';
+  font-family: 'Inter Medium';
+  letter-spacing: 0.5px;
 }
 
 @mixin fontSecondaryBold {
-  font-family: 'Aktiv Grotesk Bold';
+  font-family: 'Inter Bold';
+  letter-spacing: 0.5px;
 }

@@ -1,4 +1,5 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .container {
   width: 500px;
@@ -7,7 +8,7 @@
 }
 
 .title {
-  color: black;
+  color: variables.$black;
   @include mixins.fontPrimary;
   font-size: 32px;
   margin-bottom: 40px;

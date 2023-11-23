@@ -7,6 +7,7 @@ import { errors, signInWithFirebaseEmailAndPassword } from '../firebase-utils';
 import Input from '@/components/shared/input/input';
 import CreateAccountTakeover from './create-account-takeover/create-account-takeover';
 import Cookies from 'js-cookie';
+import PromptNewUserTakeover from './prompt-new-user-takeover/prompt-new-user-takeover';
 
 export default function LoginWithEmailAndPassword() {
   const [email, setEmail] = useState('');
@@ -15,6 +16,8 @@ export default function LoginWithEmailAndPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [isCreatingNewUser, setIsCreatingNewUser] = useState(false);
+  const [isUserPromptedToCreateAccount, setIsUserPromptedToCreateAccount] =
+    useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -32,7 +35,7 @@ export default function LoginWithEmailAndPassword() {
       response.error.code === 'auth/invalid-email' ||
       response.error.code === 'auth/user-not-found'
     ) {
-      setIsCreatingNewUser(true);
+      setIsUserPromptedToCreateAccount(true);
       setIsLoading(false);
       return;
     } else if (response?.error) {
@@ -55,39 +58,52 @@ export default function LoginWithEmailAndPassword() {
 
   return (
     <>
-      {isCreatingNewUser ? (
+      {isCreatingNewUser && (
         <CreateAccountTakeover
           email={email}
           setIsCreatingNewUser={setIsCreatingNewUser}
         />
-      ) : (
-        <form
-          action="#"
-          onSubmit={e => handleSubmit(e)}
-          className={styles.container}
-        >
-          <Input
-            type="email"
-            id="email"
-            handleChange={e => handleChangeEmail(e)}
-            classNames={styles.emailInput}
-            label="Email"
-            value={email}
-            error={error}
-          />
-          <Input
-            type="password"
-            id="password"
-            handleChange={e => handleChangePassword(e)}
-            label="Password"
-            value={password}
-            classNames={styles.passwordInput}
-          />
-          <Button isLoading={isLoading} classNames={styles.submit}>
-            Log in
-          </Button>
-        </form>
       )}
+      {isUserPromptedToCreateAccount && (
+        <PromptNewUserTakeover
+          setIsUserPromptedToCreateAccount={setIsUserPromptedToCreateAccount}
+          setIsCreatingNewUser={setIsCreatingNewUser}
+        />
+      )}
+
+      <form
+        action="#"
+        onSubmit={e => handleSubmit(e)}
+        className={styles.container}
+      >
+        <Input
+          type="email"
+          id="email"
+          handleChange={e => handleChangeEmail(e)}
+          classNames={styles.emailInput}
+          label="Email Address"
+          value={email}
+          error={error}
+        />
+        <Input
+          type="password"
+          id="password"
+          handleChange={e => handleChangePassword(e)}
+          label="Password"
+          value={password}
+          classNames={styles.passwordInput}
+        />
+        <Button isLoading={isLoading} classNames={styles.submit}>
+          Log in
+        </Button>
+        <button
+          onClick={() => setIsCreatingNewUser(true)}
+          type="button"
+          className={styles.createUserButton}
+        >
+          Create Account
+        </button>
+      </form>
     </>
   );
 }

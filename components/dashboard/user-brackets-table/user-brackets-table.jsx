@@ -10,14 +10,15 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
       <table className={styles.table}>
         <thead>
           <tr className={styles.titleRow}>
-            <th>League</th>
+            <th className={styles.leagueHeading}>League</th>
             <th>Team Name</th>
             <th>Overall Rank</th>
             <th>Correct Picks</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {leagues.map(league => {
+          {leagues.map((league, index) => {
             const hasSelectedWinners = !!league.selectedWinners;
             const currentSelectedRound = hasSelectedWinners
               ? league.selectedWinners[currentRound]
@@ -25,19 +26,15 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
             const correctPicks = hasSelectedWinners
               ? `${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`
               : '';
-            const ranking = league.ranking || (
-              <Button
-                isSmall
-                classNames={styles.createBracketButton}
-                href={ROUTES.BRACKET_CHALLENGE}
-              >
-                Create Bracket
-              </Button>
-            );
             return (
               <tr key={league.leagueName}>
                 <td className={clsx(styles.leagueName)}>
-                  <Link href={`/league/${league.id}`}>{league.leagueName}</Link>
+                  <p>
+                    <span className={styles.number}>{index + 1}</span>{' '}
+                    <Link href={`/league/${league.id}`}>
+                      {league.leagueName}
+                    </Link>
+                  </p>
                 </td>
                 <td
                   className={clsx(
@@ -52,10 +49,21 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                     !hasSelectedWinners && styles.noSelectedWinners
                   )}
                 >
-                  {ranking}
+                  {league.ranking}
                 </td>
 
                 <td>{correctPicks}</td>
+                <td>
+                  {!hasSelectedWinners && (
+                    <Button
+                      isSecondary
+                      classNames={styles.createBracketButton}
+                      href={ROUTES.BRACKET_CHALLENGE}
+                    >
+                      Create Bracket
+                    </Button>
+                  )}
+                </td>
               </tr>
             );
           })}

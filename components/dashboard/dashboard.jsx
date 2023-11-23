@@ -33,21 +33,26 @@ export default function Dashboard() {
       {showJoinLeagueTakeover && (
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
       )}
-      <div className={styles.buttonsContainer}>
-        <Button
-          handleClick={() => setShowJoinLeagueTakeover(true)}
-          classNames={styles.button}
-        >
-          Join League
-        </Button>
-        <Button
-          handleClick={() => setShowCreateLeagueTakeover(true)}
-          classNames={styles.button}
-        >
-          Create League
-        </Button>
+      <div className={styles.topContainer}>
+        <div>
+          <p className={styles.dashboardText}>Dashboard</p>
+          <p className={styles.yourLeaguesText}>Your Leagues</p>
+        </div>
+        <div className={styles.buttonsContainer}>
+          <Button
+            handleClick={() => setShowJoinLeagueTakeover(true)}
+            classNames={styles.button}
+          >
+            Join League
+          </Button>
+          <Button
+            handleClick={() => setShowCreateLeagueTakeover(true)}
+            classNames={styles.button}
+          >
+            Create League
+          </Button>
+        </div>
       </div>
-      <p className={styles.heading}>Your Leagues</p>
       {hasLeagueData ? (
         <UserBracketsTable
           {...user}

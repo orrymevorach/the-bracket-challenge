@@ -28,7 +28,7 @@ export default function Layout({ children }) {
     <>
       <div className={styles.layout}>
         <div className={styles.topContainer}>
-          <p className={styles.name}>Hello, {firstName}!</p>
+          <p className={styles.name}>Hey {firstName}!</p>
           <div className={styles.buttonsContainer}>
             {pathname !== ROUTES.DASHBOARD && (
               <Button classNames={styles.button} href={ROUTES.DASHBOARD}>

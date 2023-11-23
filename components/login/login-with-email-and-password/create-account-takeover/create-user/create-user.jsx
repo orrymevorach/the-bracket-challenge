@@ -91,7 +91,7 @@ export default function CreateUser({ email }) {
         labelClassNames={styles.label}
         classNames={styles.inputContainer}
       />
-      <Button isLoading={isLoading} classNames={styles.button}>
+      <Button isLoading={isLoading} classNames={styles.button} isSecondary>
         Submit
       </Button>
     </form>

@@ -27,13 +27,15 @@ export default function Button({
   isAnchor = false,
   isSmall = false,
   isInverted = false,
+  isSecondary = false,
 }) {
   const classnames = clsx(
     styles.button,
     classNames,
     isLight && styles.light,
     isSmall && styles.small,
-    isInverted && styles.inverted
+    isInverted && styles.inverted,
+    isSecondary && styles.secondary
   );
 
   if (isAnchor) {

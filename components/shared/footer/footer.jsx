@@ -1,4 +1,5 @@
 import styles from './footer.module.scss';
+import clsx from 'clsx';
 
 export default function Footer() {
   return (
@@ -8,28 +9,10 @@ export default function Footer() {
       </div>
       <div className={styles.column}>
         <p className={styles.text}>
-          Built by{' '}
-          <a
-            href="https://www.instagram.com/orrymevorach/"
-            target="_blank"
-            rel="noreferrer"
-            className={styles.link}
-          >
-            Orry Mevorach
-          </a>{' '}
-          and{' '}
-          <a
-            href="https://www.instagram.com/coreyjacobs7/"
-            target="_blank"
-            rel="noreferrer"
-            className={styles.link}
-          >
-            Corey Jacobs
-          </a>
+          Built by <span className={styles.link}>Orry Mevorach</span> and{' '}
+          <span className={styles.link}>Corey Jacobs</span>
         </p>
-      </div>
-      <div className={styles.column}>
-        <p className={styles.text}>Contact Us</p>
+        <p className={clsx(styles.contactUs, styles.text)}>Contact Us 🤙</p>
       </div>
     </footer>
   );

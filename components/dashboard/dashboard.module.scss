@@ -1,12 +1,5 @@
 @use '@mixins' as mixins;
 
-.heading {
-  @include mixins.fontSecondaryBold;
-  font-size: 28px;
-  margin-top: 80px;
-  letter-spacing: -1px;
-}
-
 .loader {
   display: flex;
   justify-content: center;
@@ -19,5 +12,23 @@
 }
 
 .button {
-  margin: 0 20px;
+  &:nth-child(1) {
+    margin-right: 10px;
+  }
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 80px 0;
+}
+
+.dashboardText {
+  font-size: 24px;
+}
+.yourLeaguesText {
+  @include mixins.fontPrimary;
+  font-size: 32px;
+  margin-top: 7px;
 }
