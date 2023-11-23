@@ -84,7 +84,7 @@ export default function BracketChallengeContainer() {
                   snowboarders={snowboarders[currentWomensRoundName]}
                   winners={winners}
                   userBracketSelections={
-                    bracketSelectionsSortedByRound[currentRoundName]
+                    bracketSelectionsSortedByRound[currentWomensRoundName]
                   }
                 >
                   <BracketChallenge

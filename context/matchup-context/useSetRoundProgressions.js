@@ -4,7 +4,7 @@ import {
   getRoundThreeMatchups,
   getRoundFourMatchup,
   getWinner,
-} from './matchups';
+} from './roundProgressions';
 import {
   transformMatchupsArrayToObject,
   transformMatchupsObjectIntoArray,

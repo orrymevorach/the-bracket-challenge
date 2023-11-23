@@ -5,7 +5,7 @@ import {
   getRoundThreeMatchups,
   getWinner,
   getRoundOneMatchups,
-} from './matchups';
+} from './roundProgressions';
 import { transformMatchupsObjectIntoArray } from './matchup-utils';
 
 const addSnowboardersToMatchups = ({ snowboarders = [] }) => {

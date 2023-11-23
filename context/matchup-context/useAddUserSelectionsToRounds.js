@@ -1,5 +1,4 @@
-import { getBracket } from '@/lib/airtable';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   transformMatchupsArrayToObject,
   transformMatchupsObjectIntoArray,
@@ -9,7 +8,7 @@ import {
   getRoundThreeMatchups,
   getRoundFourMatchup,
   getWinner,
-} from './matchups';
+} from './roundProgressions';
 import { isEmpty } from '@/utils/utils';
 
 const addSavedSelectionsToRoundData = ({ bracketData = {} }) => {
