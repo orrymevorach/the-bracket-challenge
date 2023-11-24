@@ -9,7 +9,6 @@ import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import BracketChallenge from './bracket-challenge';
 import { useSnowboarders } from '@/context/snowboarders-context/snowboarders-context';
 import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
-import { useWinners } from '@/context/winners-context/winners-context';
 import useGetUserBracketSelections from '@/context/matchup-context/useGetUserBracketSelections';
 
 const mapRoundNameToBracketConfig = {
@@ -25,9 +24,8 @@ export default function BracketChallengeContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
   const [isSettingName, setIsSettingName] = useState(true);
-  const [gender, setGender] = useState('male');
+  const [gender, setGender] = useState(GENDERS.MALE);
   const snowboarders = useSnowboarders();
-  const winners = useWinners();
 
   const router = useRouter();
   const bracketRecId = router.query.bracketId;
@@ -43,7 +41,7 @@ export default function BracketChallengeContainer() {
   }, [router, bracketRecId]);
 
   const currentRoundName =
-    gender === 'male' ? currentRound.name : `${currentRound.name}Women`;
+    gender === GENDERS.MALE ? currentRound.name : `${currentRound.name}Women`;
 
   const bracketConfig = mapRoundNameToBracketConfig[currentRoundName];
 
@@ -71,7 +69,6 @@ export default function BracketChallengeContainer() {
             <>
               <MatchupDataProvider
                 snowboarders={snowboarders[currentRoundName]}
-                winners={winners}
                 userBracketSelections={
                   bracketSelectionsSortedByRound[currentRoundName]
                 }

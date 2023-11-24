@@ -446,99 +446,131 @@ export const GET_WINNERS = gql`
     userBrackets(name: "Master Winners Bracket") {
       dR1M1 {
         name
+        country
       }
       dR1M2 {
         name
+        country
       }
       dR1M3 {
         name
+        country
       }
       dR1M4 {
         name
+        country
       }
       dR1M5 {
         name
+        country
       }
       dR1M6 {
         name
+        country
       }
       dR1M7 {
         name
+        country
       }
       dR1M8 {
         name
+        country
       }
       dwR1M1 {
         name
+        country
       }
       dwR1M2 {
         name
+        country
       }
       dwR1M3 {
         name
+        country
       }
       dwR1M4 {
         name
+        country
       }
       rR1M1 {
         name
+        country
       }
       rR1M2 {
         name
+        country
       }
       rR1M3 {
         name
+        country
       }
       rR1M4 {
         name
+        country
       }
       rR2M1 {
         name
+        country
       }
       rR2M2 {
         name
+        country
       }
       rR3M1 {
         name
+        country
       }
       rwR1M1 {
         name
+        country
       }
       rwR1M2 {
         name
+        country
       }
       rwR2M1 {
         name
+        country
       }
       sR1M1 {
         name
+        country
       }
       sR1M2 {
         name
+        country
       }
       sR1M3 {
         name
+        country
       }
       sR1M4 {
         name
+        country
       }
       sR2M1 {
         name
+        country
       }
       sR2M2 {
         name
+        country
       }
       sR3M1 {
         name
+        country
       }
       swR1M1 {
         name
+        country
       }
       swR1M2 {
         name
+        country
       }
       swR2M1 {
         name
+        country
       }
     }
   }
