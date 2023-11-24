@@ -18,3 +18,7 @@ export const camelToSnakeCase = str =>
 export const isEmpty = object => {
   return Object.keys(object).length === 0 && object.constructor === Object;
 };
+
+export function isEven(number) {
+  return number % 2 === 0;
+}

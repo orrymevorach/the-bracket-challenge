@@ -1,107 +1,108 @@
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
-import { split } from 'utils/utils';
 import Loader from 'components/shared/loader/loader';
 import Button from 'components/shared/button/button';
 import { updateUserBracket } from '@/lib/airtable';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { ROUND_SUFFIXES } from '@/utils/constants';
-import GroupOfEightOneRound from './bracket-groups/group-of-eight-single-round';
-import GroupOfEightMultiRound from './bracket-groups/group-of-eight-multi-round';
-import GroupOfSixteenMultiRound from './bracket-groups/group-of-sixteen-multi-round';
-import GroupOfSixteenSingleRound from './bracket-groups/group-of-sixteen-single-round';
-import GroupOfFourMultiRound from './bracket-groups/group-of-four-multi-round';
+import BracketColumn from './bracket-column/bracket-column';
+import { split } from '@/utils/utils';
 
-const mapConfigToBracket = {
-  eightSingle: GroupOfEightOneRound,
-  eightMulti: GroupOfEightMultiRound,
-  sixteenSingle: GroupOfSixteenSingleRound,
-  sixteenMulti: GroupOfSixteenMultiRound,
-  fourMulti: GroupOfFourMultiRound,
+// Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
+const groupMatchupsByRound = matchups =>
+  matchups.reduce((acc, curr) => {
+    const round = curr.round;
+    if (!acc[round - 1]) {
+      acc[round - 1] = {};
+      acc[round - 1].matchups = [];
+    }
+    acc[round - 1].matchups.push(curr);
+    return acc;
+  }, []);
+
+const splitAndRearrangeColumns = matchups => {
+  const newMatchups = [];
+  for (let round of matchups) {
+    // Sort matchups by position
+    const sortByPosition = round.matchups.sort((a, b) => {
+      if (a.position > b.position) {
+        return 1;
+      }
+      return -1;
+    });
+    // divide matchups in two
+    const [one, two] = split(sortByPosition);
+    // Add each half to the new matchups array
+    newMatchups.push({ matchups: one });
+    newMatchups.push({ matchups: two });
+  }
+  // Manually re-arranging the order of the columns. This is too manual, couldn't figure out how to do this dynamically
+  let reArrangedMatchups = [];
+  if (newMatchups.length === 4) {
+    reArrangedMatchups.push(newMatchups[0]);
+    reArrangedMatchups.push(newMatchups[2]);
+    reArrangedMatchups.push(newMatchups[3]);
+    reArrangedMatchups.push(newMatchups[1]);
+  }
+  return reArrangedMatchups;
 };
 
-export default function BracketChallenge({
-  currentRound,
-  bracketConfig = 'sixteenSingle',
-}) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export default function BracketChallenge({ bracketConfig, currentRound }) {
   const { matchups } = useMatchups();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const router = useRouter();
 
-  const {
-    roundOneMatchups = [],
-    roundTwoMatchups = [],
-    roundThreeMatchups = [],
-    roundFourMatchup = [],
-    winner,
-  } = matchups;
-
-  if (!matchups.roundOneMatchups.length) {
+  const matchupsGroupedByRound = groupMatchupsByRound(matchups);
+  if (!matchupsGroupedByRound.length) {
     return <Loader isDotted />;
   }
 
-  const [firstHalfRoundOne, secondHalfRoundOne] = split(roundOneMatchups);
-  const [firstHalfRoundTwo, secondHalfRoundTwo] = split(roundTwoMatchups);
-  const [firstHalfRoundThree, secondHalfRoundThree] = split(roundThreeMatchups);
-  const [firstHalfRoundFour, secondHalfRoundFour] = split(
-    roundFourMatchup.length ? roundFourMatchup[0].snowboarders : []
-  );
-  // This can be cleaned up. RoundFour only has one matchup, and we need to show them on different sides
-  const updatedFirstHalfRoundFour = [
-    {
-      matchupId: 'R4_M1',
-      snowboarders: firstHalfRoundFour,
-    },
-  ];
-
-  const updatedSecondHalfRoundFour = [
-    {
-      matchupId: 'R4_M1',
-      snowboarders: secondHalfRoundFour,
-    },
-  ];
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    const matchupsAsArray = Object.entries(matchups);
-    const rounds = matchupsAsArray.reduce((acc, curr) => {
-      const [_, roundMatchups] = curr;
-      for (let matchup of roundMatchups) {
-        const suffix = ROUND_SUFFIXES[currentRound];
-        const key = `${suffix}${matchup.matchupId}`;
-        if (matchup.winner?.id) {
-          acc[key] = matchup.winner?.id;
-        }
+    const rounds = matchups.reduce((acc, curr) => {
+      const suffix = ROUND_SUFFIXES[currentRound];
+      const key = `${suffix}${curr.matchupId}`;
+      if (curr.winner?.id) {
+        acc[key] = curr.winner.id;
       }
+
       return acc;
     }, {});
     await updateUserBracket({ rounds, id: router.query.bracketId });
     setIsSubmitting(false);
   };
 
-  const Component = mapConfigToBracket[bracketConfig];
+  // Remove bracket columns (rounds) from rounds that do not require them
+  const matchupsInRound = matchupsGroupedByRound.slice(
+    0,
+    bracketConfig.numberOfColumns
+  );
+
+  // If matchups are meant to be mirrored, split up the columns re-order them
+  const reArrangedMatchups =
+    bracketConfig.display === 'mirror'
+      ? splitAndRearrangeColumns(matchupsInRound)
+      : matchupsInRound;
+
+  // Sort matchups by position
   return (
     <div className={styles.bracketChallengeContainer}>
       <Button
         classNames={styles.submitButton}
         handleClick={() => handleSubmit()}
         isLoading={isSubmitting}
+        // divide matchups in two
       >
         Submit
       </Button>
-      <Component
-        firstHalfRoundOne={firstHalfRoundOne}
-        firstHalfRoundTwo={firstHalfRoundTwo}
-        firstHalfRoundThree={firstHalfRoundThree}
-        firstHalfRoundFour={firstHalfRoundFour}
-        secondHalfRoundOne={secondHalfRoundOne}
-        secondHalfRoundTwo={secondHalfRoundTwo}
-        secondHalfRoundThree={secondHalfRoundThree}
-        secondHalfRoundFour={secondHalfRoundFour}
-        winner={winner}
-        updatedFirstHalfRoundFour={updatedFirstHalfRoundFour}
-        updatedSecondHalfRoundFour={updatedSecondHalfRoundFour}
-      />
+      <div className={styles.row}>
+        {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
+        {reArrangedMatchups.map(({ matchups }, index) => {
+          return <BracketColumn matchups={matchups} key={`matchup-${index}`} />;
+        })}
+      </div>
     </div>
   );
 }

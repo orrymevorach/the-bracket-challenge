@@ -12,10 +12,18 @@ import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
 import { useWinners } from '@/context/winners-context/winners-context';
 import useGetUserBracketSelections from '@/context/matchup-context/useGetUserBracketSelections';
 
+const mapRoundNameToBracketConfig = {
+  Duels: { numberOfColumns: 2, display: 'mirror' },
+  DuelsWomen: { numberOfColumns: 2, display: 'mirror' },
+  Revelstoke: { numberOfColumns: 4, display: 'regular' },
+  RevelstokeWomen: { numberOfColumns: 2, display: 'regular' },
+  Selkirk: { numberOfColumns: 4, display: 'regular' },
+  SelkirkWomen: { numberOfColumns: 2, display: 'regular' },
+};
+
 export default function BracketChallengeContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
-  const currentRoundName = currentRound.name;
   const [isSettingName, setIsSettingName] = useState(true);
   const [gender, setGender] = useState('male');
   const snowboarders = useSnowboarders();
@@ -34,15 +42,10 @@ export default function BracketChallengeContainer() {
     }
   }, [router, bracketRecId]);
 
-  const currentWomensRoundName = `${currentRoundName}Women`;
-  const mapRoundToBracketConfig = {
-    Duels: 'sixteenSingle',
-    DuelsWomen: 'eightSingle',
-    Revelstoke: 'eightMulti',
-    RevelstokeWomen: 'fourMulti',
-    Selkirk: 'eightMulti',
-    SelkirkWomen: 'fourMulti',
-  };
+  const currentRoundName =
+    gender === 'male' ? currentRound.name : `${currentRound.name}Women`;
+
+  const bracketConfig = mapRoundNameToBracketConfig[currentRoundName];
 
   return (
     <>
@@ -66,35 +69,19 @@ export default function BracketChallengeContainer() {
             <Loader classNames={styles.loader} />
           ) : (
             <>
-              {gender === GENDERS.MALE ? (
-                <MatchupDataProvider
-                  snowboarders={snowboarders[currentRoundName]}
-                  winners={winners}
-                  userBracketSelections={
-                    bracketSelectionsSortedByRound[currentRoundName]
-                  }
-                >
-                  <BracketChallenge
-                    currentRound={currentRoundName}
-                    bracketConfig={mapRoundToBracketConfig[currentRoundName]}
-                  />
-                </MatchupDataProvider>
-              ) : (
-                <MatchupDataProvider
-                  snowboarders={snowboarders[currentWomensRoundName]}
-                  winners={winners}
-                  userBracketSelections={
-                    bracketSelectionsSortedByRound[currentWomensRoundName]
-                  }
-                >
-                  <BracketChallenge
-                    currentRound={currentWomensRoundName}
-                    bracketConfig={
-                      mapRoundToBracketConfig[currentWomensRoundName]
-                    }
-                  />
-                </MatchupDataProvider>
-              )}
+              <MatchupDataProvider
+                snowboarders={snowboarders[currentRoundName]}
+                winners={winners}
+                userBracketSelections={
+                  bracketSelectionsSortedByRound[currentRoundName]
+                }
+                currentRound={currentRoundName}
+              >
+                <BracketChallenge
+                  currentRound={currentRoundName}
+                  bracketConfig={bracketConfig}
+                />
+              </MatchupDataProvider>
             </>
           )}
         </>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function Player(player) {
   const { name, country, matchupId, isChampion } = player;
-  const { setWinner } = useMatchups();
+  const { setWinner, matchups } = useMatchups();
 
   const mapCountryToFlagImg = {
     USA: '/flags/USA.svg',
@@ -21,7 +21,7 @@ export default function Player(player) {
       {isChampion && <p className={styles.trophy}>🏆</p>}
       <button
         className={styles.playerContainer}
-        onClick={() => setWinner({ player, matchupId })}
+        onClick={() => setWinner({ player, matchups, matchupId })}
       >
         <div className={styles.textFlagContainer}>
           <div>

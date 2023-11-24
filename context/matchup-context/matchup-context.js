@@ -1,10 +1,8 @@
-import useSetRoundProgressions from './useSetRoundProgressions';
-import { useSetInitialMatchups } from './useSetInitialMatchups';
+import useSetInitialMatchups from './useSetInitialMatchups';
+import { addWinnerToMatchups } from './matchup-utils';
 import useAddUserSelectionsToRounds from './useAddUserSelectionsToRounds';
-// import useApplyLiveResults from './useApplyLiveResults';
 
-const { createContext, useContext } = require('react');
-
+const { createContext, useContext, useState } = require('react');
 const MatchupContext = createContext();
 
 export const useMatchups = () => {
@@ -14,21 +12,35 @@ export const useMatchups = () => {
 export const MatchupDataProvider = ({
   snowboarders,
   children,
+  currentRound,
   winners,
   userBracketSelections,
 }) => {
-  const matchupData = useSetRoundProgressions();
-  useSetInitialMatchups({
-    dispatch: matchupData.dispatch,
-    snowboarders,
-  });
+  const [matchups, setMatchups] = useState([]);
+  useSetInitialMatchups({ setMatchups, snowboarders, currentRound });
 
-  useAddUserSelectionsToRounds({ matchupData, userBracketSelections });
+  const setWinner = ({ player, matchups, matchupId }) => {
+    const updatedMatchups = addWinnerToMatchups({
+      player,
+      matchups,
+      matchupId,
+    });
+    setMatchups(updatedMatchups);
+  };
+
+  useAddUserSelectionsToRounds({
+    matchups,
+    userBracketSelections,
+    setMatchups,
+  });
   // useApplyLiveResults({ matchupData });
 
+  const value = {
+    matchups,
+    setWinner,
+  };
+
   return (
-    <MatchupContext.Provider value={matchupData}>
-      {children}
-    </MatchupContext.Provider>
+    <MatchupContext.Provider value={value}>{children}</MatchupContext.Provider>
   );
 };

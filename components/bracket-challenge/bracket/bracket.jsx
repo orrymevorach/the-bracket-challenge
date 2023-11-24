@@ -3,26 +3,20 @@ import styles from './bracket.module.scss';
 import clsx from 'clsx';
 
 export default function Bracket({
-  snowboarders = [],
-  round,
   matchupId,
-  winner,
-  correctWinner,
   bracketClassNames = '',
-  isChampion = false,
+  team1,
+  team2,
 }) {
+  const snowboarders = [team1, team2];
   return (
     <div className={clsx(styles.bracket, bracketClassNames)}>
-      {snowboarders.slice().map((snowboarder, index) => {
+      {snowboarders.map((snowboarder, index) => {
         return (
           <Player
             key={`matchup-${matchupId}-${index}`}
             {...snowboarder}
-            round={round}
             matchupId={matchupId}
-            selectedWinner={winner}
-            correctWinner={correctWinner}
-            isChampion={isChampion}
           />
         );
       })}

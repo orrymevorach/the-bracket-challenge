@@ -202,130 +202,162 @@ export const GET_BRACKET = gql`
   query GetBracket($recId: String) {
     userBrackets(id: $recId) {
       dR1M1 {
+        id
         name
         country
       }
       dR1M2 {
+        id
         name
         country
       }
       dR1M3 {
+        id
         name
         country
       }
       dR1M4 {
+        id
         name
         country
       }
       dR1M5 {
+        id
         name
         country
       }
       dR1M6 {
+        id
         name
         country
       }
       dR1M7 {
+        id
         name
         country
       }
       dR1M8 {
+        id
         name
         country
       }
       dwR1M1 {
+        id
         name
         country
       }
       dwR1M2 {
+        id
         name
         country
       }
       dwR1M3 {
+        id
         name
         country
       }
       dwR1M4 {
+        id
         name
         country
       }
       rR1M1 {
+        id
         name
         country
       }
       rR1M2 {
+        id
         name
         country
       }
       rR1M3 {
+        id
         name
         country
       }
       rR1M4 {
+        id
         name
         country
       }
       rR2M1 {
+        id
         name
         country
       }
       rR2M2 {
+        id
         name
         country
       }
       rR3M1 {
+        id
         name
         country
       }
       rwR1M1 {
+        id
         name
         country
       }
       rwR1M2 {
+        id
         name
         country
       }
       rwR2M1 {
+        id
         name
         country
       }
       sR1M1 {
+        id
         name
         country
       }
       sR1M2 {
+        id
         name
         country
       }
       sR1M3 {
+        id
         name
         country
       }
       sR1M4 {
+        id
         name
         country
       }
       sR2M1 {
+        id
         name
         country
       }
       sR2M2 {
+        id
         name
         country
       }
       sR3M1 {
+        id
         name
         country
       }
       swR1M1 {
+        id
         name
         country
       }
       swR1M2 {
+        id
         name
         country
       }
       swR2M1 {
+        id
         name
         country
       }

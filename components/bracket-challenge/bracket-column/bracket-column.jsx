@@ -3,23 +3,29 @@ import styles from './bracket-column.module.scss';
 
 export default function BracketColumn({
   matchups,
-  round,
   bracketClassNames = '',
   isChampion = false,
 }) {
   return (
     <div className={styles.bracketColumn}>
-      {matchups.slice().map(matchup => {
-        return (
-          <Bracket
-            key={matchup.matchupId}
-            round={round}
-            {...matchup}
-            bracketClassNames={bracketClassNames}
-            isChampion={isChampion}
-          />
-        );
-      })}
+      {matchups
+        .slice()
+        .sort((a, b) => {
+          const aPosition = a.position;
+          const bPosition = b.position;
+          if (aPosition > bPosition) return 1;
+          return -1;
+        })
+        .map(matchup => {
+          return (
+            <Bracket
+              key={matchup.matchupId}
+              {...matchup}
+              bracketClassNames={bracketClassNames}
+              isChampion={isChampion}
+            />
+          );
+        })}
     </div>
   );
 }
