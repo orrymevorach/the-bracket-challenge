@@ -1,0 +1,46 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.title {
+  @include mixins.fontPrimary;
+  color: white;
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 50px;
+}
+
+.subheading {
+    @include mixins.fontPrimary;
+  color: white;
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .title {
+    font-size: 40px;
+  }
+  .subheading {
+    font-size: 28px;
+  }
+  .bracket img {
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  
+  .bracket img {
+    max-width: 300px;
+  }
+}

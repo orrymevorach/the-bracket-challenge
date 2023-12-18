@@ -10,7 +10,8 @@
       "utils": ["utils/constants.js"],
       "graphql/*": ["graphql/*"],
       "lib": ["lib/*"],
-      "context": ["context/*"]
+      "context": ["context/*"],
+      "public": ["public/"],
     }
   }
 }
