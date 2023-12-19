@@ -22,7 +22,6 @@ export default function Dashboard() {
     winnersData,
     userName: user.name,
   });
-  if (user.isLoading) return <Loader isFullPage />;
   const hasLeagueData = !!leagueData;
 
   return (

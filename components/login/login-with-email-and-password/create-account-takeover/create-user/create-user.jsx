@@ -38,12 +38,12 @@ export default function CreateUser({ email }) {
         setIsLoading(false);
         return;
       }
+      Cookies.set(COOKIES.UID, response.user.uid);
       const newUserResponse = await createUser({
         uid: response.user.uid,
         name: name,
         email: emailInput,
       });
-      Cookies.set(COOKIES.UID, response.user.uid);
       setIsLoading(false);
       router.push(ROUTES.DASHBOARD);
     } catch (error) {
