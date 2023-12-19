@@ -583,3 +583,11 @@ export const EDIT_LEAGUE_NAME = gql`
     }
   }
 `;
+
+export const GET_LEAGUE_IDS = gql`
+  query GetLeagueIds {
+    leagues {
+      id
+    }
+  }
+`;

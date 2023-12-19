@@ -1,29 +1,51 @@
 import ComingSoon from '@/components/coming-soon/coming-soon';
-import Login from 'components/login/login';
-import { useUser } from 'context/user-context/user-context';
-import Cookies from 'js-cookie';
+import Meta from '@/components/shared/head/head';
+import Loader from '@/components/shared/loader/loader';
+import { getFeatureFlag, getPageLoadData } from '@/lib/contentful';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { COOKIES, ROUTES } from 'utils/constants';
+import { useEffect, useState } from 'react';
+import { FEATURE_FLAGS, ROUTES } from 'utils/constants';
 
-// export default function Home() {
-//   const { authData } = useUser();
-//   const router = useRouter();
-//   useEffect(() => {
-//     if (authData) {
-//       const authCookie = Cookies.get(COOKIES.UID);
-//       if (authCookie) {
-//         router.push({
-//           pathname: ROUTES.DASHBOARD,
-//         });
-//       }
-//     }
-//   }, [authData, router]);
-//   return <Login />;
-// }
+export default function Home({ showComingSoonPage }) {
+  const router = useRouter();
+  const [showLoader, setShowLoader] = useState(true);
 
-export default function Home() {
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLoader(false);
+    }, 500);
+  }, []);
+
+  useEffect(() => {
+    const isAdmin = router.query.admin === 'true';
+    if (isAdmin || !showComingSoonPage) {
+      router.push('/login');
+    }
+  }, [router, showComingSoonPage]);
+
+  if (showLoader) return <Loader isFullPage />;
+
   return (
-    <ComingSoon />
-  )
+    <>
+      <Meta />
+      <ComingSoon />
+    </>
+  );
+}
+
+export async function getStaticProps() {
+  const pageLoadData = await getPageLoadData({
+    url: ROUTES.HOME,
+  });
+
+  const showComingSoonPage = await getFeatureFlag({
+    name: FEATURE_FLAGS.SHOW_COMING_SOON_PAGE,
+  });
+
+  return {
+    props: {
+      ...pageLoadData,
+      showComingSoonPage,
+    },
+  };
 }

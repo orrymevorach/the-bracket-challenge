@@ -1,23 +1,20 @@
-import LeagueSettings from '@/components/league-settings/league-settings';
+import ComingSoon from '@/components/coming-soon/coming-soon';
 import Meta from '@/components/shared/head/head';
-import { LeagueConfigProvider } from '@/context/league-config-context/league-config-context';
 import { getPageLoadData } from '@/lib/contentful';
 import { ROUTES } from '@/utils/constants';
 
-export default function LeaguePage() {
+export default function ComingSoonPage() {
   return (
     <>
       <Meta />
-      <LeagueConfigProvider>
-        <LeagueSettings />
-      </LeagueConfigProvider>
+      <ComingSoon />
     </>
   );
 }
 
 export async function getStaticProps() {
   const pageLoadData = await getPageLoadData({
-    url: ROUTES.LEAGUE_SETTINGS,
+    url: ROUTES.COMING_SOON,
   });
 
   return {

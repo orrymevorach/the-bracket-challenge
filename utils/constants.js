@@ -1,9 +1,12 @@
 export const ROUTES = {
   HOME: '/',
+  LOGIN: '/login',
   DASHBOARD: '/dashboard',
   BRACKET_CHALLENGE: '/bracket-challenge',
   LEAGUE: '/league',
   LEAGUE_SETTINGS: '/league-settings',
+  COMING_SOON: '/coming-soon',
+  PAGE_NOT_FOUND: '/404',
 };
 
 export const COOKIES = {
@@ -40,3 +43,7 @@ export const ROUNDS = [
     name: SELKIRK,
   },
 ];
+
+export const FEATURE_FLAGS = {
+  SHOW_COMING_SOON_PAGE: 'SHOW_COMING_SOON_PAGE',
+};
