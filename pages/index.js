@@ -1,6 +1,7 @@
 import ComingSoon from '@/components/coming-soon/coming-soon';
 import Meta from '@/components/shared/head/head';
 import Loader from '@/components/shared/loader/loader';
+import ParticlesContainer from '@/components/shared/particles/particles';
 import { getFeatureFlag, getPageLoadData } from '@/lib/contentful';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -28,7 +29,17 @@ export default function Home({ showComingSoonPage }) {
   return (
     <>
       <Meta />
-      <ComingSoon />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <ParticlesContainer />
+        <ComingSoon />
+      </div>
     </>
   );
 }

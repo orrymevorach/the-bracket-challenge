@@ -10,7 +10,7 @@
 }
 
 .subheading {
-    @include mixins.fontPrimary;
+  @include mixins.fontPrimary;
   color: white;
   text-align: center;
   font-size: 32px;
@@ -22,8 +22,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: 900px;
   padding: 0 20px;
+  background-color: #191919;
+  position: relative;
 }
 
 @media screen and (max-width: 900px) {
@@ -39,7 +41,6 @@
 }
 
 @media screen and (max-width: 700px) {
-  
   .bracket img {
     max-width: 300px;
   }
