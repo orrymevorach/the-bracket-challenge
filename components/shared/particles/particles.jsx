@@ -53,7 +53,7 @@ export default function ParticlesContainer({
           type: 'circle',
         },
         number: {
-          value: 60,
+          value: 100,
           density: {
             enable: true,
             value_area: 700,

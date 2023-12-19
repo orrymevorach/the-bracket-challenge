@@ -1,20 +1,19 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
+.loginContainer {
+  width: 900px;
+  background-color: variables.$black;
+  position: relative;
+  z-index: 1;
+}
+
 .title {
   @include mixins.fontPrimary;
   color: white;
   text-align: center;
-  font-size: 60px;
+  font-size: 48px;
   margin-bottom: 50px;
-}
-
-.loginContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
 .orText {

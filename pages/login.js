@@ -1,4 +1,5 @@
 import Meta from '@/components/shared/head/head';
+import ParticlesContainer from '@/components/shared/particles/particles';
 import { getPageLoadData } from '@/lib/contentful';
 import Login from 'components/login/login';
 import { useUser } from 'context/user-context/user-context';
@@ -23,10 +24,18 @@ export default function LoginPage() {
   }, [authData, router]);
 
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
       <Meta />
+      <ParticlesContainer />
       <Login />
-    </>
+    </div>
   );
 }
 
