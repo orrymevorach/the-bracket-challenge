@@ -13,6 +13,7 @@ export default function SetBracketName({ setIsSettingName }) {
   const [isLoading, setIsLoading] = useState(false);
   const [bracketName, setBracketName] = useState('');
   const router = useRouter();
+  const leagueId = router.query.leagueId;
 
   const handleSubmitForm = async e => {
     e.preventDefault();
@@ -20,6 +21,7 @@ export default function SetBracketName({ setIsSettingName }) {
     const response = await createBracket({
       name: bracketName,
       memberId: user.id,
+      leagueId,
     });
     router.push(
       {

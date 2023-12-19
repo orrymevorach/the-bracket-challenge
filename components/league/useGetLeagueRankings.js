@@ -18,7 +18,7 @@ export default function useGetLeagueRankings() {
   useEffect(() => {
     const handleGetBracketsSortedByRankings = async () => {
       const league = await getLeagueBrackets({ id: slug });
-      const leagueWithRankingsAndNumberOfCorrectPicks = league.brackets.map(
+      const leagueWithRankingsAndNumberOfCorrectPicks = league.userBrackets.map(
         bracket => {
           const rank = getRanking({
             leagueData: league,

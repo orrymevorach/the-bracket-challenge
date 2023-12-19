@@ -21,7 +21,7 @@ export default function useDashboardRankings({
     const getLeagueData = async () => {
       const userLeaguesWithBracketRankingData = await Promise.all(
         userLeagues.map(async league => {
-          const userBracket = league.brackets.find(
+          const userBracket = league.userBrackets.find(
             bracket => bracket.userName[0] === userName
           );
           if (!userBracket) {

@@ -21,7 +21,7 @@ export const GET_USER = gql`
       leagues {
         id
         name
-        brackets {
+        userBrackets {
           id
           userName
           name
@@ -62,7 +62,7 @@ export const JOIN_LEAGUE = gql`
 export const GET_LEAGUE_BRACKETS = gql`
   query GetLeagueBrackets($id: String) {
     leagues(id: $id) {
-      brackets {
+      userBrackets {
         id
         name
         userName
@@ -191,8 +191,12 @@ export const GET_LEAGUE_MEMBERS = gql`
 `;
 
 export const CREATE_BRACKET = gql`
-  mutation CreateBracket($name: String, $memberId: String) {
-    insert_userBrackets(name: $name, memberId: [$memberId]) {
+  mutation CreateBracket($name: String, $memberId: String, $leagueId: String) {
+    insert_userBrackets(
+      name: $name
+      memberId: [$memberId]
+      leagueId: [$leagueId]
+    ) {
       id
     }
   }

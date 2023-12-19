@@ -1,6 +1,5 @@
 import { useUser } from 'context/user-context/user-context';
 import styles from './dashboard.module.scss';
-import Loader from 'components/shared/loader/loader';
 import UserBracketsTable from './user-brackets-table/user-brackets-table';
 import useDashboardRankings from './useDashboardRankings';
 import { useWinners } from '@/context/winners-context/winners-context';
@@ -22,7 +21,6 @@ export default function Dashboard() {
     winnersData,
     userName: user.name,
   });
-  const hasLeagueData = !!leagueData;
 
   return (
     <Layout>
@@ -52,15 +50,11 @@ export default function Dashboard() {
           </Button>
         </div>
       </div>
-      {hasLeagueData ? (
-        <UserBracketsTable
-          {...user}
-          leagues={leagueData}
-          currentRound={ROUNDS[0].name}
-        />
-      ) : (
-        <Loader isFullPage={false} classNames={styles.loader} />
-      )}
+      <UserBracketsTable
+        {...user}
+        leagues={leagueData || []}
+        currentRound={ROUNDS[0].name}
+      />
     </Layout>
   );
 }

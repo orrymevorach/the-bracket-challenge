@@ -7,6 +7,15 @@ import { useRouter } from 'next/router';
 
 export default function UserBracketsTable({ leagues = [], currentRound }) {
   const router = useRouter();
+  if (!leagues || !leagues.length) {
+    return (
+      <div>
+        <p>
+          You are currently not in any leagues. Please join or create a league.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       <table className={styles.table}>

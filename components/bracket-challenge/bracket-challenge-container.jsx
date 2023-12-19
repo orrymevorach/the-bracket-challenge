@@ -10,6 +10,9 @@ import BracketChallenge from './bracket-challenge';
 import { useSnowboarders } from '@/context/snowboarders-context/snowboarders-context';
 import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
 import useGetUserBracketSelections from '@/context/matchup-context/useGetUserBracketSelections';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const mapRoundNameToBracketConfig = {
   Duels: { numberOfColumns: 2, display: 'mirror' },
@@ -51,36 +54,50 @@ export default function BracketChallengeContainer() {
         <SetBracketName setIsSettingName={setIsSettingName} />
       ) : (
         <>
-          <RoundButtons
-            currentRound={currentRound}
-            setCurrentRound={setCurrentRound}
-            rounds={ROUNDS}
-            setIsLoading={setIsLoading}
-            classNames={styles.roundButtons}
-          />
-          <GenderButtons
-            setGender={setGender}
-            setIsLoading={setIsLoading}
-            gender={gender}
-          />
-          {isLoading ? (
-            <Loader classNames={styles.loader} />
-          ) : (
-            <>
-              <MatchupDataProvider
-                snowboarders={snowboarders[currentRoundName]}
-                userBracketSelections={
-                  bracketSelectionsSortedByRound[currentRoundName]
-                }
-                currentRound={currentRoundName}
-              >
-                <BracketChallenge
+          <Link href="/dashboard" className={styles.backButton}>
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              color="#fff"
+              className={styles.chevron}
+            />
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              color="#fff"
+              className={styles.chevron}
+            />
+            <p>Back to dashboard</p>
+          </Link>
+          <div className={styles.container}>
+            <RoundButtons
+              currentRound={currentRound}
+              setCurrentRound={setCurrentRound}
+              rounds={ROUNDS}
+              setIsLoading={setIsLoading}
+            />
+            <GenderButtons
+              setGender={setGender}
+              setIsLoading={setIsLoading}
+              gender={gender}
+            />
+            {isLoading ? (
+              <Loader classNames={styles.loader} />
+            ) : (
+              <>
+                <MatchupDataProvider
+                  snowboarders={snowboarders[currentRoundName]}
+                  userBracketSelections={
+                    bracketSelectionsSortedByRound[currentRoundName]
+                  }
                   currentRound={currentRoundName}
-                  bracketConfig={bracketConfig}
-                />
-              </MatchupDataProvider>
-            </>
-          )}
+                >
+                  <BracketChallenge
+                    currentRound={currentRoundName}
+                    bracketConfig={bracketConfig}
+                  />
+                </MatchupDataProvider>
+              </>
+            )}
+          </div>
         </>
       )}
     </>

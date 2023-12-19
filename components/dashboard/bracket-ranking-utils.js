@@ -22,7 +22,7 @@ function addRankingsToObjects({ inputArray = [] }) {
 }
 
 export const getRanking = ({ leagueData, bracketName, winnersData }) => {
-  const usersWithNumberOfCorrectPicks = leagueData.brackets.map(team => {
+  const usersWithNumberOfCorrectPicks = leagueData.userBrackets.map(team => {
     const numberOfCorrectPicks = countNumberOfCorrectPicks({
       bracketData: team,
       winners: winnersData,
