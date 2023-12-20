@@ -1,5 +1,4 @@
 import '../styles/globals.css';
-import { UserProvider } from 'context/user-context/user-context';
 import { useState } from 'react';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
@@ -23,9 +22,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GoogleAnalytics />
-      <UserProvider>
-        <Component {...pageProps} />
-      </UserProvider>
+      <Component {...pageProps} />
     </>
   );
 }

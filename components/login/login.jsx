@@ -4,10 +4,12 @@ import LoginWithEmailAndPassword from './login-with-email-and-password/login-wit
 // import LoginWithGoogle from './login-with-google/login-with-google';
 import Cookies from 'js-cookie';
 import { COOKIES } from '@/utils/constants';
+import useRouteOnAuth from './useRouteOnAuth';
 
 initFirebaseAuth();
 
 export default function Login() {
+  useRouteOnAuth();
   // Remove previous cookies so no conflict on login
   Cookies.remove(COOKIES.UID);
   return (

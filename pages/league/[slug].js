@@ -5,16 +5,19 @@ import { ROUTES } from '@/utils/constants';
 import { getPageLoadData } from '@/lib/contentful';
 import { getLeagueIds } from '@/lib/airtable';
 import Meta from '@/components/shared/head/head';
+import { UserProvider } from '@/context/user-context/user-context';
 
 export default function LeaguePage() {
   return (
     <>
       <Meta />
-      <WinnersProvider>
-        <LeagueConfigProvider>
-          <League />
-        </LeagueConfigProvider>
-      </WinnersProvider>
+      <UserProvider>
+        <WinnersProvider>
+          <LeagueConfigProvider>
+            <League />
+          </LeagueConfigProvider>
+        </WinnersProvider>
+      </UserProvider>
     </>
   );
 }
