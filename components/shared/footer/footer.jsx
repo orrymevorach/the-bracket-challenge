@@ -9,7 +9,7 @@ export default function Footer() {
       </div>
       <div className={styles.column}>
         <p className={styles.text}>Built by Orry Mevorach and Corey Jacobs</p>
-        <p className={clsx(styles.contactUs, styles.text)}>Contact Us 🤙</p>
+        <p className={clsx(styles.contactUs, styles.text)}>Contact Us</p>
       </div>
     </footer>
   );

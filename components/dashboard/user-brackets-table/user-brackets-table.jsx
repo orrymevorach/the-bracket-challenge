@@ -25,7 +25,6 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
             <th>Team Name</th>
             <th>Overall Rank</th>
             <th>Correct Picks</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -69,22 +68,31 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                 </td>
 
                 <td>{correctPicks}</td>
-                <td>
-                  {!hasSelectedWinners && (
-                    <Button
-                      isSecondary
-                      classNames={styles.createBracketButton}
-                      href={ROUTES.BRACKET_CHALLENGE}
-                    >
-                      Create Bracket
-                    </Button>
-                  )}
-                </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <div className={styles.buttonsContainer}>
+        {leagues.map((league, index) => {
+          const hasSelectedWinners = !!league.selectedWinners;
+          if (!hasSelectedWinners)
+            return (
+              <div
+                className={styles.buttonContainer}
+                key={`create-bracket-${league.leagueName}`}
+              >
+                <Button
+                  isSecondary
+                  classNames={styles.createBracketButton}
+                  href={ROUTES.BRACKET_CHALLENGE}
+                >
+                  Create Bracket
+                </Button>
+              </div>
+            );
+        })}
+      </div>
     </div>
   );
 }

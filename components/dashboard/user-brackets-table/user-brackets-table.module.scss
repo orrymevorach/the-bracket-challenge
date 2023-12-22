@@ -3,6 +3,7 @@
 
 .container {
   margin-top: 40px;
+  display: flex;
 }
 
 .table {
@@ -12,7 +13,7 @@
     position: relative;
     cursor: pointer;
     &:hover {
-      outline: thin solid;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     &.titleRow {
@@ -34,12 +35,16 @@
     width: 250px;
     text-align: center;
   }
+  thead tr:hover {
+    background: none;
+  }
 }
 
 .leagueHeading,
 td.leagueName {
   width: 400px;
   text-align: left;
+  padding-left: 10px;
 }
 
 .number {
@@ -52,8 +57,20 @@ td.leagueName {
   margin-right: 10px;
 }
 
+.buttonsContainer {
+  margin-top: 58px;
+}
+
+.buttonContainer {
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25px;
+}
+
 .createBracketButton {
-  margin-left: 60px;
-  position: relative;
-  top: -5px;
+  text-align: center;
+  height: 50px;
+  padding: 0;
 }
