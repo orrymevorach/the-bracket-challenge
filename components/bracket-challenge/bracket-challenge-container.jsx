@@ -83,7 +83,7 @@ export default function BracketChallengeContainer() {
             {isLoading ? (
               <Loader classNames={styles.loader} />
             ) : (
-              <RiderImagesLayout>
+              <RiderImagesLayout currentRound={currentRoundName}>
                 <MatchupDataProvider
                   snowboarders={snowboarders[currentRoundName]}
                   userBracketSelections={

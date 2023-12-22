@@ -1,11 +1,32 @@
 import Image from 'next/image';
-import round1 from 'public/longo-vs-backstrom.jpg';
-import round2 from 'public/mindnich-vs-daviet.jpeg';
-import round3 from 'public/gerard-vs-sweetin.jpeg';
+import duelsRound1Men from 'public/longo-vs-backstrom.jpg';
+import duelsRound2Men from 'public/mindnich-vs-daviet.jpeg';
+import duelsRound3Men from 'public/gerard-vs-sweetin.jpeg';
+import duelsRound1Women from 'public/anderson-vs-crosby.jpeg';
 import styles from './rider-images-layout.module.scss';
 
-const leftImages = [{ src: round1 }, { src: round2 }, { src: round3 }];
-const rightImages = [];
+const images = {
+  left: {
+    Duels: [
+      { src: duelsRound1Men },
+      { src: duelsRound2Men },
+      { src: duelsRound3Men },
+    ],
+    DuelsWomen: [{ src: duelsRound1Women }],
+    Revelstoke: [],
+    RevelstokeWomen: [],
+    Selkirk: [],
+    SelkirkWomen: [],
+  },
+  right: {
+    Duels: [],
+    DuelsWomen: [],
+    Revelstoke: [],
+    RevelstokeWomen: [],
+    Selkirk: [],
+    SelkirkWomen: [],
+  },
+};
 
 const RiderImage = ({ src }) => {
   return (
@@ -14,17 +35,17 @@ const RiderImage = ({ src }) => {
     </div>
   );
 };
-export default function RiderImagesLayout({ children }) {
+export default function RiderImagesLayout({ children, currentRound }) {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        {leftImages.map(({ src }) => {
+        {images.left[currentRound].map(({ src }) => {
           return <RiderImage src={src} key={src.src} />;
         })}
       </div>
       {children}
       <div className={styles.right}>
-        {rightImages.map(({ src }) => {
+        {images.right[currentRound].map(({ src }) => {
           return <RiderImage src={src} key={src.src} />;
         })}
       </div>

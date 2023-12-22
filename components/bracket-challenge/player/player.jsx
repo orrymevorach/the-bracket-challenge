@@ -11,6 +11,7 @@ const mapCountryToFlagImg = {
   Finland: '/flags/finland.svg',
   ['New Zealand']: '/flags/new-zealand.svg',
   Austria: '/flags/austria.svg',
+  France: '/flags/france.svg',
 };
 
 export default function Player(player) {
