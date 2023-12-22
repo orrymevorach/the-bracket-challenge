@@ -13,6 +13,19 @@ export const GET_SNOWBOARDERS = gql`
   }
 `;
 
+export const GET_SNOWBOARDERS_DEVELOPMENT_MODE = gql`
+  query GetSnowboardersDevelopmentMode {
+    snowboardersDevelopmentMode {
+      name
+      id
+      duelsMatchupId
+      revelstokeMatchupId
+      selkirkMatchupId
+      country
+    }
+  }
+`;
+
 export const GET_USER = gql`
   query GetUser($uid: String) {
     members(uid: $uid) {
@@ -446,8 +459,143 @@ export const UPDATE_USER_BRACKET = gql`
 `;
 
 export const GET_WINNERS = gql`
+  query GetWinners($name: String) {
+    userBrackets(name: $name) {
+      dR1M1 {
+        name
+        country
+      }
+      dR1M2 {
+        name
+        country
+      }
+      dR1M3 {
+        name
+        country
+      }
+      dR1M4 {
+        name
+        country
+      }
+      dR1M5 {
+        name
+        country
+      }
+      dR1M6 {
+        name
+        country
+      }
+      dR1M7 {
+        name
+        country
+      }
+      dR1M8 {
+        name
+        country
+      }
+      dwR1M1 {
+        name
+        country
+      }
+      dwR1M2 {
+        name
+        country
+      }
+      dwR1M3 {
+        name
+        country
+      }
+      dwR1M4 {
+        name
+        country
+      }
+      rR1M1 {
+        name
+        country
+      }
+      rR1M2 {
+        name
+        country
+      }
+      rR1M3 {
+        name
+        country
+      }
+      rR1M4 {
+        name
+        country
+      }
+      rR2M1 {
+        name
+        country
+      }
+      rR2M2 {
+        name
+        country
+      }
+      rR3M1 {
+        name
+        country
+      }
+      rwR1M1 {
+        name
+        country
+      }
+      rwR1M2 {
+        name
+        country
+      }
+      rwR2M1 {
+        name
+        country
+      }
+      sR1M1 {
+        name
+        country
+      }
+      sR1M2 {
+        name
+        country
+      }
+      sR1M3 {
+        name
+        country
+      }
+      sR1M4 {
+        name
+        country
+      }
+      sR2M1 {
+        name
+        country
+      }
+      sR2M2 {
+        name
+        country
+      }
+      sR3M1 {
+        name
+        country
+      }
+      swR1M1 {
+        name
+        country
+      }
+      swR1M2 {
+        name
+        country
+      }
+      swR2M1 {
+        name
+        country
+      }
+    }
+  }
+`;
+
+export const GET_WINNERS_DEVELOPMENT_MODE = gql`
   query GetWinners {
-    userBrackets(name: "Master Winners Bracket") {
+    userBrackets(name: "Master Winners Bracket Development Mode") {
       dR1M1 {
         name
         country

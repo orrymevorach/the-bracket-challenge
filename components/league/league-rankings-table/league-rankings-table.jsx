@@ -1,8 +1,9 @@
 import { ROUTES } from '@/utils/constants';
 import styles from './league-rankings-table.module.scss';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function LeagueSummaryTable({ leagueData, currentRound }) {
+  const router = useRouter();
   return (
     <table className={styles.table}>
       <thead>
@@ -28,15 +29,14 @@ export default function LeagueSummaryTable({ leagueData, currentRound }) {
               selectedWinners[currentRound].numberOfCorrectPicks;
             const numberOfWinnersInRound =
               selectedWinners[currentRound].numberOfWinnersInRound;
+            const handleClick = () => {
+              router.push(`${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}`);
+            };
             return (
-              <tr key={name} className={styles.titleRow}>
+              <tr className={styles.titleRow} key={name} onClick={handleClick}>
                 <td className={styles.rankColumn}>{rank}</td>
                 <td>
-                  <p className={styles.nameColumn}>
-                    <Link href={`${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}`}>
-                      {name}
-                    </Link>
-                  </p>
+                  <p className={styles.nameColumn}>{name}</p>
                 </td>
                 <td>
                   {numberOfCorrectPicks}/{numberOfWinnersInRound}

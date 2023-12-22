@@ -13,6 +13,7 @@ import useGetUserBracketSelections from '@/context/matchup-context/useGetUserBra
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import RiderImagesLayout from './rider-images-layout/rider-images-layout';
 
 const mapRoundNameToBracketConfig = {
   Duels: { numberOfColumns: 2, display: 'mirror' },
@@ -82,7 +83,7 @@ export default function BracketChallengeContainer() {
             {isLoading ? (
               <Loader classNames={styles.loader} />
             ) : (
-              <>
+              <RiderImagesLayout>
                 <MatchupDataProvider
                   snowboarders={snowboarders[currentRoundName]}
                   userBracketSelections={
@@ -95,7 +96,7 @@ export default function BracketChallengeContainer() {
                     bracketConfig={bracketConfig}
                   />
                 </MatchupDataProvider>
-              </>
+              </RiderImagesLayout>
             )}
           </div>
         </>

@@ -30,6 +30,7 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
         <tbody>
           {leagues.map((league, index) => {
             const hasSelectedWinners = !!league.selectedWinners;
+
             const currentSelectedRound = hasSelectedWinners
               ? league.selectedWinners[currentRound]
               : '';
@@ -74,9 +75,9 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
         </tbody>
       </table>
       <div className={styles.buttonsContainer}>
-        {leagues.map((league, index) => {
-          const hasSelectedWinners = !!league.selectedWinners;
-          if (!hasSelectedWinners)
+        {leagues.map(league => {
+          const hasSelectedWinners = league.bracketName;
+          if (!hasSelectedWinners) {
             return (
               <div
                 className={styles.buttonContainer}
@@ -91,6 +92,14 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                 </Button>
               </div>
             );
+          }
+          // Space placeholder for leagues that do not have the button
+          return (
+            <div
+              className={styles.buttonContainer}
+              key={`create-bracket-${league.leagueName}`}
+            ></div>
+          );
         })}
       </div>
     </div>
