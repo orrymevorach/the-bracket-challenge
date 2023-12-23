@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { FEATURE_FLAGS, ROUTES } from 'utils/constants';
 
 export default function Home({ showComingSoonPage }) {
+  console.log('hey dude!');
   const router = useRouter();
   const [showLoader, setShowLoader] = useState(true);
 
