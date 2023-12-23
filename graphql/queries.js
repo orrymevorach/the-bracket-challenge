@@ -13,19 +13,6 @@ export const GET_SNOWBOARDERS = gql`
   }
 `;
 
-export const GET_SNOWBOARDERS_DEVELOPMENT_MODE = gql`
-  query GetSnowboardersDevelopmentMode {
-    snowboardersDevelopmentMode {
-      name
-      id
-      duelsMatchupId
-      revelstokeMatchupId
-      selkirkMatchupId
-      country
-    }
-  }
-`;
-
 export const GET_USER = gql`
   query GetUser($uid: String) {
     members(uid: $uid) {
