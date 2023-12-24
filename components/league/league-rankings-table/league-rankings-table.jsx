@@ -2,7 +2,7 @@ import { ROUTES } from '@/utils/constants';
 import styles from './league-rankings-table.module.scss';
 import { useRouter } from 'next/router';
 
-export default function LeagueSummaryTable({ leagueData, currentRound }) {
+export default function LeagueRankingsTable({ leagueData, currentRound }) {
   const router = useRouter();
   return (
     <table className={styles.table}>
@@ -30,7 +30,9 @@ export default function LeagueSummaryTable({ leagueData, currentRound }) {
             const numberOfWinnersInRound =
               selectedWinners[currentRound].numberOfWinnersInRound;
             const handleClick = () => {
-              router.push(`${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}`);
+              router.push(
+                `${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}&leagueId=${router.query.slug}`
+              );
             };
             return (
               <tr className={styles.titleRow} key={name} onClick={handleClick}>

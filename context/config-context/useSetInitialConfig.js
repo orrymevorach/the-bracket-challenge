@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useConfig } from './config-context';
 import { ROUND_NAMES } from '@/utils/constants';
+import useGetCurrentUserBracket from './useGetCurrentUserBracket';
 
 export const useSetInitialConfig = config => {
   const { setConfig } = useConfig();
@@ -14,20 +15,29 @@ export const useSetInitialConfig = config => {
     showSelkirkMatchups,
   } = config;
 
+  const isCurrentUsersBracket = useGetCurrentUserBracket();
+
   useEffect(() => {
     let isSelectionsEnabled = config.isSelectionsEnabled;
     let showMatchups = config.showMatchups;
-    if (
-      (currentRound === ROUND_NAMES.DUELS && isDuelsSelectionsEnabled) ||
-      (currentRound === ROUND_NAMES.REVELSTOKE &&
-        isRevelstokedSelectionsEnabled) ||
-      (currentRound === ROUND_NAMES.SELKIRK && isSelkirkSelectionsEnabled)
-    ) {
-      isSelectionsEnabled = true;
+
+    // enable/disable the ability to select a winner of a bracket based on feature flags from contentful
+    if (isCurrentUsersBracket) {
+      if (
+        (currentRound === ROUND_NAMES.DUELS && isDuelsSelectionsEnabled) ||
+        (currentRound === ROUND_NAMES.REVELSTOKE &&
+          isRevelstokedSelectionsEnabled) ||
+        (currentRound === ROUND_NAMES.SELKIRK && isSelkirkSelectionsEnabled)
+      ) {
+        isSelectionsEnabled = true;
+      } else {
+        isSelectionsEnabled = false;
+      }
     } else {
       isSelectionsEnabled = false;
     }
 
+    // enable/disable the ability to view the bracket based on feature flags from contentful
     if (
       (currentRound === ROUND_NAMES.DUELS && showDuelsMatchups) ||
       (currentRound === ROUND_NAMES.REVELSTOKE && showRevelstokeMatchups) ||
@@ -46,5 +56,5 @@ export const useSetInitialConfig = config => {
 
     // Intentionally leaving out some of the dependencies to avoid unlimited re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentRound]);
+  }, [currentRound, isCurrentUsersBracket]);
 };

@@ -730,3 +730,13 @@ export const GET_LEAGUE_IDS = gql`
     }
   }
 `;
+
+export const GET_CURRENT_USER_BRACKETS = gql`
+  query getCurrentUserBrackets($id: String) {
+    members(id: $id) {
+      brackets {
+        id
+      }
+    }
+  }
+`;

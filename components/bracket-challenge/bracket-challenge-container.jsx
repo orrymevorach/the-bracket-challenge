@@ -82,7 +82,10 @@ export default function BracketChallengeContainer() {
         <SetBracketName setIsSettingName={setIsSettingName} />
       ) : (
         <>
-          <Link href="/dashboard" className={styles.backButton}>
+          <Link
+            href={`/league/${router.query.leagueId}`}
+            className={styles.backButton}
+          >
             <FontAwesomeIcon
               icon={faChevronLeft}
               color="#fff"
@@ -93,7 +96,7 @@ export default function BracketChallengeContainer() {
               color="#fff"
               className={styles.chevron}
             />
-            <p>Back to dashboard</p>
+            <p>Back to league dashboard</p>
           </Link>
           <div className={styles.container}>
             <RoundButtons
