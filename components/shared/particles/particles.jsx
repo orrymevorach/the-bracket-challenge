@@ -60,7 +60,14 @@ export default function ParticlesContainer({
           },
         },
         color: {
-          value: ['#fff'],
+          value: [
+            '#fff',
+            '#fff',
+            '#f1a494', // peach
+            '#05bf78', // green
+            '#fff601', // yellow
+            '#3d5571', //blue
+          ],
         },
         opacity: {
           value: opacity,

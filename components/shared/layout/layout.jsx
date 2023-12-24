@@ -8,6 +8,7 @@ import Footer from '../footer/footer';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { signOutOfFirebase } from '@/components/login/firebase-utils';
+import RainbowBorder from './rainbow-border/rainbow-border';
 
 export default function Layout({ children }) {
   const user = useUser();
@@ -26,6 +27,7 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <RainbowBorder />
       <div className={styles.layout}>
         <div className={styles.topContainer}>
           <p className={styles.name}>Hey {firstName}!</p>

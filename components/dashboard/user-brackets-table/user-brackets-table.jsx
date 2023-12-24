@@ -98,7 +98,16 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
             <div
               className={styles.buttonContainer}
               key={`create-bracket-${league.leagueName}`}
-            ></div>
+            >
+              <Button
+                isSecondary
+                isInverted
+                classNames={styles.createBracketButton}
+                href={ROUTES.BRACKET_CHALLENGE}
+              >
+                View League
+              </Button>
+            </div>
           );
         })}
       </div>

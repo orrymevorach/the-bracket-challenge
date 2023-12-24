@@ -1,51 +1,30 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .table {
   color: white;
   @include mixins.fontSecondary;
   width: 100%;
+
+  th {
+    @include mixins.fontPrimary;
+    color: variables.$black;
+    font-size: 18px;
+    background-color: variables.$peach;
+  }
   th,
   td {
     text-align: center;
     position: relative;
     height: 65px;
     width: 25%;
-    // Left border vertical line
-    &:nth-child(1) {
-      &:before {
-        content: '';
-        position: absolute;
-        background-color: white;
-        left: 0px;
-        height: 103%;
-        width: 1px;
-        top: 0;
-      }
-    }
-    // Vertical line
-    &:after {
-      content: '';
-      position: absolute;
-      background-color: white;
-      right: 0px;
-      height: 103%;
-      width: 1px;
-      top: 0;
-    }
+  }
+  td {
+    outline: 1px solid rgba(white, 0.5);
   }
   tr {
     position: relative;
     cursor: pointer;
-    // horizontal line
-    &:before {
-      content: '';
-      position: absolute;
-      background-color: white;
-      right: 0px;
-      height: 1px;
-      width: 100%;
-      bottom: 0;
-    }
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
@@ -53,15 +32,6 @@
   tr.headingRow {
     th {
       height: 40px;
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      background-color: white;
-      right: 0px;
-      height: 1px;
-      width: 100%;
-      top: 0;
     }
   }
 }

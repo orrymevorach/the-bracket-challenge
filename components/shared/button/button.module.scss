@@ -52,9 +52,14 @@
     top: -2px;
   }
   &.secondary {
-    background-color: #05bf78;
+    background-color: variables.$green;
     border: none;
     color: variables.$black;
+  }
+  &.secondary.inverted {
+    background-color: variables.$black;
+    border: 1px solid variables.$green;
+    color: white;
   }
 }
 

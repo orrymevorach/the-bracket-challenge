@@ -7,7 +7,7 @@
   justify-content: center;
   flex-direction: column;
   background-color: variables.$grey;
-  border: 1px solid variables.$lightGrey;
+  border: 2px solid variables.$lightGrey;
   width: 160px;
   height: 55px;
   margin: 5px 0;
@@ -15,7 +15,7 @@
   cursor: auto;
   &.isSelectionsEnabled:hover {
     cursor: pointer;
-    border: 1px solid yellow;
+    border: 2px solid variables.$yellow;
     transition: 0.3s;
   }
 }

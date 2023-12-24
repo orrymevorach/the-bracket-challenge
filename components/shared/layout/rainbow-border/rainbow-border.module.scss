@@ -1,0 +1,31 @@
+@use '@variables' as variables;
+
+.rainbowBorderContainer {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.rainbowBorder {
+  width: 25%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  &:nth-child(1) {
+    left: 0;
+    background-color: variables.$green;
+  }
+  &:nth-child(2) {
+    left: 25%;
+    background-color: variables.$peach;
+  }
+  &:nth-child(3) {
+    left: 50%;
+    background-color: variables.$blue;
+  }
+  &:nth-child(4) {
+    left: 75%;
+    background-color: variables.$yellow;
+  }
+}
