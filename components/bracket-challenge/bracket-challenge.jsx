@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { ROUND_SUFFIXES } from '@/utils/constants';
 import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
+import Player from './player/player';
 
 // Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
 const groupMatchupsByRound = matchups =>
@@ -80,20 +81,21 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
     bracketConfig.numberOfColumns
   );
 
+  const winnersColumn =
+    matchupsGroupedByRound[bracketConfig.championRound - 1]?.matchups;
+
   // If matchups are meant to be mirrored, split up the columns re-order them
   const reArrangedMatchups =
     bracketConfig.display === 'mirror'
       ? splitAndRearrangeColumns(matchupsInRound)
       : matchupsInRound;
 
-  // Sort matchups by position
   return (
     <div className={styles.bracketChallengeContainer}>
       <Button
         classNames={styles.submitButton}
         handleClick={() => handleSubmit()}
         isLoading={isSubmitting}
-        // divide matchups in two
       >
         Submit
       </Button>
@@ -102,6 +104,25 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
         {reArrangedMatchups.map(({ matchups }, index) => {
           return <BracketColumn matchups={matchups} key={`matchup-${index}`} />;
         })}
+        <div className={styles.winnersColumn}>
+          {winnersColumn.map(bracket => {
+            const snowboarders = [bracket.team1, bracket.team2];
+            const winners = bracket.actualWinner;
+            if (!snowboarders || !winners) return;
+            return snowboarders.map((snowboarder, playerIndex) => {
+              const teamKey = playerIndex === 0 ? 'team1' : 'team2';
+              return (
+                <Player
+                  key={`winners-column-${playerIndex}`}
+                  {...snowboarder}
+                  winner={winners[teamKey]}
+                  position={playerIndex + 1}
+                  isChampion
+                />
+              );
+            });
+          })}
+        </div>
       </div>
     </div>
   );

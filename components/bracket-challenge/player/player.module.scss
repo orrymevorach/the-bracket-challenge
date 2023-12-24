@@ -12,7 +12,8 @@
   height: 55px;
   margin: 5px 0;
   transition: 0.3s;
-  &:hover {
+  cursor: auto;
+  &.isSelectionsEnabled:hover {
     cursor: pointer;
     border: 1px solid yellow;
     transition: 0.3s;

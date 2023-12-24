@@ -34,3 +34,9 @@
 .left {
   margin-right: 100px;
 }
+
+.winnersColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

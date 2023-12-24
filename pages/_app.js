@@ -5,6 +5,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import PageNotFound from './404';
 import PasswordProtectionTakeover from '@/components/password-protection-takeover/password-protection-takeover';
 import GoogleAnalytics from '@/components/shared/google-analytics/google-analytics';
+import { ConfigProvider } from '@/context/config-context/config-context';
 config.autoAddCss = false;
 
 export default function App({ Component, pageProps }) {
@@ -22,7 +23,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GoogleAnalytics />
-      <Component {...pageProps} />
+      <ConfigProvider>
+        <Component {...pageProps} />
+      </ConfigProvider>
     </>
   );
 }

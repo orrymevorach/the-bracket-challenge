@@ -16,12 +16,33 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import RiderImagesLayout from './rider-images-layout/rider-images-layout';
 
 const mapRoundNameToBracketConfig = {
-  Duels: { numberOfColumns: 2, display: 'mirror' },
-  DuelsWomen: { numberOfColumns: 2, display: 'mirror' },
-  Revelstoke: { numberOfColumns: 4, display: 'regular' },
-  RevelstokeWomen: { numberOfColumns: 2, display: 'regular' },
-  Selkirk: { numberOfColumns: 4, display: 'regular' },
-  SelkirkWomen: { numberOfColumns: 2, display: 'regular' },
+  Duels: {
+    numberOfColumns: 1,
+    championRound: 2,
+    display: 'regular',
+  },
+  DuelsWomen: {
+    numberOfColumns: 1,
+    championRound: 2,
+    display: 'regular',
+  },
+  Revelstoke: {
+    numberOfColumns: 3,
+    championRound: 3,
+    display: 'regular',
+  },
+  RevelstokeWomen: {
+    numberOfColumns: 2,
+    display: 'regular',
+  },
+  Selkirk: {
+    numberOfColumns: 4,
+    display: 'regular',
+  },
+  SelkirkWomen: {
+    numberOfColumns: 2,
+    display: 'regular',
+  },
 };
 
 export default function BracketChallengeContainer() {

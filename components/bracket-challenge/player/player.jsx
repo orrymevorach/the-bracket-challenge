@@ -3,6 +3,7 @@ import styles from './player.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { useConfig } from '@/context/config-context/config-context';
 
 const mapCountryToFlagImg = {
   USA: '/flags/USA.svg',
@@ -31,9 +32,18 @@ export default function Player(player) {
   // The position will either be 1 or 2, 1 for the top bracket 2 for the bottom bracket
   const isPositionEven = isEven(position);
 
+  const {
+    config: { isSelectionsEnabled },
+  } = useConfig();
+
+  const handleClick = () => {
+    if (!isSelectionsEnabled) return;
+    setWinner({ player, matchups, matchupId });
+  };
+
   return (
     <div>
-      {isChampion && <p className={styles.trophy}>🏆</p>}
+      {isChampion && winner && <p className={styles.trophy}>🏆</p>}
       {winner && !isCorrect && !isPositionEven && (
         <p className={styles.strikethrough}>
           {firstName} {lastName}
@@ -43,9 +53,10 @@ export default function Player(player) {
         className={clsx(
           styles.playerContainer,
           isCorrect && styles.greenBorder,
-          winner && !isCorrect && styles.redBorder
+          winner && !isCorrect && styles.redBorder,
+          isSelectionsEnabled && styles.isSelectionsEnabled
         )}
-        onClick={() => setWinner({ player, matchups, matchupId })}
+        onClick={handleClick}
       >
         <div className={styles.textFlagContainer}>
           {winner && !isCorrect ? (
