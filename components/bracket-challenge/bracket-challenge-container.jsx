@@ -14,6 +14,8 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import RiderImagesLayout from './rider-images-layout/rider-images-layout';
+import { useConfig } from '@/context/config-context/config-context';
+import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -58,6 +60,10 @@ export default function BracketChallengeContainer() {
     recId: bracketRecId,
   });
 
+  const {
+    config: { showMatchups },
+  } = useConfig();
+
   // User is required to give a bracket a name if no record ID exists for the bracket
   useEffect(() => {
     if (bracketRecId) {
@@ -101,6 +107,9 @@ export default function BracketChallengeContainer() {
               setIsLoading={setIsLoading}
               gender={gender}
             />
+
+            {!isLoading && !showMatchups && <MatchupsNotAvailable />}
+
             {isLoading ? (
               <Loader classNames={styles.loader} />
             ) : (

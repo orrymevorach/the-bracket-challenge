@@ -9,6 +9,7 @@ import { ROUND_SUFFIXES } from '@/utils/constants';
 import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
 import Player from './player/player';
+import { useConfig } from '@/context/config-context/config-context';
 
 // Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
 const groupMatchupsByRound = matchups =>
@@ -55,7 +56,13 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
 
   const router = useRouter();
 
+  const {
+    config: { isSelectionsEnabled, showMatchups },
+  } = useConfig();
+
   const matchupsGroupedByRound = groupMatchupsByRound(matchups);
+
+  if (!showMatchups) return;
   if (!matchupsGroupedByRound.length) {
     return <Loader isDotted />;
   }
@@ -92,13 +99,16 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
 
   return (
     <div className={styles.bracketChallengeContainer}>
-      <Button
-        classNames={styles.submitButton}
-        handleClick={() => handleSubmit()}
-        isLoading={isSubmitting}
-      >
-        Submit
-      </Button>
+      {isSelectionsEnabled && (
+        <Button
+          classNames={styles.submitButton}
+          handleClick={() => handleSubmit()}
+          isLoading={isSubmitting}
+        >
+          Submit
+        </Button>
+      )}
+
       <div className={styles.row}>
         {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
         {reArrangedMatchups.map(({ matchups }, index) => {

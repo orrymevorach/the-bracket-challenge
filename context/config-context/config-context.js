@@ -8,7 +8,12 @@ export const useConfig = () => {
 };
 
 export const ConfigProvider = ({ children }) => {
-  const [config, setConfig] = useState({ currentRound: ROUND_NAMES.DUELS });
+  const initialConfig = {
+    currentRound: ROUND_NAMES.DUELS,
+    showMatchups: false,
+    isSelectionsEnabled: false,
+  };
+  const [config, setConfig] = useState(initialConfig);
   return (
     <ConfigContext.Provider value={{ config, setConfig }}>
       {children}

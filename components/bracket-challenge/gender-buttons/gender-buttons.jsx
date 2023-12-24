@@ -21,12 +21,14 @@ export default function GenderButtons({ setGender, setIsLoading, gender }) {
       <Button
         handleClick={() => handleSetGender({ gender: GENDERS.MALE })}
         isLight={gender === GENDERS.MALE}
+        classNames={styles.button}
       >
         Men
       </Button>
       <Button
         handleClick={() => handleSetGender({ gender: GENDERS.FEMALE })}
         isLight={gender === GENDERS.FEMALE}
+        classNames={styles.button}
       >
         Women
       </Button>

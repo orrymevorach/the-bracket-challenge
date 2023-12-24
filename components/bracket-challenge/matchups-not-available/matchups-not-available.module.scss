@@ -1,0 +1,18 @@
+@use '@mixins' as mixins;
+
+.matchupsNotAvailableHeading {
+  text-align: center;
+  font-size: 32px;
+  @include mixins.fontPrimary;
+  margin-top: 100px;
+}
+
+.matchupsNotAvailableText {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.link {
+  text-decoration: underline;
+}

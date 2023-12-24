@@ -42,10 +42,25 @@ export async function getStaticProps() {
     name: FEATURE_FLAGS.IS_SELKIRK_SELECTIONS_ENABLED,
   });
 
+  const showDuelsMatchups = await getFeatureFlag({
+    name: FEATURE_FLAGS.SHOW_DUELS_MATCHUPS,
+  });
+
+  const showRevelstokeMatchups = await getFeatureFlag({
+    name: FEATURE_FLAGS.SHOW_REVELSTOKE_MATCHUPS,
+  });
+
+  const showSelkirkMatchups = await getFeatureFlag({
+    name: FEATURE_FLAGS.SHOW_SELKIRK_MATCHUPS,
+  });
+
   const config = {
     isDuelsSelectionsEnabled,
     isRevelstokeSelectionsEnabled,
     isSelkirkSelectionsEnabled,
+    showDuelsMatchups,
+    showRevelstokeMatchups,
+    showSelkirkMatchups,
   };
 
   return {

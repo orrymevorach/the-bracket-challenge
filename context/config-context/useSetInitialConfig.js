@@ -1,40 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useConfig } from './config-context';
 import { ROUND_NAMES } from '@/utils/constants';
 
 export const useSetInitialConfig = config => {
-  const [isSelectionsEnabled, setIsSelectionsEnabled] = useState(false);
   const { setConfig } = useConfig();
   const {
     isDuelsSelectionsEnabled,
     isRevelstokedSelectionsEnabled,
     isSelkirkSelectionsEnabled,
     currentRound,
+    showDuelsMatchups,
+    showRevelstokeMatchups,
+    showSelkirkMatchups,
   } = config;
 
   useEffect(() => {
-    if (currentRound === ROUND_NAMES.DUELS && isDuelsSelectionsEnabled) {
-      setIsSelectionsEnabled(true);
-    }
+    let isSelectionsEnabled = config.isSelectionsEnabled;
+    let showMatchups = config.showMatchups;
     if (
-      currentRound === ROUND_NAMES.REVELSTOKE &&
-      isRevelstokedSelectionsEnabled
+      (currentRound === ROUND_NAMES.DUELS && isDuelsSelectionsEnabled) ||
+      (currentRound === ROUND_NAMES.REVELSTOKE &&
+        isRevelstokedSelectionsEnabled) ||
+      (currentRound === ROUND_NAMES.SELKIRK && isSelkirkSelectionsEnabled)
     ) {
-      setIsSelectionsEnabled(true);
+      isSelectionsEnabled = true;
+    } else {
+      isSelectionsEnabled = false;
     }
-    if (currentRound === ROUND_NAMES.SELKIRK && isSelkirkSelectionsEnabled) {
-      setIsSelectionsEnabled(true);
+
+    if (
+      (currentRound === ROUND_NAMES.DUELS && showDuelsMatchups) ||
+      (currentRound === ROUND_NAMES.REVELSTOKE && showRevelstokeMatchups) ||
+      (currentRound === ROUND_NAMES.SELKIRK && showSelkirkMatchups)
+    ) {
+      showMatchups = true;
+    } else {
+      showMatchups = false;
     }
+
     setConfig({
       ...config,
       isSelectionsEnabled,
+      showMatchups,
     });
-  }, [
+
     // Intentionally leaving out some of the dependencies to avoid unlimited re-renders
-    currentRound,
-    isDuelsSelectionsEnabled,
-    isRevelstokedSelectionsEnabled,
-    isSelkirkSelectionsEnabled,
-    setConfig,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRound]);
 };
