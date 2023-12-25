@@ -29,6 +29,7 @@ export default function LeagueRankingsTable({ leagueData, currentRound }) {
               selectedWinners[currentRound].numberOfCorrectPicks;
             const numberOfWinnersInRound =
               selectedWinners[currentRound].numberOfWinnersInRound;
+            const points = selectedWinners[currentRound].points;
             const handleClick = () => {
               router.push(
                 `${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}&leagueId=${router.query.slug}`
@@ -43,7 +44,7 @@ export default function LeagueRankingsTable({ leagueData, currentRound }) {
                 <td>
                   {numberOfCorrectPicks}/{numberOfWinnersInRound}
                 </td>
-                <td>100</td>
+                <td>{points}</td>
               </tr>
             );
           })}

@@ -3,12 +3,12 @@ function addRankingsToObjects({ inputArray = [] }) {
 
   const rankedObjects = inputArray.map(obj => {
     const ranking = (
-      inputArray.filter(
-        otherObj => otherObj.numberOfCorrectPicks > obj.numberOfCorrectPicks
-      ).length + 1
+      inputArray.filter(otherObj => {
+        return otherObj.scoreData.points > obj.scoreData.points;
+      }).length + 1
     ).toString();
     const tiedRankings = inputArray.filter(
-      otherObj => otherObj.numberOfCorrectPicks === obj.numberOfCorrectPicks
+      otherObj => otherObj.scoreData.points === obj.scoreData.points
     );
 
     if (tiedRankings.length > 1) {
@@ -23,12 +23,12 @@ function addRankingsToObjects({ inputArray = [] }) {
 
 export const getRanking = ({ leagueData, bracketName, winnersData }) => {
   const usersWithNumberOfCorrectPicks = leagueData.userBrackets.map(team => {
-    const numberOfCorrectPicks = countNumberOfCorrectPicks({
+    const scoreData = countNumberOfCorrectPicks({
       bracketData: team,
       winners: winnersData,
     });
     return {
-      numberOfCorrectPicks,
+      scoreData,
       bracketName: team.name,
     };
   });
@@ -68,9 +68,17 @@ function countNumberOfWinnersInEachRound({ winnersData }) {
   };
 }
 
+const mapRoundToPoints = {
+  1: 1,
+  2: 2,
+  3: 4,
+  4: 8,
+};
+
 export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
   if (!bracketData || !winners) return;
   let count = 0;
+  let points = 0;
 
   for (const key in bracketData) {
     if (
@@ -79,11 +87,16 @@ export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
       bracketData[key][0]?.name !== undefined &&
       bracketData[key][0]?.name === winners[key][0]?.name
     ) {
+      // Add to number of correct picks
       count++;
+      // Calculate points
+      const round = parseFloat(key.split('R')[1]?.split('M')[0]);
+      const pointsInThisRound = mapRoundToPoints[round];
+      points = points + pointsInThisRound;
     }
   }
 
-  return count;
+  return { numberOfCorrectPicks: count, points };
 };
 
 export function addNumberOfCorrectPicksToRoundData({
@@ -94,12 +107,13 @@ export function addNumberOfCorrectPicksToRoundData({
     winnersData,
   });
   for (const key in bracketData) {
-    const numberOfCorrectPicks = countNumberOfCorrectPicks({
+    const { numberOfCorrectPicks, points } = countNumberOfCorrectPicks({
       bracketData: bracketData[key],
       winners: winnersData,
     });
     bracketData[key].numberOfCorrectPicks = numberOfCorrectPicks;
     bracketData[key].numberOfWinnersInRound = numberOfWinnersInRound[key];
+    bracketData[key].points = points;
   }
 }
 

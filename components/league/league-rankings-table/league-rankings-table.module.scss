@@ -10,7 +10,10 @@
     @include mixins.fontPrimary;
     color: variables.$black;
     font-size: 18px;
-    background-color: variables.$peach;
+    background-color: white;
+  }
+  th:last-of-type {
+    background-color: variables.$yellow;
   }
   th,
   td {
