@@ -1,3 +1,10 @@
+export const mapRoundToPoints = {
+  1: 1,
+  2: 2,
+  3: 4,
+  4: 8,
+};
+
 function addRankingsToObjects({ inputArray = [] }) {
   if (inputArray.length === 0) return [];
 
@@ -11,11 +18,7 @@ function addRankingsToObjects({ inputArray = [] }) {
       otherObj => otherObj.scoreData.points === obj.scoreData.points
     );
 
-    if (tiedRankings.length > 1) {
-      return { ...obj, ranking: `T-${ranking}` };
-    } else {
-      return { ...obj, ranking };
-    }
+    return { ...obj, ranking };
   });
 
   return rankedObjects;
@@ -67,13 +70,6 @@ function countNumberOfWinnersInEachRound({ winnersData }) {
     Overall: overallWinners,
   };
 }
-
-const mapRoundToPoints = {
-  1: 1,
-  2: 2,
-  3: 4,
-  4: 8,
-};
 
 export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
   if (!bracketData || !winners) return;

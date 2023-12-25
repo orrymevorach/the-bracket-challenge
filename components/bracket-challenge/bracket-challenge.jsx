@@ -128,6 +128,7 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
                   winner={winners[teamKey]}
                   position={playerIndex + 1}
                   isChampion
+                  matchupId={bracket.matchupId}
                 />
               );
             });

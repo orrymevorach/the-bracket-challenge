@@ -17,8 +17,7 @@ export default function LeagueRankingsTable({ leagueData, currentRound }) {
       <tbody>
         {leagueData
           .sort((a, b) => {
-            const removeTieStringAndConvertToFloat = rank =>
-              parseFloat(rank.replace('T-', ''));
+            const removeTieStringAndConvertToFloat = rank => parseFloat(rank);
             const aFloat = removeTieStringAndConvertToFloat(a.rank);
             const bFloat = removeTieStringAndConvertToFloat(b.rank);
             if (aFloat > bFloat) return 1;

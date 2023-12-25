@@ -4,6 +4,7 @@ import { useMatchups } from 'context/matchup-context/matchup-context';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { useConfig } from '@/context/config-context/config-context';
+import { mapRoundToPoints } from '@/components/dashboard/bracket-ranking-utils';
 
 const mapCountryToFlagImg = {
   USA: '/flags/USA.svg',
@@ -32,6 +33,10 @@ export default function Player(player) {
   // The position will either be 1 or 2, 1 for the top bracket 2 for the bottom bracket
   const isPositionEven = isEven(position);
 
+  //
+  const round = matchupId?.split('_M')[0].replace('R', '');
+  const pointsWonForCorrectPick = mapRoundToPoints[round - 1];
+
   const {
     config: { isSelectionsEnabled },
   } = useConfig();
@@ -49,38 +54,44 @@ export default function Player(player) {
           {firstName} {lastName}
         </p>
       )}
-      <button
-        className={clsx(
-          styles.playerContainer,
-          isCorrect && styles.greenBorder,
-          winner && !isCorrect && styles.redBorder,
-          isSelectionsEnabled && styles.isSelectionsEnabled
+      <div className={styles.rowContainer}>
+        <button
+          className={clsx(
+            styles.playerContainer,
+            isCorrect && styles.greenBorder,
+            winner && !isCorrect && styles.redBorder,
+            isSelectionsEnabled && styles.isSelectionsEnabled
+          )}
+          onClick={handleClick}
+        >
+          <div className={styles.textFlagContainer}>
+            {winner && !isCorrect ? (
+              <div>
+                <p className={styles.playerName}>{winnerFirstName}</p>
+                <p className={styles.playerName}>{winnerLastName}</p>
+              </div>
+            ) : (
+              <div>
+                <p className={styles.playerName}>{firstName}</p>
+                <p className={styles.playerName}>{lastName}</p>
+              </div>
+            )}
+            {flagImage && (
+              <Image
+                src={winnerFlag || flagImage}
+                alt={`${country} flag`}
+                className={styles.flag}
+                width="50"
+                height="50"
+              />
+            )}
+          </div>
+        </button>
+        {isCorrect && (
+          <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
         )}
-        onClick={handleClick}
-      >
-        <div className={styles.textFlagContainer}>
-          {winner && !isCorrect ? (
-            <div>
-              <p className={styles.playerName}>{winnerFirstName}</p>
-              <p className={styles.playerName}>{winnerLastName}</p>
-            </div>
-          ) : (
-            <div>
-              <p className={styles.playerName}>{firstName}</p>
-              <p className={styles.playerName}>{lastName}</p>
-            </div>
-          )}
-          {flagImage && (
-            <Image
-              src={winnerFlag || flagImage}
-              alt={`${country} flag`}
-              className={styles.flag}
-              width="50"
-              height="50"
-            />
-          )}
-        </div>
-      </button>
+      </div>
+
       {winner && !isCorrect && isPositionEven && (
         <p className={styles.strikethrough}>
           {firstName} {lastName}

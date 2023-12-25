@@ -1,6 +1,8 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
+$width: 160px;
+
 .playerContainer {
   display: flex;
   align-items: center;
@@ -8,7 +10,7 @@
   flex-direction: column;
   background-color: variables.$grey;
   border: 2px solid variables.$lightGrey;
-  width: 160px;
+  width: $width;
   height: 55px;
   margin: 5px 0;
   transition: 0.3s;
@@ -55,8 +57,20 @@
 .trophy {
   text-align: center;
   margin-top: -25px;
+  width: $width;
 }
 
 .strikethrough {
   text-decoration: line-through;
+}
+
+.pointsWon {
+  @include mixins.fontPrimary;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 10px;
+}
+
+.rowContainer {
+  display: flex;
+  align-items: center;
 }
