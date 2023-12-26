@@ -7,9 +7,7 @@ import { useRouter } from 'next/router';
 import { ROUNDS } from '@/utils/constants';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import BracketChallenge from './bracket-challenge';
-import { useSnowboarders } from '@/context/snowboarders-context/snowboarders-context';
 import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
-import useGetUserBracketSelections from '@/context/matchup-context/useGetUserBracketSelections';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -52,13 +50,9 @@ export default function BracketChallengeContainer() {
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
   const [isSettingName, setIsSettingName] = useState(true);
   const [gender, setGender] = useState(GENDERS.MALE);
-  const snowboarders = useSnowboarders();
 
   const router = useRouter();
   const bracketRecId = router.query.bracketId;
-  const bracketSelectionsSortedByRound = useGetUserBracketSelections({
-    recId: bracketRecId,
-  });
 
   const {
     config: { showMatchups },
@@ -117,13 +111,7 @@ export default function BracketChallengeContainer() {
               <Loader classNames={styles.loader} />
             ) : (
               <RiderImagesLayout currentRound={currentRoundName}>
-                <MatchupDataProvider
-                  snowboarders={snowboarders[currentRoundName]}
-                  userBracketSelections={
-                    bracketSelectionsSortedByRound[currentRoundName]
-                  }
-                  currentRound={currentRoundName}
-                >
+                <MatchupDataProvider currentRound={currentRoundName}>
                   <BracketChallenge
                     currentRound={currentRoundName}
                     bracketConfig={bracketConfig}

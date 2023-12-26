@@ -1,7 +1,7 @@
+import { addWinnerToMatchups } from '@/context/matchup-context/matchup-utils';
 import { getBracket } from '@/lib/airtable';
 import { ROUND_SUFFIXES } from '@/utils/constants';
 import { camelToSnakeCase } from '@/utils/utils';
-import { useEffect, useState } from 'react';
 
 export const sortBracketByRound = ({ bracket }) => {
   let Duels = {};
@@ -53,22 +53,27 @@ export const sortBracketByRound = ({ bracket }) => {
   };
 };
 
-const useGetBracket = ({ recId }) => {
-  const [bracketData, setBracketData] = useState(null);
-  useEffect(() => {
-    const getBracketData = async () => {
-      const data = await getBracket({ recId });
-      setBracketData(data);
-    };
-    getBracketData();
-  }, [recId]);
-  return bracketData;
-};
+export default async function handler(req, res) {
+  const { matchups, bracketId, currentRound } = req.body;
 
-export default function useGetUserBracketSelections({ recId }) {
-  const bracketSelections = useGetBracket({ recId });
+  const data = await getBracket({ recId: bracketId });
   const bracketSortedByRound = sortBracketByRound({
-    bracket: bracketSelections,
+    bracket: data,
   });
-  return bracketSortedByRound;
+  const userBracketSelections = bracketSortedByRound[currentRound];
+
+  const selectionsArray = Object.entries(userBracketSelections);
+
+  let updatedMatchups = [];
+  for (let matchup of selectionsArray) {
+    const matchupId = matchup[0];
+    const player = matchup[1][0];
+    updatedMatchups = addWinnerToMatchups({
+      player,
+      matchups,
+      matchupId,
+    });
+  }
+
+  res.status(200).json({ matchups: updatedMatchups });
 }

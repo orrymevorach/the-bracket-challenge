@@ -1,7 +1,7 @@
 import { getWinners } from '@/lib/airtable';
 import { useState, useEffect } from 'react';
-import { sortBracketByRound } from './useGetUserBracketSelections';
 import { isEmpty, isEven } from '@/utils/utils';
+import { sortBracketByRound } from '@/pages/api/airtable/add-user-selections-to-rounds';
 
 const useGetWinners = () => {
   const [winners, setWinners] = useState({});
