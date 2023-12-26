@@ -5,7 +5,7 @@ import {
 } from '@/lib/airtable';
 import { useEffect } from 'react';
 
-export default function useSetInitialMatchups({
+export default function useSetMatchups({
   setMatchups,
   currentRound,
   bracketId,

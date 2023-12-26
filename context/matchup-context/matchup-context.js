@@ -1,6 +1,6 @@
-import useSetInitialMatchups from './useSetInitialMatchups';
 import { addWinnerToMatchups } from './matchup-utils';
 import { useRouter } from 'next/router';
+import useSetMatchups from './useSetMatchups';
 
 const { createContext, useContext, useState } = require('react');
 const MatchupContext = createContext();
@@ -13,7 +13,7 @@ export const MatchupDataProvider = ({ children, currentRound }) => {
   const [matchups, setMatchups] = useState([]);
   const router = useRouter();
   const bracketId = router.query.bracketId;
-  useSetInitialMatchups({ setMatchups, currentRound, bracketId });
+  useSetMatchups({ setMatchups, currentRound, bracketId });
 
   const setWinner = ({ player, matchups, matchupId }) => {
     const updatedMatchups = addWinnerToMatchups({
