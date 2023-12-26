@@ -1,6 +1,5 @@
 import useSetInitialMatchups from './useSetInitialMatchups';
 import { addWinnerToMatchups } from './matchup-utils';
-import useApplyLiveResults from './useApplyLiveResults';
 import { useRouter } from 'next/router';
 
 const { createContext, useContext, useState } = require('react');
@@ -24,8 +23,6 @@ export const MatchupDataProvider = ({ children, currentRound }) => {
     });
     setMatchups(updatedMatchups);
   };
-
-  useApplyLiveResults({ matchups, setMatchups, currentRound });
 
   const value = {
     matchups,
