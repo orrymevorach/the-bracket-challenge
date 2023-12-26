@@ -11,14 +11,12 @@ export const useMatchups = () => {
 };
 
 export const MatchupDataProvider = ({
-  snowboarders,
   children,
   currentRound,
-  winners,
   userBracketSelections,
 }) => {
   const [matchups, setMatchups] = useState([]);
-  useSetInitialMatchups({ setMatchups, snowboarders, currentRound });
+  useSetInitialMatchups({ setMatchups, currentRound });
 
   const setWinner = ({ player, matchups, matchupId }) => {
     const updatedMatchups = addWinnerToMatchups({
@@ -35,7 +33,7 @@ export const MatchupDataProvider = ({
     setMatchups,
   });
 
-  useApplyLiveResults({ matchups, setMatchups, winners, currentRound });
+  useApplyLiveResults({ matchups, setMatchups, currentRound });
 
   const value = {
     matchups,
