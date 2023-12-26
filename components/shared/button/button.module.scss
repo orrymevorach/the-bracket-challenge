@@ -23,7 +23,6 @@
     color: variables.$black;
     background-color: white;
     transition: 0.2s;
-    border: 2px solid variables.$black;
     svg,
     p {
       color: variables.$black;
@@ -55,11 +54,19 @@
     background-color: variables.$green;
     border: none;
     color: variables.$black;
+    border: 1px solid variables.$green;
+    &:hover {
+      background-color: rgba(white, 0.2);
+      color: white;
+    }
   }
   &.secondary.inverted {
     background-color: variables.$black;
     border: 1px solid variables.$green;
     color: white;
+    &:hover {
+      background-color: rgba(white, 0.2);
+    }
   }
 }
 
