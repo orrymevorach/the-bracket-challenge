@@ -1,7 +1,4 @@
 import styles from './league.module.scss';
-import Loader from 'components/shared/loader/loader';
-import { useState } from 'react';
-import RoundButtons from '@/components/league/round-buttons/round-buttons';
 import useGetLeagueRankings from '@/components/league/useGetLeagueRankings';
 import LeagueRankingsTable from '@/components/league/league-rankings-table/league-rankings-table';
 import LeaguePageLayout from './league-page-layout/league-page-layout';
@@ -30,9 +27,6 @@ export const ROUNDS = [
 ];
 
 export default function League() {
-  const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
-  const [isLoading, setIsLoading] = useState(false);
-
   const { bracketsSortedByRankings } = useGetLeagueRankings();
   const hasBracketData =
     !!bracketsSortedByRankings && bracketsSortedByRankings.length > 0;
@@ -46,20 +40,10 @@ export default function League() {
     <LeaguePageLayout title="League Rankings:">
       <CreateBracketPrompt brackets={bracketsSortedByRankings} />
 
-      {isLoading && <Loader classNames={styles.loader} />}
-      {!isLoading && hasBracketData && (
+      {hasBracketData && (
         <div className={styles.mainContentContainer}>
           {isAdmin && <SettingsButton />}
-          <RoundButtons
-            currentRound={currentRound}
-            setCurrentRound={setCurrentRound}
-            setIsLoading={setIsLoading}
-            rounds={ROUNDS}
-          />
-          <LeagueRankingsTable
-            leagueData={bracketsSortedByRankings}
-            currentRound={currentRound.name}
-          />
+          <LeagueRankingsTable leagueData={bracketsSortedByRankings} />
         </div>
       )}
     </LeaguePageLayout>

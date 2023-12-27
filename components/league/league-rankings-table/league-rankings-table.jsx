@@ -1,53 +1,91 @@
 import { ROUTES } from '@/utils/constants';
 import styles from './league-rankings-table.module.scss';
 import { useRouter } from 'next/router';
+import Button from '@/components/shared/button/button';
 
-export default function LeagueRankingsTable({ leagueData, currentRound }) {
+export default function LeagueRankingsTable({ leagueData }) {
   const router = useRouter();
+  const sortedBracketsByRank = leagueData.sort((a, b) => {
+    const removeTieStringAndConvertToFloat = rank => parseFloat(rank);
+    const aFloat = removeTieStringAndConvertToFloat(a.rank);
+    const bFloat = removeTieStringAndConvertToFloat(b.rank);
+    if (aFloat > bFloat) return 1;
+    return -1;
+  });
+
+  const handleClick = ({ id }) => {
+    router.push(
+      `${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}&leagueId=${router.query.slug}`
+    );
+  };
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr className={styles.headingRow}>
-          <th>Rank</th>
-          <th>Name</th>
-          <th>Correct Picks</th>
-          <th>Total Points</th>
-        </tr>
-      </thead>
-      <tbody>
-        {leagueData
-          .sort((a, b) => {
-            const removeTieStringAndConvertToFloat = rank => parseFloat(rank);
-            const aFloat = removeTieStringAndConvertToFloat(a.rank);
-            const bFloat = removeTieStringAndConvertToFloat(b.rank);
-            if (aFloat > bFloat) return 1;
-            return -1;
-          })
-          .map(({ name, rank, selectedWinners, id }) => {
-            const numberOfCorrectPicks =
-              selectedWinners[currentRound].numberOfCorrectPicks;
-            const numberOfWinnersInRound =
-              selectedWinners[currentRound].numberOfWinnersInRound;
-            const points = selectedWinners[currentRound].points;
-            const handleClick = () => {
-              router.push(
-                `${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}&leagueId=${router.query.slug}`
-              );
-            };
+    <div className={styles.container}>
+      <table className={styles.table}>
+        <thead>
+          <tr className={styles.headingRow}>
+            <th>Rank</th>
+            <th>Team Name</th>
+            <th>Total Points</th>
+            <th>Correct Picks</th>
+            <th>Duels</th>
+            <th>Revelstoke</th>
+            <th>Selkirk</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedBracketsByRank.map(({ name, rank, selectedWinners, id }) => {
             return (
-              <tr className={styles.titleRow} key={name} onClick={handleClick}>
-                <td className={styles.rankColumn}>{rank}</td>
+              <tr
+                className={styles.titleRow}
+                key={name}
+                onClick={() => handleClick({ id })}
+              >
+                <td>
+                  <span className={styles.number}>{rank}</span>
+                </td>
                 <td>
                   <p className={styles.nameColumn}>{name}</p>
                 </td>
+                <td>{selectedWinners.Overall.points}</td>
                 <td>
-                  {numberOfCorrectPicks}/{numberOfWinnersInRound}
+                  {selectedWinners.Overall.numberOfCorrectPicks}/
+                  {selectedWinners.Overall.numberOfWinnersInRound}
                 </td>
-                <td>{points}</td>
+                <td>
+                  {selectedWinners.Duels.numberOfCorrectPicks}/
+                  {selectedWinners.Duels.numberOfWinnersInRound}
+                </td>
+                <td>
+                  {selectedWinners.Revelstoke.numberOfCorrectPicks}/
+                  {selectedWinners.Revelstoke.numberOfWinnersInRound}
+                </td>
+                <td>
+                  {selectedWinners.Selkirk?.numberOfCorrectPicks}/
+                  {selectedWinners.Selkirk?.numberOfWinnersInRound}
+                </td>
               </tr>
             );
           })}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+      <div className={styles.buttonsContainer}>
+        {sortedBracketsByRank.map(league => {
+          return (
+            <div
+              className={styles.buttonContainer}
+              key={`league-button-${league.name}`}
+            >
+              <Button
+                isYellow
+                classNames={styles.button}
+                handleClick={() => handleClick({ id: league.id })}
+              >
+                View Bracket
+              </Button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }

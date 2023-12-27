@@ -68,6 +68,15 @@
       background-color: rgba(white, 0.2);
     }
   }
+  &.yellow {
+    background-color: variables.$black;
+    color: white;
+    border: 1px solid variables.$yellow;
+    &:hover {
+      background-color: rgba(white, 0.2);
+      color: white;
+    }
+  }
 }
 
 @keyframes rotate {
