@@ -1,17 +1,13 @@
 import styles from './league-settings.module.scss';
-import useUser from '@/context/user-context/useUser';
 import LeaguePageLayout from '../league/league-page-layout/league-page-layout';
 import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
-import Input from '../shared/input/input';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
-  faChevronRight,
   faEdit,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import Takeover from '../shared/takeover/takeover';
 import Button from '../shared/button/button';
 import EditLeagueNameTakeover from './edit-league-name-takeover/edit-league-name-takeover';
 import { getLeagueMembers } from '@/lib/airtable';

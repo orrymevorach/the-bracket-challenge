@@ -24,3 +24,8 @@
     }
   }
 }
+
+.roundText {
+  margin-bottom: 10px;
+  @include mixins.fontPrimary;
+}

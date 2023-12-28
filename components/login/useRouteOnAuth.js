@@ -1,4 +1,4 @@
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';;
 import { ROUTES } from '@/utils/constants';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';

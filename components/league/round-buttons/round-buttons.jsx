@@ -20,8 +20,15 @@ export default function RoundButtons({
   };
   return (
     <div className={clsx(styles.roundHeadingContainer, classNames)}>
-      {rounds.map(round => {
-        return <RoundButton {...props} key={round.name} round={round} />;
+      {rounds.map((round, index) => {
+        return (
+          <RoundButton
+            {...props}
+            key={round.name}
+            round={round}
+            index={index}
+          />
+        );
       })}
     </div>
   );

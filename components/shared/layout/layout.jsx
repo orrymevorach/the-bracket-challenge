@@ -1,4 +1,4 @@
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import Button from '../button/button';
 import styles from './layout.module.scss';
 import Loader from '../loader/loader';

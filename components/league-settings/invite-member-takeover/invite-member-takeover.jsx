@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ROUTES } from '@/utils/constants';
 import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
 import { inviteMember } from '@/lib/mailgun';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 
 export default function InviteMemberTakeover({
   setShowTakeover,

@@ -4,7 +4,7 @@ import Input from '@/components/shared/input/input';
 import Button from '@/components/shared/button/button';
 import styles from './set-bracket-name.module.scss';
 import { createBracket } from '@/lib/airtable';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
 
@@ -23,16 +23,7 @@ export default function SetBracketName({ setIsSettingName }) {
       memberId: user.id,
       leagueId,
     });
-    router.push(
-      {
-        pathname: ROUTES.BRACKET_CHALLENGE,
-        query: {
-          bracketId: response.id,
-        },
-      },
-      undefined,
-      { shallow: true }
-    );
+    window.location = `${ROUTES.BRACKET_CHALLENGE}?bracketId=${response.id}&leagueId=${leagueId}`;
     setIsSettingName(false);
   };
 

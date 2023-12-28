@@ -18,8 +18,7 @@ export default function Home({ showComingSoonPage }) {
   }, []);
 
   useEffect(() => {
-    const isAdmin = router.query.admin === 'true';
-    if (isAdmin || !showComingSoonPage) {
+    if (!showComingSoonPage) {
       router.push('/login');
     }
   }, [router, showComingSoonPage]);

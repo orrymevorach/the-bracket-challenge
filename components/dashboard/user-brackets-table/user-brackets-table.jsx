@@ -1,5 +1,4 @@
 import styles from './user-brackets-table.module.scss';
-import Link from 'next/link';
 import clsx from 'clsx';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
@@ -86,7 +85,10 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                 <Button
                   isSecondary
                   classNames={styles.createBracketButton}
-                  href={ROUTES.BRACKET_CHALLENGE}
+                  href={{
+                    pathname: ROUTES.BRACKET_CHALLENGE,
+                    query: { leagueId: league.id },
+                  }}
                 >
                   Create Bracket
                 </Button>
@@ -103,7 +105,7 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                 isSecondary
                 isInverted
                 classNames={styles.createBracketButton}
-                href={ROUTES.BRACKET_CHALLENGE}
+                href={`/league/${league.id}`}
               >
                 View League
               </Button>
