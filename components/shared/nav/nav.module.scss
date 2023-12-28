@@ -1,0 +1,29 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+  align-items: center;
+}
+
+.buttonsContainer {
+  display: flex;
+}
+
+.button {
+  margin-right: 20px;
+}
+
+.name {
+  font-size: 24px;
+  @include mixins.fontSecondaryLight;
+  letter-spacing: 0;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .name {
+    font-size: 18px;
+  }
+}
