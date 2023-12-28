@@ -3,6 +3,9 @@
 
 .container {
   margin-top: 40px;
+}
+
+.innerContainer {
   display: flex;
 }
 
@@ -83,4 +86,23 @@ td.leagueName {
 .createBracketButton {
   text-align: center;
   width: 175px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .container {
+    overflow-x: scroll;
+  }
+  .innerContainer {
+    width: 800px;
+  }
+  .table tr,
+  .table tr.titleRow,
+  .number {
+    font-size: 14px;
+  }
+
+  .leagueHeading,
+  td.leagueName {
+    width: 300px;
+  }
 }

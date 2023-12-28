@@ -33,3 +33,27 @@
 .text {
   font-size: 14px;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .footer {
+    padding: 15px;
+    margin-top: 30px;
+  }
+  .innerContainer {
+    padding: 0;
+    flex-direction: column;
+  }
+  .column {
+    text-align: center;
+    .contactUs {
+      margin-left: 0px;
+    }
+    &:nth-child(2) {
+      flex-direction: column;
+    }
+
+    .text {
+      margin: 10px 0;
+    }
+  }
+}

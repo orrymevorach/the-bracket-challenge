@@ -14,6 +14,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 40px;
+  align-items: center;
 }
 
 .buttonsContainer {
@@ -28,4 +29,14 @@
   font-size: 24px;
   @include mixins.fontSecondaryLight;
   letter-spacing: 0;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .layout {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  .name {
+    font-size: 18px;
+  }
 }

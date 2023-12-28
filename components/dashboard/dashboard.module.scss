@@ -1,3 +1,4 @@
+@use '@variables' as variables;
 @use '@mixins' as mixins;
 
 .loader {
@@ -31,4 +32,21 @@
   @include mixins.fontPrimary;
   font-size: 32px;
   margin-top: 7px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .topContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px 0;
+  }
+  .buttonsContainer {
+    margin-top: 20px;
+  }
+  .dashboardText {
+    font-size: 20px;
+  }
+  .yourLeaguesText {
+    font-size: 28px;
+  }
 }

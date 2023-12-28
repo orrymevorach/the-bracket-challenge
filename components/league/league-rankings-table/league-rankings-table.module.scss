@@ -1,7 +1,7 @@
 @use '@mixins' as mixins;
 @use '@variables' as variables;
 
-.container {
+.innerContainer {
   display: flex;
 }
 
@@ -81,4 +81,18 @@
   color: variables.$black;
   font-size: 18px;
   margin-right: 10px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .container {
+    overflow-x: scroll;
+  }
+  .innerContainer {
+    width: 800px;
+  }
+  .table th,
+  .table tr,
+  .number {
+    font-size: 14px;
+  }
 }
