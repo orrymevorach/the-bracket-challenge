@@ -38,7 +38,7 @@ export default function RoundButton({
       onMouseOver={() => setCurrentHoverRound(round)}
       onMouseLeave={() => setCurrentHoverRound(null)}
     >
-      <p className={styles.roundText}>Round: {index + 1}</p>
+      <p className={styles.roundText}>Round {index + 1}</p>
       {round.displayName}
     </button>
   );
