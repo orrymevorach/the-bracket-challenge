@@ -36,7 +36,7 @@ export const ROUNDS = [
     name: DUELS,
   },
   {
-    displayName: 'Revelstoke Mountain Resort',
+    displayName: `Revelstoke Mountain${String.fromCharCode(160)}Resort`,
     name: REVELSTOKE,
   },
   {
