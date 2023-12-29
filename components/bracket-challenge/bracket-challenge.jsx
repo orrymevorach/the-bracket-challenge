@@ -10,6 +10,7 @@ import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
 import Player from './player/player';
 import { useConfig } from '@/context/config-context/config-context';
+import RiderImagesLayout from './rider-images-layout/rider-images-layout';
 
 // Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
 const groupMatchupsByRound = matchups =>
@@ -98,43 +99,47 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
       : matchupsInRound;
 
   return (
-    <div className={styles.bracketChallengeContainer}>
-      {isSelectionsEnabled && (
-        <Button
-          classNames={styles.submitButton}
-          handleClick={() => handleSubmit()}
-          isLoading={isSubmitting}
-        >
-          Submit
-        </Button>
-      )}
+    <RiderImagesLayout currentRound={currentRound}>
+      <div className={styles.bracketChallengeContainer}>
+        {isSelectionsEnabled && (
+          <Button
+            classNames={styles.submitButton}
+            handleClick={() => handleSubmit()}
+            isLoading={isSubmitting}
+          >
+            Submit
+          </Button>
+        )}
 
-      <div className={styles.row}>
-        {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
-        {reArrangedMatchups.map(({ matchups }, index) => {
-          return <BracketColumn matchups={matchups} key={`matchup-${index}`} />;
-        })}
-        <div className={styles.winnersColumn}>
-          {winnersColumn.map(bracket => {
-            const snowboarders = [bracket.team1, bracket.team2];
-            const winners = bracket.actualWinner;
-            if (!snowboarders || !winners) return;
-            return snowboarders.map((snowboarder, playerIndex) => {
-              const teamKey = playerIndex === 0 ? 'team1' : 'team2';
-              return (
-                <Player
-                  key={`winners-column-${playerIndex}`}
-                  {...snowboarder}
-                  winner={winners[teamKey]}
-                  position={playerIndex + 1}
-                  isChampion
-                  matchupId={bracket.matchupId}
-                />
-              );
-            });
+        <div className={styles.row}>
+          {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
+          {reArrangedMatchups.map(({ matchups }, index) => {
+            return (
+              <BracketColumn matchups={matchups} key={`matchup-${index}`} />
+            );
           })}
+          <div className={styles.winnersColumn}>
+            {winnersColumn.map(bracket => {
+              const snowboarders = [bracket.team1, bracket.team2];
+              const winners = bracket.actualWinner;
+              if (!snowboarders || !winners) return;
+              return snowboarders.map((snowboarder, playerIndex) => {
+                const teamKey = playerIndex === 0 ? 'team1' : 'team2';
+                return (
+                  <Player
+                    key={`winners-column-${playerIndex}`}
+                    {...snowboarder}
+                    winner={winners[teamKey]}
+                    position={playerIndex + 1}
+                    isChampion
+                    matchupId={bracket.matchupId}
+                  />
+                );
+              });
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </RiderImagesLayout>
   );
 }

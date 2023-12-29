@@ -2,8 +2,6 @@
 @use '@mixins' as mixins;
 
 .roundHeadingButton {
-  @include mixins.fontPrimary;
-  font-size: 19px;
   width: 25%;
   text-align: center;
   background: none;
@@ -23,6 +21,11 @@
       transform: translateX(-50%);
     }
   }
+}
+
+.roundName {
+  @include mixins.fontPrimary;
+  font-size: 19px;
 }
 
 .roundText {

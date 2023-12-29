@@ -1,0 +1,27 @@
+@use '@mixins' as mixins;
+
+.container {
+  margin-top: 50px;
+}
+.dropdown {
+  display: flex;
+  margin: 10px auto 0;
+  width: 70%;
+  color: white;
+  border: 1px solid white;
+  label,
+  svg {
+    color: white;
+  }
+}
+
+.heading {
+  @include mixins.fontSecondary;
+  text-align: center;
+  font-size: 28px;
+  color: white;
+}
+
+.select {
+  color: white;
+}

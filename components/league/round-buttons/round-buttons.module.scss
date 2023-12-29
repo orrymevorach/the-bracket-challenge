@@ -1,5 +1,13 @@
+@use '@variables' as variables;
+
 .roundHeadingContainer {
   display: flex;
   justify-content: space-between;
   margin-bottom: 60px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .roundHeadingContainer {
+    display: block;
+  }
 }

@@ -5,28 +5,15 @@ import clsx from 'clsx';
 export default function RoundButton({
   round,
   setCurrentHoverRound,
-  setCurrentRound,
   currentRound,
   currentHoverRound,
-  setIsLoading = () => {},
   index,
+  handleClick,
 }) {
   const isCurrentRounnd = currentHoverRound
     ? !!(currentHoverRound.name === round.name)
     : !!(round.name === currentRound.name);
 
-  const { config, setConfig } = useConfig();
-  const handleClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setCurrentRound(round);
-      setConfig({
-        ...config,
-        currentRound: round.name,
-      });
-      setIsLoading(false);
-    }, 300);
-  };
   return (
     <button
       key={round.name}
@@ -38,8 +25,8 @@ export default function RoundButton({
       onMouseOver={() => setCurrentHoverRound(round)}
       onMouseLeave={() => setCurrentHoverRound(null)}
     >
-      <p className={styles.roundText}>Round {index + 1}</p>
-      {round.displayName}
+      <p className={styles.roundText}>Round {index + 1}:</p>
+      <p className={styles.roundName}>{round.displayName}</p>
     </button>
   );
 }
