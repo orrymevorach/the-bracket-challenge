@@ -67,10 +67,11 @@ $width: 160px;
 .pointsWon {
   @include mixins.fontPrimary;
   color: rgba(255, 255, 255, 0.5);
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
-.rowContainer {
-  display: flex;
-  align-items: center;
+@media screen and (max-width: variables.$mobile) {
+  .rowContainer {
+    display: block;
+  }
 }

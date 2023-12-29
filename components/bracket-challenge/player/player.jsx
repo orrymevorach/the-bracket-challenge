@@ -54,43 +54,47 @@ export default function Player(player) {
           {firstName} {lastName}
         </p>
       )}
-      <div className={styles.rowContainer}>
-        <button
-          className={clsx(
-            styles.playerContainer,
-            isCorrect && styles.greenBorder,
-            winner && !isCorrect && styles.redBorder,
-            isSelectionsEnabled && styles.isSelectionsEnabled
-          )}
-          onClick={handleClick}
-        >
-          <div className={styles.textFlagContainer}>
-            {winner && !isCorrect ? (
-              <div>
-                <p className={styles.playerName}>{winnerFirstName}</p>
-                <p className={styles.playerName}>{winnerLastName}</p>
-              </div>
-            ) : (
-              <div>
-                <p className={styles.playerName}>{firstName}</p>
-                <p className={styles.playerName}>{lastName}</p>
-              </div>
-            )}
-            {flagImage && (
-              <Image
-                src={winnerFlag || flagImage}
-                alt={`${country} flag`}
-                className={styles.flag}
-                width="50"
-                height="50"
-              />
-            )}
-          </div>
-        </button>
-        {isCorrect && (
-          <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
+      {winner && isCorrect && !isPositionEven && !isChampion && (
+        <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
+      )}
+      <button
+        className={clsx(
+          styles.playerContainer,
+          isCorrect && styles.greenBorder,
+          winner && !isCorrect && styles.redBorder,
+          isSelectionsEnabled && styles.isSelectionsEnabled
         )}
-      </div>
+        onClick={handleClick}
+      >
+        <div className={styles.textFlagContainer}>
+          {winner && !isCorrect ? (
+            <div>
+              <p className={styles.playerName}>{winnerFirstName}</p>
+              <p className={styles.playerName}>{winnerLastName}</p>
+            </div>
+          ) : (
+            <div>
+              <p className={styles.playerName}>{firstName}</p>
+              <p className={styles.playerName}>{lastName}</p>
+            </div>
+          )}
+          {flagImage && (
+            <Image
+              src={winnerFlag || flagImage}
+              alt={`${country} flag`}
+              className={styles.flag}
+              width="50"
+              height="50"
+            />
+          )}
+        </div>
+      </button>
+      {(winner && isCorrect && isPositionEven) ||
+      (winner && isCorrect && !isPositionEven && isChampion) ? (
+        <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
+      ) : (
+        ''
+      )}
 
       {winner && !isCorrect && isPositionEven && (
         <p className={styles.strikethrough}>

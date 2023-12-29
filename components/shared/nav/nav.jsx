@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { signOutOfFirebase } from '@/components/login/firebase-utils';
 import Button from '@/components/shared/button/button';
-import useWindowSize from '@/hooks/useWindowSize';
+import { useWindowSize } from '@/context/window-size-context/window-size-context';
 import MobileNav from './mobile-nav/mobile-nav';
 
 export default function Nav() {
@@ -25,7 +25,7 @@ export default function Nav() {
     router.push(ROUTES.HOME);
   };
   return (
-    <div className={styles.topContainer}>
+    <div className={styles.container}>
       <p className={styles.name}>Hey {firstName}!</p>
       {!isMobile ? (
         <nav className={styles.buttonsContainer}>

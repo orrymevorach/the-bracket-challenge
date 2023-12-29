@@ -1,4 +1,3 @@
-import { useConfig } from '@/context/config-context/config-context';
 import styles from './round-button.module.scss';
 import clsx from 'clsx';
 
@@ -25,7 +24,7 @@ export default function RoundButton({
       onMouseOver={() => setCurrentHoverRound(round)}
       onMouseLeave={() => setCurrentHoverRound(null)}
     >
-      <p className={styles.roundText}>Round {index + 1}:</p>
+      <p className={styles.roundText}>Round {index + 1}</p>
       <p className={styles.roundName}>{round.displayName}</p>
     </button>
   );

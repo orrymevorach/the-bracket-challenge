@@ -10,10 +10,10 @@ import BracketChallenge from './bracket-challenge';
 import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import RiderImagesLayout from './rider-images-layout/rider-images-layout';
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useConfig } from '@/context/config-context/config-context';
 import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
+import { useWindowSize } from '@/context/window-size-context/window-size-context';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -50,6 +50,7 @@ export default function BracketChallengeContainer() {
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
   const [isSettingName, setIsSettingName] = useState(true);
   const [gender, setGender] = useState(GENDERS.MALE);
+  const { isMobile } = useWindowSize();
 
   const router = useRouter();
   const bracketRecId = router.query.bracketId;
@@ -81,22 +82,17 @@ export default function BracketChallengeContainer() {
             className={styles.backButton}
           >
             <FontAwesomeIcon
-              icon={faChevronLeft}
+              icon={faChevronCircleLeft}
               color="#fff"
               className={styles.chevron}
+              size={isMobile ? 'xl' : 'lg'}
             />
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              color="#fff"
-              className={styles.chevron}
-            />
-            <p>Back to league dashboard</p>
+            {!isMobile && <p>Back to league dashboard</p>}
           </Link>
           <div className={styles.container}>
             <RoundButtons
               currentRound={currentRound}
               setCurrentRound={setCurrentRound}
-              rounds={ROUNDS}
               setIsLoading={setIsLoading}
             />
             <GenderButtons
@@ -106,18 +102,15 @@ export default function BracketChallengeContainer() {
             />
 
             {!isLoading && !showMatchups && <MatchupsNotAvailable />}
-
             {isLoading ? (
               <Loader classNames={styles.loader} />
             ) : (
-              <RiderImagesLayout currentRound={currentRoundName}>
-                <MatchupDataProvider currentRound={currentRoundName}>
-                  <BracketChallenge
-                    currentRound={currentRoundName}
-                    bracketConfig={bracketConfig}
-                  />
-                </MatchupDataProvider>
-              </RiderImagesLayout>
+              <MatchupDataProvider currentRound={currentRoundName}>
+                <BracketChallenge
+                  currentRound={currentRoundName}
+                  bracketConfig={bracketConfig}
+                />
+              </MatchupDataProvider>
             )}
           </div>
         </>

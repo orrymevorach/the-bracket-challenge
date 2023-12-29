@@ -4,6 +4,7 @@ import duelsRound2Men from 'public/mindnich-vs-daviet.jpeg';
 import duelsRound3Men from 'public/gerard-vs-sweetin.jpeg';
 import duelsRound1Women from 'public/anderson-vs-crosby.jpeg';
 import styles from './rider-images-layout.module.scss';
+import { useWindowSize } from '@/context/window-size-context/window-size-context';
 
 const images = {
   left: {
@@ -36,19 +37,24 @@ const RiderImage = ({ src }) => {
   );
 };
 export default function RiderImagesLayout({ children, currentRound }) {
+  const { isMobile } = useWindowSize();
   return (
     <div className={styles.container}>
-      <div className={styles.left}>
-        {images.left[currentRound].map(({ src }) => {
-          return <RiderImage src={src} key={src.src} />;
-        })}
-      </div>
+      {!isMobile && (
+        <div className={styles.left}>
+          {images.left[currentRound].map(({ src }) => {
+            return <RiderImage src={src} key={src.src} />;
+          })}
+        </div>
+      )}
       {children}
-      <div className={styles.right}>
-        {images.right[currentRound].map(({ src }) => {
-          return <RiderImage src={src} key={src.src} />;
-        })}
-      </div>
+      {!isMobile && (
+        <div className={styles.right}>
+          {images.right[currentRound].map(({ src }) => {
+            return <RiderImage src={src} key={src.src} />;
+          })}
+        </div>
+      )}
     </div>
   );
 }

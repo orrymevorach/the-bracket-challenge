@@ -1,7 +1,7 @@
 @use '@mixins' as mixins;
 @use '@variables' as variables;
 
-.topContainer {
+.container {
   display: flex;
   justify-content: space-between;
   padding-top: 40px;

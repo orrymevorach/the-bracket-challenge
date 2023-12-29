@@ -1,3 +1,4 @@
+@use '@variables' as variables;
 @use '@mixins' as mixins;
 
 .container {
@@ -17,11 +18,19 @@
 }
 
 .chevron {
-  width: 8px;
   position: relative;
   top: -1px;
 }
 
 .loader {
   margin-top: 280px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .container {
+    overflow-x: scroll;
+  }
+  .backButton {
+    margin: 25px 0 0px 25px;
+  }
 }
