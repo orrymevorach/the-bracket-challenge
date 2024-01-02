@@ -34,14 +34,17 @@ const mapRoundNameToBracketConfig = {
   RevelstokeWomen: {
     numberOfColumns: 2,
     display: 'regular',
+    championRound: 2,
   },
   Selkirk: {
     numberOfColumns: 4,
     display: 'regular',
+    championRound: 3,
   },
   SelkirkWomen: {
     numberOfColumns: 2,
     display: 'regular',
+    championRound: 2,
   },
 };
 
