@@ -3,9 +3,13 @@ import clsx from 'clsx';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
+import useGetUserLeagueData from '../useGetUserLeagueData';
+import Loader from '@/components/shared/loader/loader';
 
-export default function UserBracketsTable({ leagues = [], currentRound }) {
+export default function UserBracketsTable({ currentRound }) {
   const router = useRouter();
+  const { leagueData: leagues, isLoading } = useGetUserLeagueData();
+  if (isLoading) return <Loader />;
   if (!leagues || !leagues.length) {
     return (
       <div>
@@ -47,10 +51,8 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                   onClick={handleClick}
                 >
                   <td className={clsx(styles.leagueName)}>
-                    <p className={styles.number}>{index + 1}{' '}</p>
-                    <p>
-                      {league.leagueName}
-                    </p>
+                    <p className={styles.number}>{index + 1} </p>
+                    <p>{league.leagueName}</p>
                   </td>
                   <td
                     className={clsx(

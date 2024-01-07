@@ -80,7 +80,7 @@ td.leagueName {
 }
 
 .buttonContainer {
-  height: 65px;
+  height: 67px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,6 +90,11 @@ td.leagueName {
 .createBracketButton {
   text-align: center;
   width: 175px;
+}
+
+.italic {
+  font-style: italic;
+  font-size: 14px;
 }
 
 @media screen and (max-width: variables.$mobile) {

@@ -1,8 +1,6 @@
 import { useUser } from 'context/user-context/user-context';
 import styles from './dashboard.module.scss';
 import UserBracketsTable from './user-brackets-table/user-brackets-table';
-import useDashboardRankings from './useDashboardRankings';
-import { useWinners } from '@/context/winners-context/winners-context';
 import { ROUNDS } from '../league/league';
 import Layout from '../shared/layout/layout';
 import Button from '../shared/button/button';
@@ -15,12 +13,6 @@ export default function Dashboard() {
     useState(false);
   const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
   const user = useUser();
-  const winnersData = useWinners();
-  const { leagueData } = useDashboardRankings({
-    userLeagues: user.leagues,
-    winnersData,
-    userName: user.name,
-  });
 
   return (
     <Layout>
@@ -50,11 +42,7 @@ export default function Dashboard() {
           </Button>
         </div>
       </div>
-      <UserBracketsTable
-        {...user}
-        leagues={leagueData || []}
-        currentRound={ROUNDS[0].name}
-      />
+      <UserBracketsTable {...user} currentRound={ROUNDS[0].name} />
     </Layout>
   );
 }
