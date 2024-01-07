@@ -45,9 +45,13 @@
 
 .leagueHeading,
 td.leagueName {
-  width: 400px;
   text-align: left;
   padding-left: 10px;
+}
+
+td.leagueName {
+  display: flex;
+  align-items: center
 }
 
 .number {
@@ -99,10 +103,5 @@ td.leagueName {
   .table tr.titleRow,
   .number {
     font-size: 14px;
-  }
-
-  .leagueHeading,
-  td.leagueName {
-    width: 300px;
   }
 }

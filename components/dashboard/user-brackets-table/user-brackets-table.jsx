@@ -47,8 +47,8 @@ export default function UserBracketsTable({ leagues = [], currentRound }) {
                   onClick={handleClick}
                 >
                   <td className={clsx(styles.leagueName)}>
+                    <p className={styles.number}>{index + 1}{' '}</p>
                     <p>
-                      <span className={styles.number}>{index + 1}</span>{' '}
                       {league.leagueName}
                     </p>
                   </td>
