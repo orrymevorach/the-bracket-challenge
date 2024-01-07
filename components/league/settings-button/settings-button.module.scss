@@ -13,16 +13,5 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-
-  &:hover {
-    svg {
-      animation: rotate 0.3s ease-out forwards;
-    }
-  }
 }
 
-@keyframes rotate {
-  100% {
-    transform: rotate(90deg);
-  }
-}

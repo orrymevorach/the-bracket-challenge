@@ -47,7 +47,7 @@ export default function LeagueSettings() {
         )}
         {showInviteMemberTakeover && (
           <InviteMemberTakeover
-            setShowTakeover={setShowEditLeagueNameTakeover}
+            setShowTakeover={setShowInviteMemberTakeover}
             classNames={styles.editLeagueNameTakeover}
             leagueId={id}
             members={members}
@@ -77,7 +77,7 @@ export default function LeagueSettings() {
             classNames={styles.button}
             handleClick={() => setShowInviteMemberTakeover(true)}
           >
-            <p className={styles.addMemberText}>Add Member</p>
+            <p className={styles.addMemberText}>Invite Member</p>
             <FontAwesomeIcon icon={faPlus} size="lg" />
           </Button>
         </div>

@@ -1,0 +1,21 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.container {
+  width: 500px;
+  position: relative;
+  height: 300px;
+}
+
+.title {
+  color: variables.$black;
+  @include mixins.fontPrimary;
+  font-size: 32px;
+  margin: 10px 0 40px;
+}
+
+.message {
+  color: variables.$black;
+  margin-bottom: 40px;
+  text-align: center;
+}

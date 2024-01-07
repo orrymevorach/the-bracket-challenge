@@ -38,12 +38,15 @@ export default function League() {
 
   return (
     <LeaguePageLayout title="League Rankings:">
-      <CreateBracketPrompt brackets={bracketsSortedByRankings} />
-
-      {hasBracketData && (
+      {hasBracketData ? (
         <div className={styles.mainContentContainer}>
           {isAdmin && <SettingsButton />}
           <LeagueRankingsTable leagueData={bracketsSortedByRankings} />
+        </div>
+      ) : (
+        <div className={styles.mainContentContainer}>
+          {isAdmin && <SettingsButton />}
+          <CreateBracketPrompt brackets={bracketsSortedByRankings} />
         </div>
       )}
     </LeaguePageLayout>
