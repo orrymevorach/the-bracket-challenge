@@ -30,7 +30,7 @@ export default function LeagueRankingsTable({ leagueData }) {
               <th>Correct Picks</th>
               <th>Duels</th>
               <th>Revelstoke</th>
-              <th>Selkirk</th>
+              {/* <th>Selkirk</th> */}
             </tr>
           </thead>
           <tbody>
@@ -60,10 +60,10 @@ export default function LeagueRankingsTable({ leagueData }) {
                     {selectedWinners.Revelstoke.numberOfCorrectPicks}/
                     {selectedWinners.Revelstoke.numberOfWinnersInRound}
                   </td>
-                  <td>
+                  {/* <td>
                     {selectedWinners.Selkirk?.numberOfCorrectPicks}/
                     {selectedWinners.Selkirk?.numberOfWinnersInRound}
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

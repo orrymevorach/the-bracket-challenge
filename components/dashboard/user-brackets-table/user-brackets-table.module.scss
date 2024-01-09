@@ -109,4 +109,7 @@ td.leagueName {
   .number {
     font-size: 14px;
   }
+  .buttonsContainer:after {
+      display: none;
+  }
 }
