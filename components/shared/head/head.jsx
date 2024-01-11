@@ -11,10 +11,10 @@ export default function Meta({ title = '' }) {
         content="Natural Selection Tour - 2024 Bracket Challenge"
       />
       <title>{tabTitle}</title>
-      <link rel="icon" href={`${imgPath}/favicon.png`} />
+      <link rel="icon" href="/icon.png" />
       <meta
         name="keywords"
-        // content="Highlands Music Festival, music festival, festival, Bancroft, Ontario, Toronto, Palmer Rapids, summer camp, 2023, 2024"
+        content="Natural Selection Tour Bracket Challenge, Natural Selection Tour, Natural Selection, Revelstoke, snowboarding, snowboarding contest, snowboarding competition, Travis Rice, Jackson Hole, Art of Flight"
       />
     </Head>
   );
