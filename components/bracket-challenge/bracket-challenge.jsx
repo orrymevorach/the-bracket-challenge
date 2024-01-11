@@ -125,6 +125,13 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
               if (!snowboarders || !winners) return;
               return snowboarders.map((snowboarder, playerIndex) => {
                 const teamKey = playerIndex === 0 ? 'team1' : 'team2';
+                // This is an ugly temporary fix for the extra players slot that shows up in duels men. It shows up becaused there are an odd number of matchups in round 1 (3).
+                if (
+                  currentRound === 'Duels' &&
+                  bracket.matchupId === 'R2_M2' &&
+                  teamKey === 'team2'
+                )
+                  return;
                 return (
                   <Player
                     key={`winners-column-${playerIndex}`}
