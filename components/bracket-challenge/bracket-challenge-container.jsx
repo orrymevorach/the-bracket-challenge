@@ -98,11 +98,13 @@ export default function BracketChallengeContainer() {
               setCurrentRound={setCurrentRound}
               setIsLoading={setIsLoading}
             />
-            <GenderButtons
-              setGender={setGender}
-              setIsLoading={setIsLoading}
-              gender={gender}
-            />
+            {!isLoading && showMatchups && (
+              <GenderButtons
+                setGender={setGender}
+                setIsLoading={setIsLoading}
+                gender={gender}
+              />
+            )}
 
             {!isLoading && !showMatchups && <MatchupsNotAvailable />}
             {isLoading ? (
