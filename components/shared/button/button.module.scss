@@ -74,6 +74,9 @@
     border: 1px solid variables.$yellow;
     &:hover {
       background-color: rgba(white, 0.2);
+    }
+    &:hover p,
+    &:hover svg {
       color: white;
     }
   }

@@ -8,11 +8,9 @@ import { ROUTES } from '@/utils/constants';
 export default function SettingsButton() {
   const { id } = useLeagueConfig();
   return (
-    <div className={styles.leagueSettingsContainer}>
-      <Link href={`${ROUTES.LEAGUE_SETTINGS}/${id}`} className={styles.button}>
-        <p className={styles.text}>Admin Settings</p>{' '}
-        <FontAwesomeIcon icon={faGear} size="lg" />
-      </Link>
-    </div>
+    <Link href={`${ROUTES.LEAGUE_SETTINGS}/${id}`} className={styles.button}>
+      <p className={styles.text}>Admin Settings</p>{' '}
+      <FontAwesomeIcon icon={faGear} size="lg" />
+    </Link>
   );
 }

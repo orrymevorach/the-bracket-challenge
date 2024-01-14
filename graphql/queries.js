@@ -3,8 +3,9 @@ import { gql } from '@apollo/client';
 export const GET_SNOWBOARDERS = gql`
   query GetSnowboarders {
     snowboarders {
-      name
       id
+      name
+      description
       duelsMatchupId
       revelstokeMatchupId
       selkirkMatchupId

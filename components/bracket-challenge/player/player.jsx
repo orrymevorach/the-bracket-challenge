@@ -5,6 +5,8 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { useConfig } from '@/context/config-context/config-context';
 import { mapRoundToPoints } from '@/components/dashboard/bracket-ranking-utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const mapCountryToFlagImg = {
   USA: '/flags/USA.svg',
@@ -47,60 +49,63 @@ export default function Player(player) {
   };
 
   return (
-    <div>
-      {isChampion && winner && <p className={styles.trophy}>🏆</p>}
-      {winner && !isCorrect && !isPositionEven && (
-        <p className={styles.strikethrough}>
-          {firstName} {lastName}
-        </p>
-      )}
-      {winner && isCorrect && !isPositionEven && !isChampion && (
-        <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
-      )}
-      <button
-        className={clsx(
-          styles.playerContainer,
-          isCorrect && styles.greenBorder,
-          winner && !isCorrect && styles.redBorder,
-          isSelectionsEnabled && styles.isSelectionsEnabled
+    <div style={{ display: 'flex' }}>
+      {round === '1' && <FontAwesomeIcon icon={faInfoCircle} />}
+      <div>
+        {isChampion && winner && <p className={styles.trophy}>🏆</p>}
+        {winner && !isCorrect && !isPositionEven && (
+          <p className={styles.strikethrough}>
+            {firstName} {lastName}
+          </p>
         )}
-        onClick={handleClick}
-      >
-        <div className={styles.textFlagContainer}>
-          {winner && !isCorrect ? (
-            <div>
-              <p className={styles.playerName}>{winnerFirstName}</p>
-              <p className={styles.playerName}>{winnerLastName}</p>
-            </div>
-          ) : (
-            <div>
-              <p className={styles.playerName}>{firstName}</p>
-              <p className={styles.playerName}>{lastName}</p>
-            </div>
+        {winner && isCorrect && !isPositionEven && !isChampion && (
+          <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
+        )}
+        <button
+          className={clsx(
+            styles.playerContainer,
+            isCorrect && styles.greenBorder,
+            winner && !isCorrect && styles.redBorder,
+            isSelectionsEnabled && styles.isSelectionsEnabled
           )}
-          {flagImage && (
-            <Image
-              src={winnerFlag || flagImage}
-              alt={`${country} flag`}
-              className={styles.flag}
-              width="50"
-              height="50"
-            />
-          )}
-        </div>
-      </button>
-      {(winner && isCorrect && isPositionEven) ||
-      (winner && isCorrect && !isPositionEven && isChampion) ? (
-        <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
-      ) : (
-        ''
-      )}
+          onClick={handleClick}
+        >
+          <div className={styles.textFlagContainer}>
+            {winner && !isCorrect ? (
+              <div>
+                <p className={styles.playerName}>{winnerFirstName}</p>
+                <p className={styles.playerName}>{winnerLastName}</p>
+              </div>
+            ) : (
+              <div>
+                <p className={styles.playerName}>{firstName}</p>
+                <p className={styles.playerName}>{lastName}</p>
+              </div>
+            )}
+            {flagImage && (
+              <Image
+                src={winnerFlag || flagImage}
+                alt={`${country} flag`}
+                className={styles.flag}
+                width="50"
+                height="50"
+              />
+            )}
+          </div>
+        </button>
+        {(winner && isCorrect && isPositionEven) ||
+        (winner && isCorrect && !isPositionEven && isChampion) ? (
+          <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
+        ) : (
+          ''
+        )}
 
-      {winner && !isCorrect && isPositionEven && (
-        <p className={styles.strikethrough}>
-          {firstName} {lastName}
-        </p>
-      )}
+        {winner && !isCorrect && isPositionEven && (
+          <p className={styles.strikethrough}>
+            {firstName} {lastName}
+          </p>
+        )}
+      </div>
     </div>
   );
 }

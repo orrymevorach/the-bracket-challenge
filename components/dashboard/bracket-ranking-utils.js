@@ -14,9 +14,6 @@ function addRankingsToObjects({ inputArray = [] }) {
         return otherObj.scoreData.points > obj.scoreData.points;
       }).length + 1
     ).toString();
-    const tiedRankings = inputArray.filter(
-      otherObj => otherObj.scoreData.points === obj.scoreData.points
-    );
 
     return { ...obj, ranking };
   });
@@ -48,6 +45,7 @@ function countNumberOfWinnersInEachRound({ winnersData }) {
   let overallWinners = 0;
   let duelsWinners = 0;
   let revelstokeWinners = 0;
+  let selkirkWinners = 0;
 
   for (const key in winnersData) {
     if (
@@ -55,11 +53,14 @@ function countNumberOfWinnersInEachRound({ winnersData }) {
       Array.isArray(winnersData[key]) &&
       winnersData[key].length > 0
     ) {
-      if (key.includes('dR')) {
+      if (key.includes('dR') || key.includes('dwR')) {
         duelsWinners++;
-      } else if (key.includes('rR')) {
+      } else if (key.includes('rR') || key.includes('rwR')) {
         revelstokeWinners++;
+      } else if (key.includes('sR') || key.includes('swR')) {
+        selkirkWinners++;
       }
+
       overallWinners++;
     }
   }
@@ -67,6 +68,7 @@ function countNumberOfWinnersInEachRound({ winnersData }) {
   return {
     Duels: duelsWinners,
     Revelstoke: revelstokeWinners,
+    Selkirk: selkirkWinners,
     Overall: overallWinners,
   };
 }
@@ -117,6 +119,7 @@ export function sortSelectionsIntoRounds(winnersData) {
   const duelsWinners = {};
   const revelstokeWinners = {};
   const overallWinners = {};
+  const selkirkWinners = {};
 
   // Iterate through the each winner in the winners object and sort it into a round based on the key
   for (const key in winnersData) {
@@ -124,6 +127,8 @@ export function sortSelectionsIntoRounds(winnersData) {
       duelsWinners[key] = winnersData[key];
     } else if (key.startsWith('rR')) {
       revelstokeWinners[key] = winnersData[key];
+    } else if (key.startsWith('sR')) {
+      selkirkWinners[key] = winnersData[key];
     }
     overallWinners[key] = winnersData[key];
   }
@@ -131,6 +136,7 @@ export function sortSelectionsIntoRounds(winnersData) {
   const resultObject = {
     Duels: duelsWinners,
     Revelstoke: revelstokeWinners,
+    Selkirk: selkirkWinners,
     Overall: overallWinners,
   };
 

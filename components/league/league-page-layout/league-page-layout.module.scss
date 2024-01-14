@@ -1,6 +1,13 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
+.container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 80px;
+}
+
 .heading,
 .leagueName {
   font-size: 24px;
@@ -12,7 +19,7 @@
 
 .leagueName {
   font-size: 32px;
-  margin: 7px 0 80px;
+  margin-top: 7px;
   @include mixins.fontPrimary;
 }
 
@@ -21,6 +28,17 @@
   margin: 100px auto;
   display: flex;
   justify-content: center;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.inviteMemberButton {
+  margin-right: 25px;
+  .addMemberText {
+    margin-right: 8px;
+  }
 }
 
 @media screen and (max-width: variables.$mobile) {

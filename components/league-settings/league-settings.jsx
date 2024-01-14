@@ -50,7 +50,6 @@ export default function LeagueSettings() {
             setShowTakeover={setShowInviteMemberTakeover}
             classNames={styles.editLeagueNameTakeover}
             leagueId={id}
-            members={members}
           />
         )}
         <Link href={`${ROUTES.LEAGUE}/${id}`} className={styles.backButton}>
