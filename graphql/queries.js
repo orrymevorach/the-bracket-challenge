@@ -6,10 +6,13 @@ export const GET_SNOWBOARDERS = gql`
       id
       name
       description
+      image
+      flag
+      instagram
       duelsMatchupId
       revelstokeMatchupId
       selkirkMatchupId
-      country
+      hometown
     }
   }
 `;
@@ -209,162 +212,194 @@ export const GET_BRACKET = gql`
       dR1M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M3 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M4 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M5 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M6 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M7 {
         id
         name
-        country
+        hometown
+        flag
       }
       dR1M8 {
         id
         name
-        country
+        hometown
+        flag
       }
       dwR1M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       dwR1M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       dwR1M3 {
         id
         name
-        country
+        hometown
+        flag
       }
       dwR1M4 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR1M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR1M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR1M3 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR1M4 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR2M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR2M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       rR3M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       rwR1M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       rwR1M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       rwR2M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR1M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR1M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR1M3 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR1M4 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR2M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR2M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       sR3M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       swR1M1 {
         id
         name
-        country
+        hometown
+        flag
       }
       swR1M2 {
         id
         name
-        country
+        hometown
+        flag
       }
       swR2M1 {
         id
         name
-        country
+        hometown
+        flag
       }
     }
   }
@@ -451,131 +486,163 @@ export const GET_WINNERS = gql`
     userBrackets(name: $name) {
       dR1M1 {
         name
-        country
+        hometown
+        flag
       }
       dR1M2 {
         name
-        country
+        hometown
+        flag
       }
       dR1M3 {
         name
-        country
+        hometown
+        flag
       }
       dR1M4 {
         name
-        country
+        hometown
+        flag
       }
       dR1M5 {
         name
-        country
+        hometown
+        flag
       }
       dR1M6 {
         name
-        country
+        hometown
+        flag
       }
       dR1M7 {
         name
-        country
+        hometown
+        flag
       }
       dR1M8 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M1 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M2 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M3 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M4 {
         name
-        country
+        hometown
+        flag
       }
       rR1M1 {
         name
-        country
+        hometown
+        flag
       }
       rR1M2 {
         name
-        country
+        hometown
+        flag
       }
       rR1M3 {
         name
-        country
+        hometown
+        flag
       }
       rR1M4 {
         name
-        country
+        hometown
+        flag
       }
       rR2M1 {
         name
-        country
+        hometown
+        flag
       }
       rR2M2 {
         name
-        country
+        hometown
+        flag
       }
       rR3M1 {
         name
-        country
+        hometown
+        flag
       }
       rwR1M1 {
         name
-        country
+        hometown
+        flag
       }
       rwR1M2 {
         name
-        country
+        hometown
+        flag
       }
       rwR2M1 {
         name
-        country
+        hometown
+        flag
       }
       sR1M1 {
         name
-        country
+        hometown
+        flag
       }
       sR1M2 {
         name
-        country
+        hometown
+        flag
       }
       sR1M3 {
         name
-        country
+        hometown
+        flag
       }
       sR1M4 {
         name
-        country
+        hometown
+        flag
       }
       sR2M1 {
         name
-        country
+        hometown
+        flag
       }
       sR2M2 {
         name
-        country
+        hometown
+        flag
       }
       sR3M1 {
         name
-        country
+        hometown
+        flag
       }
       swR1M1 {
         name
-        country
+        hometown
+        flag
       }
       swR1M2 {
         name
-        country
+        hometown
+        flag
       }
       swR2M1 {
         name
-        country
+        hometown
+        flag
       }
     }
   }
@@ -586,131 +653,163 @@ export const GET_WINNERS_DEVELOPMENT_MODE = gql`
     userBrackets(name: "Master Winners Bracket Development Mode") {
       dR1M1 {
         name
-        country
+        hometown
+        flag
       }
       dR1M2 {
         name
-        country
+        hometown
+        flag
       }
       dR1M3 {
         name
-        country
+        hometown
+        flag
       }
       dR1M4 {
         name
-        country
+        hometown
+        flag
       }
       dR1M5 {
         name
-        country
+        hometown
+        flag
       }
       dR1M6 {
         name
-        country
+        hometown
+        flag
       }
       dR1M7 {
         name
-        country
+        hometown
+        flag
       }
       dR1M8 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M1 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M2 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M3 {
         name
-        country
+        hometown
+        flag
       }
       dwR1M4 {
         name
-        country
+        hometown
+        flag
       }
       rR1M1 {
         name
-        country
+        hometown
+        flag
       }
       rR1M2 {
         name
-        country
+        hometown
+        flag
       }
       rR1M3 {
         name
-        country
+        hometown
+        flag
       }
       rR1M4 {
         name
-        country
+        hometown
+        flag
       }
       rR2M1 {
         name
-        country
+        hometown
+        flag
       }
       rR2M2 {
         name
-        country
+        hometown
+        flag
       }
       rR3M1 {
         name
-        country
+        hometown
+        flag
       }
       rwR1M1 {
         name
-        country
+        hometown
+        flag
       }
       rwR1M2 {
         name
-        country
+        hometown
+        flag
       }
       rwR2M1 {
         name
-        country
+        hometown
+        flag
       }
       sR1M1 {
         name
-        country
+        hometown
+        flag
       }
       sR1M2 {
         name
-        country
+        hometown
+        flag
       }
       sR1M3 {
         name
-        country
+        hometown
+        flag
       }
       sR1M4 {
         name
-        country
+        hometown
+        flag
       }
       sR2M1 {
         name
-        country
+        hometown
+        flag
       }
       sR2M2 {
         name
-        country
+        hometown
+        flag
       }
       sR3M1 {
         name
-        country
+        hometown
+        flag
       }
       swR1M1 {
         name
-        country
+        hometown
+        flag
       }
       swR1M2 {
         name
-        country
+        hometown
+        flag
       }
       swR2M1 {
         name
-        country
+        hometown
+        flag
       }
     }
   }
