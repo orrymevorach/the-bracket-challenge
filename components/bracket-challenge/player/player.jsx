@@ -47,7 +47,7 @@ export default function Player(player) {
       {showInfoModal && (
         <PlayerModal player={player} setShowInfoModal={setShowInfoModal} />
       )}
-      <div style={{ display: 'flex' }}>
+      <div className={styles.outerContainer}>
         {round === '1' && (
           <button
             className={styles.infoButton}

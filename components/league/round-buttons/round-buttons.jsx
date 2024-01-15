@@ -51,7 +51,7 @@ export default function RoundButtons({
             heading="Select A Round"
             selectLabel="Round Name"
             handleChange={handleClick}
-            currentSelection={currentRound}
+            currentSelection={currentRound.name}
           />
         </div>
       ) : (

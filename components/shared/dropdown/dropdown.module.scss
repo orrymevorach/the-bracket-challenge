@@ -1,4 +1,5 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .container {
   margin-top: 50px;
@@ -24,4 +25,13 @@
 
 .select {
   color: white;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .dropdown {
+    width: 300px;
+  }
+  .heading {
+    margin-bottom: 15px;
+  }
 }
