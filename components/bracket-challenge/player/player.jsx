@@ -8,21 +8,10 @@ import { mapRoundToPoints } from '@/components/dashboard/bracket-ranking-utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import Takeover from '@/components/shared/takeover/takeover';
+import PlayerModal from './player-modal/player-modal';
 
 export default function Player(player) {
-  const {
-    name,
-    hometown,
-    matchupId,
-    isChampion,
-    winner,
-    position,
-    description,
-    image,
-    flag,
-    instagram,
-  } = player;
+  const { name, matchupId, isChampion, winner, position, flag } = player;
 
   const { setWinner, matchups } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -53,39 +42,10 @@ export default function Player(player) {
     setWinner({ player, matchups, matchupId });
   };
 
-  const instagramHandle = instagram
-    ? instagram.replace('https://www.instagram.com/', '').replace('/', '')
-    : '';
-
   return (
     <>
       {showInfoModal && (
-        <Takeover handleClose={() => setShowInfoModal(false)}>
-          <div>
-            {image.length && (
-              <Image
-                src={image[0].url}
-                width={image[0].width}
-                height={image[0].height}
-                alt=""
-                className={styles.image}
-              />
-            )}
-            <div style={{ backgroundColor: 'black' }}>
-              <p>{name}</p>
-              <a href={instagram}>@{instagramHandle}</a>
-              <p>Hometown: {hometown}</p>
-              <Image
-                src={flagImage.url}
-                alt="hometown flag"
-                className={styles.flag}
-                width="50"
-                height="50"
-              />
-            </div>
-          </div>
-          {description}
-        </Takeover>
+        <PlayerModal player={player} setShowInfoModal={setShowInfoModal} />
       )}
       <div style={{ display: 'flex' }}>
         {round === '1' && (

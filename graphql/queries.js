@@ -13,6 +13,9 @@ export const GET_SNOWBOARDERS = gql`
       revelstokeMatchupId
       selkirkMatchupId
       hometown
+      mountain
+      stance
+      sponsors
     }
   }
 `;
@@ -212,193 +215,161 @@ export const GET_BRACKET = gql`
       dR1M1 {
         id
         name
-        hometown
         flag
       }
       dR1M2 {
         id
         name
-        hometown
         flag
       }
       dR1M3 {
         id
         name
-        hometown
         flag
       }
       dR1M4 {
         id
         name
-        hometown
         flag
       }
       dR1M5 {
         id
         name
-        hometown
         flag
       }
       dR1M6 {
         id
         name
-        hometown
         flag
       }
       dR1M7 {
         id
         name
-        hometown
         flag
       }
       dR1M8 {
         id
         name
-        hometown
         flag
       }
       dwR1M1 {
         id
         name
-        hometown
         flag
       }
       dwR1M2 {
         id
         name
-        hometown
         flag
       }
       dwR1M3 {
         id
         name
-        hometown
         flag
       }
       dwR1M4 {
         id
         name
-        hometown
         flag
       }
       rR1M1 {
         id
         name
-        hometown
         flag
       }
       rR1M2 {
         id
         name
-        hometown
         flag
       }
       rR1M3 {
         id
         name
-        hometown
         flag
       }
       rR1M4 {
         id
         name
-        hometown
         flag
       }
       rR2M1 {
         id
         name
-        hometown
         flag
       }
       rR2M2 {
         id
         name
-        hometown
         flag
       }
       rR3M1 {
         id
         name
-        hometown
         flag
       }
       rwR1M1 {
         id
         name
-        hometown
         flag
       }
       rwR1M2 {
         id
         name
-        hometown
         flag
       }
       rwR2M1 {
         id
         name
-        hometown
         flag
       }
       sR1M1 {
         id
         name
-        hometown
         flag
       }
       sR1M2 {
         id
         name
-        hometown
         flag
       }
       sR1M3 {
         id
         name
-        hometown
         flag
       }
       sR1M4 {
         id
         name
-        hometown
         flag
       }
       sR2M1 {
         id
         name
-        hometown
         flag
       }
       sR2M2 {
         id
         name
-        hometown
         flag
       }
       sR3M1 {
         id
         name
-        hometown
         flag
       }
       swR1M1 {
         id
         name
-        hometown
         flag
       }
       swR1M2 {
         id
         name
-        hometown
         flag
       }
       swR2M1 {
         id
         name
-        hometown
         flag
       }
     }
@@ -484,173 +455,6 @@ export const UPDATE_USER_BRACKET = gql`
 export const GET_WINNERS = gql`
   query GetWinners($name: String) {
     userBrackets(name: $name) {
-      dR1M1 {
-        name
-        hometown
-        flag
-      }
-      dR1M2 {
-        name
-        hometown
-        flag
-      }
-      dR1M3 {
-        name
-        hometown
-        flag
-      }
-      dR1M4 {
-        name
-        hometown
-        flag
-      }
-      dR1M5 {
-        name
-        hometown
-        flag
-      }
-      dR1M6 {
-        name
-        hometown
-        flag
-      }
-      dR1M7 {
-        name
-        hometown
-        flag
-      }
-      dR1M8 {
-        name
-        hometown
-        flag
-      }
-      dwR1M1 {
-        name
-        hometown
-        flag
-      }
-      dwR1M2 {
-        name
-        hometown
-        flag
-      }
-      dwR1M3 {
-        name
-        hometown
-        flag
-      }
-      dwR1M4 {
-        name
-        hometown
-        flag
-      }
-      rR1M1 {
-        name
-        hometown
-        flag
-      }
-      rR1M2 {
-        name
-        hometown
-        flag
-      }
-      rR1M3 {
-        name
-        hometown
-        flag
-      }
-      rR1M4 {
-        name
-        hometown
-        flag
-      }
-      rR2M1 {
-        name
-        hometown
-        flag
-      }
-      rR2M2 {
-        name
-        hometown
-        flag
-      }
-      rR3M1 {
-        name
-        hometown
-        flag
-      }
-      rwR1M1 {
-        name
-        hometown
-        flag
-      }
-      rwR1M2 {
-        name
-        hometown
-        flag
-      }
-      rwR2M1 {
-        name
-        hometown
-        flag
-      }
-      sR1M1 {
-        name
-        hometown
-        flag
-      }
-      sR1M2 {
-        name
-        hometown
-        flag
-      }
-      sR1M3 {
-        name
-        hometown
-        flag
-      }
-      sR1M4 {
-        name
-        hometown
-        flag
-      }
-      sR2M1 {
-        name
-        hometown
-        flag
-      }
-      sR2M2 {
-        name
-        hometown
-        flag
-      }
-      sR3M1 {
-        name
-        hometown
-        flag
-      }
-      swR1M1 {
-        name
-        hometown
-        flag
-      }
-      swR1M2 {
-        name
-        hometown
-        flag
-      }
-      swR2M1 {
-        name
-        hometown
-        flag
-      }
-    }
-  }
-`;
-
-export const GET_WINNERS_DEVELOPMENT_MODE = gql`
-  query GetWinners {
-    userBrackets(name: "Master Winners Bracket Development Mode") {
       dR1M1 {
         name
         hometown
