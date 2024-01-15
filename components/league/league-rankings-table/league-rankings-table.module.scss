@@ -95,4 +95,15 @@
   .number {
     font-size: 14px;
   }
+  .buttonsContainer {
+    border: none;
+    &:after {
+      display: none;
+    }
+  }
+  tr.headingRow {
+    &:after {
+      display: none;
+    }
+  }
 }

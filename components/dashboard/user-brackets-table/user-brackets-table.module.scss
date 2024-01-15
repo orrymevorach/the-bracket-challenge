@@ -51,7 +51,7 @@ td.leagueName {
 
 td.leagueName {
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .number {
@@ -109,7 +109,18 @@ td.leagueName {
   .number {
     font-size: 14px;
   }
-  .buttonsContainer:after {
+  .buttonsContainer {
+    border: none;
+    &:after {
       display: none;
+    }
+  }
+
+  tr {
+    &.titleRow {
+      &:after {
+        display: none;
+      }
+    }
   }
 }
