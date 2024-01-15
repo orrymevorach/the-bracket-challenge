@@ -49,3 +49,19 @@
     color: variables.$black;
   }
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .modal {
+    width: 100%;
+  }
+  .topRow {
+    flex-direction: column;
+  }
+  .textContainer {
+    margin-left: 0;
+    margin-top: 25px;
+  }
+  .playerImage {
+    margin: 15px auto 0;
+  }
+}
