@@ -3,11 +3,7 @@ import LeaguePageLayout from '../league/league-page-layout/league-page-layout';
 import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronLeft,
-  faEdit,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from '../shared/button/button';
 import EditLeagueNameTakeover from './edit-league-name-takeover/edit-league-name-takeover';
 import { getLeagueMembers } from '@/lib/airtable';
@@ -36,7 +32,11 @@ export default function LeagueSettings() {
   }, [id, members]);
 
   return (
-    <LeaguePageLayout title="League Settings:">
+    <LeaguePageLayout
+      title="League Settings:"
+      backButtonText="Back to league page"
+      backButtonHref={`/league/${id}`}
+    >
       <div>
         {showEditLeagueNameTakeover && (
           <EditLeagueNameTakeover
@@ -52,36 +52,32 @@ export default function LeagueSettings() {
             leagueId={id}
           />
         )}
-        <Link href={`${ROUTES.LEAGUE}/${id}`} className={styles.backButton}>
-          <FontAwesomeIcon icon={faChevronLeft} color="white" />
-          <FontAwesomeIcon icon={faChevronLeft} color="white" />
-          <p className={styles.backText}>Back to League Page</p>
-        </Link>
         <div className={styles.container}>
-          <p className={styles.title}>
-            League Name: <span className={styles.leagueName}>{name}</span>
-          </p>
+          <p className={styles.title}>League Name </p>
           <Button
             isSmall
             handleClick={() => setShowEditLeagueNameTakeover(true)}
-            classNames={styles.button}
+            classNames={styles.editButton}
+            isYellow
           >
-            <FontAwesomeIcon icon={faEdit} color="white" size="sm" />
+            <FontAwesomeIcon icon={faEdit} color="white" size="m" />
           </Button>
         </div>
+        <p className={styles.leagueName}>{name}</p>
         <div className={styles.container}>
           <p className={styles.title}>League Members</p>
           <Button
             isSmall
             classNames={styles.button}
             handleClick={() => setShowInviteMemberTakeover(true)}
+            isYellow
           >
             <p className={styles.addMemberText}>Invite Member</p>
             <FontAwesomeIcon icon={faPlus} size="lg" />
           </Button>
         </div>
         {members.map(({ name }, index) => (
-          <p key={name}>
+          <p key={name} className={styles.name}>
             {index + 1}. {name}
           </p>
         ))}

@@ -8,12 +8,9 @@ import { ROUNDS } from '@/utils/constants';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import BracketChallenge from './bracket-challenge';
 import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useConfig } from '@/context/config-context/config-context';
 import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
-import { useWindowSize } from '@/context/window-size-context/window-size-context';
+import Layout from '../shared/layout/layout';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -53,10 +50,10 @@ export default function BracketChallengeContainer() {
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
   const [isSettingName, setIsSettingName] = useState(true);
   const [gender, setGender] = useState(GENDERS.MALE);
-  const { isMobile } = useWindowSize();
 
   const router = useRouter();
   const bracketRecId = router.query.bracketId;
+  const leagueId = router.query.leagueId;
 
   const {
     config: { showMatchups },
@@ -75,23 +72,14 @@ export default function BracketChallengeContainer() {
   const bracketConfig = mapRoundNameToBracketConfig[currentRoundName];
 
   return (
-    <>
+    <Layout
+      backButtonText="Back to league page"
+      backButtonHref={`/league/${leagueId}`}
+    >
       {isSettingName ? (
         <SetBracketName setIsSettingName={setIsSettingName} />
       ) : (
         <>
-          <Link
-            href={`/league/${router.query.leagueId}`}
-            className={styles.backButton}
-          >
-            <FontAwesomeIcon
-              icon={faChevronCircleLeft}
-              color="#fff"
-              className={styles.chevron}
-              size={isMobile ? 'xl' : 'lg'}
-            />
-            {!isMobile && <p>Back to league dashboard</p>}
-          </Link>
           <div className={styles.container}>
             <RoundButtons
               currentRound={currentRound}
@@ -120,6 +108,6 @@ export default function BracketChallengeContainer() {
           </div>
         </>
       )}
-    </>
+    </Layout>
   );
 }

@@ -9,16 +9,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InviteMemberTakeover from '@/components/league-settings/invite-member-takeover/invite-member-takeover';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-export default function LeaguePageLayout({ children, title }) {
+export default function LeaguePageLayout({
+  children,
+  title,
+  backButtonText,
+  backButtonHref,
+}) {
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
   const { name, admin, id } = useLeagueConfig();
   const user = useUser();
+  const router = useRouter();
+  const pathname = router.pathname;
+
+  const isLeagueSettingsPage = pathname.includes('/league-settings');
+
   const leagueAdmin = admin?.length > 0 && admin[0].id;
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
   return (
-    <Layout>
+    <Layout backButtonHref={backButtonHref} backButtonText={backButtonText}>
       {showInviteMemberTakeover && (
         <InviteMemberTakeover
           setShowTakeover={setShowInviteMemberTakeover}
@@ -31,7 +42,7 @@ export default function LeaguePageLayout({ children, title }) {
             <p className={styles.heading}>{title}</p>
             <p className={styles.leagueName}>{name}</p>
           </div>
-          {isAdmin && (
+          {isAdmin && !isLeagueSettingsPage && (
             <div className={styles.buttonContainer}>
               <Button
                 isYellow

@@ -31,7 +31,7 @@ export default function Nav() {
         <nav className={styles.buttonsContainer}>
           {pathname !== ROUTES.DASHBOARD && (
             <Button classNames={styles.button} href={ROUTES.DASHBOARD}>
-              Back to dashboard
+              Dashboard
             </Button>
           )}
           <Button isLoading={isLoading} handleClick={handleSignOut}>
