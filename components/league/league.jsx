@@ -29,7 +29,7 @@ export default function League() {
     !!bracketsSortedByRankings && bracketsSortedByRankings.length > 0;
 
   return (
-    <LeaguePageLayout title="League Rankings:">
+    <LeaguePageLayout title="League Rankings:" hideBackButton>
       {hasBracketData ? (
         <div className={styles.mainContentContainer}>
           <LeagueRankingsTable leagueData={bracketsSortedByRankings} />

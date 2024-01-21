@@ -10,7 +10,7 @@ export default function SettingsButton() {
   return (
     <Link href={`${ROUTES.LEAGUE_SETTINGS}/${id}`} className={styles.button}>
       <p className={styles.text}>Admin Settings</p>{' '}
-      <FontAwesomeIcon icon={faGear} size="lg" />
+      <FontAwesomeIcon icon={faGear} size="sm" />
     </Link>
   );
 }

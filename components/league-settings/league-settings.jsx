@@ -32,11 +32,7 @@ export default function LeagueSettings() {
   }, [id, members]);
 
   return (
-    <LeaguePageLayout
-      title="League Settings:"
-      backButtonText="Back to league page"
-      backButtonHref={`/league/${id}`}
-    >
+    <LeaguePageLayout title="League Settings:">
       <div>
         {showEditLeagueNameTakeover && (
           <EditLeagueNameTakeover
@@ -60,7 +56,7 @@ export default function LeagueSettings() {
             classNames={styles.editButton}
             isYellow
           >
-            <FontAwesomeIcon icon={faEdit} color="white" size="m" />
+            <FontAwesomeIcon icon={faEdit} color="white" />
           </Button>
         </div>
         <p className={styles.leagueName}>{name}</p>

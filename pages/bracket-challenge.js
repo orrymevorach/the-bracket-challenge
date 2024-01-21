@@ -2,6 +2,7 @@ import BracketChallengeContainer from '@/components/bracket-challenge/bracket-ch
 import Meta from '@/components/shared/head/head';
 import { useConfig } from '@/context/config-context/config-context';
 import { useSetInitialConfig } from '@/context/config-context/useSetInitialConfig';
+import { LeagueConfigProvider } from '@/context/league-config-context/league-config-context';
 import { UserProvider } from '@/context/user-context/user-context';
 import { getFeatureFlag, getPageLoadData } from '@/lib/contentful';
 import { FEATURE_FLAGS, ROUTES } from '@/utils/constants';
@@ -16,7 +17,9 @@ export default function BracketChallengePage({ config }) {
     <>
       <Meta />
       <UserProvider>
-        <BracketChallengeContainer />
+        <LeagueConfigProvider>
+          <BracketChallengeContainer />
+        </LeagueConfigProvider>
       </UserProvider>
     </>
   );
