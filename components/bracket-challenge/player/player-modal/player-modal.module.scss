@@ -3,7 +3,7 @@
 
 .modal {
   background-color: variables.$black;
-  width: 600px;
+  width: 800px;
 }
 
 .playerImage {
@@ -14,6 +14,7 @@
 .topRow {
   display: flex;
   margin-right: auto;
+  align-items: flex-start;
 }
 
 .nameRow {
@@ -31,10 +32,19 @@
   width: 30px;
 }
 
-.name {
-  font-size: 24px;
-  @include mixins.fontSecondaryBold;
+.nameContainer {
   margin-left: 15px;
+}
+
+.name {
+  font-size: 32px;
+  @include mixins.fontSecondaryBold;
+}
+
+.instagram {
+  font-size: 16px;
+  margin-bottom: 20px;
+  display: block;
 }
 
 .description {
@@ -48,6 +58,33 @@
     background-color: white;
     color: variables.$black;
   }
+}
+
+.sponsors {
+  align-self: flex-start;
+  margin-top: 30px;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0 10px;
+}
+
+.title {
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.row {
+  display: flex;
+  &:nth-of-type(2) {
+    margin-left: 100px;
+  }
+}
+
+.icon {
+  margin-right: 10px;
 }
 
 @media screen and (max-width: variables.$mobile) {
