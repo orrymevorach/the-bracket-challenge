@@ -80,7 +80,7 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
       return acc;
     }, {});
     await updateUserBracket({ rounds, id: router.query.bracketId });
-    setIsSubmitting(false);
+    router.reload();
   };
 
   // Remove bracket columns (rounds) from rounds that do not require them
