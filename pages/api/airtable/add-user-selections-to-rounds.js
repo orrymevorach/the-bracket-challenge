@@ -54,10 +54,10 @@ export const sortBracketByRound = ({ bracket }) => {
 };
 
 export default async function handler(req, res) {
-  const { matchups, bracketId } = req.body;
-  const data = await getBracket({ recId: bracketId });
+  const { matchups, bracket } = req.body;
+  // const data = await getBracket({ recId: bracketId });
   const bracketSortedByRound = sortBracketByRound({
-    bracket: data,
+    bracket,
   });
 
   const sortedBracketAsArray = Object.entries(bracketSortedByRound);

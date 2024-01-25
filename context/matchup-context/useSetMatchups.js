@@ -1,6 +1,7 @@
 import {
   addUserSelectionsToRounds,
   applyLiveResults,
+  getBracket,
   getInitialMatchups,
 } from '@/lib/airtable';
 import { useEffect } from 'react';
@@ -14,10 +15,11 @@ export default function useSetMatchups({
   useEffect(() => {
     const getData = async () => {
       const firstRoundMatchups = await getInitialMatchups();
+      const bracket = await getBracket({ recId: bracketId });
 
       const matchupsWithUserSelections = await addUserSelectionsToRounds({
         matchups: firstRoundMatchups,
-        bracketId,
+        bracket,
       });
 
       const matchupsWithLiveWinners = await applyLiveResults({
