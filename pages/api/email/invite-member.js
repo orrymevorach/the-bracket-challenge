@@ -23,8 +23,9 @@ export default async function handler(req, res) {
       <ol>
       <li>Go to <a href="https://www.nstbracketchallenge.com">www.nstbracketchallenge.com</a></li>
       <li>Create an account, or log in to your existing account if you already have one</li>
-      <li>On your team dashboard, click "Join League", and enter "${leagueId}"</li>
-      <li>Create a new bracket, or use an existing bracket, making sure you have selected a winner for each round of the Natural Selection Tour</li>
+      <li>On your team dashboard, click "Join League", and enter <span style="font-style:italic;">${leagueId}</span></li>
+      <li>Create a new bracket, select a winner for each matchup, and submit your picks</li>
+      <li>Don't forget to check back in to make your picks when matchups are announced for Revelstoke and Selkirk!</li>
       </ol>
     </div>
     `,
