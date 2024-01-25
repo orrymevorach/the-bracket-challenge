@@ -95,7 +95,7 @@ export default function Player(player) {
               )}
               {flagImage && (
                 <Image
-                  src={winnerFlag || flagImage.url}
+                  src={winnerFlag?.url || flagImage.url}
                   alt="hometown flag"
                   className={styles.flag}
                   width="50"
