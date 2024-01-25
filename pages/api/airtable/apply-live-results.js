@@ -27,9 +27,9 @@ function addActualWinnerToMatchups({ player, matchups, matchupId }) {
 }
 
 export default async function handler(req, res) {
-  const { matchups } = req.body;
+  const { matchups, winners } = req.body;
 
-  const winners = await getWinners();
+  // const winners = await getWinners();
 
   const winnersSortedByRound = sortBracketByRound({ bracket: winners });
   const sortedWinnersAsArray = Object.entries(winnersSortedByRound);
