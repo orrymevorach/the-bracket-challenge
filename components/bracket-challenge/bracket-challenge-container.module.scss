@@ -10,6 +10,15 @@
   margin-top: 280px;
 }
 
+.submitButton {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -50px;
+  z-index: 10;
+}
+
 @media screen and (max-width: variables.$mobile) {
   .container {
     overflow-x: scroll;

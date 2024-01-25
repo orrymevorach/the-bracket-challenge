@@ -10,12 +10,12 @@ export const sortSnowboardersByRound = ({ snowboarders }) => {
   let SelkirkWomen = [];
 
   for (let snowboarder of snowboarders) {
+    const snowboarderCopy = { ...snowboarder };
     if (
       snowboarder.duelsMatchupId &&
       snowboarder.duelsMatchupId.includes(ROUND_SUFFIXES.Duels)
     ) {
       // Renaming field to make it generic
-      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.duelsMatchupId.replace(
         ROUND_SUFFIXES.Duels,
         ''
@@ -28,7 +28,6 @@ export const sortSnowboardersByRound = ({ snowboarders }) => {
       snowboarder.duelsMatchupId.includes(ROUND_SUFFIXES.DuelsWomen)
     ) {
       // Renaming field to make it generic
-      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.duelsMatchupId.replace(
         ROUND_SUFFIXES.DuelsWomen,
         ''
@@ -41,7 +40,6 @@ export const sortSnowboardersByRound = ({ snowboarders }) => {
       snowboarder.revelstokeMatchupId.includes(ROUND_SUFFIXES.Revelstoke)
     ) {
       // Renaming field to make it generic
-      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.revelstokeMatchupId.replace(
         ROUND_SUFFIXES.Revelstoke,
         ''
@@ -54,7 +52,6 @@ export const sortSnowboardersByRound = ({ snowboarders }) => {
       snowboarder.revelstokeMatchupId.includes(ROUND_SUFFIXES.RevelstokeWomen)
     ) {
       // Renaming field to make it generic
-      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.revelstokeMatchupId.replace(
         ROUND_SUFFIXES.RevelstokeWomen,
         ''
@@ -67,7 +64,6 @@ export const sortSnowboardersByRound = ({ snowboarders }) => {
       snowboarder.selkirkMatchupId.includes(ROUND_SUFFIXES.Selkirk)
     ) {
       // Renaming field to make it generic
-      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.selkirkMatchupId.replace(
         ROUND_SUFFIXES.Selkirk,
         ''
@@ -80,7 +76,6 @@ export const sortSnowboardersByRound = ({ snowboarders }) => {
       snowboarder.selkirkMatchupId.includes(ROUND_SUFFIXES.SelkirkWomen)
     ) {
       // Renaming field to make it generic
-      const snowboarderCopy = { ...snowboarder };
       const matchupId = snowboarder.selkirkMatchupId.replace(
         ROUND_SUFFIXES.SelkirkWomen,
         ''
@@ -108,74 +103,77 @@ const mapRoundNameToMatchupIdKey = {
   SelkirkWomen: 'selkirkMatchupId',
 };
 
-const createMatchups = (snowboarders = [], currentRound = '') => {
-  // Get matchup key for each round based on current round name
-  const matchupIdKey = mapRoundNameToMatchupIdKey[currentRound];
-  // Filter out the snowboarders not in the current round
-  const filteredSnowboarders = snowboarders.filter(snowboarder => {
-    return !!snowboarder[matchupIdKey];
-  });
+const createMatchups = (snowboarders = []) => {
+  const allRoundData = Object.entries(snowboarders);
 
-  // Create an object, where each child object has a key with the current matchup ID, and the value has the matchup data
-  const roundSuffix = ROUND_SUFFIXES[currentRound];
-  const groupedData = {};
-  for (let snowboarder of filteredSnowboarders) {
-    const matchupId = snowboarder[matchupIdKey];
-    const key = matchupId.replace(roundSuffix, '');
-    const round = parseFloat(matchupId.split('_R')[1].split('_M')[0]);
-    const position = parseFloat(matchupId.split('_M')[1]);
-    if (!groupedData[key]) {
-      groupedData[key] = {
-        round,
-        position,
-        matchupId: key,
-        team1: snowboarder,
-      };
-    } else {
-      groupedData[key].team2 = snowboarder;
-    }
-  }
+  return allRoundData.reduce((acc, currentRoundData) => {
+    const [currentRoundName, currentRoundSnowboarders] = currentRoundData;
 
-  // Convert the matchup object into an array of all the matchups
-  const matchups = Object.values(groupedData);
+    // Get matchup key for each round based on current round name
+    const matchupIdKey = mapRoundNameToMatchupIdKey[currentRoundName];
+    // Filter out the snowboarders not in the current round
+    const filteredSnowboarders = currentRoundSnowboarders.filter(
+      snowboarder => {
+        return !!snowboarder[matchupIdKey];
+      }
+    );
 
-  // Create placeholders for subsequent rounds
-  const totalRounds = Math.ceil(Math.log2(filteredSnowboarders.length));
-  for (let round = 2; round <= totalRounds; round++) {
-    const roundMatchups = [];
-
-    // Determine the number of matchups in the current round
-    const numMatchups = Math.pow(2, totalRounds - round);
-
-    for (let position = 1; position <= numMatchups; position++) {
-      roundMatchups.push({
-        round,
-        position,
-        team1: null,
-        team2: null,
-        winner: null,
-        matchupId: `R${round}_M${position}`,
-      });
+    // Create an object, where each child object has a key with the current matchup ID, and the value has the matchup data
+    const roundSuffix = ROUND_SUFFIXES[currentRoundName];
+    const groupedData = {};
+    for (let snowboarder of filteredSnowboarders) {
+      const matchupId = snowboarder[matchupIdKey];
+      const key = matchupId.replace(roundSuffix, '');
+      const round = parseFloat(matchupId.split('_R')[1].split('_M')[0]);
+      const position = parseFloat(matchupId.split('_M')[1]);
+      if (!groupedData[key]) {
+        groupedData[key] = {
+          round,
+          position,
+          matchupId: key,
+          team1: snowboarder,
+        };
+      } else {
+        groupedData[key].team2 = snowboarder;
+      }
     }
 
-    matchups.push(...roundMatchups);
-  }
+    // Convert the matchup object into an array of all the matchups
+    const matchups = Object.values(groupedData);
 
-  return matchups;
+    // Create placeholders for subsequent rounds
+    const totalRounds = Math.ceil(Math.log2(filteredSnowboarders.length));
+    for (let round = 2; round <= totalRounds; round++) {
+      const roundMatchups = [];
+
+      // Determine the number of matchups in the current round
+      const numMatchups = Math.pow(2, totalRounds - round);
+
+      for (let position = 1; position <= numMatchups; position++) {
+        roundMatchups.push({
+          round,
+          position,
+          team1: null,
+          team2: null,
+          winner: null,
+          matchupId: `R${round}_M${position}`,
+        });
+      }
+
+      matchups.push(...roundMatchups);
+    }
+
+    acc[currentRoundName] = matchups;
+    return acc;
+  }, {});
 };
 
 export default async function handler(req, res) {
-  const { currentRound } = req.body;
-
   const { snowboarders } = await getSnowboarders();
   const snowboardersSortedByRound = sortSnowboardersByRound({
     snowboarders,
   });
-  const snowboardersInCurrentRound = snowboardersSortedByRound[currentRound];
-  const firstRoundMatchups = createMatchups(
-    snowboardersInCurrentRound,
-    currentRound
-  );
+  const firstRoundMatchups = createMatchups(snowboardersSortedByRound);
 
   res.status(200).json({ firstRoundMatchups });
 }

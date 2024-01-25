@@ -8,6 +8,7 @@ export default function Bracket({
   team1,
   team2,
   actualWinner,
+  currentRound,
 }) {
   // The first round matchups or the user selections in rounds past round 1
   const snowboarders = [team1, team2];
@@ -23,6 +24,7 @@ export default function Bracket({
             matchupId={matchupId}
             winner={winners[index]}
             position={index + 1}
+            currentRound={currentRound}
           />
         );
       })}

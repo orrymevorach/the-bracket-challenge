@@ -6,6 +6,7 @@ import { LeagueConfigProvider } from '@/context/league-config-context/league-con
 import { UserProvider } from '@/context/user-context/user-context';
 import { getFeatureFlag, getPageLoadData } from '@/lib/contentful';
 import { FEATURE_FLAGS, ROUTES } from '@/utils/constants';
+import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 
 export default function BracketChallengePage({ config }) {
   const { config: defaultConfig } = useConfig();
@@ -18,7 +19,9 @@ export default function BracketChallengePage({ config }) {
       <Meta />
       <UserProvider>
         <LeagueConfigProvider>
-          <BracketChallengeContainer />
+          <MatchupDataProvider>
+            <BracketChallengeContainer />
+          </MatchupDataProvider>
         </LeagueConfigProvider>
       </UserProvider>
     </>

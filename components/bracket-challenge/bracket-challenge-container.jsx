@@ -4,13 +4,14 @@ import SetBracketName from './set-bracket-name/set-bracket-name';
 import Loader from '../shared/loader/loader';
 import styles from './bracket-challenge-container.module.scss';
 import { useRouter } from 'next/router';
-import { ROUNDS } from '@/utils/constants';
-import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
+import { ROUNDS, ROUND_SUFFIXES } from '@/utils/constants';
 import BracketChallenge from './bracket-challenge';
-import GenderButtons, { GENDERS } from './gender-buttons/gender-buttons';
 import { useConfig } from '@/context/config-context/config-context';
 import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
 import Layout from '../shared/layout/layout';
+import { updateUserBracket } from '@/lib/airtable';
+import Button from '../shared/button/button';
+import { useMatchups } from '@/context/matchup-context/matchup-context';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -48,15 +49,17 @@ const mapRoundNameToBracketConfig = {
 export default function BracketChallengeContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
-  const [isSettingName, setIsSettingName] = useState(true);
-  const [gender, setGender] = useState(GENDERS.MALE);
+  const [isSettingName, setIsSettingName] = useState(true); // Reveals the set name modal
+  const [isSubmitting, setIsSubmitting] = useState(false); // Handles load on the submit button
+  const { matchups } = useMatchups();
+  const currentRoundName = currentRound.name;
 
   const router = useRouter();
   const bracketRecId = router.query.bracketId;
   const leagueId = router.query.leagueId;
 
   const {
-    config: { showMatchups },
+    config: { showMatchups, isSelectionsEnabled },
   } = useConfig();
 
   // User is required to give a bracket a name if no record ID exists for the bracket
@@ -66,10 +69,23 @@ export default function BracketChallengeContainer() {
     }
   }, [router, bracketRecId]);
 
-  const currentRoundName =
-    gender === GENDERS.MALE ? currentRound.name : `${currentRound.name}Women`;
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const rounds = Object.entries(matchups).reduce((acc, curr) => {
+      const [roundName, roundMatchups] = curr;
+      for (let matchup of roundMatchups) {
+        const suffix = ROUND_SUFFIXES[roundName];
+        const key = `${suffix}${matchup.matchupId}`;
+        if (matchup.winner?.id) {
+          acc[key] = matchup.winner.id;
+        }
+      }
+      return acc;
+    }, {});
 
-  const bracketConfig = mapRoundNameToBracketConfig[currentRoundName];
+    await updateUserBracket({ rounds, id: router.query.bracketId });
+    router.reload();
+  };
 
   return (
     <Layout
@@ -86,24 +102,31 @@ export default function BracketChallengeContainer() {
               setCurrentRound={setCurrentRound}
               setIsLoading={setIsLoading}
             />
-            {!isLoading && showMatchups && (
-              <GenderButtons
-                setGender={setGender}
-                setIsLoading={setIsLoading}
-                gender={gender}
-              />
-            )}
-
             {!isLoading && !showMatchups && <MatchupsNotAvailable />}
             {isLoading ? (
               <Loader classNames={styles.loader} />
             ) : (
-              <MatchupDataProvider currentRound={currentRoundName}>
+              <>
                 <BracketChallenge
                   currentRound={currentRoundName}
-                  bracketConfig={bracketConfig}
+                  bracketConfig={mapRoundNameToBracketConfig[currentRoundName]}
                 />
-              </MatchupDataProvider>
+                <BracketChallenge
+                  currentRound={`${currentRoundName}Women`}
+                  bracketConfig={
+                    mapRoundNameToBracketConfig[`${currentRoundName}Women`]
+                  }
+                />
+                {isSelectionsEnabled && (
+                  <Button
+                    classNames={styles.submitButton}
+                    handleClick={handleSubmit}
+                    isLoading={isSubmitting}
+                  >
+                    Submit
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </>

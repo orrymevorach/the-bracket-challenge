@@ -9,19 +9,24 @@ export const useMatchups = () => {
   return useContext(MatchupContext);
 };
 
-export const MatchupDataProvider = ({ children, currentRound }) => {
+export const MatchupDataProvider = ({ children }) => {
   const [matchups, setMatchups] = useState([]);
   const router = useRouter();
   const bracketId = router.query.bracketId;
-  useSetMatchups({ setMatchups, currentRound, bracketId });
+  useSetMatchups({ setMatchups, bracketId });
 
-  const setWinner = ({ player, matchups, matchupId }) => {
-    const updatedMatchups = addWinnerToMatchups({
+  const setWinner = ({ player, matchupId, currentRound }) => {
+    const updatedRoundMatchups = addWinnerToMatchups({
       player,
-      matchups,
+      matchups: matchups[currentRound],
       matchupId,
     });
-    setMatchups(updatedMatchups);
+
+    // Making a copy so that state gets updated and creates a refresh
+    const matchupsCopy = { ...matchups };
+    matchupsCopy[currentRound] = updatedRoundMatchups;
+
+    setMatchups(matchupsCopy);
   };
 
   const value = {

@@ -27,24 +27,29 @@ function addActualWinnerToMatchups({ player, matchups, matchupId }) {
 }
 
 export default async function handler(req, res) {
-  const { currentRound, matchups } = req.body;
+  const { matchups } = req.body;
 
   const winners = await getWinners();
 
   const winnersSortedByRound = sortBracketByRound({ bracket: winners });
-  const currentRoundWinners = winnersSortedByRound[currentRound];
-  const selectionsArray = Object.entries(currentRoundWinners);
+  const sortedWinnersAsArray = Object.entries(winnersSortedByRound);
 
-  let updatedMatchups = [];
-  for (let matchup of selectionsArray) {
-    const matchupId = matchup[0];
-    const player = matchup[1][0];
-    updatedMatchups = addActualWinnerToMatchups({
-      player,
-      matchups,
-      matchupId,
-    });
-  }
+  const updatedMatchups = sortedWinnersAsArray.reduce((acc, roundData) => {
+    const [roundName, roundSelections] = roundData;
+    const selectionsArray = Object.entries(roundSelections);
+    let updatedMatchups = [];
+    for (let matchup of selectionsArray) {
+      const matchupId = matchup[0];
+      const player = matchup[1][0];
+      updatedMatchups = addActualWinnerToMatchups({
+        player,
+        matchups: matchups[roundName],
+        matchupId,
+      });
+    }
+    acc[roundName] = updatedMatchups;
+    return acc;
+  }, {});
 
   res.status(200).json({ matchups: updatedMatchups });
 }

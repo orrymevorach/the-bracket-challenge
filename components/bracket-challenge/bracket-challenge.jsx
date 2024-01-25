@@ -1,11 +1,6 @@
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import Loader from 'components/shared/loader/loader';
-import Button from 'components/shared/button/button';
-import { updateUserBracket } from '@/lib/airtable';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { ROUND_SUFFIXES } from '@/utils/constants';
 import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
 import Player from './player/player';
@@ -53,35 +48,18 @@ const splitAndRearrangeColumns = matchups => {
 
 export default function BracketChallenge({ bracketConfig, currentRound }) {
   const { matchups } = useMatchups();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const router = useRouter();
 
   const {
-    config: { isSelectionsEnabled, showMatchups },
+    config: { showMatchups },
   } = useConfig();
 
-  const matchupsGroupedByRound = groupMatchupsByRound(matchups);
+  const matchupsInCurrentRound = matchups[currentRound] || [];
+  const matchupsGroupedByRound = groupMatchupsByRound(matchupsInCurrentRound);
 
   if (!showMatchups) return;
-  if (!matchupsGroupedByRound.length) {
+  if (!matchupsGroupedByRound.length || !matchupsInCurrentRound.length) {
     return <Loader isDotted />;
   }
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    const rounds = matchups.reduce((acc, curr) => {
-      const suffix = ROUND_SUFFIXES[currentRound];
-      const key = `${suffix}${curr.matchupId}`;
-      if (curr.winner?.id) {
-        acc[key] = curr.winner.id;
-      }
-
-      return acc;
-    }, {});
-    await updateUserBracket({ rounds, id: router.query.bracketId });
-    router.reload();
-  };
 
   // Remove bracket columns (rounds) from rounds that do not require them
   const matchupsInRound = matchupsGroupedByRound.slice(
@@ -101,21 +79,15 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
   return (
     <RiderImagesLayout currentRound={currentRound}>
       <div className={styles.bracketChallengeContainer}>
-        {isSelectionsEnabled && (
-          <Button
-            classNames={styles.submitButton}
-            handleClick={() => handleSubmit()}
-            isLoading={isSubmitting}
-          >
-            Submit
-          </Button>
-        )}
-
         <div className={styles.row}>
           {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
           {reArrangedMatchups.map(({ matchups }, index) => {
             return (
-              <BracketColumn matchups={matchups} key={`matchup-${index}`} />
+              <BracketColumn
+                matchups={matchups}
+                key={`matchup-${index}`}
+                currentRound={currentRound}
+              />
             );
           })}
           <div className={styles.winnersColumn}>

@@ -56,26 +56,29 @@ export const sortBracketByRound = ({ bracket }) => {
 export default async function addUserSelectionsToRounds({
   matchups,
   bracketId,
-  currentRound,
 }) {
   const data = await getBracket({ recId: bracketId });
   const bracketSortedByRound = sortBracketByRound({
     bracket: data,
   });
-  const userBracketSelections = bracketSortedByRound[currentRound];
 
-  const selectionsArray = Object.entries(userBracketSelections);
+  const sortedBracketAsArray = Object.entries(bracketSortedByRound);
 
-  let updatedMatchups = [];
-  for (let matchup of selectionsArray) {
-    const matchupId = matchup[0];
-    const player = matchup[1][0];
-    updatedMatchups = addWinnerToMatchups({
-      player,
-      matchups,
-      matchupId,
-    });
-  }
+  return sortedBracketAsArray.reduce((acc, userBracketSelections) => {
+    const [roundName, roundSelections] = userBracketSelections;
 
-  return updatedMatchups;
+    const selectionsArray = Object.entries(roundSelections);
+    let updatedMatchups = [];
+    for (let matchup of selectionsArray) {
+      const matchupId = matchup[0];
+      const player = matchup[1][0];
+      updatedMatchups = addWinnerToMatchups({
+        player,
+        matchups: matchups[roundName],
+        matchupId,
+      });
+    }
+    acc[roundName] = updatedMatchups;
+    return acc;
+  }, {});
 }

@@ -11,9 +11,10 @@ import { useState } from 'react';
 import PlayerModal from './player-modal/player-modal';
 
 export default function Player(player) {
-  const { name, matchupId, isChampion, winner, position, flag } = player;
+  const { name, matchupId, isChampion, winner, position, flag, currentRound } =
+    player;
 
-  const { setWinner, matchups } = useMatchups();
+  const { setWinner } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const [firstName, lastName] = name ? name.split(' ') : '';
@@ -39,7 +40,7 @@ export default function Player(player) {
 
   const handleClick = () => {
     if (!isSelectionsEnabled) return;
-    setWinner({ player, matchups, matchupId });
+    setWinner({ player, matchupId, currentRound });
   };
 
   return (
