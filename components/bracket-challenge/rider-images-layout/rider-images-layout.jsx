@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import duelsRound1Men from 'public/matchups/longo-vs-backstrom.jpg';
+import duelsRound1Men from 'public/matchups/backstrom-vs-debuck.jpeg';
 import duelsRound2Men from 'public/matchups/mindnich-vs-daviet.jpeg';
 import duelsRound3Men from 'public/matchups/gerard-vs-sweetin.jpeg';
 import duelsRound1Women from 'public/matchups/anderson-vs-crosby.jpeg';
