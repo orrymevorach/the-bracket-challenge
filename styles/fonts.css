@@ -45,3 +45,8 @@
   font-family: 'Inter Bold';
   src: url('../asset/fonts/Inter/Inter-Bold.ttf');
 }
+
+@font-face {
+  font-family: 'Adieu Bold';
+  src: url('../asset/fonts/Adieu/GTFAdieuTRIAL-Bold.otf');
+}

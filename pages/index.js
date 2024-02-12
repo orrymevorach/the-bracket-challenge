@@ -1,61 +1,37 @@
-import ComingSoon from '@/components/coming-soon/coming-soon';
 import Meta from '@/components/shared/head/head';
-import Loader from '@/components/shared/loader/loader';
 import ParticlesContainer from '@/components/shared/particles/particles';
-import { getFeatureFlag, getPageLoadData } from '@/lib/contentful';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { FEATURE_FLAGS, ROUTES } from 'utils/constants';
+import { getPageLoadData } from '@/lib/contentful';
+import Login from 'components/login/login';
+import { UserProvider } from 'context/user-context/user-context';
+import { ROUTES } from 'utils/constants';
 
-export default function Home({ showComingSoonPage }) {
-  const router = useRouter();
-  const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowLoader(false);
-    }, 500);
-  }, []);
-
-  useEffect(() => {
-    if (!showComingSoonPage) {
-      router.push('/login');
-    }
-  }, [router, showComingSoonPage]);
-
-  if (showLoader) return <Loader isFullPage />;
-
+export default function LoginPage() {
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
       <Meta />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
-      >
-        <ParticlesContainer />
-        <ComingSoon />
-      </div>
-    </>
+      <ParticlesContainer />
+      <UserProvider>
+        <Login />
+      </UserProvider>
+    </div>
   );
 }
 
 export async function getStaticProps() {
   const pageLoadData = await getPageLoadData({
-    url: ROUTES.HOME,
-  });
-
-  const showComingSoonPage = await getFeatureFlag({
-    name: FEATURE_FLAGS.SHOW_COMING_SOON_PAGE,
+    url: ROUTES.LOGIN,
   });
 
   return {
     props: {
       ...pageLoadData,
-      showComingSoonPage,
     },
   };
 }
