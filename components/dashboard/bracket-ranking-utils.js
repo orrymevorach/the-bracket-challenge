@@ -123,11 +123,11 @@ export function sortSelectionsIntoRounds(winnersData) {
 
   // Iterate through the each winner in the winners object and sort it into a round based on the key
   for (const key in winnersData) {
-    if (key.startsWith('dR')) {
+    if (key.startsWith('dR') || key.startsWith('dwR')) {
       duelsWinners[key] = winnersData[key];
-    } else if (key.startsWith('rR')) {
+    } else if (key.startsWith('rR') || key.startsWith('rwR')) {
       revelstokeWinners[key] = winnersData[key];
-    } else if (key.startsWith('sR')) {
+    } else if (key.startsWith('sR') || key.startsWith('swR')) {
       selkirkWinners[key] = winnersData[key];
     }
     overallWinners[key] = winnersData[key];
@@ -150,18 +150,21 @@ export const getTopTenBrackets = ({ brackets }) => {
   );
 
   // Add scoring data to all brackets
-  const bracketsWithScoreData = brackets.map(bracket => {
-    const numberOfCorrectPicks = countNumberOfCorrectPicks({
-      bracketData: bracket,
-      winners: winnersBracket,
-    });
-    return {
-      ...bracket,
-      scoreData: {
-        ...numberOfCorrectPicks,
-      },
-    };
-  });
+  // Filter out the winners bracket so that it doesn't show up in the top ten
+  const bracketsWithScoreData = brackets
+    .map(bracket => {
+      const numberOfCorrectPicks = countNumberOfCorrectPicks({
+        bracketData: bracket,
+        winners: winnersBracket,
+      });
+      return {
+        ...bracket,
+        scoreData: {
+          ...numberOfCorrectPicks,
+        },
+      };
+    })
+    .filter(({ name }) => name !== 'Master Winners Bracket');
 
   // Adding the rankings to all the brackets
   const bracketsWithRanking = addRankingsToObjects({
@@ -169,13 +172,10 @@ export const getTopTenBrackets = ({ brackets }) => {
   });
 
   // Sort the brackets byt their ranking
-  // Filter out the winners bracket so that it doesn't show up in the top ten
-  const bracketsSortedByRanking = bracketsWithRanking
-    .sort((a, b) => {
-      if (parseFloat(a.ranking) > parseFloat(b.ranking)) return 1;
-      return -1;
-    })
-    .filter(({ name }) => name !== 'Master Winners Bracket');
+  const bracketsSortedByRanking = bracketsWithRanking.sort((a, b) => {
+    if (parseFloat(a.ranking) > parseFloat(b.ranking)) return 1;
+    return -1;
+  });
 
   // Return the number of winners as part of the data
   const numberOfWinners = countNumberOfWinnersInEachRound({

@@ -1,11 +1,13 @@
 import { getUser } from '@/lib/airtable';
-import { COOKIES } from '@/utils/constants';
+import { COOKIES, ROUTES } from '@/utils/constants';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function useUser() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const uid = Cookies.get(COOKIES.UID);
@@ -16,6 +18,8 @@ export default function useUser() {
     };
     if (uid) {
       handleSetUser();
+    } else {
+      router.push(ROUTES.HOME);
     }
   }, []);
   return {
