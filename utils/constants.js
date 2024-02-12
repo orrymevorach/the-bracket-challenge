@@ -8,6 +8,7 @@ export const ROUTES = {
   COMING_SOON: '/coming-soon',
   PAGE_NOT_FOUND: '/404',
   CREATE_BRACKET: '/create-bracket',
+  CONTACT: '/contact',
 };
 
 export const COOKIES = {

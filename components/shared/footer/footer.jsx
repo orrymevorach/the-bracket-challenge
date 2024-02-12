@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './footer.module.scss';
 import clsx from 'clsx';
 
@@ -9,7 +10,9 @@ export default function Footer() {
           <p className={styles.text}>Natural Selection Bracket Challenge</p>
         </div>
         <div className={styles.column}>
-          <p className={clsx(styles.contactUs, styles.text)}>Contact Us</p>
+          <Link href="/contact" className={clsx(styles.contactUs, styles.text)}>
+            Contact Us
+          </Link>
         </div>
       </div>
     </footer>

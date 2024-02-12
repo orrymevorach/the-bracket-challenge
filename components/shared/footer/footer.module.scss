@@ -1,4 +1,5 @@
 @use '@variables' as variables;
+@use '@mixins' as mixins;
 
 .footer {
   background-color: variables.$lightGrey;
@@ -21,6 +22,7 @@
 }
 
 .column {
+  @include mixins.fontSecondary;
   .contactUs {
     margin-left: 80px;
   }

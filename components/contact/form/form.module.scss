@@ -1,0 +1,74 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+// Form elements
+.formContainer {
+  width: 600px !important;
+  margin: 100px auto 0;
+}
+.inputContainer {
+  margin-bottom: 15px;
+  align-items: center;
+  width: 100% !important;
+}
+
+.input {
+  background-color: white;
+  border: none;
+  width: 100% !important;
+}
+
+label.label {
+  @include mixins.fontSecondary;
+  font-size: 20px !important;
+}
+
+.button {
+  background-color: #c4b29a;
+  color: variables.$black;
+  @include mixins.fontSecondary;
+  font-size: 20px;
+  align-self: center;
+}
+
+.thankYouHeading {
+  font-size: 24px;
+  @include mixins.fontSecondary;
+  margin-top: 100px;
+  color: white;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.thankYouText {
+  font-style: 18px;
+  @include mixins.fontSecondary;
+  margin-top: 40px;
+  margin-bottom: 100px;
+  color: white;
+  text-align: center;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .formContainer {
+    width: 100% !important;
+  }
+
+  label.label {
+    font-size: 16px !important;
+    width: 100% !important;
+  }
+  .inputContainer {
+    flex-direction: column;
+  }
+  .thankYouHeading {
+    font-size: 24px;
+    text-align: center;
+    // color: variables.$darkGreen;
+  }
+  .thankYouText {
+    font-size: 16px;
+    margin-top: 40px;
+    margin-bottom: 100px;
+  }
+}
