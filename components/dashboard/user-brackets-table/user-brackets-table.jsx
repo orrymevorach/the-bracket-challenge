@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
-import useGetUserLeagueData from '../useGetUserLeagueData';
 import Loader from '@/components/shared/loader/loader';
+import { useUserLeague } from '@/context/user-league-context/user-league-context';
 
 export default function UserBracketsTable({ currentRound }) {
   const router = useRouter();
-  const { leagueData: leagues, isLoading } = useGetUserLeagueData();
+  const { leagueData: leagues, isLoading } = useUserLeague();
   if (isLoading) return <Loader />;
   if (!leagues || !leagues.length) {
     return (
@@ -54,14 +54,7 @@ export default function UserBracketsTable({ currentRound }) {
                     <p className={styles.number}>{index + 1} </p>
                     <p>{league.leagueName}</p>
                   </td>
-                  <td
-                    className={clsx(
-                      styles.teamName,
-                      !hasSelectedWinners && styles.noSelectedWinners
-                    )}
-                  >
-                    {league.bracketName}
-                  </td>
+                  <td>{league.bracketName}</td>
                   <td
                     className={clsx(
                       !hasSelectedWinners && styles.noSelectedWinners

@@ -212,6 +212,7 @@ export const CREATE_BRACKET = gql`
 export const GET_BRACKET = gql`
   query GetBracket($recId: String) {
     userBrackets(id: $recId) {
+      id
       dR1M1 {
         id
         name
@@ -640,6 +641,114 @@ export const GET_CURRENT_USER_BRACKETS = gql`
     members(id: $id) {
       brackets {
         id
+      }
+    }
+  }
+`;
+
+export const GET_ALL_BRACKETS = gql`
+  query GetAllBrackets {
+    userBrackets {
+      name
+      id
+      memberId {
+        id
+      }
+      dR1M1 {
+        name
+      }
+      dR1M2 {
+        name
+      }
+      dR1M3 {
+        name
+      }
+      dR1M4 {
+        name
+      }
+      dR1M5 {
+        name
+      }
+      dR1M6 {
+        name
+      }
+      dR1M7 {
+        name
+      }
+      dR1M8 {
+        name
+      }
+      dwR1M1 {
+        name
+      }
+      dwR1M2 {
+        name
+      }
+      dwR1M3 {
+        name
+      }
+      dwR1M4 {
+        name
+      }
+      rR1M1 {
+        name
+      }
+      rR1M2 {
+        name
+      }
+      rR1M3 {
+        name
+      }
+      rR1M4 {
+        name
+      }
+      rR2M1 {
+        name
+      }
+      rR2M2 {
+        name
+      }
+      rR3M1 {
+        name
+      }
+      rwR1M1 {
+        name
+      }
+      rwR1M2 {
+        name
+      }
+      rwR2M1 {
+        name
+      }
+      sR1M1 {
+        name
+      }
+      sR1M2 {
+        name
+      }
+      sR1M3 {
+        name
+      }
+      sR1M4 {
+        name
+      }
+      sR2M1 {
+        name
+      }
+      sR2M2 {
+        name
+      }
+      sR3M1 {
+        name
+      }
+      swR1M1 {
+        name
+      }
+      swR1M2 {
+        name
+      }
+      swR2M1 {
+        name
       }
     }
   }

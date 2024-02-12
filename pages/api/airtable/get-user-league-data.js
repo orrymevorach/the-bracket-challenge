@@ -47,6 +47,7 @@ export default async function handler(req, res) {
         leagueName: league.name,
         ranking,
         selectedWinners: selectionsSortedByRoundWithNumberOfWinnersPerRound,
+        bracketId: bracket.id,
       };
     })
   );

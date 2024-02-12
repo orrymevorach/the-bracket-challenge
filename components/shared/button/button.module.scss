@@ -80,6 +80,18 @@
       color: white;
     }
   }
+  &.peach {
+    background-color: variables.$black;
+    color: white;
+    border: 1px solid variables.$peach;
+    &:hover {
+      background-color: rgba(white, 0.2);
+    }
+    &:hover p,
+    &:hover svg {
+      color: white;
+    }
+  }
 }
 
 @media screen and (max-width: variables.$mobile) {

@@ -1,4 +1,3 @@
-import { useUser } from 'context/user-context/user-context';
 import styles from './dashboard.module.scss';
 import UserBracketsTable from './user-brackets-table/user-brackets-table';
 import { ROUNDS } from '../league/league';
@@ -7,12 +6,12 @@ import Button from '../shared/button/button';
 import { useState } from 'react';
 import CreateLeagueTakeover from './create-league-takeover/create-league-takeover';
 import JoinLeagueTakeover from './join-league-takeover/join-league-takeover';
+import OverallRankingsTable from './overall-rankings-table/overall-rankings-table';
 
-export default function Dashboard() {
+export default function Dashboard({ overallRankingsData }) {
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
     useState(false);
   const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
-  const user = useUser();
 
   return (
     <Layout>
@@ -42,7 +41,8 @@ export default function Dashboard() {
           </Button>
         </div>
       </div>
-      <UserBracketsTable {...user} currentRound={ROUNDS[0].name} />
+      <UserBracketsTable currentRound={ROUNDS[0].name} />
+      <OverallRankingsTable overallRankingsData={overallRankingsData} />
     </Layout>
   );
 }

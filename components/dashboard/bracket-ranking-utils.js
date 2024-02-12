@@ -5,7 +5,7 @@ export const mapRoundToPoints = {
   4: 8,
 };
 
-function addRankingsToObjects({ inputArray = [] }) {
+export function addRankingsToObjects({ inputArray = [] }) {
   if (inputArray.length === 0) return [];
 
   const rankedObjects = inputArray.map(obj => {
@@ -41,7 +41,7 @@ export const getRanking = ({ leagueData, bracketName, winnersData }) => {
   return currentUserBracket?.ranking || '';
 };
 
-function countNumberOfWinnersInEachRound({ winnersData }) {
+export function countNumberOfWinnersInEachRound({ winnersData }) {
   let overallWinners = 0;
   let duelsWinners = 0;
   let revelstokeWinners = 0;
@@ -142,3 +142,45 @@ export function sortSelectionsIntoRounds(winnersData) {
 
   return resultObject;
 }
+
+export const getTopTenBrackets = ({ brackets }) => {
+  // Get the winners bracket
+  const winnersBracket = brackets.find(
+    ({ name }) => name === 'Master Winners Bracket'
+  );
+
+  // Add scoring data to all brackets
+  const bracketsWithScoreData = brackets.map(bracket => {
+    const numberOfCorrectPicks = countNumberOfCorrectPicks({
+      bracketData: bracket,
+      winners: winnersBracket,
+    });
+    return {
+      ...bracket,
+      scoreData: {
+        ...numberOfCorrectPicks,
+      },
+    };
+  });
+
+  // Adding the rankings to all the brackets
+  const bracketsWithRanking = addRankingsToObjects({
+    inputArray: bracketsWithScoreData,
+  });
+
+  // Sort the brackets byt their ranking
+  // Filter out the winners bracket so that it doesn't show up in the top ten
+  const bracketsSortedByRanking = bracketsWithRanking
+    .sort((a, b) => {
+      if (parseFloat(a.ranking) > parseFloat(b.ranking)) return 1;
+      return -1;
+    })
+    .filter(({ name }) => name !== 'Master Winners Bracket');
+
+  // Return the number of winners as part of the data
+  const numberOfWinners = countNumberOfWinnersInEachRound({
+    winnersData: winnersBracket,
+  });
+
+  return { bracketsSortedByRanking, numberOfWinners };
+};
