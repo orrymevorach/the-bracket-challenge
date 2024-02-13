@@ -91,8 +91,17 @@ const InfoIconContainer = ({ Svg, label, value }) => {
 };
 
 export default function PlayerModal({ player, setShowInfoModal }) {
-  const { name, hometown, image, instagram, mountain, sponsors, stance, flag } =
-    player;
+  const {
+    name,
+    hometown,
+    image,
+    instagram,
+    mountain,
+    sponsors,
+    stance,
+    flag,
+    description,
+  } = player;
 
   const instagramHandle = instagram
     ? instagram.replace('https://www.instagram.com/', '').replace('/', '')
@@ -152,12 +161,7 @@ export default function PlayerModal({ player, setShowInfoModal }) {
           </div>
         </div>
       </div>
-      <p className={styles.description}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo fuga,
-        rerum debitis eveniet atque dignissimos voluptate. Sed non qui minus
-        tenetur assumenda necessitatibus esse voluptatibus aliquam rerum,
-        officiis, laborum expedita.
-      </p>
+      <p className={styles.description}>{description}</p>
       <div className={styles.sponsors}>
         <p className={styles.title}>Sponsors</p>
         <p>{sponsors}</p>
