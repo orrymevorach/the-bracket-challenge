@@ -8,6 +8,7 @@ import Input from '@/components/shared/input/input';
 import CreateAccountTakeover from './create-account-takeover/create-account-takeover';
 import Cookies from 'js-cookie';
 import PromptNewUserTakeover from './prompt-new-user-takeover/prompt-new-user-takeover';
+import ResetPasswordTakeover from './reset-password-takeover/reset-password-takeover';
 
 export default function LoginWithEmailAndPassword() {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ export default function LoginWithEmailAndPassword() {
   const [isCreatingNewUser, setIsCreatingNewUser] = useState(false);
   const [isUserPromptedToCreateAccount, setIsUserPromptedToCreateAccount] =
     useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -70,6 +72,11 @@ export default function LoginWithEmailAndPassword() {
           setIsCreatingNewUser={setIsCreatingNewUser}
         />
       )}
+      {isResettingPassword && (
+        <ResetPasswordTakeover
+          setIsResettingPassword={setIsResettingPassword}
+        />
+      )}
 
       <form
         action="#"
@@ -102,6 +109,13 @@ export default function LoginWithEmailAndPassword() {
           className={styles.createUserButton}
         >
           Create Account
+        </button>
+        <button
+          onClick={() => setIsResettingPassword(true)}
+          type="button"
+          className={styles.createUserButton}
+        >
+          Forgot Password
         </button>
       </form>
     </>

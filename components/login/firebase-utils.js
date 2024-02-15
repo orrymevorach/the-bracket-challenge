@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -51,6 +52,16 @@ export const createFirebaseUser = ({ email, password }) => {
 
 export const signOutOfFirebase = () => {
   return signOut(auth)
+    .then(() => {})
+    .catch(error => {
+      return {
+        error,
+      };
+    });
+};
+
+export const sendFirebasePasswordResetEmail = ({ email }) => {
+  return sendPasswordResetEmail(auth, email)
     .then(() => {})
     .catch(error => {
       return {
