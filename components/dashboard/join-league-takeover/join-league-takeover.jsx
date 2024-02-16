@@ -3,10 +3,12 @@ import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
 import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function JoinLeagueTakeover({ setShowTakeover }) {
   const [leagueId, setLeagueId] = useState('');
   const user = useUser();
+  const router = useRouter();
 
   const handleSubmit = async () => {
     const existingMembers = await getLeagueMembers({ id: leagueId });
@@ -17,7 +19,7 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
       id: leagueId,
       memberRecordIds,
     });
-    window.location = `${ROUTES.LEAGUE}/${response.id}`;
+    window.location = router.push(`${ROUTES.LEAGUE}/${response.id}`);
   };
 
   return (
