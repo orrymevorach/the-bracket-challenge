@@ -7,7 +7,7 @@ import { getLeagueIds } from '@/lib/airtable';
 import Meta from '@/components/shared/head/head';
 import { UserProvider } from '@/context/user-context/user-context';
 
-export default function LeaguePage(props) {
+export default function LeaguePage() {
   return (
     <>
       <Meta />
