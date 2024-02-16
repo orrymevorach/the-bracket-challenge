@@ -44,7 +44,6 @@ export default function LeagueSettings() {
         {showInviteMemberTakeover && (
           <InviteMemberTakeover
             setShowTakeover={setShowInviteMemberTakeover}
-            classNames={styles.editLeagueNameTakeover}
             leagueId={id}
           />
         )}

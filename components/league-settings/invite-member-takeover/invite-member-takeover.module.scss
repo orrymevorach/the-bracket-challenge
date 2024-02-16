@@ -4,7 +4,8 @@
 .container {
   width: 500px;
   position: relative;
-  height: 300px;
+  height: auto;
+  min-height: 300px;
 }
 
 .title {
@@ -18,4 +19,31 @@
   color: variables.$black;
   margin-bottom: 40px;
   text-align: center;
+}
+
+.instructions {
+  color: black;
+  @include mixins.fontSecondary;
+  margin-top: 50px;
+  p {
+    text-align: center;
+    color: black;
+    @include mixins.fontSecondaryBold;
+  }
+  li {
+    margin: 7px 0;
+  }
+}
+
+.italic {
+  font-style: italic;
+}
+
+.closeButton {
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.junkText {
+  font-size: 13px;
 }

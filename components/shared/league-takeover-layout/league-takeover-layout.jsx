@@ -15,6 +15,8 @@ export default function LeagueTakeoverLayout({
   inputValue,
   setInputValue,
   classNames = '',
+  children,
+  error = '',
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,6 +24,7 @@ export default function LeagueTakeoverLayout({
     e.preventDefault();
     setIsLoading(true);
     await handleSubmit();
+    setIsLoading(false);
   };
 
   return (
@@ -47,11 +50,13 @@ export default function LeagueTakeoverLayout({
               classNames={styles.input}
               label={label}
               labelClassNames={styles.label}
+              error={error}
             />
             <Button isSecondary classNames={styles.button}>
               {buttonLabel}
             </Button>
           </form>
+          {children}
         </>
       )}
     </Takeover>
