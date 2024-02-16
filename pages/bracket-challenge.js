@@ -9,11 +9,11 @@ import { FEATURE_FLAGS, ROUTES } from '@/utils/constants';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 
 export default function BracketChallengePage({ config }) {
-  const { config: defaultConfig } = useConfig();
-  useSetInitialConfig({
-    ...defaultConfig,
-    ...config,
-  });
+  // const { config: defaultConfig } = useConfig();
+  // useSetInitialConfig({
+  //   ...defaultConfig,
+  //   ...config,
+  // });
   return (
     <>
       <Meta />
