@@ -38,7 +38,9 @@ export async function getStaticPaths() {
   const leagues = await getLeagueIds();
 
   return {
-    paths: leagues.map(({ id }) => `/league/${id}`),
-    fallback: false,
+    paths: leagues.map(({ id }) => {
+      console.log('id', id);
+      return `/league/${id}`;
+    }),
   };
 }
