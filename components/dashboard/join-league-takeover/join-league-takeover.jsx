@@ -17,7 +17,8 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
       id: leagueId,
       memberRecordIds,
     });
-    window.location = `${ROUTES.LEAGUE}/HEYTHERE`;
+    console.log('response.id', response.id);
+    // window.location = `${ROUTES.LEAGUE}/${response.id}`;
   };
 
   return (
