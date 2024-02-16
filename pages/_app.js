@@ -25,9 +25,9 @@ export default function App({ Component, pageProps }) {
     <>
       <GoogleAnalytics />
       <WindowSizeProvider>
-        <ConfigProvider>
-          <Component {...pageProps} />
-        </ConfigProvider>
+        {/* <ConfigProvider> */}
+        <Component {...pageProps} />
+        {/* </ConfigProvider> */}
       </WindowSizeProvider>
     </>
   );
