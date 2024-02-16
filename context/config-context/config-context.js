@@ -1,5 +1,5 @@
 import { ROUND_NAMES } from '@/utils/constants';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const ConfigContext = createContext();
 
