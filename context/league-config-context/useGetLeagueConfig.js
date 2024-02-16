@@ -7,6 +7,7 @@ export default function useGetLeagueConfig() {
   const {
     query: { slug },
   } = useRouter();
+  console.log('slug', slug);
   useEffect(() => {
     const getLeagueConfigData = async () => {
       const leagueConfig = await getLeagueConfig({ id: slug });
