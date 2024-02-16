@@ -63,6 +63,7 @@ export default function CreateUser({ email }) {
         value={name}
         labelClassNames={styles.label}
         classNames={styles.inputContainer}
+        required
       />
       <Input
         type="email"
@@ -72,6 +73,7 @@ export default function CreateUser({ email }) {
         value={emailInput}
         labelClassNames={styles.label}
         classNames={styles.inputContainer}
+        required
       />
       <Input
         type="password"
@@ -81,6 +83,7 @@ export default function CreateUser({ email }) {
         value={password}
         labelClassNames={styles.label}
         classNames={styles.inputContainer}
+        required
       />
       <Input
         type="password"
@@ -90,6 +93,7 @@ export default function CreateUser({ email }) {
         value={confirmPassword}
         labelClassNames={styles.label}
         classNames={styles.inputContainer}
+        required
       />
       <Button isLoading={isLoading} classNames={styles.button} isSecondary>
         Submit
