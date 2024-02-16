@@ -20,7 +20,7 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
       memberRecordIds,
     });
     // window.location = `${ROUTES.LEAGUE}/${response.id}`
-    router.push({ pathname: ROUTES.LEAGUE, query: { slug: response.id } });
+    router.push({ pathname: `${ROUTES.LEAGUE}/${response.id}` });
   };
 
   return (
