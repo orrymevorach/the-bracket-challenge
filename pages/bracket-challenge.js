@@ -17,13 +17,13 @@ export default function BracketChallengePage({ config }) {
   return (
     <>
       <Meta />
-      <UserProvider>
+      {/* <UserProvider>
         <LeagueConfigProvider>
           <MatchupDataProvider>
             <BracketChallengeContainer />
           </MatchupDataProvider>
         </LeagueConfigProvider>
-      </UserProvider>
+      </UserProvider> */}
     </>
   );
 }
