@@ -10,14 +10,14 @@ import { UserProvider } from '@/context/user-context/user-context';
 export default function LeaguePage() {
   return (
     <>
-      {/* <Meta /> */}
-      {/* <UserProvider> */}
-      {/* <WinnersProvider> */}
-      {/* <LeagueConfigProvider>
+      <Meta />
+      <UserProvider>
+        <WinnersProvider>
+          <LeagueConfigProvider>
             <League />
-          </LeagueConfigProvider> */}
-      {/* </WinnersProvider> */}
-      {/* </UserProvider> */}
+          </LeagueConfigProvider>
+        </WinnersProvider>
+      </UserProvider>
     </>
   );
 }
@@ -38,10 +38,7 @@ export async function getStaticPaths() {
   const leagues = await getLeagueIds();
 
   return {
-    paths: leagues.map(({ id }) => {
-      console.log('id', id);
-      return `/league/${id}`;
-    }),
+    paths: leagues.map(({ id }) => `/league/${id}`),
     fallback: true,
   };
 }
