@@ -11,7 +11,7 @@ export default function useGetLeagueConfig() {
   useEffect(() => {
     const getLeagueConfigData = async () => {
       const leagueConfig = await getLeagueConfig({ id: slug });
-      setLeagueConfig(leagueConfig);
+      // setLeagueConfig(leagueConfig);
     };
     if (slug && !leagueConfig) {
       getLeagueConfigData();

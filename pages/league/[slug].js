@@ -13,9 +13,9 @@ export default function LeaguePage() {
       <Meta />
       <UserProvider>
         <WinnersProvider>
-          {/* <LeagueConfigProvider> */}
-          <League />
-          {/* </LeagueConfigProvider> */}
+          <LeagueConfigProvider>
+            <League />
+          </LeagueConfigProvider>
         </WinnersProvider>
       </UserProvider>
     </>

@@ -30,9 +30,9 @@ export default function League() {
   const user = useUser();
   if (!bracketsSortedByRankings)
     return (
-      // <LeaguePageLayout title="League Rankings:" hideBackButton>
-      <Loader />
-      // </LeaguePageLayout>
+      <LeaguePageLayout title="League Rankings:" hideBackButton>
+        <Loader />
+      </LeaguePageLayout>
     );
 
   const hasCurrentUserBracketData = bracketsSortedByRankings.find(
@@ -42,8 +42,7 @@ export default function League() {
   const hasLeagueBrackets = bracketsSortedByRankings.length > 0;
 
   return (
-    <>
-      {/* // <LeaguePageLayout title="League Rankings:" hideBackButton> */}
+    <LeaguePageLayout title="League Rankings:" hideBackButton>
       {!hasCurrentUserBracketData && (
         <div className={styles.mainContentContainer}>
           <CreateBracketPrompt brackets={bracketsSortedByRankings} />
@@ -54,7 +53,6 @@ export default function League() {
           <LeagueRankingsTable leagueData={bracketsSortedByRankings} />
         </div>
       )}
-      {/* // </LeaguePageLayout> */}
-    </>
+    </LeaguePageLayout>
   );
 }
