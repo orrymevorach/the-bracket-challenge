@@ -8,16 +8,16 @@ export default function useGetLeagueConfig() {
     query: { slug },
   } = useRouter();
   console.log('slug', slug);
-  useEffect(() => {
-    const getLeagueConfigData = async () => {
-      const leagueConfig = await getLeagueConfig({ id: slug });
-      console.log('leagueConfig', leagueConfig);
-      // setLeagueConfig(leagueConfig);
-    };
-    if (slug && !leagueConfig) {
-      getLeagueConfigData();
-    }
-  }, [leagueConfig, slug]);
+  // useEffect(() => {
+  // const getLeagueConfigData = async () => {
+  // const leagueConfig = await getLeagueConfig({ id: slug });
+  // console.log('leagueConfig', leagueConfig);
+  // setLeagueConfig(leagueConfig);
+  // };
+  // if (slug && !leagueConfig) {
+  //   getLeagueConfigData();
+  // }
+  // }, [leagueConfig, slug]);
 
   return leagueConfig;
 }
