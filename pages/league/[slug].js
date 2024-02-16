@@ -42,5 +42,6 @@ export async function getStaticPaths() {
       console.log('id', id);
       return `/league/${id}`;
     }),
+    fallback: true,
   };
 }
