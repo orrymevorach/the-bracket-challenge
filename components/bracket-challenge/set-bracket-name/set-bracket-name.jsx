@@ -19,7 +19,7 @@ export default function SetBracketName({ setIsSettingName }) {
     e.preventDefault();
     setIsLoading(true);
     const response = await createBracket({
-      name: bracketName,
+      name: bracketName || `${user.name}'s Bracket`,
       memberId: user.id,
       leagueId,
     });
