@@ -39,6 +39,6 @@ export async function getStaticPaths() {
 
   return {
     paths: leagues.map(({ id }) => `/league/${id}`),
-    fallback: true,
+    fallback: false,
   };
 }
