@@ -10,14 +10,14 @@ import { UserProvider } from '@/context/user-context/user-context';
 export default function LeaguePage() {
   return (
     <>
-      <Meta />
-      <UserProvider>
-        <WinnersProvider>
-          {/* <LeagueConfigProvider>
+      {/* <Meta /> */}
+      {/* <UserProvider> */}
+      {/* <WinnersProvider> */}
+      {/* <LeagueConfigProvider>
             <League />
           </LeagueConfigProvider> */}
-        </WinnersProvider>
-      </UserProvider>
+      {/* </WinnersProvider> */}
+      {/* </UserProvider> */}
     </>
   );
 }
