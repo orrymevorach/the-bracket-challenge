@@ -73,6 +73,9 @@ export const GET_LEAGUE_BRACKETS = gql`
         id
         name
         userName
+        memberId {
+          id
+        }
         dR1M1 {
           name
         }
