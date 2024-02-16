@@ -11,13 +11,13 @@ export default function LeaguePage() {
   return (
     <>
       <Meta />
-      {/* <UserProvider>
+      <UserProvider>
         <WinnersProvider>
-          <LeagueConfigProvider>
-            <League />
-          </LeagueConfigProvider>
+          {/* <LeagueConfigProvider> */}
+          <League />
+          {/* </LeagueConfigProvider> */}
         </WinnersProvider>
-      </UserProvider> */}
+      </UserProvider>
     </>
   );
 }
