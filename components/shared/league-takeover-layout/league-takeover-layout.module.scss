@@ -32,3 +32,9 @@ label.label {
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .input {
+    width: 100%;
+  }
+}
