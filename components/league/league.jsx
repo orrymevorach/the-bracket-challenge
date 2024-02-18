@@ -36,7 +36,7 @@ export default function League() {
     );
 
   const hasCurrentUserBracketData = bracketsSortedByRankings.find(
-    ({ memberId }) => memberId.id === user.id
+    ({ memberId }) => memberId[0].id === user.id
   );
 
   const hasLeagueBrackets = bracketsSortedByRankings.length > 0;
