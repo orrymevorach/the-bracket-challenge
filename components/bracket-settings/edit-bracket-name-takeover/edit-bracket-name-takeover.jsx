@@ -19,7 +19,7 @@ export default function EditBracketNameTakeover({
       bracketName,
     });
     router.push(
-      `/${ROUTES.BRACKET_SETTINGS}/${bracketId}?leagueId=${leagueId}`
+      `/${ROUTES.BRACKET_CHALLENGE}?bracketId=${bracketId}&leagueId=${leagueId}`
     );
   };
 
