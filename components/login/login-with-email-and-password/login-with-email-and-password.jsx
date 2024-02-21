@@ -32,7 +32,11 @@ export default function LoginWithEmailAndPassword() {
     if (response?.user) {
       setError('');
       Cookies.set(COOKIES.UID, response.user.uid);
-      router.push(ROUTES.DASHBOARD);
+      if (router.query.redirect === 'true') {
+        router.back();
+      } else {
+        router.push(ROUTES.DASHBOARD);
+      }
     } else if (
       response.error.code === 'auth/invalid-email' ||
       response.error.code === 'auth/user-not-found'

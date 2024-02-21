@@ -18,6 +18,8 @@ export default function useUser() {
     };
     if (uid) {
       handleSetUser();
+    } else if (router.pathname !== '/') {
+      router.push(`${ROUTES.HOME}?redirect=true`);
     } else {
       router.push(ROUTES.HOME);
     }
