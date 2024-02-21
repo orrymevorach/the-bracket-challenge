@@ -119,7 +119,7 @@ export default function OverallRankingsTable({ overallRankingsData }) {
                     <tr
                       key={bracketId}
                       onClick={handleClick}
-                      className={styles.styles.currentBracket}
+                      className={styles.currentBracket}
                     >
                       <td className={styles.teamName}>
                         <span className={styles.number}>

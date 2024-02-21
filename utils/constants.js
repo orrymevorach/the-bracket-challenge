@@ -55,3 +55,5 @@ export const FEATURE_FLAGS = {
   SHOW_REVELSTOKE_MATCHUPS: 'SHOW_REVELSTOKE_MATCHUPS',
   SHOW_SELKIRK_MATCHUPS: 'SHOW_SELKIRK_MATCHUPS',
 };
+
+export const topDawgCompetitionLeagueId = 'recrKlmzDj22vkpf9';

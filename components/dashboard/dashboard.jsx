@@ -7,11 +7,23 @@ import { useState } from 'react';
 import CreateLeagueTakeover from './create-league-takeover/create-league-takeover';
 import JoinLeagueTakeover from './join-league-takeover/join-league-takeover';
 import OverallRankingsTable from './overall-rankings-table/overall-rankings-table';
+import JoinPublicLeagueTakeover from './join-public-league-takeover/join-public-league-takeover';
+import JoinPublicLeaguePrompt from './join-public-league-prompt/join-public-league-prompt';
+import useUser from '@/context/user-context/useUser';
+import { topDawgCompetitionLeagueId } from '@/utils/constants';
 
 export default function Dashboard({ overallRankingsData }) {
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
     useState(false);
   const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
+  const [showJoinPublicLeagueTakeover, setShowJoinPublicLeagueTakeover] =
+    useState(false);
+
+  const user = useUser();
+  const hasJoinedPublicLeague =
+    user.leagues && user.leagues.length > 0
+      ? user.leagues.find(({ id }) => id === topDawgCompetitionLeagueId)
+      : false;
 
   return (
     <Layout>
@@ -20,6 +32,11 @@ export default function Dashboard({ overallRankingsData }) {
       )}
       {showJoinLeagueTakeover && (
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
+      )}
+      {showJoinPublicLeagueTakeover && (
+        <JoinPublicLeagueTakeover
+          setShowTakeover={setShowJoinPublicLeagueTakeover}
+        />
       )}
       <div className={styles.topContainer}>
         <div>
@@ -31,7 +48,7 @@ export default function Dashboard({ overallRankingsData }) {
             handleClick={() => setShowJoinLeagueTakeover(true)}
             classNames={styles.button}
           >
-            Join League
+            Join Private League
           </Button>
           <Button
             handleClick={() => setShowCreateLeagueTakeover(true)}
@@ -41,6 +58,12 @@ export default function Dashboard({ overallRankingsData }) {
           </Button>
         </div>
       </div>
+      {!hasJoinedPublicLeague && (
+        <JoinPublicLeaguePrompt
+          setShowTakeover={setShowJoinPublicLeagueTakeover}
+        />
+      )}
+
       <UserBracketsTable currentRound={ROUNDS[0].name} />
       <OverallRankingsTable overallRankingsData={overallRankingsData} />
     </Layout>

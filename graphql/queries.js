@@ -31,6 +31,9 @@ export const GET_USER = gql`
         userBrackets {
           id
           userName
+          memberId {
+            id
+          }
           name
         }
       }

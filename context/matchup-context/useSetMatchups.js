@@ -33,6 +33,8 @@ export default function useSetMatchups({
       const matchupsCopy = { ...matchupsWithLiveWinners };
       setMatchups(matchupsCopy);
     };
-    getData();
+    if (bracketId) {
+      getData();
+    }
   }, [setMatchups, currentRound, bracketId]);
 }
