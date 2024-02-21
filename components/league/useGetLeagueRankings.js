@@ -10,14 +10,14 @@ import { useRouter } from 'next/router';
 
 export default function useGetLeagueRankings() {
   const {
-    query: { slug },
+    query: { leagueId },
   } = useRouter();
   const [bracketsSortedByRankings, setBracketsSortedByRankings] =
     useState(null);
   const winnersData = useWinners();
   useEffect(() => {
     const handleGetBracketsSortedByRankings = async () => {
-      const league = await getLeagueBrackets({ id: slug });
+      const league = await getLeagueBrackets({ id: leagueId });
       const leagueWithRankingsAndNumberOfCorrectPicks = league.userBrackets.map(
         bracket => {
           const rank = getRanking({
@@ -43,6 +43,6 @@ export default function useGetLeagueRankings() {
     if (winnersData) {
       handleGetBracketsSortedByRankings();
     }
-  }, [slug, winnersData]);
+  }, [leagueId, winnersData]);
   return { bracketsSortedByRankings };
 }

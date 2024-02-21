@@ -15,7 +15,7 @@ export default function EditLeagueNameTakeover({
       id: leagueId,
       leagueName,
     });
-    window.location = `${ROUTES.LEAGUE_SETTINGS}/${leagueId}`;
+    window.location = `${ROUTES.LEAGUE_SETTINGS}/${leagueId}?leagueId=${leagueId}`;
   };
 
   return (

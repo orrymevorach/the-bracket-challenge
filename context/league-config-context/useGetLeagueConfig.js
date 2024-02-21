@@ -1,21 +1,25 @@
-import { getLeagueConfig } from '@/lib/airtable';
+import { getBracket, getBracketName, getLeagueConfig } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function useGetLeagueConfig() {
   const [leagueConfig, setLeagueConfig] = useState('');
   const {
-    query: { slug },
+    query: { leagueId, bracketId },
   } = useRouter();
   useEffect(() => {
     const getLeagueConfigData = async () => {
-      const leagueConfig = await getLeagueConfig({ id: slug });
-      setLeagueConfig(leagueConfig);
+      const leagueConfig = await getLeagueConfig({ id: leagueId });
+      let bracketData = {};
+      if (bracketId) {
+        bracketData = await getBracketName({ id: bracketId });
+      }
+      setLeagueConfig({ ...leagueConfig, bracketData });
     };
-    if (slug && !leagueConfig) {
+    if (leagueId && !leagueConfig) {
       getLeagueConfigData();
     }
-  }, [leagueConfig, slug]);
+  }, [leagueConfig, leagueId, bracketId]);
 
   return leagueConfig;
 }

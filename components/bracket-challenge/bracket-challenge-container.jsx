@@ -91,7 +91,9 @@ export default function BracketChallengeContainer() {
   return (
     <Layout
       backButtonText={leagueId ? 'Back to league page' : ''}
-      backButtonHref={leagueId ? `/league/${leagueId}` : ''}
+      backButtonHref={
+        leagueId ? `/league/${leagueId}?leagueId=${leagueId}` : ''
+      }
     >
       {isSettingName ? (
         <SetBracketName setIsSettingName={setIsSettingName} />

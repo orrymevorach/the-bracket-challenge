@@ -10,9 +10,10 @@ import { ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
 
 export default function BracketSettings() {
-  const { name, id } = useLeagueConfig({ getMembers: false });
+  const { bracketData } = useLeagueConfig();
   const router = useRouter();
   const leagueId = router.query.leagueId;
+  const bracketId = router.query.bracketId;
 
   const [showEditLeagueNameTakeover, setShowEditLeagueNameTakeover] =
     useState(false);
@@ -20,14 +21,15 @@ export default function BracketSettings() {
   return (
     <LeaguePageLayout
       title="Bracket Settings:"
-      backButtonHref={`/${ROUTES.BRACKET_CHALLENGE}?leagueId=${leagueId}&bracketId=${id}`}
+      backButtonHref={`${ROUTES.BRACKET_CHALLENGE}?leagueId=${leagueId}&bracketId=${bracketId}`}
+      titleName={bracketData?.name}
     >
       <div>
         {showEditLeagueNameTakeover && (
           <EditBracketNameTakeover
             setShowTakeover={setShowEditLeagueNameTakeover}
             classNames={styles.takeover}
-            bracketId={id}
+            bracketId={bracketId}
             leagueId={leagueId}
           />
         )}
@@ -42,7 +44,7 @@ export default function BracketSettings() {
             <FontAwesomeIcon icon={faEdit} color="white" />
           </Button>
         </div>
-        <p className={styles.name}>{name}</p>
+        <p className={styles.name}>{bracketData?.name}</p>
       </div>
     </LeaguePageLayout>
   );

@@ -13,7 +13,7 @@ export default function CreateLeagueTakeover({ setShowTakeover }) {
       name: leagueName,
       memberRecordId: user.id,
     });
-    window.location = `${ROUTES.LEAGUE}/${response.id}`;
+    window.location = `${ROUTES.LEAGUE}/${response.id}?leagueId=${response.id}`;
   };
 
   return (

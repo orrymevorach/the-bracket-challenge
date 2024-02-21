@@ -13,7 +13,7 @@ export default function CreateBracketPrompt({ brackets = null }) {
     : null;
   const showPrompt = brackets !== null && !currentUserHasBracket;
 
-  const leagueId = router.query.slug;
+  const leagueId = router.query.leagueId;
 
   return (
     <>

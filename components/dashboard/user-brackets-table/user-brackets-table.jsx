@@ -42,7 +42,7 @@ export default function UserBracketsTable({ currentRound }) {
                 ? `${currentSelectedRound.numberOfCorrectPicks}/${currentSelectedRound.numberOfWinnersInRound}`
                 : '';
               const handleClick = () => {
-                router.push(`/league/${league.id}`);
+                router.push(`/league/${league.id}?leagueId=${league.id}`);
               };
               return (
                 <tr
@@ -101,7 +101,7 @@ export default function UserBracketsTable({ currentRound }) {
                   isSecondary
                   isInverted
                   classNames={styles.createBracketButton}
-                  href={`/league/${league.id}`}
+                  href={`/league/${league.id}?leagueId=${league.id}`}
                 >
                   View League
                 </Button>

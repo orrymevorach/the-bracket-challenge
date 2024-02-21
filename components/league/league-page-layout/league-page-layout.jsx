@@ -16,10 +16,11 @@ export default function LeaguePageLayout({
   title,
   hideBackButton = false,
   backButtonHref,
+  titleName,
 }) {
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
-  const { name, admin, id } = useLeagueConfig();
+  const { name: leagueName, admin, id } = useLeagueConfig();
   const user = useUser();
   const router = useRouter();
   const pathname = router.pathname;
@@ -28,11 +29,12 @@ export default function LeaguePageLayout({
 
   const leagueAdmin = admin?.length > 0 && admin[0].id;
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
-  const backButtonText = hideBackButton ? null : `Back to ${name}`;
+  const nameToShow = titleName || leagueName;
+  const backButtonText = hideBackButton ? null : `Back to ${nameToShow}`;
 
   return (
     <Layout
-      backButtonHref={backButtonHref || `/league/${id}`}
+      backButtonHref={backButtonHref || `/league/${id}?leagueId=${id}`}
       backButtonText={backButtonText}
     >
       {showInviteMemberTakeover && (
@@ -41,11 +43,11 @@ export default function LeaguePageLayout({
           leagueId={id}
         />
       )}
-      {name ? (
+      {nameToShow ? (
         <div className={styles.container}>
           <div>
             <p className={styles.heading}>{title}</p>
-            <p className={styles.leagueName}>{name}</p>
+            <p className={styles.leagueName}>{nameToShow}</p>
           </div>
           {isAdmin && !isLeagueSettingsPage && (
             <div className={styles.buttonContainer}>

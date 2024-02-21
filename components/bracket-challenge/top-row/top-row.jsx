@@ -39,7 +39,7 @@ export default function TopRow({ bracketRecId, leagueId }) {
       </div>
       {currentUsersBrackets.length && (
         <Link
-          href={`/bracket-settings/${bracketRecId}?leagueId=${leagueId}`}
+          href={`/bracket-settings/${bracketRecId}?bracketId=${bracketRecId}&leagueId=${leagueId}`}
           className={styles.button}
         >
           <p className={styles.text}>Settings</p>{' '}
