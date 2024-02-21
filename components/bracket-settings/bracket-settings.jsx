@@ -28,6 +28,7 @@ export default function BracketSettings() {
             setShowTakeover={setShowEditLeagueNameTakeover}
             classNames={styles.takeover}
             bracketId={id}
+            leagueId={leagueId}
           />
         )}
         <div className={styles.container}>
