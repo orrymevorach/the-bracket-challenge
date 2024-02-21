@@ -1,4 +1,5 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .heading,
 .leagueName {
@@ -26,4 +27,13 @@
 .button {
   cursor: pointer;
   display: flex;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .topContainer {
+    flex-direction: column;
+  }
+  .leagueName {
+    margin-bottom: 20px;
+  }
 }
