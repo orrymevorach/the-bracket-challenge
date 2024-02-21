@@ -12,6 +12,7 @@ import Layout from '../shared/layout/layout';
 import { updateUserBracket } from '@/lib/airtable';
 import Button from '../shared/button/button';
 import { useMatchups } from '@/context/matchup-context/matchup-context';
+import TopRow from './top-row/top-row';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -97,6 +98,7 @@ export default function BracketChallengeContainer() {
       ) : (
         <>
           <div className={styles.container}>
+            <TopRow bracketRecId={bracketRecId} leagueId={leagueId} />
             <RoundButtons
               currentRound={currentRound}
               setCurrentRound={setCurrentRound}

@@ -634,6 +634,14 @@ export const EDIT_LEAGUE_NAME = gql`
   }
 `;
 
+export const EDIT_BRACKET_NAME = gql`
+  mutation EditBracketName($id: String, $bracketName: String) {
+    update_userBrackets(id: $id, name: $bracketName) {
+      id
+    }
+  }
+`;
+
 export const GET_LEAGUE_IDS = gql`
   query GetLeagueIds {
     leagues {
@@ -756,6 +764,14 @@ export const GET_ALL_BRACKETS = gql`
       swR2M1 {
         name
       }
+    }
+  }
+`;
+
+export const GET_BRACKET_NAME = gql`
+  query GetAllBrackets($id: String) {
+    userBrackets(id: $id) {
+      name
     }
   }
 `;

@@ -15,6 +15,7 @@ export default function LeaguePageLayout({
   children,
   title,
   hideBackButton = false,
+  backButtonHref,
 }) {
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
@@ -28,8 +29,12 @@ export default function LeaguePageLayout({
   const leagueAdmin = admin?.length > 0 && admin[0].id;
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
   const backButtonText = hideBackButton ? null : `Back to ${name}`;
+
   return (
-    <Layout backButtonHref={`/league/${id}`} backButtonText={backButtonText}>
+    <Layout
+      backButtonHref={backButtonHref || `/league/${id}`}
+      backButtonText={backButtonText}
+    >
       {showInviteMemberTakeover && (
         <InviteMemberTakeover
           setShowTakeover={setShowInviteMemberTakeover}

@@ -9,6 +9,7 @@ export const ROUTES = {
   PAGE_NOT_FOUND: '/404',
   CREATE_BRACKET: '/create-bracket',
   CONTACT: '/contact',
+  BRACKET_SETTINGS: '/bracket-settings',
 };
 
 export const COOKIES = {
