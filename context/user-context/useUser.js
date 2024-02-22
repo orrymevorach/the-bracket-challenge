@@ -16,6 +16,7 @@ export default function useUser() {
       setUserData(user);
       setIsLoading(false);
     };
+
     if (uid) {
       handleSetUser();
     } else if (router.pathname !== '/') {

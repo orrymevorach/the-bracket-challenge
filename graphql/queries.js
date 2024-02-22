@@ -775,3 +775,22 @@ export const GET_BRACKET_NAME = gql`
     }
   }
 `;
+
+export const GET_ALL_MEMBERS_WITH_LEAGUE_DATA = gql`
+  query getAllMembersWithLeagueData {
+    members {
+      name
+      emailAddress
+      leagues {
+        id
+        name
+      }
+      brackets {
+        name
+      }
+      adminLeagues {
+        name
+      }
+    }
+  }
+`;

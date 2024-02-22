@@ -1,11 +1,11 @@
 import SubmissionForm from '../submission-form/submission-form';
-import useVendorSubmissionForm from './useSubmissionForm';
-import { sendVendorSubmissionForm } from 'lib/mailgun';
+import useSubmissionForm from './useSubmissionForm';
+import { sendSubmissionForm } from 'lib/mailgun';
 import { useState } from 'react';
 import styles from './form.module.scss';
 
-export default function ArtistSubmissionForm() {
-  const useFormReducer = useVendorSubmissionForm();
+export default function Form() {
+  const useFormReducer = useSubmissionForm();
   const { state, dispatch, actions, stages } = useFormReducer;
   const [isLoading, setIsLoading] = useState(false);
   const { stage } = state;
@@ -18,7 +18,7 @@ export default function ArtistSubmissionForm() {
       Message: state.message,
     };
 
-    await sendVendorSubmissionForm({ fields });
+    await sendSubmissionForm({ fields });
     dispatch({ type: actions.SET_STAGE, stage: stages.CONFIRMATION });
     setIsLoading(false);
   };
