@@ -15,7 +15,7 @@ export default function ConfirmationTakeover({
       modalClassNames={styles.takeover}
     >
       <FontAwesomeIcon icon={faCheckCircle} color="#05bf78" size="xl" />
-      <p className={styles.title}>Pick Submitted!</p>
+      <p className={styles.title}>Picks Submitted!</p>
       <p className={styles.message}>
         Check on your bracket every time a winner is announced to see how many
         points you earned!
