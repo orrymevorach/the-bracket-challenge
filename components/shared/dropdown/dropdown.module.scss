@@ -7,7 +7,6 @@
 .dropdown {
   display: flex;
   margin: 10px auto 0;
-  width: 70%;
   color: white;
   label,
   svg {
@@ -17,25 +16,18 @@
     border-bottom: 1px solid white;
     color: white;
     font-size: 14px;
+    width: 200px;
+    margin: 0 auto;
   }
 }
 
 .heading {
   @include mixins.fontSecondary;
   text-align: center;
-  font-size: 28px;
+  font-size: 22px;
   color: white;
 }
 
 .select {
   color: white;
-}
-
-@media screen and (max-width: variables.$mobile) {
-  .dropdown {
-    width: 300px;
-  }
-  .heading {
-    margin-bottom: 15px;
-  }
 }
