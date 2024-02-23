@@ -49,7 +49,6 @@ export default function RoundButtons({
           <Dropdown
             options={roundNames}
             heading="Select A Round"
-            selectLabel="Round Name"
             handleChange={handleClick}
             currentSelection={currentRound.name}
           />
