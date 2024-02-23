@@ -43,3 +43,9 @@
 .inputContainer {
   margin-bottom: 30px !important;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .form {
+    width: 100%;
+  }
+}

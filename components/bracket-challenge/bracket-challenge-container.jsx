@@ -4,7 +4,7 @@ import SetBracketName from './set-bracket-name/set-bracket-name';
 import Loader from '../shared/loader/loader';
 import styles from './bracket-challenge-container.module.scss';
 import { useRouter } from 'next/router';
-import { ROUNDS, ROUND_SUFFIXES } from '@/utils/constants';
+import { ROUNDS, ROUND_SUFFIXES, ROUTES } from '@/utils/constants';
 import BracketChallenge from './bracket-challenge';
 import { useConfig } from '@/context/config-context/config-context';
 import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
@@ -13,6 +13,7 @@ import { updateUserBracket } from '@/lib/airtable';
 import Button from '../shared/button/button';
 import { useMatchups } from '@/context/matchup-context/matchup-context';
 import TopRow from './top-row/top-row';
+import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -52,6 +53,8 @@ export default function BracketChallengeContainer() {
   const [currentRound, setCurrentRound] = useState(ROUNDS[0]);
   const [isSettingName, setIsSettingName] = useState(true); // Reveals the set name modal
   const [isSubmitting, setIsSubmitting] = useState(false); // Handles load on the submit button
+  const [showConfirmationTakeover, setShowConfirmationTakeover] =
+    useState(false);
   const { matchups } = useMatchups();
   const currentRoundName = currentRound.name;
 
@@ -85,7 +88,8 @@ export default function BracketChallengeContainer() {
     }, {});
 
     await updateUserBracket({ rounds, id: router.query.bracketId });
-    router.reload();
+    setIsSubmitting(false);
+    setShowConfirmationTakeover(true);
   };
 
   return (
@@ -134,6 +138,12 @@ export default function BracketChallengeContainer() {
             )}
           </div>
         </>
+      )}
+      {showConfirmationTakeover && (
+        <ConfirmationTakeover
+          leagueId={leagueId}
+          setShowConfirmationTakeover={setShowConfirmationTakeover}
+        />
       )}
     </Layout>
   );

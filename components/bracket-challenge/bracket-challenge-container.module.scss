@@ -3,7 +3,8 @@
 
 .container {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
+  text-align: center;
 }
 
 .loader {
@@ -11,11 +12,7 @@
 }
 
 .submitButton {
-  display: block;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -50px;
+  display: inline-block;
   z-index: 10;
 }
 
