@@ -9,7 +9,7 @@ import { ROUTES } from '@/utils/constants';
 export default function LeaguePage() {
   return (
     <>
-      <Meta />
+      <Meta title="League Settings" />
       <UserProvider>
         <LeagueConfigProvider>
           <LeagueSettings />

@@ -7,7 +7,7 @@ import Meta from '@/components/shared/head/head';
 export default function PageNotFound() {
   return (
     <>
-      <Meta />
+      <Meta title="Page Not Found" />
       <div className={styles.pageNotFoundContainer}>
         {/* <Image
         src={Rainbow}

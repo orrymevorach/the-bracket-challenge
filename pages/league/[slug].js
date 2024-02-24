@@ -10,7 +10,7 @@ import { UserProvider } from '@/context/user-context/user-context';
 export default function LeaguePage() {
   return (
     <>
-      <Meta />
+      <Meta title="League" />
       <UserProvider>
         <WinnersProvider>
           <LeagueConfigProvider>

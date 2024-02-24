@@ -10,7 +10,7 @@ import { ROUTES } from 'utils/constants';
 export default function LoginPage() {
   return (
     <div>
-      <Meta />
+      <Meta title="Contact Us" />
       <UserProvider>
         <Layout>
           <Form />

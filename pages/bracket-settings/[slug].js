@@ -9,7 +9,7 @@ import { ROUTES } from '@/utils/constants';
 export default function BracketSettingsPage() {
   return (
     <>
-      <Meta />
+      <Meta title="Bracket Settings" />
       <UserProvider>
         <LeagueConfigProvider>
           <BracketSettings />

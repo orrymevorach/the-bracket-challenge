@@ -16,7 +16,7 @@ export default function BracketChallengePage({ config }) {
   });
   return (
     <>
-      <Meta />
+      <Meta title="Bracket Challenge" />
       <UserProvider>
         <LeagueConfigProvider>
           <MatchupDataProvider>

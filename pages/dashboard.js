@@ -11,7 +11,7 @@ import { UserLeagueProvider } from '@/context/user-league-context/user-league-co
 export default function DashboardPage({ overallRankingsData }) {
   return (
     <>
-      <Meta />
+      <Meta title="Dashboard" />
       <UserProvider>
         <WinnersProvider>
           <UserLeagueProvider>
