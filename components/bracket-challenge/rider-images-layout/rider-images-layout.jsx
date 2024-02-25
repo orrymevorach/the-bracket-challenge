@@ -2,6 +2,7 @@ import Image from 'next/image';
 import duelsRound1Men from 'public/matchups/backstrom-vs-debuck.jpeg';
 import duelsRound2Men from 'public/matchups/mindnich-vs-daviet.jpeg';
 import duelsRound3Men from 'public/matchups/gerard-vs-sweetin.jpeg';
+import duelsRound4Men from 'public/matchups/torgier-vs-raibu.jpeg';
 import duelsRound1Women from 'public/matchups/anderson-vs-crosby.jpeg';
 import duelsRound2Women from 'public/matchups/rand-vs-obrien.jpeg';
 import styles from './rider-images-layout.module.scss';
@@ -13,6 +14,7 @@ const images = {
       { src: duelsRound1Men },
       { src: duelsRound2Men },
       { src: duelsRound3Men },
+      { src: duelsRound4Men },
     ],
     DuelsWomen: [{ src: duelsRound1Women }, { src: duelsRound2Women }],
     Revelstoke: [],
