@@ -12,6 +12,7 @@ export const ConfigProvider = ({ children }) => {
     currentRound: ROUND_NAMES.DUELS,
     showMatchups: false,
     isSelectionsEnabled: false,
+    isLoading: true,
   };
   const [config, setConfig] = useState(initialConfig);
   return (

@@ -65,7 +65,7 @@ export default function BracketChallengeContainer() {
   const leagueId = router.query.leagueId;
 
   const {
-    config: { showMatchups, isSelectionsEnabled },
+    config: { showMatchups, isSelectionsEnabled, isLoading: isConfigLoading },
   } = useConfig();
 
   // User is required to give a bracket a name if no record ID exists for the bracket
@@ -112,7 +112,7 @@ export default function BracketChallengeContainer() {
               setCurrentRound={setCurrentRound}
               setIsLoading={setIsLoading}
             />
-            {!isSelectionsEnabled && (
+            {!isSelectionsEnabled && !isConfigLoading && (
               <div className={styles.lockedContainer}>
                 <FontAwesomeIcon
                   icon={faLock}

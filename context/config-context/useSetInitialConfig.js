@@ -20,6 +20,7 @@ export const useSetInitialConfig = config => {
   useEffect(() => {
     let isSelectionsEnabled = config.isSelectionsEnabled;
     let showMatchups = config.showMatchups;
+    let isLoading = config.isLoading;
 
     // enable/disable the ability to select a winner of a bracket based on feature flags from contentful
     if (isCurrentUsersBracket) {
@@ -30,8 +31,10 @@ export const useSetInitialConfig = config => {
         (currentRound === ROUND_NAMES.SELKIRK && isSelkirkSelectionsEnabled)
       ) {
         isSelectionsEnabled = true;
+        isLoading = false;
       } else {
         isSelectionsEnabled = false;
+        isLoading = false;
       }
     } else {
       isSelectionsEnabled = false;
@@ -52,6 +55,7 @@ export const useSetInitialConfig = config => {
       ...config,
       isSelectionsEnabled,
       showMatchups,
+      isLoading,
     });
 
     // Intentionally leaving out some of the dependencies to avoid unlimited re-renders
