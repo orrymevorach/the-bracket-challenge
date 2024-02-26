@@ -16,11 +16,35 @@
   z-index: 10;
 }
 
+.lockedContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  p {
+    @include mixins.fontPrimary;
+  }
+}
+
+.lock {
+  margin-right: 7px;
+}
+
 @media screen and (max-width: variables.$mobile) {
   .container {
     overflow-x: scroll;
   }
   .backButton {
     margin: 25px 0 0px 25px;
+  }
+
+  .lockedContainer {
+    flex-direction: column;
+    .lock {
+      margin: 0 0 10px 0;
+    }
+    P {
+      font-size: 14px;
+    }
   }
 }

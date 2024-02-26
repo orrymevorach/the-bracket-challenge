@@ -81,7 +81,7 @@ export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
   for (const key in bracketData) {
     if (
       bracketData.hasOwnProperty(key) &&
-      typeof bracketData[key] !== 'object' &&
+      // typeof bracketData[key] !== 'object' &&
       winners.hasOwnProperty(key) &&
       bracketData[key] &&
       bracketData[key][0]?.name !== undefined &&

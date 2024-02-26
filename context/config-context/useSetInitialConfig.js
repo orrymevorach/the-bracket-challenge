@@ -7,7 +7,7 @@ export const useSetInitialConfig = config => {
   const { setConfig } = useConfig();
   const {
     isDuelsSelectionsEnabled,
-    isRevelstokedSelectionsEnabled,
+    isRevelstokeSelectionsEnabled,
     isSelkirkSelectionsEnabled,
     currentRound,
     showDuelsMatchups,
@@ -26,7 +26,7 @@ export const useSetInitialConfig = config => {
       if (
         (currentRound === ROUND_NAMES.DUELS && isDuelsSelectionsEnabled) ||
         (currentRound === ROUND_NAMES.REVELSTOKE &&
-          isRevelstokedSelectionsEnabled) ||
+          isRevelstokeSelectionsEnabled) ||
         (currentRound === ROUND_NAMES.SELKIRK && isSelkirkSelectionsEnabled)
       ) {
         isSelectionsEnabled = true;

@@ -14,6 +14,8 @@ import Button from '../shared/button/button';
 import { useMatchups } from '@/context/matchup-context/matchup-context';
 import TopRow from './top-row/top-row';
 import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -110,6 +112,16 @@ export default function BracketChallengeContainer() {
               setCurrentRound={setCurrentRound}
               setIsLoading={setIsLoading}
             />
+            {!isSelectionsEnabled && (
+              <div className={styles.lockedContainer}>
+                <FontAwesomeIcon
+                  icon={faLock}
+                  color="#fff"
+                  className={styles.lock}
+                />
+                <p>{currentRoundName} brackets are locked</p>
+              </div>
+            )}
             {!isLoading && !showMatchups && <MatchupsNotAvailable />}
             {isLoading ? (
               <Loader classNames={styles.loader} />
@@ -125,7 +137,7 @@ export default function BracketChallengeContainer() {
                     mapRoundNameToBracketConfig[`${currentRoundName}Women`]
                   }
                 />
-                {isSelectionsEnabled && (
+                {showMatchups && (
                   <Button
                     classNames={styles.submitButton}
                     handleClick={handleSubmit}

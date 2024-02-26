@@ -3,12 +3,12 @@ import {
   getRanking,
   sortSelectionsIntoRounds,
 } from '@/components/dashboard/bracket-ranking-utils';
-import { getBracket, getUser, getWinners } from '@/lib/airtable';
+import { getBracket, getUserWithLeagueData, getWinners } from '@/lib/airtable';
 
 export default async function handler(req, res) {
   const { uid } = req.body;
 
-  const user = await getUser({ uid });
+  const user = await getUserWithLeagueData({ uid });
   const userLeagues = user.leagues;
   const userName = user.name;
 

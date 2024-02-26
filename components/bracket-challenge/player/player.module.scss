@@ -13,7 +13,7 @@ $width: 160px;
   justify-content: center;
   flex-direction: column;
   background-color: variables.$grey;
-  border: 2px solid variables.$lightGrey;
+  border: 2px solid rgba(255, 255, 255, 0.2);
   width: $width;
   height: 55px;
   margin: 5px 0;
