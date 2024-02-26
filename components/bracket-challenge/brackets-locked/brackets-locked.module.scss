@@ -1,0 +1,28 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.lockedContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  p {
+    @include mixins.fontPrimary;
+  }
+}
+
+.lock {
+  margin-right: 7px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .lockedContainer {
+    flex-direction: column;
+    .lock {
+      margin: 0 0 10px 0;
+    }
+    P {
+      font-size: 14px;
+    }
+  }
+}

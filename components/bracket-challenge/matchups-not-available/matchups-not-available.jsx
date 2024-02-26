@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import styles from './matchups-not-available.module.scss';
 
-export default function MatchupsNotAvailable() {
+export default function MatchupsNotAvailable({ currentRoundName }) {
   return (
     <div>
       <p className={styles.matchupsNotAvailableHeading}>Not Available</p>
       <p className={styles.matchupsNotAvailableText}>
-        Selections for this round are not yet available. Check out{' '}
+        Selections for {currentRoundName} are not yet available. Check out{' '}
         <Link
           href="https://www.instagram.com/nstbracketchallenge/"
           target="_blank"

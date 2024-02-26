@@ -58,7 +58,7 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
 
   if (!showMatchups) return;
   if (!matchupsGroupedByRound.length || !matchupsInCurrentRound.length) {
-    return <Loader isDotted />;
+    return <Loader isDotted classNames={styles.loader} />;
   }
 
   // Remove bracket columns (rounds) from rounds that do not require them

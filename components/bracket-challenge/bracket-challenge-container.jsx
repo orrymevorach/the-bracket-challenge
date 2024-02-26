@@ -14,8 +14,7 @@ import Button from '../shared/button/button';
 import { useMatchups } from '@/context/matchup-context/matchup-context';
 import TopRow from './top-row/top-row';
 import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
+import BracketsLocked from './brackets-locked/brackets-locked';
 
 const mapRoundNameToBracketConfig = {
   Duels: {
@@ -65,7 +64,7 @@ export default function BracketChallengeContainer() {
   const leagueId = router.query.leagueId;
 
   const {
-    config: { showMatchups, isSelectionsEnabled, isLoading: isConfigLoading },
+    config: { showMatchups, isSelectionsEnabled },
   } = useConfig();
 
   // User is required to give a bracket a name if no record ID exists for the bracket
@@ -94,6 +93,8 @@ export default function BracketChallengeContainer() {
     setShowConfirmationTakeover(true);
   };
 
+  const isMatchupsLoaded = matchups && matchups[currentRoundName];
+
   return (
     <Layout
       backButtonText={leagueId ? 'Back to league page' : ''}
@@ -112,17 +113,12 @@ export default function BracketChallengeContainer() {
               setCurrentRound={setCurrentRound}
               setIsLoading={setIsLoading}
             />
-            {!isSelectionsEnabled && !isConfigLoading && (
-              <div className={styles.lockedContainer}>
-                <FontAwesomeIcon
-                  icon={faLock}
-                  color="#fff"
-                  className={styles.lock}
-                />
-                <p>{currentRoundName} brackets are locked</p>
-              </div>
+            {!isSelectionsEnabled && isMatchupsLoaded && (
+              <BracketsLocked currentRoundName={currentRoundName} />
             )}
-            {!isLoading && !showMatchups && <MatchupsNotAvailable />}
+            {!isLoading && !showMatchups && (
+              <MatchupsNotAvailable currentRoundName={currentRoundName} />
+            )}
             {isLoading ? (
               <Loader classNames={styles.loader} />
             ) : (
@@ -137,7 +133,7 @@ export default function BracketChallengeContainer() {
                     mapRoundNameToBracketConfig[`${currentRoundName}Women`]
                   }
                 />
-                {showMatchups && (
+                {isMatchupsLoaded && showMatchups && (
                   <Button
                     classNames={styles.submitButton}
                     handleClick={handleSubmit}
