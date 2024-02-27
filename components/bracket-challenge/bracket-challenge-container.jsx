@@ -133,7 +133,7 @@ export default function BracketChallengeContainer() {
                     mapRoundNameToBracketConfig[`${currentRoundName}Women`]
                   }
                 />
-                {isMatchupsLoaded && showMatchups && (
+                {isMatchupsLoaded && showMatchups && isSelectionsEnabled && (
                   <Button
                     classNames={styles.submitButton}
                     handleClick={handleSubmit}
