@@ -16,36 +16,41 @@ import TopRow from './top-row/top-row';
 import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
 import BracketsLocked from './brackets-locked/brackets-locked';
 
+// Display options:
+// 1. regular - doesn't affect anything, more of a placeholder
+// 2. short - used for shortened rounds where there is only one round per matchup
+// 3. mirror - used when we want to split the brackets and mirror them on the screen
+
 const mapRoundNameToBracketConfig = {
   Duels: {
     numberOfColumns: 1,
     championRound: 2,
-    display: 'regular',
+    display: 'short',
   },
   DuelsWomen: {
     numberOfColumns: 1,
     championRound: 2,
-    display: 'regular',
+    display: 'short',
   },
   Revelstoke: {
     numberOfColumns: 3,
-    championRound: 3,
+    championRound: 4,
     display: 'regular',
   },
   RevelstokeWomen: {
     numberOfColumns: 2,
+    championRound: 3,
     display: 'regular',
-    championRound: 2,
   },
   Selkirk: {
-    numberOfColumns: 4,
+    numberOfColumns: 3,
+    championRound: 4,
     display: 'regular',
-    championRound: 3,
   },
   SelkirkWomen: {
     numberOfColumns: 2,
+    championRound: 3,
     display: 'regular',
-    championRound: 2,
   },
 };
 

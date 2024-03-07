@@ -91,31 +91,34 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
             );
           })}
           <div className={styles.winnersColumn}>
-            {winnersColumn.map(bracket => {
-              const snowboarders = [bracket.team1, bracket.team2];
-              const winners = bracket.actualWinner;
-              if (!snowboarders || !winners) return;
-              return snowboarders.map((snowboarder, playerIndex) => {
-                const teamKey = playerIndex === 0 ? 'team1' : 'team2';
-                // This is an ugly temporary fix for the extra players slot that shows up in duels men. It shows up becaused there are an odd number of matchups in round 1 (3).
-                // if (
-                //   currentRound === 'Duels' &&
-                //   bracket.matchupId === 'R2_M2' &&
-                //   teamKey === 'team2'
-                // )
-                //   return;
-                return (
-                  <Player
-                    key={`winners-column-${playerIndex}`}
-                    {...snowboarder}
-                    winner={winners[teamKey]}
-                    position={playerIndex + 1}
-                    isChampion
-                    matchupId={bracket.matchupId}
-                  />
-                );
-              });
-            })}
+            {bracketConfig.display === 'short' ? (
+              winnersColumn.map(bracket => {
+                const snowboarders = [bracket.team1, bracket.team2];
+                const winners = bracket.actualWinner;
+                if (!snowboarders || !winners) return;
+                return snowboarders.map((snowboarder, playerIndex) => {
+                  const teamKey = playerIndex === 0 ? 'team1' : 'team2';
+                  return (
+                    <Player
+                      key={`winners-column-${playerIndex}`}
+                      {...snowboarder}
+                      winner={winners[teamKey]}
+                      position={playerIndex + 1}
+                      isChampion
+                      matchupId={bracket.matchupId}
+                    />
+                  );
+                });
+              })
+            ) : (
+              <Player
+                {...winnersColumn[0].team1}
+                winner={winnersColumn[0].actualWinner.team1}
+                position={1}
+                isChampion
+                matchupId={winnersColumn[0].matchupId}
+              />
+            )}
           </div>
         </div>
       </div>

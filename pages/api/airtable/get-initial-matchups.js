@@ -137,7 +137,6 @@ const createMatchups = (snowboarders = []) => {
         groupedData[key].team2 = snowboarder;
       }
     }
-
     // Convert the matchup object into an array of all the matchups
     const matchups = Object.values(groupedData);
 
@@ -162,6 +161,16 @@ const createMatchups = (snowboarders = []) => {
 
       matchups.push(...roundMatchups);
     }
+
+    // Create a placeholder for the overall winner of the round
+    matchups.push({
+      round: totalRounds + 1,
+      position: 1,
+      team1: null,
+      team2: null,
+      winner: null,
+      matchupId: `R${totalRounds + 1}_M${1}`,
+    });
 
     acc[currentRoundName] = matchups;
     return acc;
