@@ -6,6 +6,7 @@ import { split } from '@/utils/utils';
 import Player from './player/player';
 import { useConfig } from '@/context/config-context/config-context';
 import RiderImagesLayout from './rider-images-layout/rider-images-layout';
+import useWindowSize from '@/hooks/useWindowSize';
 
 // Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
 const groupMatchupsByRound = matchups =>
@@ -48,6 +49,7 @@ const splitAndRearrangeColumns = matchups => {
 
 export default function BracketChallenge({ bracketConfig, currentRound }) {
   const { matchups } = useMatchups();
+  const {isMobile} = useWindowSize()
 
   const {
     config: { showMatchups },
@@ -69,10 +71,10 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
 
   const winnersColumn =
     matchupsGroupedByRound[bracketConfig.championRound - 1]?.matchups;
-
-  // If matchups are meant to be mirrored, split up the columns re-order them
+    // If matchups are meant to be mirrored, split up the columns re-order them
+    // On mobile do not split columns because it is too wide on the screen
   const reArrangedMatchups =
-    bracketConfig.display === 'mirror'
+    bracketConfig.display === 'mirror' && !isMobile 
       ? splitAndRearrangeColumns(matchupsInRound)
       : matchupsInRound;
 
