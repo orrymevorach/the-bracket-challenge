@@ -3,16 +3,13 @@ import {
   getRanking,
   sortSelectionsIntoRounds,
 } from '@/components/dashboard/bracket-ranking-utils';
-import { getBracket, getUserWithLeagueData, getWinners } from '@/lib/airtable';
+import { getBracketPicks } from '@/lib/airtable';
 
 export default async function handler(req, res) {
-  const { uid } = req.body;
+  const { user, winnersData } = req.body;
 
-  const user = await getUserWithLeagueData({ uid });
   const userLeagues = user.leagues;
   const userName = user.name;
-
-  const winnersData = await getWinners();
 
   // Adding data to brackets
   // 1. getting number of correct picks in each bracket, of all the announced winners
@@ -29,7 +26,7 @@ export default async function handler(req, res) {
           leagueName: league.name,
         };
       }
-      const bracket = await getBracket({ recId: userBracket.id });
+      const bracket = await getBracketPicks({ recId: userBracket.id });
       const selectionsSortedByRoundWithNumberOfWinnersPerRound =
         sortSelectionsIntoRounds(bracket);
       addNumberOfCorrectPicksToRoundData({

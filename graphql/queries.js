@@ -562,6 +562,99 @@ export const GET_BRACKET = gql`
   }
 `;
 
+// Temporary hot patch fix
+export const GET_BRACKET_PICKS = gql`
+  query GetBracketPicks($recId: String) {
+    userBrackets(id: $recId) {
+      id
+      dR1M1 {
+        name
+      }
+      dR1M2 {
+        name
+      }
+      dR1M3 {
+        name
+      }
+      dR1M4 {
+        name
+      }
+      dR1M5 {
+        name
+      }
+      dR1M6 {
+        name
+      }
+      dR1M7 {
+        name
+      }
+      dR1M8 {
+        name
+      }
+      dwR1M1 {
+        name
+      }
+      dwR1M2 {
+        name
+      }
+      dwR1M3 {
+        name
+      }
+      dwR1M4 {
+        name
+      }
+      rR1M1 {
+        name
+      }
+      rR1M2 {
+        name
+      }
+      rR1M3 {
+        name
+      }
+      rR1M4 {
+        name
+      }
+      rR1M5 {
+        name
+      }
+      rR1M6 {
+        name
+      }
+      rR1M7 {
+        name
+      }
+      rR1M8 {
+        name
+      }
+      rR2M1 {
+        name
+      }
+      rR2M2 {
+        name
+      }
+      rR3M1 {
+        name
+      }
+      rwR1M1 {
+        name
+      }
+      rwR1M2 {
+        name
+      }
+      rwR1M3 {
+        name
+      }
+      rwR1M4 {
+        name
+      }
+      rwR2M1 {
+        name
+      }
+    }
+  }
+`;
+
 export const UPDATE_USER_BRACKET = gql`
   mutation UPDATE_USER_BRACKET(
     $id: String
