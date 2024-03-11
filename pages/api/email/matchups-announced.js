@@ -2,13 +2,7 @@
 // let nodemailer = require('nodemailer');
 
 // export default async function handler(req, res) {
-//   //   const members = await getAllMembersWithLeagueData();
-//   const members = [
-//     {
-//       name: 'Orry Mevorach',
-//       emailAddress: 'orry.mevorach@gmail.com',
-//     },
-//   ];
+//   const members = await getAllMembersWithLeagueData();
 
 //   let transporter = nodemailer.createTransport({
 //     host: 'smtp.mailgun.org',
