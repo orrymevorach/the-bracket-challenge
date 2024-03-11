@@ -104,6 +104,18 @@ export const GET_USER_WITH_PICKS = gql`
           rR1M4 {
             name
           }
+          rR1M5 {
+            name
+          }
+          rR1M6 {
+            name
+          }
+          rR1M7 {
+            name
+          }
+          rR1M8 {
+            name
+          }
           rR2M1 {
             name
           }
@@ -117,6 +129,12 @@ export const GET_USER_WITH_PICKS = gql`
             name
           }
           rwR1M2 {
+            name
+          }
+          rwR1M3 {
+            name
+          }
+          rwR1M4 {
             name
           }
           rwR2M1 {
@@ -244,6 +262,18 @@ export const GET_LEAGUE_BRACKETS = gql`
         rR1M4 {
           name
         }
+        rR1M5 {
+          name
+        }
+        rR1M6 {
+          name
+        }
+        rR1M7 {
+          name
+        }
+        rR1M8 {
+          name
+        }
         rR2M1 {
           name
         }
@@ -257,6 +287,12 @@ export const GET_LEAGUE_BRACKETS = gql`
           name
         }
         rwR1M2 {
+          name
+        }
+        rwR1M3 {
+          name
+        }
+        rwR1M4 {
           name
         }
         rwR2M1 {
@@ -416,6 +452,26 @@ export const GET_BRACKET = gql`
         name
         flag
       }
+      rR1M5 {
+        id
+        name
+        flag
+      }
+      rR1M6 {
+        id
+        name
+        flag
+      }
+      rR1M7 {
+        id
+        name
+        flag
+      }
+      rR1M8 {
+        id
+        name
+        flag
+      }
       rR2M1 {
         id
         name
@@ -440,6 +496,12 @@ export const GET_BRACKET = gql`
         id
         name
         flag
+      }
+      rwR1M3 {
+        name
+      }
+      rwR1M4 {
+        name
       }
       rwR2M1 {
         id
@@ -519,11 +581,17 @@ export const UPDATE_USER_BRACKET = gql`
     $R_R1_M2: [String]
     $R_R1_M3: [String]
     $R_R1_M4: [String]
+    $R_R1_M5: [String]
+    $R_R1_M6: [String]
+    $R_R1_M7: [String]
+    $R_R1_M8: [String]
     $R_R2_M1: [String]
     $R_R2_M2: [String]
     $R_R3_M1: [String]
     $RW_R1_M1: [String]
     $RW_R1_M2: [String]
+    $RW_R1_M3: [String]
+    $RW_R1_M4: [String]
     $RW_R2_M1: [String]
     $S_R1_M1: [String]
     $S_R1_M2: [String]
@@ -554,11 +622,17 @@ export const UPDATE_USER_BRACKET = gql`
       rR1M2: $R_R1_M2
       rR1M3: $R_R1_M3
       rR1M4: $R_R1_M4
+      rR1M5: $R_R1_M5
+      rR1M6: $R_R1_M6
+      rR1M7: $R_R1_M7
+      rR1M8: $R_R1_M8
       rR2M1: $R_R2_M1
       rR2M2: $R_R2_M2
       rR3M1: $R_R3_M1
       rwR1M1: $RW_R1_M1
       rwR1M2: $RW_R1_M2
+      rwR1M3: $RW_R1_M3
+      rwR1M4: $RW_R1_M4
       rwR2M1: $RW_R2_M1
       sR1M1: $S_R1_M1
       sR1M2: $S_R1_M2
@@ -659,6 +733,26 @@ export const GET_WINNERS = gql`
         hometown
         flag
       }
+      rR1M5 {
+        name
+        hometown
+        flag
+      }
+      rR1M6 {
+        name
+        hometown
+        flag
+      }
+      rR1M7 {
+        name
+        hometown
+        flag
+      }
+      rR1M8 {
+        name
+        hometown
+        flag
+      }
       rR2M1 {
         name
         hometown
@@ -680,6 +774,16 @@ export const GET_WINNERS = gql`
         flag
       }
       rwR1M2 {
+        name
+        hometown
+        flag
+      }
+      rwR1M3 {
+        name
+        hometown
+        flag
+      }
+      rwR1M4 {
         name
         hometown
         flag
@@ -833,6 +937,18 @@ export const GET_ALL_BRACKETS = gql`
       rR1M4 {
         name
       }
+      rR1M5 {
+        name
+      }
+      rR1M6 {
+        name
+      }
+      rR1M7 {
+        name
+      }
+      rR1M8 {
+        name
+      }
       rR2M1 {
         name
       }
@@ -846,6 +962,12 @@ export const GET_ALL_BRACKETS = gql`
         name
       }
       rwR1M2 {
+        name
+      }
+      rwR1M3 {
+        name
+      }
+      rwR1M4 {
         name
       }
       rwR2M1 {
