@@ -52,6 +52,7 @@ export const useSetInitialConfig = config => {
       ...config,
       isSelectionsEnabled,
       showMatchups,
+      isCurrentUsersBracket,
     });
 
     // Intentionally leaving out some of the dependencies to avoid unlimited re-renders

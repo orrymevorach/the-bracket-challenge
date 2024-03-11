@@ -91,7 +91,9 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
             );
           })}
           <div className={styles.winnersColumn}>
-            {bracketConfig.display === 'short' ? (
+            {bracketConfig.display === 'mirror' ? (
+              ''
+            ) : bracketConfig.display === 'short' ? (
               winnersColumn.map(bracket => {
                 const snowboarders = [bracket.team1, bracket.team2];
                 const winners = bracket.actualWinner;
