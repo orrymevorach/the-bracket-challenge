@@ -65,7 +65,7 @@ export default function Dashboard({ overallRankingsData }) {
       )}
 
       <UserBracketsTable currentRound={ROUNDS[0].name} />
-      <OverallRankingsTable overallRankingsData={overallRankingsData} />
+      {/* <OverallRankingsTable overallRankingsData={overallRankingsData} /> */}
     </Layout>
   );
 }
