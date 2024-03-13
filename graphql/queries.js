@@ -267,14 +267,8 @@ export const UPDATE_USER_BRACKET = gql`
     $D_R1_M2: String
     $D_R1_M3: String
     $D_R1_M4: String
-    $D_R1_M5: String
-    $D_R1_M6: String
-    $D_R1_M7: String
-    $D_R1_M8: String
     $DW_R1_M1: String
     $DW_R1_M2: String
-    $DW_R1_M3: String
-    $DW_R1_M4: String
     $R_R1_M1: String
     $R_R1_M2: String
     $R_R1_M3: String
