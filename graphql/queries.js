@@ -56,120 +56,34 @@ export const GET_USER_WITH_PICKS = gql`
           memberId {
             id
           }
-          dR1M1 {
-            name
-          }
-          dR1M2 {
-            name
-          }
-          dR1M3 {
-            name
-          }
-          dR1M4 {
-            name
-          }
-          dR1M5 {
-            name
-          }
-          dR1M6 {
-            name
-          }
-          dR1M7 {
-            name
-          }
-          dR1M8 {
-            name
-          }
-          dwR1M1 {
-            name
-          }
-          dwR1M2 {
-            name
-          }
-          dwR1M3 {
-            name
-          }
-          dwR1M4 {
-            name
-          }
-          rR1M1 {
-            name
-          }
-          rR1M2 {
-            name
-          }
-          rR1M3 {
-            name
-          }
-          rR1M4 {
-            name
-          }
-          rR1M5 {
-            name
-          }
-          rR1M6 {
-            name
-          }
-          rR1M7 {
-            name
-          }
-          rR1M8 {
-            name
-          }
-          rR2M1 {
-            name
-          }
-          rR2M2 {
-            name
-          }
-          rR3M1 {
-            name
-          }
-          rwR1M1 {
-            name
-          }
-          rwR1M2 {
-            name
-          }
-          rwR1M3 {
-            name
-          }
-          rwR1M4 {
-            name
-          }
-          rwR2M1 {
-            name
-          }
-          sR1M1 {
-            name
-          }
-          sR1M2 {
-            name
-          }
-          sR1M3 {
-            name
-          }
-          sR1M4 {
-            name
-          }
-          sR2M1 {
-            name
-          }
-          sR2M2 {
-            name
-          }
-          sR3M1 {
-            name
-          }
-          swR1M1 {
-            name
-          }
-          swR1M2 {
-            name
-          }
-          swR2M1 {
-            name
-          }
+          dR1M1
+          dR1M2
+          dR1M3
+          dR1M4
+          dwR1M1
+          dwR1M2
+          rR1M1
+          rR1M2
+          rR1M3
+          rR1M4
+          rR1M5
+          rR1M6
+          rR1M7
+          rR1M8
+          rwR1M1
+          rwR1M2
+          rwR1M3
+          rwR1M4
+          sR1M1
+          sR1M2
+          sR1M3
+          sR1M4
+          sR2M1
+          sR2M2
+          sR3M1
+          swR1M1
+          swR1M2
+          swR2M1
         }
       }
     }
@@ -214,120 +128,34 @@ export const GET_LEAGUE_BRACKETS = gql`
         memberId {
           id
         }
-        dR1M1 {
-          name
-        }
-        dR1M2 {
-          name
-        }
-        dR1M3 {
-          name
-        }
-        dR1M4 {
-          name
-        }
-        dR1M5 {
-          name
-        }
-        dR1M6 {
-          name
-        }
-        dR1M7 {
-          name
-        }
-        dR1M8 {
-          name
-        }
-        dwR1M1 {
-          name
-        }
-        dwR1M2 {
-          name
-        }
-        dwR1M3 {
-          name
-        }
-        dwR1M4 {
-          name
-        }
-        rR1M1 {
-          name
-        }
-        rR1M2 {
-          name
-        }
-        rR1M3 {
-          name
-        }
-        rR1M4 {
-          name
-        }
-        rR1M5 {
-          name
-        }
-        rR1M6 {
-          name
-        }
-        rR1M7 {
-          name
-        }
-        rR1M8 {
-          name
-        }
-        rR2M1 {
-          name
-        }
-        rR2M2 {
-          name
-        }
-        rR3M1 {
-          name
-        }
-        rwR1M1 {
-          name
-        }
-        rwR1M2 {
-          name
-        }
-        rwR1M3 {
-          name
-        }
-        rwR1M4 {
-          name
-        }
-        rwR2M1 {
-          name
-        }
-        sR1M1 {
-          name
-        }
-        sR1M2 {
-          name
-        }
-        sR1M3 {
-          name
-        }
-        sR1M4 {
-          name
-        }
-        sR2M1 {
-          name
-        }
-        sR2M2 {
-          name
-        }
-        sR3M1 {
-          name
-        }
-        swR1M1 {
-          name
-        }
-        swR1M2 {
-          name
-        }
-        swR2M1 {
-          name
-        }
+        dR1M1
+        dR1M2
+        dR1M3
+        dR1M4
+        dwR1M1
+        dwR1M2
+        rR1M1
+        rR1M2
+        rR1M3
+        rR1M4
+        rR1M5
+        rR1M6
+        rR1M7
+        rR1M8
+        rwR1M1
+        rwR1M2
+        rwR1M3
+        rwR1M4
+        sR1M1
+        sR1M2
+        sR1M3
+        sR1M4
+        sR2M1
+        sR2M2
+        sR3M1
+        swR1M1
+        swR1M2
+        swR2M1
       }
     }
   }
@@ -372,192 +200,35 @@ export const GET_BRACKET = gql`
   query GetBracket($recId: String) {
     userBrackets(id: $recId) {
       id
-      dR1M1 {
-        id
-        name
-        flag
-      }
-      dR1M2 {
-        id
-        name
-        flag
-      }
-      dR1M3 {
-        id
-        name
-        flag
-      }
-      dR1M4 {
-        id
-        name
-        flag
-      }
-      dR1M5 {
-        id
-        name
-        flag
-      }
-      dR1M6 {
-        id
-        name
-        flag
-      }
-      dR1M7 {
-        id
-        name
-        flag
-      }
-      dR1M8 {
-        id
-        name
-        flag
-      }
-      dwR1M1 {
-        id
-        name
-        flag
-      }
-      dwR1M2 {
-        id
-        name
-        flag
-      }
-      dwR1M3 {
-        id
-        name
-        flag
-      }
-      dwR1M4 {
-        id
-        name
-        flag
-      }
-      rR1M1 {
-        id
-        name
-        flag
-      }
-      rR1M2 {
-        id
-        name
-        flag
-      }
-      rR1M3 {
-        id
-        name
-        flag
-      }
-      rR1M4 {
-        id
-        name
-        flag
-      }
-      rR1M5 {
-        id
-        name
-        flag
-      }
-      rR1M6 {
-        id
-        name
-        flag
-      }
-      rR1M7 {
-        id
-        name
-        flag
-      }
-      rR1M8 {
-        id
-        name
-        flag
-      }
-      rR2M1 {
-        id
-        name
-        flag
-      }
-      rR2M2 {
-        id
-        name
-        flag
-      }
-      rR3M1 {
-        id
-        name
-        flag
-      }
-      rwR1M1 {
-        id
-        name
-        flag
-      }
-      rwR1M2 {
-        id
-        name
-        flag
-      }
-      rwR1M3 {
-        name
-      }
-      rwR1M4 {
-        name
-      }
-      rwR2M1 {
-        id
-        name
-        flag
-      }
-      sR1M1 {
-        id
-        name
-        flag
-      }
-      sR1M2 {
-        id
-        name
-        flag
-      }
-      sR1M3 {
-        id
-        name
-        flag
-      }
-      sR1M4 {
-        id
-        name
-        flag
-      }
-      sR2M1 {
-        id
-        name
-        flag
-      }
-      sR2M2 {
-        id
-        name
-        flag
-      }
-      sR3M1 {
-        id
-        name
-        flag
-      }
-      swR1M1 {
-        id
-        name
-        flag
-      }
-      swR1M2 {
-        id
-        name
-        flag
-      }
-      swR2M1 {
-        id
-        name
-        flag
-      }
+      dR1M1
+      dR1M2
+      dR1M3
+      dR1M4
+      dwR1M1
+      dwR1M2
+      rR1M1
+      rR1M2
+      rR1M3
+      rR1M4
+      rR1M5
+      rR1M6
+      rR1M7
+      rR1M8
+
+      rwR1M1
+      rwR1M2
+      rwR1M3
+      rwR1M4
+      sR1M1
+      sR1M2
+      sR1M3
+      sR1M4
+      sR2M1
+      sR2M2
+      sR3M1
+      swR1M1
+      swR1M2
+      swR2M1
     }
   }
 `;
@@ -567,90 +238,24 @@ export const GET_BRACKET_PICKS = gql`
   query GetBracketPicks($recId: String) {
     userBrackets(id: $recId) {
       id
-      dR1M1 {
-        name
-      }
-      dR1M2 {
-        name
-      }
-      dR1M3 {
-        name
-      }
-      dR1M4 {
-        name
-      }
-      dR1M5 {
-        name
-      }
-      dR1M6 {
-        name
-      }
-      dR1M7 {
-        name
-      }
-      dR1M8 {
-        name
-      }
-      dwR1M1 {
-        name
-      }
-      dwR1M2 {
-        name
-      }
-      dwR1M3 {
-        name
-      }
-      dwR1M4 {
-        name
-      }
-      rR1M1 {
-        name
-      }
-      rR1M2 {
-        name
-      }
-      rR1M3 {
-        name
-      }
-      rR1M4 {
-        name
-      }
-      rR1M5 {
-        name
-      }
-      rR1M6 {
-        name
-      }
-      rR1M7 {
-        name
-      }
-      rR1M8 {
-        name
-      }
-      rR2M1 {
-        name
-      }
-      rR2M2 {
-        name
-      }
-      rR3M1 {
-        name
-      }
-      rwR1M1 {
-        name
-      }
-      rwR1M2 {
-        name
-      }
-      rwR1M3 {
-        name
-      }
-      rwR1M4 {
-        name
-      }
-      rwR2M1 {
-        name
-      }
+      dR1M1
+      dR1M2
+      dR1M3
+      dR1M4
+      dwR1M1
+      dwR1M2
+      rR1M1
+      rR1M2
+      rR1M3
+      rR1M4
+      rR1M5
+      rR1M6
+      rR1M7
+      rR1M8
+      rwR1M1
+      rwR1M2
+      rwR1M3
+      rwR1M4
     }
   }
 `;
@@ -658,44 +263,40 @@ export const GET_BRACKET_PICKS = gql`
 export const UPDATE_USER_BRACKET = gql`
   mutation UPDATE_USER_BRACKET(
     $id: String
-    $D_R1_M1: [String]
-    $D_R1_M2: [String]
-    $D_R1_M3: [String]
-    $D_R1_M4: [String]
-    $D_R1_M5: [String]
-    $D_R1_M6: [String]
-    $D_R1_M7: [String]
-    $D_R1_M8: [String]
-    $DW_R1_M1: [String]
-    $DW_R1_M2: [String]
-    $DW_R1_M3: [String]
-    $DW_R1_M4: [String]
-    $R_R1_M1: [String]
-    $R_R1_M2: [String]
-    $R_R1_M3: [String]
-    $R_R1_M4: [String]
-    $R_R1_M5: [String]
-    $R_R1_M6: [String]
-    $R_R1_M7: [String]
-    $R_R1_M8: [String]
-    $R_R2_M1: [String]
-    $R_R2_M2: [String]
-    $R_R3_M1: [String]
-    $RW_R1_M1: [String]
-    $RW_R1_M2: [String]
-    $RW_R1_M3: [String]
-    $RW_R1_M4: [String]
-    $RW_R2_M1: [String]
-    $S_R1_M1: [String]
-    $S_R1_M2: [String]
-    $S_R1_M3: [String]
-    $S_R1_M4: [String]
-    $S_R2_M1: [String]
-    $S_R2_M2: [String]
-    $S_R3_M1: [String]
-    $SW_R1_M1: [String]
-    $SW_R1_M2: [String]
-    $SW_R2_M1: [String]
+    $D_R1_M1: String
+    $D_R1_M2: String
+    $D_R1_M3: String
+    $D_R1_M4: String
+    $D_R1_M5: String
+    $D_R1_M6: String
+    $D_R1_M7: String
+    $D_R1_M8: String
+    $DW_R1_M1: String
+    $DW_R1_M2: String
+    $DW_R1_M3: String
+    $DW_R1_M4: String
+    $R_R1_M1: String
+    $R_R1_M2: String
+    $R_R1_M3: String
+    $R_R1_M4: String
+    $R_R1_M5: String
+    $R_R1_M6: String
+    $R_R1_M7: String
+    $R_R1_M8: String
+    $RW_R1_M1: String
+    $RW_R1_M2: String
+    $RW_R1_M3: String
+    $RW_R1_M4: String
+    $S_R1_M1: String
+    $S_R1_M2: String
+    $S_R1_M3: String
+    $S_R1_M4: String
+    $S_R2_M1: String
+    $S_R2_M2: String
+    $S_R3_M1: String
+    $SW_R1_M1: String
+    $SW_R1_M2: String
+    $SW_R2_M1: String
   ) {
     update_userBrackets(
       id: $id
@@ -703,14 +304,8 @@ export const UPDATE_USER_BRACKET = gql`
       dR1M2: $D_R1_M2
       dR1M3: $D_R1_M3
       dR1M4: $D_R1_M4
-      dR1M5: $D_R1_M5
-      dR1M6: $D_R1_M6
-      dR1M7: $D_R1_M7
-      dR1M8: $D_R1_M8
       dwR1M1: $DW_R1_M1
       dwR1M2: $DW_R1_M2
-      dwR1M3: $DW_R1_M3
-      dwR1M4: $DW_R1_M4
       rR1M1: $R_R1_M1
       rR1M2: $R_R1_M2
       rR1M3: $R_R1_M3
@@ -719,14 +314,10 @@ export const UPDATE_USER_BRACKET = gql`
       rR1M6: $R_R1_M6
       rR1M7: $R_R1_M7
       rR1M8: $R_R1_M8
-      rR2M1: $R_R2_M1
-      rR2M2: $R_R2_M2
-      rR3M1: $R_R3_M1
       rwR1M1: $RW_R1_M1
       rwR1M2: $RW_R1_M2
       rwR1M3: $RW_R1_M3
       rwR1M4: $RW_R1_M4
-      rwR2M1: $RW_R2_M1
       sR1M1: $S_R1_M1
       sR1M2: $S_R1_M2
       sR1M3: $S_R1_M3
@@ -746,196 +337,34 @@ export const UPDATE_USER_BRACKET = gql`
 export const GET_WINNERS = gql`
   query GetWinners($name: String) {
     userBrackets(name: $name) {
-      dR1M1 {
-        name
-        hometown
-        flag
-      }
-      dR1M2 {
-        name
-        hometown
-        flag
-      }
-      dR1M3 {
-        name
-        hometown
-        flag
-      }
-      dR1M4 {
-        name
-        hometown
-        flag
-      }
-      dR1M5 {
-        name
-        hometown
-        flag
-      }
-      dR1M6 {
-        name
-        hometown
-        flag
-      }
-      dR1M7 {
-        name
-        hometown
-        flag
-      }
-      dR1M8 {
-        name
-        hometown
-        flag
-      }
-      dwR1M1 {
-        name
-        hometown
-        flag
-      }
-      dwR1M2 {
-        name
-        hometown
-        flag
-      }
-      dwR1M3 {
-        name
-        hometown
-        flag
-      }
-      dwR1M4 {
-        name
-        hometown
-        flag
-      }
-      rR1M1 {
-        name
-        hometown
-        flag
-      }
-      rR1M2 {
-        name
-        hometown
-        flag
-      }
-      rR1M3 {
-        name
-        hometown
-        flag
-      }
-      rR1M4 {
-        name
-        hometown
-        flag
-      }
-      rR1M5 {
-        name
-        hometown
-        flag
-      }
-      rR1M6 {
-        name
-        hometown
-        flag
-      }
-      rR1M7 {
-        name
-        hometown
-        flag
-      }
-      rR1M8 {
-        name
-        hometown
-        flag
-      }
-      rR2M1 {
-        name
-        hometown
-        flag
-      }
-      rR2M2 {
-        name
-        hometown
-        flag
-      }
-      rR3M1 {
-        name
-        hometown
-        flag
-      }
-      rwR1M1 {
-        name
-        hometown
-        flag
-      }
-      rwR1M2 {
-        name
-        hometown
-        flag
-      }
-      rwR1M3 {
-        name
-        hometown
-        flag
-      }
-      rwR1M4 {
-        name
-        hometown
-        flag
-      }
-      rwR2M1 {
-        name
-        hometown
-        flag
-      }
-      sR1M1 {
-        name
-        hometown
-        flag
-      }
-      sR1M2 {
-        name
-        hometown
-        flag
-      }
-      sR1M3 {
-        name
-        hometown
-        flag
-      }
-      sR1M4 {
-        name
-        hometown
-        flag
-      }
-      sR2M1 {
-        name
-        hometown
-        flag
-      }
-      sR2M2 {
-        name
-        hometown
-        flag
-      }
-      sR3M1 {
-        name
-        hometown
-        flag
-      }
-      swR1M1 {
-        name
-        hometown
-        flag
-      }
-      swR1M2 {
-        name
-        hometown
-        flag
-      }
-      swR2M1 {
-        name
-        hometown
-        flag
-      }
+      dR1M1
+      dR1M2
+      dR1M3
+      dR1M4
+      dwR1M1
+      dwR1M2
+      rR1M1
+      rR1M2
+      rR1M3
+      rR1M4
+      rR1M5
+      rR1M6
+      rR1M7
+      rR1M8
+      rwR1M1
+      rwR1M2
+      rwR1M3
+      rwR1M4
+      sR1M1
+      sR1M2
+      sR1M3
+      sR1M4
+      sR2M1
+      sR2M2
+      sR3M1
+      swR1M1
+      swR1M2
+      swR2M1
     }
   }
 `;
@@ -982,120 +411,34 @@ export const GET_ALL_BRACKETS = gql`
       memberId {
         id
       }
-      dR1M1 {
-        name
-      }
-      dR1M2 {
-        name
-      }
-      dR1M3 {
-        name
-      }
-      dR1M4 {
-        name
-      }
-      dR1M5 {
-        name
-      }
-      dR1M6 {
-        name
-      }
-      dR1M7 {
-        name
-      }
-      dR1M8 {
-        name
-      }
-      dwR1M1 {
-        name
-      }
-      dwR1M2 {
-        name
-      }
-      dwR1M3 {
-        name
-      }
-      dwR1M4 {
-        name
-      }
-      rR1M1 {
-        name
-      }
-      rR1M2 {
-        name
-      }
-      rR1M3 {
-        name
-      }
-      rR1M4 {
-        name
-      }
-      rR1M5 {
-        name
-      }
-      rR1M6 {
-        name
-      }
-      rR1M7 {
-        name
-      }
-      rR1M8 {
-        name
-      }
-      rR2M1 {
-        name
-      }
-      rR2M2 {
-        name
-      }
-      rR3M1 {
-        name
-      }
-      rwR1M1 {
-        name
-      }
-      rwR1M2 {
-        name
-      }
-      rwR1M3 {
-        name
-      }
-      rwR1M4 {
-        name
-      }
-      rwR2M1 {
-        name
-      }
-      sR1M1 {
-        name
-      }
-      sR1M2 {
-        name
-      }
-      sR1M3 {
-        name
-      }
-      sR1M4 {
-        name
-      }
-      sR2M1 {
-        name
-      }
-      sR2M2 {
-        name
-      }
-      sR3M1 {
-        name
-      }
-      swR1M1 {
-        name
-      }
-      swR1M2 {
-        name
-      }
-      swR2M1 {
-        name
-      }
+      dR1M1
+      dR1M2
+      dR1M3
+      dR1M4
+      dwR1M1
+      dwR1M2
+      rR1M1
+      rR1M2
+      rR1M3
+      rR1M4
+      rR1M5
+      rR1M6
+      rR1M7
+      rR1M8
+      rwR1M1
+      rwR1M2
+      rwR1M3
+      rwR1M4
+      sR1M1
+      sR1M2
+      sR1M3
+      sR1M4
+      sR2M1
+      sR2M2
+      sR3M1
+      swR1M1
+      swR1M2
+      swR2M1
     }
   }
 `;

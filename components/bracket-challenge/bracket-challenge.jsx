@@ -49,7 +49,7 @@ const splitAndRearrangeColumns = matchups => {
 
 export default function BracketChallenge({ bracketConfig, currentRound }) {
   const { matchups } = useMatchups();
-  const {isMobile} = useWindowSize()
+  const { isMobile } = useWindowSize();
 
   const {
     config: { showMatchups },
@@ -71,10 +71,10 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
 
   const winnersColumn =
     matchupsGroupedByRound[bracketConfig.championRound - 1]?.matchups;
-    // If matchups are meant to be mirrored, split up the columns re-order them
-    // On mobile do not split columns because it is too wide on the screen
+  // If matchups are meant to be mirrored, split up the columns re-order them
+  // On mobile do not split columns because it is too wide on the screen
   const reArrangedMatchups =
-    bracketConfig.display === 'mirror' && !isMobile 
+    bracketConfig.display === 'mirror' && !isMobile
       ? splitAndRearrangeColumns(matchupsInRound)
       : matchupsInRound;
 
@@ -100,13 +100,13 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
                 const snowboarders = [bracket.team1, bracket.team2];
                 const winners = bracket.actualWinner;
                 if (!snowboarders || !winners) return;
-                return snowboarders.map((snowboarder, playerIndex) => {
+                return snowboarders.map((snowboarderName, playerIndex) => {
                   const teamKey = playerIndex === 0 ? 'team1' : 'team2';
                   return (
                     <Player
                       key={`winners-column-${playerIndex}`}
-                      {...snowboarder}
-                      winner={winners[teamKey]}
+                      name={snowboarderName}
+                      winnerName={winners[teamKey]}
                       position={playerIndex + 1}
                       isChampion
                       matchupId={bracket.matchupId}
@@ -116,8 +116,8 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
               })
             ) : (
               <Player
-                {...winnersColumn[0].team1}
-                winner={winnersColumn[0].actualWinner.team1}
+                name={winnersColumn[0].team1}
+                winnerName={winnersColumn[0].actualWinner.team1}
                 position={1}
                 isChampion
                 matchupId={winnersColumn[0].matchupId}

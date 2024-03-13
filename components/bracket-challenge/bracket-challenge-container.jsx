@@ -86,8 +86,8 @@ export default function BracketChallengeContainer() {
       for (let matchup of roundMatchups) {
         const suffix = ROUND_SUFFIXES[roundName];
         const key = `${suffix}${matchup.matchupId}`;
-        if (matchup.winner?.id) {
-          acc[key] = matchup.winner.id;
+        if (matchup.winner) {
+          acc[key] = matchup.winner;
         }
       }
       return acc;

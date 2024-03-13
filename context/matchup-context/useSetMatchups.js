@@ -5,7 +5,7 @@ import {
   getInitialMatchups,
   getWinners,
 } from '@/lib/airtable';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // import addUserSelectionsToRounds from './add-user-selections-to-round';
 
 export default function useSetMatchups({
@@ -13,9 +13,17 @@ export default function useSetMatchups({
   currentRound,
   bracketId,
 }) {
+  const [snowboardersData, setSnowboardersData] = useState(null);
   useEffect(() => {
     const getData = async () => {
-      const firstRoundMatchups = await getInitialMatchups();
+      const { firstRoundMatchups, snowboarders } = await getInitialMatchups();
+      // Part 1: Create snowboarders map, where each snowboarders name is the key
+      const snowboardersMap = snowboarders.reduce((acc, curr) => {
+        acc[curr.name] = curr;
+        return acc;
+      }, {});
+
+      // Part 2: Set Matchups
       const bracket = await getBracket({ recId: bracketId });
 
       const matchupsWithUserSelections = await addUserSelectionsToRounds({
@@ -32,9 +40,12 @@ export default function useSetMatchups({
       // Making a copy so that state gets updated and creates a refresh
       const matchupsCopy = { ...matchupsWithLiveWinners };
       setMatchups(matchupsCopy);
+      setSnowboardersData(snowboardersMap);
     };
     if (bracketId) {
       getData();
     }
   }, [setMatchups, currentRound, bracketId]);
+
+  return { snowboarders: snowboardersData };
 }

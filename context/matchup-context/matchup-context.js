@@ -13,7 +13,7 @@ export const MatchupDataProvider = ({ children }) => {
   const [matchups, setMatchups] = useState([]);
   const router = useRouter();
   const bracketId = router.query.bracketId;
-  useSetMatchups({ setMatchups, bracketId });
+  const { snowboarders } = useSetMatchups({ setMatchups, bracketId });
 
   const setWinner = ({ player, matchupId, currentRound }) => {
     const updatedRoundMatchups = addWinnerToMatchups({
@@ -32,6 +32,7 @@ export const MatchupDataProvider = ({ children }) => {
   const value = {
     matchups,
     setWinner,
+    snowboarders,
   };
 
   return (

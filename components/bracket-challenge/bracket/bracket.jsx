@@ -16,13 +16,13 @@ export default function Bracket({
   const winners = [actualWinner?.team1, actualWinner?.team2];
   return (
     <div className={clsx(styles.bracket, bracketClassNames)}>
-      {snowboarders.map((snowboarder, index) => {
+      {snowboarders.map((snowboarderName, index) => {
         return (
           <Player
             key={`matchup-${matchupId}-${index}`}
-            {...snowboarder}
+            name={snowboarderName}
             matchupId={matchupId}
-            winner={winners[index]}
+            winnerName={winners[index]}
             position={index + 1}
             currentRound={currentRound}
           />

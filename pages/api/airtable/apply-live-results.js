@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     let updatedMatchups = [];
     for (let matchup of selectionsArray) {
       const matchupId = matchup[0];
-      const player = matchup[1][0];
+      const player = matchup[1];
       updatedMatchups = addActualWinnerToMatchups({
         player,
         matchups: matchups[roundName],

@@ -48,11 +48,8 @@ export function countNumberOfWinnersInEachRound({ winnersData }) {
   let selkirkWinners = 0;
 
   for (const key in winnersData) {
-    if (
-      winnersData.hasOwnProperty(key) &&
-      Array.isArray(winnersData[key]) &&
-      winnersData[key].length > 0
-    ) {
+    // Only add winner if one exists
+    if (key !== '__typename' && winnersData[key] !== null) {
       if (key.includes('dR') || key.includes('dwR')) {
         duelsWinners++;
       } else if (key.includes('rR') || key.includes('rwR')) {
@@ -77,25 +74,22 @@ export const countNumberOfCorrectPicks = ({ bracketData, winners }) => {
   if (!bracketData || !winners) return;
   let count = 0;
   let points = 0;
-
   for (const key in bracketData) {
     if (
       bracketData.hasOwnProperty(key) &&
-      // typeof bracketData[key] !== 'object' &&
       winners.hasOwnProperty(key) &&
       bracketData[key] &&
-      bracketData[key][0]?.name !== undefined &&
-      bracketData[key][0]?.name === winners[key][0]?.name
+      bracketData[key] !== undefined &&
+      bracketData[key] === winners[key]
     ) {
-      // Add to number of correct picks
-      count++;
       // Calculate points
       const round = parseFloat(key.split('R')[1]?.split('M')[0]);
-      const pointsInThisRound = mapRoundToPoints[round];
+      const pointsInThisRound = mapRoundToPoints[round] || 0;
+      // Add to number of correct picks, We first check that this is an actual correct pick
+      if (pointsInThisRound) count++;
       points = points + pointsInThisRound;
     }
   }
-
   return { numberOfCorrectPicks: count, points };
 };
 
@@ -111,6 +105,7 @@ export function addNumberOfCorrectPicksToRoundData({
       bracketData: bracketData[key],
       winners: winnersData,
     });
+
     bracketData[key].numberOfCorrectPicks = numberOfCorrectPicks;
     bracketData[key].numberOfWinnersInRound = numberOfWinnersInRound[key];
     bracketData[key].points = points;

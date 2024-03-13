@@ -71,7 +71,7 @@ export default async function addUserSelectionsToRounds({
     let updatedMatchups = [];
     for (let matchup of selectionsArray) {
       const matchupId = matchup[0];
-      const player = matchup[1][0];
+      const player = matchup[1];
       updatedMatchups = addWinnerToMatchups({
         player,
         matchups: matchups[roundName],

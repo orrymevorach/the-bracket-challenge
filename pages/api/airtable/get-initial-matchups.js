@@ -131,10 +131,10 @@ const createMatchups = (snowboarders = []) => {
           round,
           position,
           matchupId: key,
-          team1: snowboarder,
+          team1: snowboarder.name,
         };
       } else {
-        groupedData[key].team2 = snowboarder;
+        groupedData[key].team2 = snowboarder.name;
       }
     }
     // Convert the matchup object into an array of all the matchups
@@ -184,5 +184,5 @@ export default async function handler(req, res) {
   });
   const firstRoundMatchups = createMatchups(snowboardersSortedByRound);
 
-  res.status(200).json({ firstRoundMatchups });
+  res.status(200).json({ firstRoundMatchups, snowboarders });
 }

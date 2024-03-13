@@ -11,18 +11,28 @@ import { useState } from 'react';
 import PlayerModal from './player-modal/player-modal';
 
 export default function Player(player) {
-  const { name, matchupId, isChampion, winner, position, flag, currentRound } =
+  const { name, matchupId, isChampion, winnerName, position, currentRound } =
     player;
 
-  const { setWinner } = useMatchups();
+  const { setWinner, snowboarders } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const {
+    config: { isSelectionsEnabled },
+  } = useConfig();
 
-  const [firstName, lastName] = name ? name.split(' ') : '';
+  if (!snowboarders) return;
+  const snowboarder = snowboarders[name];
+  const winner = winnerName ? snowboarders[winnerName] : '';
+
+  const [firstName, lastName] = snowboarder?.name
+    ? snowboarder.name.split(' ')
+    : '';
   const [winnerFirstName, winnerLastName] = winner
     ? winner?.name.split(' ')
     : '';
 
-  const flagImage = flag && flag.length && flag[0];
+  const flagImage =
+    snowboarder?.flag && snowboarder.flag.length && snowboarder.flag[0];
   const winnerFlag = winner ? winner.flag[0] : '';
 
   const isCorrect = winner && winner.name === name;
@@ -34,19 +44,15 @@ export default function Player(player) {
   const round = matchupId?.split('_M')[0].replace('R', '');
   const pointsWonForCorrectPick = mapRoundToPoints[round - 1];
 
-  const {
-    config: { isSelectionsEnabled },
-  } = useConfig();
-
   const handleClick = () => {
     if (!isSelectionsEnabled) return;
-    setWinner({ player, matchupId, currentRound });
+    setWinner({ player: name, matchupId, currentRound });
   };
 
   return (
     <>
       {showInfoModal && (
-        <PlayerModal player={player} setShowInfoModal={setShowInfoModal} />
+        <PlayerModal player={snowboarder} setShowInfoModal={setShowInfoModal} />
       )}
       <div className={styles.outerContainer}>
         {round === '1' && (
