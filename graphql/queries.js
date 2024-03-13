@@ -214,7 +214,6 @@ export const GET_BRACKET = gql`
       rR1M6
       rR1M7
       rR1M8
-
       rwR1M1
       rwR1M2
       rwR1M3
@@ -229,33 +228,6 @@ export const GET_BRACKET = gql`
       swR1M1
       swR1M2
       swR2M1
-    }
-  }
-`;
-
-// Temporary hot patch fix
-export const GET_BRACKET_PICKS = gql`
-  query GetBracketPicks($recId: String) {
-    userBrackets(id: $recId) {
-      id
-      dR1M1
-      dR1M2
-      dR1M3
-      dR1M4
-      dwR1M1
-      dwR1M2
-      rR1M1
-      rR1M2
-      rR1M3
-      rR1M4
-      rR1M5
-      rR1M6
-      rR1M7
-      rR1M8
-      rwR1M1
-      rwR1M2
-      rwR1M3
-      rwR1M4
     }
   }
 `;
