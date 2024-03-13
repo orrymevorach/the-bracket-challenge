@@ -28,13 +28,13 @@ export async function getStaticProps() {
     url: ROUTES.LEAGUE,
   });
 
-  // const brackets = await getAllBrackets();
-  // const overallRankingsData = getTopTenBrackets({ brackets });
+  const brackets = await getAllBrackets();
+  const overallRankingsData = getTopTenBrackets({ brackets });
 
   return {
     props: {
       ...pageLoadData,
-      // overallRankingsData,
+      overallRankingsData,
     },
   };
 }
