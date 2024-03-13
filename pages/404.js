@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { getPageLoadData } from '@/lib/contentful';
 import styles from './404.module.scss';
 import Image from 'next/image';
@@ -16,9 +17,10 @@ export default function PageNotFound() {
         priority
         quality={10}
       /> */}
-        <h2 className={styles.title}>404: Page Not Found</h2>
+        <h2 className={styles.title}>Oh no! Something went wrong.</h2>
         <p className={styles.text}>
-          Apologies, it appears this page does not exist.
+          Try <a href="/">logging in</a> again, or{' '}
+          <a href="/contact">contact us</a> for support.
         </p>
       </div>
     </>

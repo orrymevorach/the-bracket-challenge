@@ -6,6 +6,9 @@
   //   font-family: 'Neue Haas Medium';
   flex-direction: column;
   //   color: $darkGreen;
+  a {
+    text-decoration: underline;
+  }
 }
 
 .title {
