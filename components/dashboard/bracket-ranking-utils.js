@@ -21,7 +21,7 @@ export function addRankingsToObjects({ inputArray = [] }) {
   return rankedObjects;
 }
 
-export const getRanking = ({ leagueData, bracketName, winnersData }) => {
+export const getRanking = ({ leagueData, winnersData, bracketId }) => {
   const usersWithNumberOfCorrectPicks = leagueData.userBrackets.map(team => {
     const scoreData = countNumberOfCorrectPicks({
       bracketData: team,
@@ -29,15 +29,15 @@ export const getRanking = ({ leagueData, bracketName, winnersData }) => {
     });
     return {
       scoreData,
-      bracketName: team.name,
+      bracketId: team.id,
     };
   });
   const leagueWithRankings = addRankingsToObjects({
     inputArray: usersWithNumberOfCorrectPicks,
   });
-  const currentUserBracket = leagueWithRankings.find(
-    team => team.bracketName === bracketName
-  );
+  const currentUserBracket = leagueWithRankings.find(team => {
+    return team.bracketId === bracketId;
+  });
   return currentUserBracket?.ranking || '';
 };
 

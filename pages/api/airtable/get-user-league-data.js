@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       const ranking = getRanking({
         leagueData: league,
         winnersData,
-        bracketName: userBracket.name,
+        bracketId: userBracket.id,
       });
       return {
         id: league.id,

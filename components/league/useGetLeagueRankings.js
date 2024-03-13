@@ -23,7 +23,7 @@ export default function useGetLeagueRankings() {
           const rank = getRanking({
             leagueData: league,
             winnersData,
-            bracketName: bracket.name,
+            bracketId: bracket.id,
           });
           const selectionsSortedByRoundWithNumberOfWinnersPerRound =
             sortSelectionsIntoRounds(bracket);
