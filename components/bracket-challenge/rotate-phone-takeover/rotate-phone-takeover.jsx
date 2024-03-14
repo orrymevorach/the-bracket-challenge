@@ -6,7 +6,7 @@ export default function RotatePhoneTakeover() {
   const [showTakeover, setShowTakeover] = useState(true);
   useEffect(() => {
     const handleScreenOrientation = () => {
-      const screenOrientation = window.screen.orientation.type;
+      const screenOrientation = window?.screen?.orientation?.type;
       if (screenOrientation.includes('portrait')) {
         setShowTakeover(true);
       } else if (screenOrientation.includes('landscape')) {
