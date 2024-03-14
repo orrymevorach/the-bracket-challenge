@@ -49,7 +49,13 @@ export function countNumberOfWinnersInEachRound({ winnersData }) {
 
   for (const key in winnersData) {
     // Only add winner if one exists
-    if (key !== '__typename' && winnersData[key] !== null) {
+    if (
+      key !== '__typename' &&
+      winnersData[key] !== null &&
+      key !== 'name' &&
+      key !== 'id' &&
+      key !== 'memberId'
+    ) {
       if (key.includes('dR') || key.includes('dwR')) {
         duelsWinners++;
       } else if (key.includes('rR') || key.includes('rwR')) {
