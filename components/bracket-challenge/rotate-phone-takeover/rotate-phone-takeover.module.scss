@@ -1,0 +1,63 @@
+// Start phone animation
+.phone {
+  position: relative;
+  left: 50%;
+  margin-left: -50px;
+  width: 0;
+  height: 0;
+  border: 0 solid #000;
+  background: #a9a9a9;
+  border-radius: 10px;
+  box-sizing: border-box;
+  animation: sizeIncrease 0.5s forwards ease,
+    borderIncrease 0.5s 0.5s forwards ease, rotateRight 0.7s 1s forwards ease;
+  & i {
+    text-align: center;
+    width: 100%;
+    line-height: 120px;
+    font-size: 50px;
+    color: #454545;
+    opacity: 0;
+    animation: fadeIn 0.5s 0.8s forwards ease;
+  }
+}
+
+.iconContainer p {
+  animation: fadeIn 0.5s 1.3s forwards ease;
+}
+
+@keyframes sizeIncrease {
+  0% {
+    width: 0;
+    height: 10px;
+  }
+  50% {
+    width: 100px;
+    height: 10px;
+  }
+  100% {
+    width: 100px;
+    height: 160px;
+  }
+}
+/* Add borders */
+@keyframes borderIncrease {
+  100% {
+    border-width: 20px 10px;
+  }
+}
+
+/* fade-in  */
+@keyframes fadeIn {
+  100% {
+    color: #000;
+    opacity: 1;
+  }
+}
+
+/* Rotate device */
+@keyframes rotateRight {
+  100% {
+    transform: rotate(90deg);
+  }
+}
