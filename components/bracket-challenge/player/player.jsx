@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import PlayerModal from './player-modal/player-modal';
+import { useWindowSize } from '@/context/window-size-context/window-size-context';
 
 export default function Player(player) {
   const { name, matchupId, isChampion, winnerName, position, currentRound } =
@@ -19,6 +20,7 @@ export default function Player(player) {
   const {
     config: { isSelectionsEnabled },
   } = useConfig();
+  const { isMobile } = useWindowSize();
 
   if (!snowboarders) return;
   const snowboarder = snowboarders[name];
@@ -64,7 +66,7 @@ export default function Player(player) {
               icon={faInfoCircle}
               className={styles.infoIcon}
               color="#fff"
-              size="sm"
+              size={isMobile ? 'lg' : 'sm'}
             />
           </button>
         )}
