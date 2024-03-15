@@ -115,6 +115,7 @@ export default function OverallRankingsTable({ overallRankingsData }) {
                     overallRankingsData.bracketsSortedByRanking.find(
                       ({ id }) => id === bracketId
                     );
+                  if (!bracketData) return;
                   return (
                     <tr
                       key={bracketId}
