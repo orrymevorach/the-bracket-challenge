@@ -16,7 +16,6 @@ import TopRow from './top-row/top-row';
 import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
 import BracketsLocked from './brackets-locked/brackets-locked';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
-import RotatePhoneTakeover from './rotate-phone-takeover/rotate-phone-takeover';
 
 // Display options:
 // 1. regular - doesn't affect anything, more of a placeholder
@@ -115,8 +114,6 @@ export default function BracketChallengeContainer() {
       ) : (
         <>
           <div className={styles.container}>
-            {isMobile && <RotatePhoneTakeover />}
-
             <TopRow bracketRecId={bracketRecId} leagueId={leagueId} />
             <RoundButtons
               currentRound={currentRound}
