@@ -7,14 +7,20 @@ export default function RotatePhoneTakeover() {
   useEffect(() => {
     const handleScreenOrientation = () => {
       const screenOrientation = window?.screen?.orientation?.type;
-      if (screenOrientation.includes('portrait')) {
-        setShowTakeover(true);
-      } else if (screenOrientation.includes('landscape')) {
-        setShowTakeover(false);
+      if (
+        window &&
+        window.screen &&
+        window.screen.orientation &&
+        window.screen.orientation.type
+      ) {
+        if (screenOrientation.includes('portrait')) {
+          setShowTakeover(true);
+        } else if (screenOrientation.includes('landscape')) {
+          setShowTakeover(false);
+        }
       }
     };
 
-    // window.addEventListener('orientationchange', handleScreenOrientation);
     handleScreenOrientation();
   }, []);
   return (
