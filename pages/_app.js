@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
   const [showPasswordProtectionTakeover, setShowPasswordProtectionTakeover] =
     useState(true);
 
-  if (!isPagePublished) return <PageNotFound />;
+  if (isPagePublished === false) return <PageNotFound />;
   if (isPasswordProtected && showPasswordProtectionTakeover)
     return (
       <PasswordProtectionTakeover

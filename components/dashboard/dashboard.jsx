@@ -12,7 +12,7 @@ import JoinPublicLeaguePrompt from './join-public-league-prompt/join-public-leag
 import useUser from '@/context/user-context/useUser';
 import { topDawgCompetitionLeagueId } from '@/utils/constants';
 
-export default function Dashboard({ overallRankingsData }) {
+export default function Dashboard() {
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
     useState(false);
   const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
@@ -65,7 +65,7 @@ export default function Dashboard({ overallRankingsData }) {
       )}
 
       <UserBracketsTable currentRound={ROUNDS[0].name} />
-      <OverallRankingsTable overallRankingsData={overallRankingsData} />
+      <OverallRankingsTable />
     </Layout>
   );
 }

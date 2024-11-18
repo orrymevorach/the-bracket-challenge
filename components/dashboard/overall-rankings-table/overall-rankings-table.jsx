@@ -6,20 +6,30 @@ import useUser from '@/context/user-context/useUser';
 import Loader from '@/components/shared/loader/loader';
 import { useUserLeague } from '@/context/user-league-context/user-league-context';
 import { useWinners } from '@/context/winners-context/winners-context';
-import { countNumberOfCorrectPicks } from '../bracket-ranking-utils';
+import {
+  countNumberOfCorrectPicks,
+  getTopTenBrackets,
+} from '../bracket-ranking-utils';
+import useGetApi from '@/hooks/useGetApi';
+import { getAllBrackets } from '@/lib/airtable';
 
-export default function OverallRankingsTable({ overallRankingsData }) {
+export default function OverallRankingsTable() {
+  const { data: brackets, isLoading: isBracketsLoading } =
+    useGetApi(getAllBrackets);
   const router = useRouter();
   const user = useUser();
   const winnersBracket = useWinners();
   const { leagueData: leagues, isLoading } = useUserLeague();
+
+  if (isLoading || isBracketsLoading) return <Loader />;
+  if (!brackets) return;
+  const overallRankingsData = getTopTenBrackets({ brackets });
 
   const numberOfCorrectPicks = countNumberOfCorrectPicks({
     bracketData: winnersBracket,
     winners: winnersBracket,
   });
 
-  if (isLoading) return <Loader />;
   if (numberOfCorrectPicks.numberOfCorrectPicks === 0) return;
 
   const topTenBrackets = overallRankingsData.bracketsSortedByRanking.slice(
