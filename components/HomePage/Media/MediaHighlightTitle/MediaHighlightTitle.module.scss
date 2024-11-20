@@ -1,7 +1,7 @@
 @use '@mixins' as mixins;
 
 .title {
-  animation: slideAndFadeIn 5s linear forwards;
+  animation: slideAndFadeIn 7s linear forwards;
   font-size: 38px;
   @include mixins.fontSecondaryBold;
   text-transform: uppercase;
@@ -9,7 +9,7 @@
 
 .nextTitle {
   opacity: 0;
-  animation-delay: 5s;
+  animation-delay: 7s;
 }
 
 @keyframes slideAndFadeIn {

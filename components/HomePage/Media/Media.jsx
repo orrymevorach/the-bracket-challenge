@@ -11,7 +11,7 @@ export default function Media({ media }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((currentIndex + 1) % media.items.length);
-    }, 5000);
+    }, 7000);
     return () => clearInterval(interval);
   }, [currentIndex, media.items.length]);
 
@@ -20,7 +20,11 @@ export default function Media({ media }) {
       <MediaHighlightImage media={media} currentIndex={currentIndex} />
       <div className={styles.innerContainer}>
         <MediaHighlightTitle media={media} currentIndex={currentIndex} />
-        <MediaItems media={media} currentIndex={currentIndex} />
+        <MediaItems
+          media={media}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+        />
       </div>
     </div>
   );

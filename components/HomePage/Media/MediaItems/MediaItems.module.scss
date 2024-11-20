@@ -1,7 +1,12 @@
 @use '@mixins' as mixins;
 
-.container {
+.button {
   opacity: 0.5;
+  background: none;
+  border: none;
+  display: block;
+  text-align: left;
+  font-size: 14px;
   &.active {
     animation: fadeIn 0.5s forwards;
   }

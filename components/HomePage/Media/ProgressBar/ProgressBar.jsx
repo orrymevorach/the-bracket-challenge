@@ -9,7 +9,7 @@ export default function ProgressBar({ isActive }) {
 
     if (isActive) {
       setProgress(0); // Reset progress when activated
-      const duration = 5000;
+      const duration = 7000;
       const interval = 50; // Interval in milliseconds
       const step = (interval / duration) * 100; // Percentage to increase per interval
 

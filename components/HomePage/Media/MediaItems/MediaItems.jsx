@@ -16,29 +16,28 @@ function timeAgo(timestamp) {
   }
 }
 
-export default function MediaItems({ media, currentIndex }) {
+export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
   return (
-    <div>
-      <div className={styles.mediaContainer}>
-        {media.items.map((item, index) => {
-          const isActive = index === currentIndex;
-          const createdAtFormatted = timeAgo(item.createdAt);
-          return (
-            <div
-              key={`row-${item.title}-${index}`}
-              className={clsx(styles.container, isActive && styles.active)}
-            >
-              <p className={styles.title}>{item.title}</p>
-              <ProgressBar isActive={isActive} />
-              <div className={styles.bottomRow}>
-                <p>{createdAtFormatted}</p>
-                <div className={styles.dot}></div>
-                <p>{item.tag}</p>
-              </div>
+    <div className={styles.mediaContainer}>
+      {media.items.map((item, index) => {
+        const isActive = index === currentIndex;
+        const createdAtFormatted = timeAgo(item.createdAt);
+        return (
+          <button
+            key={`row-${item.title}-${index}`}
+            className={clsx(styles.button, isActive && styles.active)}
+            onClick={() => setCurrentIndex(index)}
+          >
+            <p className={styles.title}>{item.title}</p>
+            <ProgressBar isActive={isActive} />
+            <div className={styles.bottomRow}>
+              <p>{createdAtFormatted}</p>
+              <div className={styles.dot}></div>
+              <p>{item.tag}</p>
             </div>
-          );
-        })}
-      </div>
+          </button>
+        );
+      })}
     </div>
   );
 }

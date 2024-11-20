@@ -1,30 +1,37 @@
 import clsx from 'clsx';
 import styles from './MediaHighlightImage.module.scss';
 import Image from 'next/image';
-import { getImage } from '@/lib/contentful-utils';
+import { getMedia } from '@/lib/contentful-utils';
+
+const MediaComponent = ({ item }) => {
+  const media = item.video ? getMedia(item.video) : getMedia(item.image);
+  if (item.video) {
+    return <video src={media.src} autoPlay muted loop playsInline></video>;
+  }
+
+  return <Image {...media} alt={media.alt} />;
+};
 
 export default function MediaHighlightImage({ media, currentIndex }) {
   return (
     <div className={styles.container}>
       <div className={styles.overlay}></div>
       {media.items.map((item, index) => {
-        const image = getImage(item.image);
         if (index === currentIndex)
           return (
             <div className={styles.image} key={`highlight-${item.title}`}>
-              <Image {...image} alt={image.alt} />
+              <MediaComponent item={item} />
             </div>
           );
       })}
       {media.items.map((item, index) => {
-        const image = getImage(item.image);
         if (index === currentIndex + 1)
           return (
             <div
-              key={`highlight-next-${image.title}`}
+              key={`highlight-next-${item.title}`}
               className={clsx(styles.image, styles.nextImage)}
             >
-              <Image {...image} alt={image.alt} />
+              <MediaComponent item={item} />
             </div>
           );
       })}
