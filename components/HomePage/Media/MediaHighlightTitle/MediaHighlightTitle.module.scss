@@ -5,11 +5,16 @@
   font-size: 38px;
   @include mixins.fontSecondaryBold;
   text-transform: uppercase;
+  margin-bottom: 15px;
 }
 
 .nextTitle {
   opacity: 0;
   animation-delay: 7s;
+}
+
+.description {
+  animation: slideAndFadeIn 7s linear forwards;
 }
 
 @keyframes slideAndFadeIn {

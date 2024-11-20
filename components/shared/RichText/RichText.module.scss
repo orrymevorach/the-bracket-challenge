@@ -1,0 +1,28 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.richText {
+  font-size: 14px;
+  @include mixins.fontSecondary;
+}
+
+.link {
+  color: black;
+  @include mixins.fontSecondaryBold;
+  &:active {
+    color: black;
+  }
+}
+
+.unorderedList {
+  list-style: disc;
+  color: white;
+  font-size: 12px;
+  li {
+    margin: 5px 0px 5px 15px;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+}
