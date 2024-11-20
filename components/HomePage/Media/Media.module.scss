@@ -8,10 +8,12 @@
 }
 
 .innerContainer {
-  width: 1280px;
+  max-width: 1360px;
+  width: 100%;
   position: absolute;
   bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
+  padding: 0 40px;
 }

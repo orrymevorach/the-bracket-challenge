@@ -6,10 +6,28 @@ import { getMedia } from '@/lib/contentful-utils';
 const MediaComponent = ({ item }) => {
   const media = item.video ? getMedia(item.video) : getMedia(item.image);
   if (item.video) {
-    return <video src={media.src} autoPlay muted loop playsInline></video>;
+    return (
+      <div className={styles.videoContainer}>
+        <video
+          src={media.src}
+          className={styles.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+        ></video>
+      </div>
+    );
   }
 
-  return <Image {...media} alt={media.alt} />;
+  return (
+    <div
+      className={styles.backgroundImage}
+      style={{
+        backgroundImage: `url("${media.src}")`,
+      }}
+    ></div>
+  );
 };
 
 export default function MediaHighlightImage({ media, currentIndex }) {

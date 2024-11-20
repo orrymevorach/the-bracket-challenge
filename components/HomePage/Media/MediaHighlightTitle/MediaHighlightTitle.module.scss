@@ -11,6 +11,7 @@
 .nextTitle {
   opacity: 0;
   animation-delay: 7s;
+  height: 0;
 }
 
 .description {
@@ -26,7 +27,7 @@
     transform: translateX(0px);
     opacity: 1;
   }
-  90% {
+  91% {
     transform: translateX(0);
     opacity: 1;
   }

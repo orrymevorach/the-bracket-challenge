@@ -43,6 +43,11 @@
   margin: 0 10px;
 }
 
+.next {
+  width: 100%;
+  @include mixins.fontSecondary;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0.5;
