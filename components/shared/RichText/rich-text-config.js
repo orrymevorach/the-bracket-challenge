@@ -7,7 +7,12 @@ export const sharedRichTextConfig = {
       return <p className={styles.richText}>{children}</p>;
     },
     [INLINES.HYPERLINK]: (node, children) => (
-      <a href={node.data.uri} className={styles.link} target="_blank">
+      <a
+        href={node.data.uri}
+        className={styles.link}
+        target="_blank"
+        rel="noreferrer"
+      >
         {children}
       </a>
     ),

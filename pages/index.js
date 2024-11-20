@@ -7,8 +7,9 @@ export default function HomePage({ media = [] }) {
   return (
     <div>
       <Meta />
-      {/* <UserProvider></UserProvider> */}
-      <Media media={media} />
+      <UserProvider>
+        <Media media={media} />
+      </UserProvider>
     </div>
   );
 }
