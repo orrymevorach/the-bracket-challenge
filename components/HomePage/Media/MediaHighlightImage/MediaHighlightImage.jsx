@@ -11,7 +11,7 @@ export default function MediaHighlightImage({ media, currentIndex }) {
         const image = getImage(item.image);
         if (index === currentIndex)
           return (
-            <div className={styles.image}>
+            <div className={styles.image} key={`highlight-${item.title}`}>
               <Image {...image} alt={image.alt} />
             </div>
           );
@@ -20,7 +20,10 @@ export default function MediaHighlightImage({ media, currentIndex }) {
         const image = getImage(item.image);
         if (index === currentIndex + 1)
           return (
-            <div className={clsx(styles.image, styles.nextImage)}>
+            <div
+              key={`highlight-next-${image.title}`}
+              className={clsx(styles.image, styles.nextImage)}
+            >
               <Image {...image} alt={image.alt} />
             </div>
           );

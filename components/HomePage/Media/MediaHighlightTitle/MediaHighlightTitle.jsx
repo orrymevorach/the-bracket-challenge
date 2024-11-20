@@ -7,7 +7,7 @@ export default function MediaHighlightTitle({ media, currentIndex }) {
       {media.items.map((item, index) => {
         if (index === currentIndex)
           return (
-            <div className={styles.title}>
+            <div key={`media-title-${item.title}`} className={styles.title}>
               <p>{item.title}</p>
             </div>
           );
@@ -15,7 +15,10 @@ export default function MediaHighlightTitle({ media, currentIndex }) {
       {media.items.map((item, index) => {
         if (index === currentIndex + 1)
           return (
-            <div className={clsx(styles.title, styles.nextTitle)}>
+            <div
+              key={`media-next-title-${item.title}`}
+              className={clsx(styles.title, styles.nextTitle)}
+            >
               <p>{item.title}</p>
             </div>
           );
