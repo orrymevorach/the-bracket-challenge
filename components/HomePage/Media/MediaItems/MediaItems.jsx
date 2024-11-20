@@ -19,16 +19,15 @@ function timeAgo(timestamp) {
 
 export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
   const { isMobile } = useWindowSize();
-  const nextItem = media.items[(currentIndex + 1) % media.items.length];
 
   return (
-    <div className={styles.outerContainer}>
+    <div>
       <div className={styles.mediaContainer}>
         {media.items.map((item, index) => {
           const isActive = index === currentIndex;
           const createdAtFormatted = timeAgo(item.createdAt);
           return (
-            <button
+            <div
               key={`row-${item.title}-${index}`}
               className={clsx(styles.button, isActive && styles.active)}
               onClick={() => setCurrentIndex(index)}
@@ -42,11 +41,15 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
                   <p>{item.tag}</p>
                 </div>
               )}
-            </button>
+            </div>
           );
         })}
       </div>
-      {isMobile && <p className={styles.next}>Next: {nextItem.title}</p>}
+      {isMobile &&
+        media.items.map((item, index) => {
+          if (index === currentIndex + 1)
+            return <p className={styles.next}>Next: {item.title}</p>;
+        })}
     </div>
   );
 }
