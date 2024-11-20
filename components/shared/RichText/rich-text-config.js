@@ -1,3 +1,4 @@
+import Button from '../button/button';
 import styles from './RichText.module.scss';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 
@@ -7,14 +8,15 @@ export const sharedRichTextConfig = {
       return <p className={styles.richText}>{children}</p>;
     },
     [INLINES.HYPERLINK]: (node, children) => (
-      <a
+      <Button
         href={node.data.uri}
-        className={styles.link}
+        classNames={styles.link}
         target="_blank"
         rel="noreferrer"
+        isSecondary
       >
         {children}
-      </a>
+      </Button>
     ),
     [BLOCKS.UL_LIST]: (node, children) => (
       <ul className={styles.unorderedList}>{children}</ul>

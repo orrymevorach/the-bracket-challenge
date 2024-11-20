@@ -8,10 +8,10 @@
 }
 
 .link {
-  color: black;
   @include mixins.fontSecondaryBold;
+  width: 200px;
   &:active {
-    color: black;
+    color: white;
   }
 }
 
