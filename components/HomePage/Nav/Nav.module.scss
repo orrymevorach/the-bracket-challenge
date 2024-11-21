@@ -30,4 +30,13 @@
 }
 
 .userIcon {
+  color: white;
+  svg {
+    color: white;
+    position: relative;
+    z-index: 2;
+    &:hover {
+      color: white;
+    }
+  }
 }

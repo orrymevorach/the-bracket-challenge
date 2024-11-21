@@ -4,7 +4,6 @@ import Nav from '@/components/HomePage/Nav/Nav';
 import Meta from '@/components/shared/head/head';
 import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
-import Link from 'next/link';
 
 export default function HomePage({ media = [] }) {
   return (

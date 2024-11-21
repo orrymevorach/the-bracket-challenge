@@ -9,7 +9,7 @@ import JoinLeagueTakeover from './join-league-takeover/join-league-takeover';
 import OverallRankingsTable from './overall-rankings-table/overall-rankings-table';
 import JoinPublicLeagueTakeover from './join-public-league-takeover/join-public-league-takeover';
 import JoinPublicLeaguePrompt from './join-public-league-prompt/join-public-league-prompt';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import { topDawgCompetitionLeagueId } from '@/utils/constants';
 
 export default function Dashboard() {

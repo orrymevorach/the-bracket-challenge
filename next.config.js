@@ -16,6 +16,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: `/api/airtable/get-user-by-uid`,
+        destination: `/api/airtable/get-record`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

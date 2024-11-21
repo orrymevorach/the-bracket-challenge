@@ -2,7 +2,7 @@ import { ROUTES } from '@/utils/constants';
 import styles from './overall-rankings-table.module.scss';
 import Button from '@/components/shared/button/button';
 import { useRouter } from 'next/router';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import Loader from '@/components/shared/loader/loader';
 import { useUserLeague } from '@/context/user-league-context/user-league-context';
 import { useWinners } from '@/context/winners-context/winners-context';

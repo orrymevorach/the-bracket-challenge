@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
+import { useUser } from '@/context/user-context/user-context';
 
-const links = [
+const getLinks = ({ user }) => [
   {
     label: 'Schedule',
     href: '/schedule',
@@ -15,12 +16,15 @@ const links = [
     href: '#',
   },
   {
-    label: 'Join Now',
-    href: '/login',
+    label: user?.id ? 'Dashboard' : 'Join Now',
+    href: user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN,
   },
 ];
 
 export default function Nav() {
+  const user = useUser();
+  const loginHref = user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN;
+  const links = getLinks({ user });
   return (
     <nav className={styles.nav}>
       <div></div> {/* This is a placeholder for the logo */}
@@ -33,7 +37,7 @@ export default function Nav() {
           );
         })}
       </ul>
-      <Button classNames={styles.userIcon} isNaked href={ROUTES.LOGIN}>
+      <Button classNames={styles.userIcon} isNaked href={loginHref}>
         <FontAwesomeIcon icon={faUser} size="lg" color="white" />
       </Button>
     </nav>

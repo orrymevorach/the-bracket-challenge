@@ -3,7 +3,7 @@ import Loader from 'components/shared/loader/loader';
 import Layout from '@/components/shared/layout/layout';
 import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
 import SettingsButton from '../settings-button/settings-button';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import Button from '@/components/shared/button/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';

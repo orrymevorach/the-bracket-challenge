@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './top-row.module.scss';
 import { getBracketName } from '@/lib/airtable';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
