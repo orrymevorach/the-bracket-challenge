@@ -1,0 +1,33 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.nav {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  margin-top: 30px;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navItem {
+  @include mixins.fontSecondary;
+  padding: 10px 20px;
+}
+
+.userIcon {
+}

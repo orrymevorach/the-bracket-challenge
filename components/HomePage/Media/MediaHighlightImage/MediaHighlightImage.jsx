@@ -37,7 +37,7 @@ export default function MediaHighlightImage({ media, currentIndex }) {
       {media.items.map((item, index) => {
         if (index === currentIndex)
           return (
-            <div className={styles.image} key={`highlight-${item.title}`}>
+            <div className={styles.mediaItem} key={`highlight-${item.title}`}>
               <MediaComponent item={item} />
             </div>
           );
@@ -47,7 +47,7 @@ export default function MediaHighlightImage({ media, currentIndex }) {
           return (
             <div
               key={`highlight-next-${item.title}`}
-              className={clsx(styles.image, styles.nextImage)}
+              className={clsx(styles.mediaItem, styles.nextSlide)}
             >
               <MediaComponent item={item} />
             </div>

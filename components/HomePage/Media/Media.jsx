@@ -15,7 +15,7 @@ export default function Media({ media }) {
   }, [currentIndex, media.items.length]);
 
   return (
-    <div className={styles.container}>
+    <>
       <MediaHighlightImage media={media} currentIndex={currentIndex} />
       <div className={styles.innerContainer}>
         <MediaHighlightTitle media={media} currentIndex={currentIndex} />
@@ -25,6 +25,6 @@ export default function Media({ media }) {
           setCurrentIndex={setCurrentIndex}
         />
       </div>
-    </div>
+    </>
   );
 }

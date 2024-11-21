@@ -30,6 +30,7 @@ export default function Button({
   isSecondary = false,
   isYellow = false,
   isPeach = false,
+  isNaked = false,
 }) {
   const classnames = clsx(
     styles.button,
@@ -39,7 +40,8 @@ export default function Button({
     isInverted && styles.inverted,
     isSecondary && styles.secondary,
     isYellow && styles.yellow,
-    isPeach && styles.peach
+    isPeach && styles.peach,
+    isNaked && styles.naked
   );
 
   if (isAnchor) {

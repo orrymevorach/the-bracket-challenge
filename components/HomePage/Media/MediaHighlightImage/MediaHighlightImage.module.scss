@@ -17,14 +17,16 @@
   left: 0;
   top: 0;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.mediaItem {
+  animation: zoomAndFadeIn 7s linear forwards;
+  position: relative;
   z-index: 1;
 }
 
-.image {
-  animation: zoomAndFadeIn 7s linear forwards;
-}
-
-.nextImage {
+.nextSlide {
   opacity: 0;
   animation-delay: 7s;
 }

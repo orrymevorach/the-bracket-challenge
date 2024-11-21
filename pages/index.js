@@ -1,14 +1,20 @@
+import HomePageLayout from '@/components/HomePage/Layout/Layout';
 import Media from '@/components/HomePage/Media/Media';
+import Nav from '@/components/HomePage/Nav/Nav';
 import Meta from '@/components/shared/head/head';
 import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
+import Link from 'next/link';
 
 export default function HomePage({ media = [] }) {
   return (
     <div>
       <Meta />
       <UserProvider>
-        <Media media={media} />
+        <HomePageLayout>
+          <Nav />
+          <Media media={media} />
+        </HomePageLayout>
       </UserProvider>
     </div>
   );
