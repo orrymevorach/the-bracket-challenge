@@ -23,13 +23,13 @@
 //     const firstName = person.name.split(' ')[0];
 //     console.log(firstName, person.emailAddress);
 //     await transporter.sendMail({
-//       from: 'NST Bracket Challenge noreply@nstbracketchallenge.com',
+//       from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
 //       to: person.emailAddress,
 //       subject: `Make Your Picks For The Final Round!`,
 //       html: `
 //       <div style="font-size: 14px; background-color: #2f2f2f; width: 100%; padding: 10px;">
 //         <div style="background-color: white; padding: 25px; width: 600px; margin: 0 auto;">
-//             <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">NST Bracket Challenge</h1>
+//             <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">The Bracket Challenge</h1>
 //             <h2 style="font-size: 20px;">Make Your Picks For The Final Round!</h2>
 //             <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
 //             <p style="font-size: 14px;">How EPIC was that?? The riders put on an absolute show in Revelstoke this afternoon, with 12 of the 24 riders moving onto the final bracket. With round 2 now under our belts, the riders look to the Final Round in Selkirk Tangiers.</p>

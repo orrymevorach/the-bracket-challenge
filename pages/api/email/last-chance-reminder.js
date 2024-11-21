@@ -17,13 +17,13 @@
 //     const firstName = person.name.split(' ')[0];
 //     console.log(firstName, person.emailAddress);
 //     await transporter.sendMail({
-//       from: 'NST Bracket Challenge noreply@nstbracketchallenge.com',
+//       from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
 //       to: person.emailAddress,
 //       subject: `Last Chance To Make Your Picks For The Final Round!`,
 //       html: `
 //       <div style="font-size: 14px; background-color: #2f2f2f; width: 100%; padding: 10px;">
 //         <div style="background-color: white; padding: 25px; width: 600px; margin: 0 auto;">
-//             <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">NST Bracket Challenge</h1>
+//             <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">The Bracket Challenge</h1>
 //             <h2 style="font-size: 20px;">Last Chance To Make Your Picks For The Final Round!</h2>
 //             <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
 //             <p style="font-size: 14px;">Round 3 of Natural Selection in Selkirk Tangiers kicks off tomorrow at 10:00AM PST.</p>

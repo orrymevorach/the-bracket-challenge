@@ -23,13 +23,13 @@ export default async function handler(req, res) {
 
   //   const firstName = person.name.split(' ')[0];
   // await transporter.sendMail({
-  //   from: 'NST Bracket Challenge noreply@nstbracketchallenge.com',
+  //   from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
   //   to: person.emailAddress,
   //   subject: `Less than 1 week to Invite Your Friends!`,
   //   html: `
   //   <div style="font-size: 14px; background-color: #2f2f2f; width: 100%; padding: 10px;">
   //     <div style="background-color: white; padding: 25px; width: 600px; margin: 0 auto;">
-  //         <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">NST Bracket Challenge</h1>
+  //         <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">The Bracket Challenge</h1>
   //         <h2 style="font-size: 20px;">NST Duels drop in only 6 days!</h2>
   //         <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
   //         <p style="font-size: 14px;">We are so stoked that you have created the league <span style="font-style: italic">${person.leagues[0].name}</span> to challenge your friends!</p>
