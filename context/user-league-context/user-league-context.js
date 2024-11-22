@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import useGetUserLeagueData from '@/components/dashboard/useGetUserLeagueData';
+import { createContext, useContext } from 'react';
 
 const UserLeagueContext = createContext();
 
@@ -7,9 +6,7 @@ export const useUserLeague = () => {
   return useContext(UserLeagueContext);
 };
 
-export const UserLeagueProvider = ({ children }) => {
-  const userLeagueData = useGetUserLeagueData();
-
+export const UserLeagueProvider = ({ children, userLeagueData }) => {
   return (
     <UserLeagueContext.Provider value={userLeagueData}>
       {children}

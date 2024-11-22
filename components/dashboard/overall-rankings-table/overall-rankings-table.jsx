@@ -19,9 +19,8 @@ export default function OverallRankingsTable() {
   const router = useRouter();
   const user = useUser();
   const winnersBracket = useWinners();
-  const { leagueData: leagues, isLoading } = useUserLeague();
+  const leagues = useUserLeague();
 
-  if (isLoading || isBracketsLoading) return <Loader />;
   if (!brackets) return;
   const overallRankingsData = getTopTenBrackets({ brackets });
 
