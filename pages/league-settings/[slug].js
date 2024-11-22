@@ -2,7 +2,7 @@ import LeagueSettings from '@/components/league-settings/league-settings';
 import Meta from '@/components/shared/head/head';
 import { LeagueConfigProvider } from '@/context/league-config-context/league-config-context';
 import { UserProvider } from '@/context/user-context/user-context';
-import { getLeagueIds } from '@/lib/airtable';
+import { getAllLeagues } from '@/lib/airtable';
 import { getPageLoadData } from '@/lib/contentful';
 import { ROUTES } from '@/utils/constants';
 
@@ -32,7 +32,7 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
-  const leagues = await getLeagueIds();
+  const leagues = await getAllLeagues();
 
   return {
     paths: leagues.map(({ id }) => `/league-settings/${id}`),

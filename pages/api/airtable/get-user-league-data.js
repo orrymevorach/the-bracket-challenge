@@ -4,6 +4,7 @@ import {
   sortSelectionsIntoRounds,
 } from '@/components/dashboard/bracket-ranking-utils';
 import { getBracket, getUserWithLeagueData, getWinners } from '@/lib/airtable';
+import { removeUnderscore } from '@/utils/utils';
 
 export default async function handler(req, res) {
   const { uid } = req.body;
@@ -30,6 +31,11 @@ export default async function handler(req, res) {
         };
       }
       const bracket = await getBracket({ recId: userBracket.id });
+      for (let key in bracket) {
+        const keyWithoutUnderscore = removeUnderscore(key);
+        bracket[keyWithoutUnderscore] = bracket[key];
+        delete bracket[key];
+      }
       const selectionsSortedByRoundWithNumberOfWinnersPerRound =
         sortSelectionsIntoRounds(bracket);
       addNumberOfCorrectPicksToRoundData({

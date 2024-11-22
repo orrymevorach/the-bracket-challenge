@@ -6,7 +6,16 @@ import { LeagueConfigProvider } from '@/context/league-config-context/league-con
 import { UserProvider } from '@/context/user-context/user-context';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 
-export default function BracketChallengePage({ config }) {
+const config = {
+  isDuelsSelectionsEnabled: true,
+  isRevelstokeSelectionsEnabled: true,
+  isSelkirkSelectionsEnabled: true,
+  showDuelsMatchups: true,
+  showRevelstokeMatchups: true,
+  showSelkirkMatchups: true,
+};
+
+export default function BracketChallengePage() {
   const { config: defaultConfig } = useConfig();
   useSetInitialConfig({
     ...defaultConfig,
@@ -24,21 +33,4 @@ export default function BracketChallengePage({ config }) {
       </UserProvider>
     </>
   );
-}
-
-export async function getStaticProps() {
-  const config = {
-    isDuelsSelectionsEnabled: true,
-    isRevelstokeSelectionsEnabled: true,
-    isSelkirkSelectionsEnabled: true,
-    showDuelsMatchups: true,
-    showRevelstokeMatchups: true,
-    showSelkirkMatchups: true,
-  };
-
-  return {
-    props: {
-      config,
-    },
-  };
 }

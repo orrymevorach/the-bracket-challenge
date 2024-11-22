@@ -50,6 +50,26 @@ const nextConfig = {
         source: `/api/airtable/edit-bracket-name`,
         destination: `/api/airtable/update-record`,
       },
+      {
+        source: `/api/airtable/get-league`,
+        destination: `/api/airtable/get-record-by-id`,
+      },
+      {
+        source: `/api/airtable/create-bracket`,
+        destination: `/api/airtable/create-record`,
+      },
+      {
+        source: `/api/airtable/get-bracket`,
+        destination: `/api/airtable/get-record-by-id`,
+      },
+      {
+        source: `/api/airtable/get-all-brackets`,
+        destination: `/api/airtable/get-records`,
+      },
+      {
+        source: `/api/airtable/get-winners-bracket`,
+        destination: `/api/airtable/get-record`,
+      },
     ];
   },
 };

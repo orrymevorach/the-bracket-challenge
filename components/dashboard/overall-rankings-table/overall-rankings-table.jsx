@@ -66,13 +66,13 @@ export default function OverallRankingsTable() {
                 id,
                 scoreData: { points, numberOfCorrectPicks },
                 ranking,
-                memberId,
+                memberID,
               }) => {
                 const handleClick = () => {
                   router.push(`${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}`);
                 };
 
-                const isCurrentMembersBracket = memberId[0].id === user.id;
+                const isCurrentMembersBracket = memberID[0] === user.id;
                 return (
                   <tr
                     key={name}

@@ -24,6 +24,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ records: recordsArray });
     } catch (err) {
+      console.log('Error: ', err);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {

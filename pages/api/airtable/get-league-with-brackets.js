@@ -1,9 +1,6 @@
 import { getLeague } from '@/lib/airtable';
 import { getRecordById } from '@/lib/airtable-utils';
-
-function removeUnderscore(key) {
-  return key.replace(/_/g, '');
-}
+import { removeUnderscore } from '@/utils/utils';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

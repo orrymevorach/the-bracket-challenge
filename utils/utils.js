@@ -41,3 +41,7 @@ export function toCamelCase(str) {
     })
     .replace(/\s+/g, '');
 }
+
+export function removeUnderscore(key) {
+  return key.replace(/_/g, '');
+}
