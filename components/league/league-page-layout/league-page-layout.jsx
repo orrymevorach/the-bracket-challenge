@@ -27,7 +27,7 @@ export default function LeaguePageLayout({
 
   const isLeagueSettingsPage = pathname.includes('/league-settings');
 
-  const leagueAdmin = admin?.length > 0 && admin[0].id;
+  const leagueAdmin = admin?.length > 0 && admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
   const nameToShow = titleName || leagueName;
   const backButtonText = hideBackButton ? null : `Back to ${nameToShow}`;

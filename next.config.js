@@ -22,6 +22,34 @@ const nextConfig = {
         source: `/api/airtable/get-user-by-uid`,
         destination: `/api/airtable/get-record`,
       },
+      {
+        source: `/api/airtable/get-league-by-id`,
+        destination: `/api/airtable/get-record-by-id`,
+      },
+      {
+        source: `/api/airtable/join-league`,
+        destination: `/api/airtable/update-record`,
+      },
+      {
+        source: `/api/airtable/create-league`,
+        destination: `/api/airtable/create-record`,
+      },
+      {
+        source: `/api/airtable/create-user`,
+        destination: `/api/airtable/create-record`,
+      },
+      {
+        source: `/api/airtable/get-snowboarders`,
+        destination: `/api/airtable/get-records`,
+      },
+      {
+        source: `/api/airtable/edit-league-name`,
+        destination: `/api/airtable/update-record`,
+      },
+      {
+        source: `/api/airtable/edit-bracket-name`,
+        destination: `/api/airtable/update-record`,
+      },
     ];
   },
 };

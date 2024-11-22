@@ -35,17 +35,18 @@ export default function League() {
       </LeaguePageLayout>
     );
 
-  const hasCurrentUserBracketData = bracketsSortedByRankings.find(
-    ({ memberId }) => memberId[0].id === user.id
-  );
-
   const hasLeagueBrackets = bracketsSortedByRankings.length > 0;
+  const hasCurrentUserBracketData =
+    hasLeagueBrackets &&
+    bracketsSortedByRankings.find(({ memberID }) => {
+      return memberID[0] === user.id;
+    });
 
   return (
     <LeaguePageLayout title="League Rankings:" hideBackButton>
       {!hasCurrentUserBracketData && (
         <div className={styles.mainContentContainer}>
-          <CreateBracketPrompt brackets={bracketsSortedByRankings} />
+          <CreateBracketPrompt />
         </div>
       )}
       {hasLeagueBrackets && (

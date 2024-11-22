@@ -2,7 +2,7 @@ import { transformFields } from '@/lib/airtable-utils';
 const Airtable = require('airtable');
 
 // Airtable Config
-var airtableBase = new Airtable({
+const airtableBase = new Airtable({
   apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
 }).base(process.env.AIRTABLE_BASE);
 
@@ -24,6 +24,7 @@ export default async function handler(req, res) {
       };
       res.status(200).json({ record: transformedRecord });
     } catch (err) {
+      console.log('error', err);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {

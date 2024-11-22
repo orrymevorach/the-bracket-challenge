@@ -9,19 +9,7 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 export default function TopRow({ bracketRecId, leagueId }) {
   const [bracketName, setBracketName] = useState('');
   const user = useUser();
-
-  // Check if this bracket belongs to the current users, and if so show the settings button
-  const currentUsersBrackets = user.leagues
-    ? user.leagues.filter(league => {
-        const isCurrentUsersBracket = league.userBrackets.find(bracket => {
-          const memberId = bracket.memberId[0].id;
-          if (memberId === user.id && bracketRecId === bracket.id) return true;
-          return false;
-        });
-        if (isCurrentUsersBracket) return true;
-        return false;
-      })
-    : [];
+  const isCurrentUsersBrackets = user?.brackets.includes(bracketRecId);
 
   useEffect(() => {
     const getBracketNameData = async () => {
@@ -37,7 +25,7 @@ export default function TopRow({ bracketRecId, leagueId }) {
       <div>
         <p className={styles.leagueName}>{bracketName}</p>
       </div>
-      {currentUsersBrackets.length && (
+      {isCurrentUsersBrackets && (
         <Link
           href={`/bracket-settings/${bracketRecId}?bracketId=${bracketRecId}&leagueId=${leagueId}`}
           className={styles.button}
