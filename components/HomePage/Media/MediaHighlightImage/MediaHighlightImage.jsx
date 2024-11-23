@@ -13,7 +13,6 @@ const MediaComponent = ({ item }) => {
           className={styles.video}
           autoPlay
           muted
-          loop
           playsInline
         ></video>
       </div>
