@@ -10,6 +10,7 @@ export default function MediaHighlightTitle({ media, currentIndex }) {
     <>
       {media.items.map((item, index) => {
         const Component = item.link ? Link : 'div';
+        const duration = item.duration || 7;
         if (index === currentIndex) {
           return (
             <Component
@@ -17,27 +18,36 @@ export default function MediaHighlightTitle({ media, currentIndex }) {
               href={item.link}
               target="_blank"
             >
-              <p className={styles.title}>
+              <p
+                className={styles.title}
+                style={{ animationDuration: `${duration}s` }}
+              >
                 {item.title}{' '}
                 {item.link && <FontAwesomeIcon icon={faLongArrowRight} />}
               </p>
 
-              {item.description && (
-                <RichText
-                  json={item.description}
-                  classNames={styles.description}
-                />
-              )}
+              <div style={{ animationDuration: `${duration}s` }}>
+                {item.description && (
+                  <RichText
+                    json={item.description}
+                    classNames={styles.description}
+                  />
+                )}
+              </div>
             </Component>
           );
         }
       })}
       {media.items.map((item, index) => {
+        const nextSlide = media.items[currentIndex + 1];
+        const nextSlideDuration = nextSlide?.duration || 7;
+
         if (index === currentIndex + 1)
           return (
             <div
               key={`media-next-title-${item.title}`}
               className={clsx(styles.title, styles.nextTitle)}
+              style={{ animationDelay: `${nextSlideDuration}s` }}
             >
               <p>{item.title}</p>
             </div>

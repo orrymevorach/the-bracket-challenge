@@ -27,7 +27,7 @@
 
 .nextSlide {
   opacity: 0;
-  animation-delay: 7s;
+  // animation delay set in JS
 }
 
 .backgroundImage {
@@ -36,7 +36,8 @@
   background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
-  animation: zoomAndFadeIn 7s linear forwards;
+  animation: zoomAndFadeIn linear forwards;
+  // animation duration set in JS
 }
 
 .video {

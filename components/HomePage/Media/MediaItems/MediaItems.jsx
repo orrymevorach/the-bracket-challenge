@@ -26,6 +26,7 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
         {media.items.map((item, index) => {
           const isActive = index === currentIndex;
           const createdAtFormatted = timeAgo(item.createdAt);
+          const duration = item.duration || 7;
           return (
             <div
               key={`row-${item.title}-${index}`}
@@ -33,7 +34,7 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
               onClick={() => setCurrentIndex(index)}
             >
               {!isMobile && <p className={styles.title}>{item.title}</p>}
-              <ProgressBar isActive={isActive} />
+              <ProgressBar isActive={isActive} duration={duration} />
               {!isMobile && (
                 <div className={styles.bottomRow}>
                   <p>{createdAtFormatted}</p>
@@ -47,8 +48,16 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
       </div>
       {isMobile &&
         media.items.map((item, index) => {
+          const duration = item.duration || 7;
           if (index === currentIndex + 1)
-            return <p className={styles.next}>Next: {item.title}</p>;
+            return (
+              <p
+                className={styles.next}
+                style={{ animationDuration: `${duration}s` }}
+              >
+                Next: {item.title}
+              </p>
+            );
         })}
     </div>
   );

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.10",
     "@contentful/rich-text-react-renderer": "^16.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -29,6 +30,8 @@
     "cookies": "^0.9.1",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.6",
+    "ffprobe": "^1.1.2",
+    "ffprobe-static": "^3.1.0",
     "firebase": "^9.17.1",
     "graphql": "^16.6.0",
     "js-cookie": "^3.0.1",

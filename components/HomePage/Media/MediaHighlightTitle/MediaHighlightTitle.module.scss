@@ -2,21 +2,29 @@
 @use '@variables' as variables;
 
 .title {
-  animation: slideAndFadeIn 7s linear forwards;
+  animation: slideAndFadeIn linear forwards;
+  // animation duration set in JS
   font-size: 38px;
   @include mixins.fontSecondaryBold;
   text-transform: uppercase;
-  margin-bottom: 15px;
+  position: relative;
+  z-index: 4;
+  // margin-bottom: 15px;
 }
 
 .nextTitle {
   opacity: 0;
-  animation-delay: 7s;
   height: 0;
+  display: none;
+  // animation delay set in JS
 }
 
 .description {
-  animation: slideAndFadeIn 7s linear forwards;
+  animation: slideAndFadeIn linear forwards;
+  // animation duration set in JS
+  position: relative;
+  z-index: 4;
+  margin: 10px 0;
 }
 
 @keyframes slideAndFadeIn {

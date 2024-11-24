@@ -30,6 +30,7 @@
 }
 
 .userIcon {
+  position: relative;
   color: white;
   svg {
     color: white;
@@ -38,5 +39,17 @@
     &:hover {
       color: white;
     }
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
   }
 }
