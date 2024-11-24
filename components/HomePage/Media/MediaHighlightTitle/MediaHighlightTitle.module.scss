@@ -51,3 +51,25 @@
     font-size: 24px;
   }
 }
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .title,
+  .description {
+    animation: fadeInAndOut linear forwards;
+  }
+}

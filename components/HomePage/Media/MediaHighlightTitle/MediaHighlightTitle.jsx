@@ -26,14 +26,13 @@ export default function MediaHighlightTitle({ media, currentIndex }) {
                 {item.link && <FontAwesomeIcon icon={faLongArrowRight} />}
               </p>
 
-              <div style={{ animationDuration: `${duration}s` }}>
-                {item.description && (
-                  <RichText
-                    json={item.description}
-                    classNames={styles.description}
-                  />
-                )}
-              </div>
+              {item.description && (
+                <RichText
+                  json={item.description}
+                  classNames={styles.description}
+                  style={{ animationDuration: `${duration}s` }}
+                />
+              )}
             </Component>
           );
         }

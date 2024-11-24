@@ -28,3 +28,12 @@
 .underline {
   text-decoration: underline;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .link {
+    font-size: 14px;
+    padding: 8px 15px;
+    min-width: auto;
+    width: 140px;
+  }
+}

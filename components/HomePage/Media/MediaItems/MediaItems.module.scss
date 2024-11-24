@@ -46,12 +46,6 @@
   margin: 0 10px;
 }
 
-.next {
-  width: 100%;
-  @include mixins.fontSecondary;
-  animation: slideAndFadeIn linear forwards;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0.5;
@@ -80,8 +74,28 @@
   }
 }
 
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @media screen and (max-width: variables.$mobile) {
   .mediaContainer {
     gap: 15px;
+  }
+  .next {
+    animation: fadeInAndOut linear forwards;
+    width: 100%;
+    @include mixins.fontSecondary;
   }
 }

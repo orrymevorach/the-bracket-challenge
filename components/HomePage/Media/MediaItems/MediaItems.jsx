@@ -48,8 +48,10 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
       </div>
       {isMobile &&
         media.items.map((item, index) => {
-          const duration = item.duration || 7;
-          if (index === currentIndex + 1)
+          const isNextItem = index === currentIndex + 1;
+          const currentItem = media.items[currentIndex];
+          const duration = currentItem.duration || 7;
+          if (isNextItem)
             return (
               <p
                 className={styles.next}

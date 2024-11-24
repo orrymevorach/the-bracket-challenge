@@ -1,10 +1,12 @@
 import clsx from 'clsx';
 import styles from './MediaHighlightImage.module.scss';
-import Image from 'next/image';
 import { getMedia } from '@/lib/contentful-utils';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const MediaComponent = ({ item }) => {
-  const media = item.video ? getMedia(item.video) : getMedia(item.image);
+  const { isMobile } = useWindowSize();
+  let media = item.video ? getMedia(item.video) : getMedia(item.image);
+  if (isMobile && item.mobileMedia) media = getMedia(item.mobileMedia);
   const duration = item.duration || 7;
 
   if (item.video) {
