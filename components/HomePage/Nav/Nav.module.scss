@@ -36,6 +36,7 @@
     color: white;
     position: relative;
     z-index: 2;
+    padding-right: 0.5px;
     &:hover {
       color: white;
     }
@@ -46,7 +47,7 @@
     top: -9px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(255, 255, 255, 1);
     border-radius: 50%;
     height: 35px;
@@ -54,12 +55,25 @@
   }
 }
 
+.logo {
+  width: 200px;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 @media screen and (max-width: variables.$mobile) {
   .nav {
     padding: 0 20px;
   }
 
+  .logo {
+    width: 20px;
+    background: none;
+  }
+
   .userIcon {
+    margin-right: 10px;
+
     svg {
       width: 12px;
     }
@@ -67,6 +81,7 @@
       width: 25px;
       height: 25px;
       top: -6px;
+      background-color: black;
     }
   }
 }
