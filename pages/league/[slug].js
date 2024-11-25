@@ -8,6 +8,7 @@ import Meta from '@/components/shared/head/head';
 import { UserProvider } from '@/context/user-context/user-context';
 
 export default function LeaguePage() {
+  return;
   return (
     <>
       <Meta title="League" />
@@ -23,6 +24,9 @@ export default function LeaguePage() {
 }
 
 export async function getStaticProps() {
+  return {
+    props: {},
+  };
   const pageLoadData = await getPageLoadData({
     url: ROUTES.LEAGUE,
   });
@@ -35,7 +39,8 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
-  const leagues = await getAllLeagues();
+  // const leagues = await getAllLeagues();
+  const leagues = [];
 
   return {
     paths: leagues.map(({ id }) => `/league/${id}`),

@@ -7,6 +7,7 @@ import { getPageLoadData } from '@/lib/contentful';
 import { ROUTES } from '@/utils/constants';
 
 export default function LeaguePage() {
+  return;
   return (
     <>
       <Meta title="League Settings" />
@@ -20,6 +21,7 @@ export default function LeaguePage() {
 }
 
 export async function getStaticProps() {
+  return { props: {} };
   const pageLoadData = await getPageLoadData({
     url: ROUTES.LEAGUE_SETTINGS,
   });
@@ -32,7 +34,8 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
-  const leagues = await getAllLeagues();
+  // const leagues = await getAllLeagues();
+  const leagues = [];
 
   return {
     paths: leagues.map(({ id }) => `/league-settings/${id}`),
