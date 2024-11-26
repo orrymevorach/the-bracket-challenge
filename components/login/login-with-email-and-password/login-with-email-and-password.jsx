@@ -9,6 +9,8 @@ import CreateAccountTakeover from './create-account-takeover/create-account-take
 import Cookies from 'js-cookie';
 import PromptNewUserTakeover from './prompt-new-user-takeover/prompt-new-user-takeover';
 import ResetPasswordTakeover from './reset-password-takeover/reset-password-takeover';
+import globalStyles from '@/styles/globalStyles.module.scss';
+import clsx from 'clsx';
 
 export default function LoginWithEmailAndPassword() {
   const [email, setEmail] = useState('');
@@ -92,32 +94,42 @@ export default function LoginWithEmailAndPassword() {
           id="email"
           handleChange={e => handleChangeEmail(e)}
           classNames={styles.emailInput}
-          label="Email Address"
           value={email}
           error={error}
+          placeholder="Email address*"
         />
         <Input
           type="password"
           id="password"
           handleChange={e => handleChangePassword(e)}
-          label="Password"
+          placeholder="Password"
           value={password}
           classNames={styles.passwordInput}
         />
-        <Button isLoading={isLoading} classNames={styles.submit}>
-          Log in
+        <Button isLoading={isLoading} classNames={styles.submit} isSecondary>
+          Continue
         </Button>
-        <button
-          onClick={() => setIsCreatingNewUser(true)}
-          type="button"
-          className={styles.createUserButton}
+        <div
+          className={clsx(
+            globalStyles.row,
+            globalStyles.alignItemsCenter,
+            styles.signUpRow
+          )}
         >
-          Create Account
-        </button>
+          <p>Don&apos;t have an account?</p>
+          <button
+            onClick={() => setIsCreatingNewUser(true)}
+            type="button"
+            className={styles.link}
+          >
+            Sign up
+          </button>
+        </div>
+
         <button
           onClick={() => setIsResettingPassword(true)}
           type="button"
-          className={styles.createUserButton}
+          className={styles.link}
         >
           Forgot Password
         </button>

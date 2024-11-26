@@ -1,6 +1,8 @@
 import styles from './login.module.scss';
 import { initFirebaseAuth } from '@/components/login/firebase-utils';
 import LoginWithEmailAndPassword from './login-with-email-and-password/login-with-email-and-password';
+import Image from 'next/image';
+import logo from '@/public/logo-center-white.png';
 // import LoginWithGoogle from './login-with-google/login-with-google';
 
 initFirebaseAuth();
@@ -8,13 +10,8 @@ initFirebaseAuth();
 export default function Login() {
   return (
     <div className={styles.loginContainer}>
-      <h1 className={styles.title}>
-        The
-        <br />
-        Bracket
-        <br />
-        Challenge
-      </h1>
+      <Image src={logo} alt="logo" className={styles.logo} />
+      <p className={styles.signIn}>Sign in</p>
       <LoginWithEmailAndPassword />
       {/* <p className={styles.orText}>Or</p>
       <LoginWithGoogle /> */}
