@@ -11,7 +11,7 @@ export default function HomePage({ media = [] }) {
       <Meta />
       <UserProvider>
         <HomePageLayout>
-          <Nav />
+          <Nav isFixed isDark />
           <Media media={media} />
         </HomePageLayout>
       </UserProvider>

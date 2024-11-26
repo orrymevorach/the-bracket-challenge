@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     endpoint: '/get-user-by-uid',
   });
 
-  const userLeagues = user.leagues;
+  const userLeagues = user.leagues || [];
 
   // Adding data to brackets
   // 1. getting number of correct picks in each bracket, of all the announced winners

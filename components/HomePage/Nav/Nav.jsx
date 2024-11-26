@@ -6,8 +6,12 @@ import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
 import { useUser } from '@/context/user-context/user-context';
 import Image from 'next/image';
-import desktopLogo from '@/public/logo-center.png';
-import mobileLogo from '@/public/logo-bracket.png';
+import desktopDarkLogo from '@/public/logo-center.png';
+import desktopLightLogo from '@/public/logo-center-white.png';
+import mobileDarkLogo from '@/public/logo-bracket.png';
+import mobileLightLogo from '@/public/logo-bracket-white.png';
+import clsx from 'clsx';
+
 import useWindowSize from '@/hooks/useWindowSize';
 
 const getLinks = ({ user }) => [
@@ -25,15 +29,29 @@ const getLinks = ({ user }) => [
   },
 ];
 
-export default function Nav() {
+const mapDeviceToLogo = {
+  mobile: {
+    light: mobileLightLogo,
+    dark: mobileDarkLogo,
+  },
+  desktop: {
+    light: desktopLightLogo,
+    dark: desktopDarkLogo,
+  },
+};
+
+export default function Nav({ isDark, isFixed }) {
   const user = useUser();
   const loginHref = user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN;
   const links = getLinks({ user });
   const { isMobile } = useWindowSize();
-  const logo = isMobile ? mobileLogo : desktopLogo;
+  const logoTheme = isDark ? 'dark' : 'light';
+  const logo = mapDeviceToLogo[isMobile ? 'mobile' : 'desktop'][logoTheme];
   return (
-    <nav className={styles.nav}>
-      <Image src={logo} alt="logo" className={styles.logo} />
+    <nav className={clsx(styles.nav, isFixed && styles.fixed)}>
+      <Link href={ROUTES.HOME}>
+        <Image src={logo} alt="logo" className={styles.logo} />
+      </Link>
       {/* This is a placeholder for the logo */}
       {/* <ul className={styles.items}> */}
       <ul>
