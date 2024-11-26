@@ -5,19 +5,12 @@ import { UserProvider } from 'context/user-context/user-context';
 
 export default function LoginPage() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
+    <>
       <Meta />
       <UserProvider>
         <Login />
       </UserProvider>
-    </div>
+    </>
   );
 }
 

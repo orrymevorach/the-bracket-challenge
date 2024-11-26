@@ -9,12 +9,14 @@ initFirebaseAuth();
 
 export default function Login() {
   return (
-    <div className={styles.loginContainer}>
-      <Image src={logo} alt="logo" className={styles.logo} />
-      <p className={styles.signIn}>Sign in</p>
-      <LoginWithEmailAndPassword />
-      {/* <p className={styles.orText}>Or</p>
+    <div className={styles.outerContainer}>
+      <div className={styles.loginContainer}>
+        <Image src={logo} alt="logo" className={styles.logo} />
+        <p className={styles.signIn}>Sign in</p>
+        <LoginWithEmailAndPassword />
+        {/* <p className={styles.orText}>Or</p>
       <LoginWithGoogle /> */}
+      </div>
     </div>
   );
 }

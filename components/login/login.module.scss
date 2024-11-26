@@ -1,8 +1,18 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
+.outerContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .loginContainer {
   width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   z-index: 1;
   margin: 0 auto;
