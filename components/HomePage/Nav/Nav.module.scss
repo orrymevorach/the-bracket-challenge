@@ -9,7 +9,7 @@
   transform: translateX(-50%);
   z-index: 3;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 0 50px;
   margin-top: 30px;
@@ -56,14 +56,14 @@
 }
 
 .logo {
-  width: 200px;
+  width: 150px;
   height: auto;
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 @media screen and (max-width: variables.$mobile) {
   .nav {
     padding: 0 20px;
+    align-items: center;
   }
 
   .logo {
@@ -72,7 +72,7 @@
   }
 
   .userIcon {
-    margin-right: 10px;
+    margin-right: 5px;
 
     svg {
       width: 12px;
