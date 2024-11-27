@@ -6,6 +6,7 @@ import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
 
 export default function HomePage({ media = [] }) {
+  return;
   return (
     <div>
       <Meta />
@@ -17,11 +18,4 @@ export default function HomePage({ media = [] }) {
       </UserProvider>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const media = await getMedia();
-  return {
-    props: { media },
-  };
 }
