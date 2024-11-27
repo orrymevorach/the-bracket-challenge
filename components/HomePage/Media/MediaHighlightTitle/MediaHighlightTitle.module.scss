@@ -1,0 +1,75 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.title {
+  animation: slideAndFadeIn linear forwards;
+  // animation duration set in JS
+  font-size: 38px;
+  @include mixins.fontSecondaryBold;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 4;
+  // margin-bottom: 15px;
+}
+
+.nextTitle {
+  opacity: 0;
+  height: 0;
+  display: none;
+  // animation delay set in JS
+}
+
+.description {
+  animation: slideAndFadeIn linear forwards;
+  // animation duration set in JS
+  position: relative;
+  z-index: 4;
+  margin: 10px 0;
+}
+
+@keyframes slideAndFadeIn {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  91% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .title {
+    font-size: 24px;
+  }
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .title,
+  .description {
+    animation: fadeInAndOut linear forwards;
+  }
+}

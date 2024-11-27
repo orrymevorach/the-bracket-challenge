@@ -3,7 +3,7 @@ import useGetLeagueRankings from '@/components/league/useGetLeagueRankings';
 import LeagueRankingsTable from '@/components/league/league-rankings-table/league-rankings-table';
 import LeaguePageLayout from './league-page-layout/league-page-layout';
 import CreateBracketPrompt from './create-bracket-prompt/create-bracket-prompt';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import Loader from '../shared/loader/loader';
 
 export const ROUNDS = [
@@ -35,17 +35,18 @@ export default function League() {
       </LeaguePageLayout>
     );
 
-  const hasCurrentUserBracketData = bracketsSortedByRankings.find(
-    ({ memberId }) => memberId[0].id === user.id
-  );
-
   const hasLeagueBrackets = bracketsSortedByRankings.length > 0;
+  const hasCurrentUserBracketData =
+    hasLeagueBrackets &&
+    bracketsSortedByRankings.find(({ memberID }) => {
+      return memberID[0] === user.id;
+    });
 
   return (
     <LeaguePageLayout title="League Rankings:" hideBackButton>
       {!hasCurrentUserBracketData && (
         <div className={styles.mainContentContainer}>
-          <CreateBracketPrompt brackets={bracketsSortedByRankings} />
+          <CreateBracketPrompt />
         </div>
       )}
       {hasLeagueBrackets && (

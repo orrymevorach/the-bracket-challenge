@@ -8,8 +8,7 @@ import { useUserLeague } from '@/context/user-league-context/user-league-context
 
 export default function UserBracketsTable({ currentRound }) {
   const router = useRouter();
-  const { leagueData: leagues, isLoading } = useUserLeague();
-  if (isLoading) return <Loader />;
+  const leagues = useUserLeague();
   if (!leagues || !leagues.length) {
     return (
       <div>

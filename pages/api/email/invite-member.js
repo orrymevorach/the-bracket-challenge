@@ -13,12 +13,12 @@ export default async function handler(req, res) {
   });
 
   await transporter.sendMail({
-    from: 'NST Bracket Challenge noreply@nstbracketchallenge.com',
+    from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
     to: email,
-    subject: 'Invitation to Join Natural Selection Tour Bracket Challenge!',
+    subject: 'Invitation to Join The Bracket Challenge!',
     html: `
     <div>
-      <p>${admin} has invited you to join the Natural Selection Tour Bracket Challenge!</p>
+      <p>${admin} has invited you to join the The Bracket Challenge!</p>
       <p>Follow these steps to join:</p>
       <ol>
       <li>Go to <a href="https://www.nstbracketchallenge.com">www.nstbracketchallenge.com</a></li>

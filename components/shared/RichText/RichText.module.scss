@@ -1,0 +1,39 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.richText {
+  font-size: 14px;
+  @include mixins.fontSecondary;
+  margin-bottom: 15px;
+}
+
+.link {
+  @include mixins.fontSecondaryBold;
+  width: 200px;
+  &:active {
+    color: white;
+  }
+}
+
+.unorderedList {
+  list-style: disc;
+  color: white;
+  font-size: 12px;
+  margin-top: -5px;
+  li {
+    margin: 5px 0px 5px 15px;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .link {
+    font-size: 14px;
+    padding: 8px 15px;
+    min-width: auto;
+    width: 140px;
+  }
+}

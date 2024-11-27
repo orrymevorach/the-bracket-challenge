@@ -6,11 +6,12 @@ import Button from '../shared/button/button';
 import { useState } from 'react';
 import CreateLeagueTakeover from './create-league-takeover/create-league-takeover';
 import JoinLeagueTakeover from './join-league-takeover/join-league-takeover';
-import OverallRankingsTable from './overall-rankings-table/overall-rankings-table';
+// import OverallRankingsTable from './overall-rankings-table/overall-rankings-table';
 import JoinPublicLeagueTakeover from './join-public-league-takeover/join-public-league-takeover';
 import JoinPublicLeaguePrompt from './join-public-league-prompt/join-public-league-prompt';
-import useUser from '@/context/user-context/useUser';
+// import { useUser } from '@/context/user-context/user-context';
 import { topDawgCompetitionLeagueId } from '@/utils/constants';
+import OpeningSoon from './OpeningSoon/OpeningSoon';
 
 export default function Dashboard() {
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
@@ -19,14 +20,14 @@ export default function Dashboard() {
   const [showJoinPublicLeagueTakeover, setShowJoinPublicLeagueTakeover] =
     useState(false);
 
-  const user = useUser();
-  const hasJoinedPublicLeague =
-    user.leagues && user.leagues.length > 0
-      ? user.leagues.find(({ id }) => id === topDawgCompetitionLeagueId)
-      : false;
+  // const user = useUser();
+  // const hasJoinedPublicLeague =
+  //   user.leagues && user.leagues.length > 0
+  //     ? user.leagues.find(({ id }) => id === topDawgCompetitionLeagueId)
+  //     : false;
 
   return (
-    <Layout>
+    <Layout isLight>
       {showCreateLeagueTakeover && (
         <CreateLeagueTakeover setShowTakeover={setShowCreateLeagueTakeover} />
       )}
@@ -58,14 +59,15 @@ export default function Dashboard() {
           </Button>
         </div>
       </div>
-      {!hasJoinedPublicLeague && (
+      <OpeningSoon />
+      {/* {!hasJoinedPublicLeague && (
         <JoinPublicLeaguePrompt
           setShowTakeover={setShowJoinPublicLeagueTakeover}
         />
-      )}
+      )} */}
 
-      <UserBracketsTable currentRound={ROUNDS[0].name} />
-      <OverallRankingsTable />
+      {/* <UserBracketsTable currentRound={ROUNDS[0].name} /> */}
+      {/* <OverallRankingsTable /> */}
     </Layout>
   );
 }

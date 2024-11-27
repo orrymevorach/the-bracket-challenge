@@ -16,13 +16,13 @@
 //   for (let person of members) {
 //     // console.log(person.emailAddress);
 //     // await transporter.sendMail({
-//     //   from: 'NST Bracket Challenge noreply@nstbracketchallenge.com',
+//     //   from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
 //     //   to: person.emailAddress,
 //     //   subject: `Pick your last Duels matchup! Raibu vs. Torgeir`,
 //     //   html: `
 //     //   <div style="font-size: 14px; background-color: #2f2f2f; width: 100%; padding: 10px;">
 //     //     <div style="background-color: white; padding: 25px; width: 600px; margin: 0 auto;">
-//     //       <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">NST Bracket Challenge</h1>
+//     //       <h1 style="text-transform: capitalize; margin-bottom: 25px; font-size: 24px;">The Bracket Challenge</h1>
 //     //       <h2 style="font-size: 20px;">Raibu Katayama vs. Torgeir Bergrem</h2>
 //     //       <p style="font-size: 14px;">We just dropped the final Duels matchup on our website!</p>
 //     //       <p style="font-size: 14px;">Log in to your account and make the final pick before Duels drop on Feb 27th!</p>

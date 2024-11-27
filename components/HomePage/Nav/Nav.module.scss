@@ -1,0 +1,89 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.nav {
+  width: 100%;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 30px;
+  &.fixed {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 50px;
+  }
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navItem {
+  @include mixins.fontSecondary;
+  padding: 10px 20px;
+}
+
+.userIcon {
+  position: relative;
+  color: white;
+  svg {
+    color: white;
+    position: relative;
+    z-index: 2;
+    padding-right: 0.5px;
+    &:hover {
+      color: white;
+    }
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+  }
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .nav {
+    padding: 0 20px;
+    align-items: center;
+  }
+
+  .logo {
+    width: 20px;
+    background: none;
+  }
+
+  .userIcon {
+    margin-right: 5px;
+
+    svg {
+      width: 12px;
+    }
+    &:after {
+      width: 25px;
+      height: 25px;
+      top: -6px;
+      background-color: black;
+    }
+  }
+}

@@ -1,0 +1,101 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.button {
+  opacity: 0.5;
+  background: none;
+  border: none;
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  &.active {
+    animation: fadeIn 0.5s forwards;
+  }
+  cursor: pointer;
+}
+
+.mediaContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 40px 0 20px;
+  gap: 20px;
+  position: relative;
+  z-index: 4;
+}
+
+.title {
+  height: 50px;
+}
+
+.bottomRow {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  p {
+    @include mixins.fontSecondaryBold;
+    font-size: 12px;
+    letter-spacing: 1.1px;
+  }
+}
+
+.dot {
+  border-radius: 50%;
+  background-color: white;
+  height: 5px;
+  width: 5px;
+  margin: 0 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideAndFadeIn {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  91% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .mediaContainer {
+    gap: 15px;
+  }
+  .next {
+    animation: fadeInAndOut linear forwards;
+    width: 100%;
+    @include mixins.fontSecondary;
+  }
+}

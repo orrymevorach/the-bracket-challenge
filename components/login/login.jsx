@@ -1,26 +1,22 @@
 import styles from './login.module.scss';
 import { initFirebaseAuth } from '@/components/login/firebase-utils';
 import LoginWithEmailAndPassword from './login-with-email-and-password/login-with-email-and-password';
+import Image from 'next/image';
+import logo from '@/public/logo-center-white.png';
 // import LoginWithGoogle from './login-with-google/login-with-google';
-import Cookies from 'js-cookie';
-import { COOKIES } from '@/utils/constants';
-import useRouteOnAuth from './useRouteOnAuth';
 
 initFirebaseAuth();
 
 export default function Login() {
-  useRouteOnAuth();
-  // Remove previous cookies so no conflict on login
-  Cookies.remove(COOKIES.UID);
   return (
-    <div className={styles.loginContainer}>
-      <h1 className={styles.title}>
-        Natural Selection Tour <br />
-        Bracket Challenge
-      </h1>
-      <LoginWithEmailAndPassword />
-      {/* <p className={styles.orText}>Or</p>
+    <div className={styles.outerContainer}>
+      <div className={styles.loginContainer}>
+        <Image src={logo} alt="logo" className={styles.logo} />
+        <p className={styles.signIn}>Sign in</p>
+        <LoginWithEmailAndPassword />
+        {/* <p className={styles.orText}>Or</p>
       <LoginWithGoogle /> */}
+      </div>
     </div>
   );
 }

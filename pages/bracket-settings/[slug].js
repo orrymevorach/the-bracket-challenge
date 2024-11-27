@@ -7,6 +7,7 @@ import { getPageLoadData } from '@/lib/contentful';
 import { ROUTES } from '@/utils/constants';
 
 export default function BracketSettingsPage() {
+  return;
   return (
     <>
       <Meta title="Bracket Settings" />
@@ -20,6 +21,9 @@ export default function BracketSettingsPage() {
 }
 
 export async function getStaticProps() {
+  return {
+    props: {},
+  };
   const pageLoadData = await getPageLoadData({
     url: ROUTES.BRACKET_SETTINGS,
   });
@@ -32,7 +36,8 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
-  const brackets = await getAllBrackets();
+  // const brackets = await getAllBrackets();
+  const brackets = [];
 
   return {
     paths: brackets.map(({ id }) => `/bracket-settings/${id}`),

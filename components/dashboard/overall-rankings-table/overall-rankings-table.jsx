@@ -2,7 +2,7 @@ import { ROUTES } from '@/utils/constants';
 import styles from './overall-rankings-table.module.scss';
 import Button from '@/components/shared/button/button';
 import { useRouter } from 'next/router';
-import useUser from '@/context/user-context/useUser';
+import { useUser } from '@/context/user-context/user-context';
 import Loader from '@/components/shared/loader/loader';
 import { useUserLeague } from '@/context/user-league-context/user-league-context';
 import { useWinners } from '@/context/winners-context/winners-context';
@@ -19,9 +19,8 @@ export default function OverallRankingsTable() {
   const router = useRouter();
   const user = useUser();
   const winnersBracket = useWinners();
-  const { leagueData: leagues, isLoading } = useUserLeague();
+  const leagues = useUserLeague();
 
-  if (isLoading || isBracketsLoading) return <Loader />;
   if (!brackets) return;
   const overallRankingsData = getTopTenBrackets({ brackets });
 
@@ -66,13 +65,13 @@ export default function OverallRankingsTable() {
                 id,
                 scoreData: { points, numberOfCorrectPicks },
                 ranking,
-                memberId,
+                memberID,
               }) => {
                 const handleClick = () => {
                   router.push(`${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}`);
                 };
 
-                const isCurrentMembersBracket = memberId[0].id === user.id;
+                const isCurrentMembersBracket = memberID[0] === user.id;
                 return (
                   <tr
                     key={name}

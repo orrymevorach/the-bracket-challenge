@@ -3,7 +3,8 @@ import styles from './layout.module.scss';
 import Loader from '../loader/loader';
 import Footer from '../footer/footer';
 import RainbowBorder from './rainbow-border/rainbow-border';
-import Nav from '../nav/nav';
+// import Nav from '../nav/nav';
+import Nav from '@/components/HomePage/Nav/Nav';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +14,8 @@ export default function Layout({
   children,
   backButtonHref = '',
   backButtonText = '',
+  isDark = false,
+  isFixed = false,
 }) {
   const user = useUser();
   const { isMobile } = useWindowSize();
@@ -21,9 +24,8 @@ export default function Layout({
 
   return (
     <>
-      <RainbowBorder />
       <div className={styles.layout}>
-        <Nav />
+        <Nav isDark={isDark} isFixed={isFixed} />
         {backButtonText && (
           <Link href={backButtonHref} className={styles.backButton}>
             <FontAwesomeIcon

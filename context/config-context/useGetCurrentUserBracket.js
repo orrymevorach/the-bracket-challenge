@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import useUser from '../user-context/useUser';
 import { useRouter } from 'next/router';
-import { getCurrentUserBrackets } from '@/lib/airtable';
+import { getUser } from '@/lib/airtable';
+import useGetApi from '@/hooks/useGetApi';
+import Cookies from 'js-cookie';
 
 export default function useGetCurrentUserBracket() {
-  const user = useUser();
+  const uid = Cookies.get('uid');
+  const { data: user } = useGetApi(() => getUser({ uid }));
   const router = useRouter();
-  const [isCurrentUsersBracket, setIsCurrentUsersBracket] = useState(false);
   const bracketId = router.query.bracketId;
-  getCurrentUserBrackets({ id: user.id }).then(currentUsersBrackets => {
-    const currentUsersBracket = currentUsersBrackets.find(
-      bracket => bracket.id === bracketId
-    );
-    setIsCurrentUsersBracket(!!currentUsersBracket);
-  });
+  const isCurrentUsersBracket = user?.brackets.includes(bracketId);
 
   return isCurrentUsersBracket;
 }
