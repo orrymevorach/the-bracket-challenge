@@ -8,7 +8,7 @@ export default function Meta({ title = '' }) {
       <meta charSet="utf-8" />
       <meta name="description" content="The Bracket Challenge" />
       <title>{tabTitle}</title>
-      <link rel="icon" href="/icon.png" />
+      <link rel="icon" href="/logo-bracket.png" />
       <meta
         name="keywords"
         content="The Bracket Challenge, Action sports, action sports fantasy, fantasy sports, Natural Selection Tour Bracket Challenge, Natural Selection Tour, Natural Selection, Revelstoke, snowboarding, snowboarding contest, snowboarding competition, Travis Rice, Jackson Hole, Art of Flight"
