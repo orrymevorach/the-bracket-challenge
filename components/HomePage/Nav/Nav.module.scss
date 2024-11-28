@@ -34,17 +34,16 @@
 .userIcon {
   position: relative;
   color: white;
+  transition: 0.3s;
   svg {
     color: white;
     position: relative;
     z-index: 2;
     padding-right: 0.5px;
-    &:hover {
-      color: white;
-    }
   }
   &:after {
     content: '';
+    transition: 0.3s;
     position: absolute;
     top: -9px;
     left: 50%;
@@ -54,6 +53,18 @@
     border-radius: 50%;
     height: 35px;
     width: 35px;
+  }
+  &:hover {
+    color: variables.$newBlack;
+    transition: 0.3s;
+    svg {
+      color: variables.$newBlack;
+      transition: 0.3s;
+    }
+    &:after {
+      background-color: white;
+      border: none;
+    }
   }
 }
 
