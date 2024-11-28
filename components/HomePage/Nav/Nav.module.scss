@@ -79,7 +79,9 @@ button.joinButton {
 
 @media screen and (max-width: variables.$mobile) {
   .nav {
-    padding: 0 20px;
+    &.fixed {
+      padding: 0 20px;
+    }
     align-items: center;
   }
 

@@ -59,10 +59,14 @@
 }
 
 @media (max-width: variables.$mobile) {
+  .outerContainer {
+    // background-color: variables.$newBlack;
+  }
   .loginContainer {
     width: 100%;
     padding: 0 15px;
     background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
   }
   .title {
     font-size: 32px;

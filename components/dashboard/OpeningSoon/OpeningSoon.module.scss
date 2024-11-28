@@ -14,6 +14,7 @@
 .text {
   text-align: center;
   width: 800px;
+  margin-top: 20px;
 }
 
 .heading {
@@ -27,5 +28,13 @@
     margin: 0;
     padding-bottom: 15px;
     margin-top: 80px;
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .text {
+    width: 100%;
   }
 }
