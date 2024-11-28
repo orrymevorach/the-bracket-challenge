@@ -63,9 +63,23 @@ export default function Nav({ isDark, isFixed }) {
           );
         })} */}
       </ul>
+
+      {/* {user?.id ? ( */}
       <Button classNames={styles.userIcon} isNaked href={loginHref}>
         <FontAwesomeIcon icon={faUser} size="lg" color="white" />
       </Button>
+      {/* ) : (
+        <Button
+          isSecondary
+          isRound
+          classNames={styles.joinButton}
+          href={{
+            pathname: ROUTES.LOGIN,
+          }}
+        >
+          Join Now
+        </Button>
+      )} */}
     </nav>
   );
 }

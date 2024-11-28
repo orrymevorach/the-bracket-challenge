@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   return (
     <Layout isLight>
-      {showCreateLeagueTakeover && (
+      {/* {showCreateLeagueTakeover && (
         <CreateLeagueTakeover setShowTakeover={setShowCreateLeagueTakeover} />
       )}
       {showJoinLeagueTakeover && (
@@ -58,7 +58,7 @@ export default function Dashboard() {
             Create League
           </Button>
         </div>
-      </div>
+      </div> */}
       <OpeningSoon />
       {/* {!hasJoinedPublicLeague && (
         <JoinPublicLeaguePrompt

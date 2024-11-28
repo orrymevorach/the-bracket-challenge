@@ -31,6 +31,7 @@ export default function Button({
   isYellow = false,
   isPeach = false,
   isNaked = false,
+  isRound = false,
 }) {
   const classnames = clsx(
     styles.button,
@@ -41,7 +42,8 @@ export default function Button({
     isSecondary && styles.secondary,
     isYellow && styles.yellow,
     isPeach && styles.peach,
-    isNaked && styles.naked
+    isNaked && styles.naked,
+    isRound && styles.round
   );
 
   if (isAnchor) {
