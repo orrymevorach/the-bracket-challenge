@@ -8,6 +8,7 @@ export default function CreateAccountTakeover({ email, setIsCreatingNewUser }) {
       <Takeover
         classNames={styles.takeover}
         handleClose={() => setIsCreatingNewUser(false)}
+        isDark
       >
         <CreateUser email={email} />
       </Takeover>

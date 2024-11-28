@@ -3,11 +3,15 @@ import styles from './closeButton.module.scss';
 import clsx from 'clsx';
 import { faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function CloseButton({ handleClick, classNames = '' }) {
+export default function CloseButton({
+  handleClick,
+  classNames = '',
+  isDark = false,
+}) {
   return (
     <button
       onClick={handleClick}
-      className={clsx(styles.closeButton, classNames)}
+      className={clsx(styles.closeButton, isDark && styles.dark, classNames)}
     >
       <FontAwesomeIcon icon={faTimesCircle} size="2xl" />
     </button>

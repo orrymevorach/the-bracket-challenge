@@ -17,4 +17,14 @@
     transition: 0.3s;
     border-radius: 50%;
   }
+  &.dark {
+    background-color: variables.$newBlack;
+    color: white;
+    border: none;
+    &:hover {
+      background-color: white;
+      color: variables.$newBlack;
+      transition: 0.3s;
+    }
+  }
 }

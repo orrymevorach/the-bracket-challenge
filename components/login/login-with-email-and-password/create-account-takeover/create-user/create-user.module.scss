@@ -16,8 +16,8 @@
 .text,
 .label,
 .error {
-  color: variables.$black;
   @include mixins.fontSecondary;
+  color: white;
 }
 
 .heading {
@@ -42,6 +42,11 @@
 
 .inputContainer {
   margin-bottom: 30px !important;
+}
+
+.logo {
+  width: 200px;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: variables.$mobile) {

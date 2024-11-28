@@ -8,12 +8,12 @@ export default function CreateLeagueTakeover({ setShowTakeover }) {
   const [leagueName, setLeagueName] = useState('');
   const user = useUser();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async () => {
     const response = await createLeague({
       name: leagueName,
-      memberRecordId: user.id,
+      user,
     });
-    window.location = `${ROUTES.LEAGUE}/${response.id}?leagueId=${response.id}`;
+    window.location = `${ROUTES.LEAGUE}/${response.id}`;
   };
 
   return (

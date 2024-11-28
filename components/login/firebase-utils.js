@@ -110,4 +110,8 @@ export const errors = {
     message:
       "We're sorry, an unknown error has occured. Please contact your space admin",
   },
+  PASSWORDS_DO_NOT_MATCH: {
+    type: 'password',
+    message: 'The passwords you have entered do not match. Please try again.',
+  },
 };

@@ -9,15 +9,11 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
   const user = useUser();
 
   const handleSubmit = async () => {
-    const existingMembers = await getLeagueMembers({ id: leagueId });
-    const existingMemberIds = existingMembers.map(({ id }) => id);
-    const memberRecordIds = [...existingMemberIds, user.id];
-
     const response = await joinLeague({
-      id: leagueId,
-      memberRecordIds,
+      user,
+      leagueId,
     });
-    window.location = `${ROUTES.LEAGUE}/${response.id}?leagueId=${response.id}`;
+    window.location = `${ROUTES.LEAGUE}/${response.id}`;
   };
 
   return (

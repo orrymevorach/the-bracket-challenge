@@ -7,9 +7,13 @@ import { createUser } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import Cookies from 'js-cookie';
+import logo from 'public/logo-center-white.png';
+import Image from 'next/image';
 
 export default function CreateUser({ email }) {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [emailInput, setEmailInput] = useState(email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,6 +29,11 @@ export default function CreateUser({ email }) {
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
+    if (password !== confirmPassword) {
+      setError(errors.PASSWORDS_DO_NOT_MATCH.message);
+      setIsLoading(false);
+      return;
+    }
     try {
       const response = await createFirebaseUser({
         email: emailInput,
@@ -41,11 +50,15 @@ export default function CreateUser({ email }) {
       Cookies.set(COOKIES.UID, response.user.uid);
       const newUserResponse = await createUser({
         uid: response.user.uid,
-        name: name,
+        firstName,
+        lastName,
+        username,
         email: emailInput,
       });
       setIsLoading(false);
-      router.push(ROUTES.DASHBOARD);
+      router.push({
+        pathname: ROUTES.DASHBOARD,
+      });
     } catch (error) {
       console.log('error', error);
       setError(error);
@@ -53,14 +66,35 @@ export default function CreateUser({ email }) {
   };
   return (
     <form action="#" className={styles.form} onSubmit={handleSubmit}>
-      <p className={styles.heading}>Create User</p>
+      <Image src={logo} className={styles.logo} alt="logo" />
+      <p className={styles.heading}>Sign Up</p>
       {error && <p className={styles.error}>{error}</p>}
       <Input
         type="text"
-        id="set-name"
-        label="Name"
-        handleChange={e => setName(e.target.value)}
-        value={name}
+        id="first-name"
+        placeholder="First Name"
+        handleChange={e => setFirstName(e.target.value)}
+        value={firstName}
+        labelClassNames={styles.label}
+        classNames={styles.inputContainer}
+        required
+      />
+      <Input
+        type="text"
+        id="last-name"
+        placeholder="Last Name"
+        handleChange={e => setLastName(e.target.value)}
+        value={lastName}
+        labelClassNames={styles.label}
+        classNames={styles.inputContainer}
+        required
+      />
+      <Input
+        type="text"
+        id="set-username"
+        placeholder="Username"
+        handleChange={e => setUsername(e.target.value)}
+        value={username}
         labelClassNames={styles.label}
         classNames={styles.inputContainer}
         required
@@ -68,7 +102,7 @@ export default function CreateUser({ email }) {
       <Input
         type="email"
         id="set-email"
-        label="Email Address"
+        placeholder="Email Address"
         handleChange={e => setEmailInput(e.target.value)}
         value={emailInput}
         labelClassNames={styles.label}
@@ -78,7 +112,7 @@ export default function CreateUser({ email }) {
       <Input
         type="password"
         id="set-password"
-        label="Password"
+        placeholder="Password"
         handleChange={handleChangePassword}
         value={password}
         labelClassNames={styles.label}
@@ -88,7 +122,7 @@ export default function CreateUser({ email }) {
       <Input
         type="password"
         id="confirm-password"
-        label="Confirm Password"
+        placeholder="Confirm Password"
         handleChange={e => setConfirmPassword(e.target.value)}
         value={confirmPassword}
         labelClassNames={styles.label}

@@ -49,6 +49,10 @@
     top: -25px;
     height: calc(100% + 50px);
   }
+  &.dark {
+    background-color: variables.$newBlack;
+    color: white;
+  }
 }
 
 .closeButton {
