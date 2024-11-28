@@ -17,7 +17,7 @@
 //     const firstName = person.name.split(' ')[0];
 //     console.log(firstName, person.emailAddress);
 //     await transporter.sendMail({
-//       from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+//       from: 'The Bracket Challenge noreply@thebracketchallenge.com',
 //       to: person.emailAddress,
 //       subject: `Updated Rankings are LIVE!`,
 //       html: `

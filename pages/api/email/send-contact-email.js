@@ -24,8 +24,8 @@ export default async function handler(req, res) {
     .join(''); // join removes the trailing commas
 
   await transporter.sendMail({
-    from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
-    to: 'nstbracketchallenge@gmail.com',
+    from: 'The Bracket Challenge noreply@thebracketchallenge.com',
+    to: 'thebracketchallenge@gmail.com',
     subject: 'The Bracket Challenge Submission',
     html: `
     <div style="width:550px;margin:0 auto;display:block">

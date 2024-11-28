@@ -17,7 +17,7 @@
 //     const firstName = person.name.split(' ')[0];
 //     console.log(firstName, person.emailAddress);
 //     await transporter.sendMail({
-//       from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+//       from: 'The Bracket Challenge noreply@thebracketchallenge.com',
 //       to: person.emailAddress,
 //       subject: `Last Chance To Make Your Picks For The Final Round!`,
 //       html: `
@@ -28,7 +28,7 @@
 //             <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
 //             <p style="font-size: 14px;">Round 3 of Natural Selection in Selkirk Tangiers kicks off tomorrow at 10:00AM PST.</p>
 //             <p style="font-size: 14px;">In this final round, there are 16 total points up for grabs, which means it's still anyone's game!</p>
-//             <p style="font-size: 14px;">Make sure to <a href="https://nstbracketchallenge.com/dashboard">login</a> and make your picks before it's too late!</p>
+//             <p style="font-size: 14px;">Make sure to <a href="https://thebracketchallenge.com/dashboard">login</a> and make your picks before it's too late!</p>
 //             <p style="font-size: 14px;">You can stream the event live for free tomorrow on <a href="https://www.redbull.com/int-en/events/natural-selection-tour-revelstoke">Red Bull TV.</a></p>
 //         </div>
 //       </div>

@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   });
 
   await transporter.sendMail({
-    from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+    from: 'The Bracket Challenge noreply@thebracketchallenge.com',
     to: email,
     subject: 'Invitation to Join The Bracket Challenge!',
     html: `
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       <p>${admin} has invited you to join the The Bracket Challenge!</p>
       <p>Follow these steps to join:</p>
       <ol>
-      <li>Go to <a href="https://www.nstbracketchallenge.com">www.nstbracketchallenge.com</a></li>
+      <li>Go to <a href="https://www.thebracketchallenge.com">www.thebracketchallenge.com</a></li>
       <li>Create an account, or log in to your existing account if you already have one</li>
       <li>On your team dashboard, click "Join League", and enter <span style="font-style:italic;">${leagueId}</span></li>
       <li>Create a new bracket, select a winner for each matchup, and submit your picks</li>

@@ -17,7 +17,7 @@
 //     const firstName = person.name.split(' ')[0];
 //     console.log(firstName, person.emailAddress);
 //     await transporter.sendMail({
-//       from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+//       from: 'The Bracket Challenge noreply@thebracketchallenge.com',
 //       to: person.emailAddress,
 //       subject: `Time To Make Your Picks! Revelstoke Matchups Have Been Announced!`,
 //       html: `
@@ -27,7 +27,7 @@
 //             <h2 style="font-size: 20px;">Time To Make Your Picks - Revelstoke Matchups Have Been Announced!</h2>
 //             <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
 //             <p style="font-size: 14px;">Matchups for Revelstoke have been announced, and it's time to complete the second round of your bracket!</p>
-//             <p style="font-size: 14px;"><a href="https://nstbracketchallenge.com/dashboard">Login</a> to your dashboard to view your brackets and make your picks for the next round!</p>
+//             <p style="font-size: 14px;"><a href="https://thebracketchallenge.com/dashboard">Login</a> to your dashboard to view your brackets and make your picks for the next round!</p>
 //         </div>
 //       </div>
 //       `,

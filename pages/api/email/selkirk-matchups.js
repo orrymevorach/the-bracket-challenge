@@ -23,7 +23,7 @@
 //     const firstName = person.name.split(' ')[0];
 //     console.log(firstName, person.emailAddress);
 //     await transporter.sendMail({
-//       from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+//       from: 'The Bracket Challenge noreply@thebracketchallenge.com',
 //       to: person.emailAddress,
 //       subject: `Make Your Picks For The Final Round!`,
 //       html: `
@@ -33,7 +33,7 @@
 //             <h2 style="font-size: 20px;">Make Your Picks For The Final Round!</h2>
 //             <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
 //             <p style="font-size: 14px;">How EPIC was that?? The riders put on an absolute show in Revelstoke this afternoon, with 12 of the 24 riders moving onto the final bracket. With round 2 now under our belts, the riders look to the Final Round in Selkirk Tangiers.</p>
-//             <p style="font-size: 14px;">The Selkirk brackets are now open, make sure to <a href="https://nstbracketchallenge.com/dashboard">login</a> and make your picks!</p>
+//             <p style="font-size: 14px;">The Selkirk brackets are now open, make sure to <a href="https://thebracketchallenge.com/dashboard">login</a> and make your picks!</p>
 //             <p style="font-size: 14px;">For those who missed the event today, you can stream it for free on <a href="https://www.redbull.com/int-en/events/natural-selection-tour-revelstoke">Red Bull TV.</a></p>
 //         </div>
 //       </div>

@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
   //   const firstName = person.name.split(' ')[0];
   // await transporter.sendMail({
-  //   from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+  //   from: 'The Bracket Challenge noreply@thebracketchallenge.com',
   //   to: person.emailAddress,
   //   subject: `Less than 1 week to Invite Your Friends!`,
   //   html: `
@@ -36,13 +36,13 @@ export default async function handler(req, res) {
   //         <p style="font-size: 14px;">Natural Selection Duels drops on Feb 27 (only 6 days away), so we wanted to send you a gentle reminder to invite your friends to create brackets before it's too late!</p>
   //         <p style="font-size: 14px;">There are 2 ways to invite your friends:</p>
   //         <ol>
-  //             <li>Go to your <a href="https://nstbracketchallenge.com/league/${person.leagues[0].id}?leagueId=${person.leagues[0].id}">league page,</a> click <span style="font-style: italic">Invite Member</span>, and enter in your friends emails.</li>
+  //             <li>Go to your <a href="https://thebracketchallenge.com/league/${person.leagues[0].id}?leagueId=${person.leagues[0].id}">league page,</a> click <span style="font-style: italic">Invite Member</span>, and enter in your friends emails.</li>
   //             <li>Or, copy your league id - <span style="font-style: italic">${person.leagues[0].id}</span> - text it to you friends, and tell them to join the league through their dashboard.</li>
   //         </ol>
 
   //         <h3 style="font-size: 18px;"">Join The NST Open</h3>
   //         <p style="font-size: 14px;">Want to earn extra bragging rights?</p>
-  //         <p style="font-size: 14px;"><a href="https://nstbracketchallenge.com/dashboard">Join The NST Open!</a> We have opened a public league for anyone that wants to prove they know their sh*t</p>
+  //         <p style="font-size: 14px;"><a href="https://thebracketchallenge.com/dashboard">Join The NST Open!</a> We have opened a public league for anyone that wants to prove they know their sh*t</p>
   //     </div>
   //   </div>
   //   `,

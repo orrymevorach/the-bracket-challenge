@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   //   console.log(person.emailAddress);
   //   const firstName = person.name.split(' ')[0];
   // await transporter.sendMail({
-  //   from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+  //   from: 'The Bracket Challenge noreply@thebracketchallenge.com',
   //   to: person.emailAddress,
   //   subject: `Less than 1 week to Create Your Bracket!`,
   //   html: `
@@ -33,10 +33,10 @@ export default async function handler(req, res) {
   //       <h2 style="font-size: 20px;">NST Duels drop in only 6 days!</h2>
   //       <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
   //       <p style="font-size: 14px;">We are so stoked you joined the league <span style="font-style: italic;">${person.leagues[0].name}</span>! We noticed you have not yet created a bracket, so we wanted to send you a gentle reminder.</p>
-  //       <p style="font-size: 14px;">Natural Selection Duels drops on Feb 27 (only 6 days away). Make sure to <a href="https://nstbracketchallenge.com/league/${person.leagues[0].id}?leagueId=${person.leagues[0].id}">create your bracket</a> before it's too late!</p>
+  //       <p style="font-size: 14px;">Natural Selection Duels drops on Feb 27 (only 6 days away). Make sure to <a href="https://thebracketchallenge.com/league/${person.leagues[0].id}?leagueId=${person.leagues[0].id}">create your bracket</a> before it's too late!</p>
   //       <h3 style="font-size: 18px;"">Join The NST Open</h3>
   //       <p style="font-size: 14px;">We have opened a public league for anyone that wants to prove they know their sh*t</p>
-  //       <p style="font-size: 14px;">Want to earn extra bragging rights? Open <a href="https://nstbracketchallenge.com/dashboard">your dashboard</a> and join The NST Open!</p>
+  //       <p style="font-size: 14px;">Want to earn extra bragging rights? Open <a href="https://thebracketchallenge.com/dashboard">your dashboard</a> and join The NST Open!</p>
 
   //     </div>
 

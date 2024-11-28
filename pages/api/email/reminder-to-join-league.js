@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
   //   const firstName = person.name.split(' ')[0];
   // await transporter.sendMail({
-  //   from: 'The Bracket Challenge noreply@nstbracketchallenge.com',
+  //   from: 'The Bracket Challenge noreply@thebracketchallenge.com',
   //   to: person.emailAddress,
   //   subject: `Less than 1 Week to Create Your League!`,
   //   html: `
@@ -34,10 +34,10 @@ export default async function handler(req, res) {
   //         <p style="text-transform: capitalize; font-size: 14px;">Hey ${firstName}!</p>
   //         <p style="font-size: 14px;">We are so stoked that you have created an account with us! We noticed you have not yet joined a league, so we wanted to send you a gentle reminder.</p>
   //         <p style="font-size: 14px;">Natural Selection Duels drops on Feb 27 (only 6 days away). Make sure to create a league, submit your picks, and invite your friends before it's too late!</p>
-  //         <a href="https://nstbracketchallenge.com/dashboard">Create a league.</a>
+  //         <a href="https://thebracketchallenge.com/dashboard">Create a league.</a>
   //         <h3 style="font-size: 18px;"">Join The NST Open</h3>
   //         <p style="font-size: 14px;">Don't feel like creating a league?</p>
-  //         <p style="font-size: 14px;"><a href="https://nstbracketchallenge.com/dashboard">Join The NST Open!</a> We have opened a public league for anyone that wants to prove they know their sh*t</p>
+  //         <p style="font-size: 14px;"><a href="https://thebracketchallenge.com/dashboard">Join The NST Open!</a> We have opened a public league for anyone that wants to prove they know their sh*t</p>
   //     </div>
   //   </div>
   //   `,
