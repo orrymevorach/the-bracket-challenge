@@ -25,13 +25,13 @@ export default async function handler(req, res) {
 
   await transporter.sendMail({
     from: 'The Bracket Challenge noreply@thebracketchallenge.com',
-    to: 'thebracketchallenge@gmail.com',
+    to: 'contact@thebracketchallenge.com',
     subject: 'The Bracket Challenge Submission',
     html: `
     <div style="width:550px;margin:0 auto;display:block">
         <h2 style="font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;font-size:24px">New Submission for The Bracket Challenge!</h2>
         ${fieldData}
-        <p style="font-size:16px;"><a href="mailto:${fields['Email Address']}">Click here</a> to reply to ${fields['Contact Name']}</p>
+        <p style="font-size:16px;"><a href="mailto:${fields['Email Address']}">Click here</a> to reply.</p>
     </div>
     `,
   });

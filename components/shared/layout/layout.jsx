@@ -2,7 +2,6 @@ import { useUser } from '@/context/user-context/user-context';
 import styles from './layout.module.scss';
 import Loader from '../loader/loader';
 import Footer from '../footer/footer';
-import RainbowBorder from './rainbow-border/rainbow-border';
 // import Nav from '../nav/nav';
 import Nav from '@/components/HomePage/Nav/Nav';
 import Link from 'next/link';
@@ -20,7 +19,7 @@ export default function Layout({
   const user = useUser();
   const { isMobile } = useWindowSize();
 
-  if (user.isLoading) return <Loader isFullPage />;
+  if (user?.isLoading) return <Loader isFullPage />;
 
   return (
     <>

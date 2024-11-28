@@ -2,9 +2,11 @@ import Link from 'next/link';
 import styles from './footer.module.scss';
 import clsx from 'clsx';
 
-export default function Footer() {
+export default function Footer({ hideMarginTop = false }) {
   return (
-    <footer className={styles.footer}>
+    <footer
+      className={clsx(styles.footer, hideMarginTop && styles.hideMarginTop)}
+    >
       <div className={styles.innerContainer}>
         <div className={styles.column}>
           <p className={styles.text}>The Bracket Challenge</p>
