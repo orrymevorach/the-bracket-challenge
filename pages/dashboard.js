@@ -1,4 +1,4 @@
-import Meta from '@/components/shared/head/head';
+import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 import { getLeague } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';

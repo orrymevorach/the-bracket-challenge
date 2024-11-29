@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { editLeagueName } from '@/lib/airtable';
 import { ROUTES } from '@/utils/constants';
-import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
 
 export default function EditLeagueNameTakeover({
   setShowTakeover,

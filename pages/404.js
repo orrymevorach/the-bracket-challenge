@@ -3,7 +3,7 @@ import { getPageLoadData } from '@/lib/contentful';
 import styles from './404.module.scss';
 import Image from 'next/image';
 import { ROUTES } from '@/utils/constants';
-import Meta from '@/components/shared/head/head';
+import Meta from '@/components/shared/Head/Head';
 
 export default function PageNotFound() {
   return (

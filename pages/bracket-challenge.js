@@ -1,5 +1,5 @@
 import BracketChallengeContainer from '@/components/bracket-challenge/bracket-challenge-container';
-import Meta from '@/components/shared/head/head';
+import Meta from '@/components/shared/Head/Head';
 import { useConfig } from '@/context/config-context/config-context';
 import { useSetInitialConfig } from '@/context/config-context/useSetInitialConfig';
 import { LeagueConfigProvider } from '@/context/league-config-context/league-config-context';

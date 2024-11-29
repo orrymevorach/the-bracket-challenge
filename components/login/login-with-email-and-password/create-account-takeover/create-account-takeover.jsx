@@ -1,4 +1,4 @@
-import Takeover from '@/components/shared/takeover/takeover';
+import Takeover from '@/components/shared/Takeover/Takeover';
 import styles from './create-account-takeover.module.scss';
 import CreateUser from './create-user/create-user';
 

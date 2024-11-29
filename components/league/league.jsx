@@ -4,7 +4,7 @@ import LeagueRankingsTable from '@/components/league/league-rankings-table/leagu
 import LeaguePageLayout from './league-page-layout/league-page-layout';
 import CreateBracketPrompt from './create-bracket-prompt/create-bracket-prompt';
 import { useUser } from '@/context/user-context/user-context';
-import Loader from '../shared/loader/loader';
+import Loader from '../shared/Loader/Loader';
 
 export const ROUNDS = [
   {

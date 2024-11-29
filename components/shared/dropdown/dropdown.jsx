@@ -1,4 +1,4 @@
-import styles from './dropdown.module.scss';
+import styles from './Dropdown.module.scss';
 import { FormControl, MenuItem, Select, InputLabel } from '@mui/material';
 import clsx from 'clsx';
 

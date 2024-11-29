@@ -1,7 +1,7 @@
-import Input from '@/components/shared/input/input';
+import Input from '@/components/shared/Input/Input';
 import styles from './create-user.module.scss';
 import { useState } from 'react';
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import { createFirebaseUser, errors } from '../../../firebase-utils';
 import { createUser } from '@/lib/airtable';
 import { useRouter } from 'next/router';

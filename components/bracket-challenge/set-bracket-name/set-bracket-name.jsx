@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Loader from '@/components/shared/loader/loader';
-import Input from '@/components/shared/input/input';
-import Button from '@/components/shared/button/button';
+import Loader from '@/components/shared/Loader/Loader';
+import Input from '@/components/shared/Input/Input';
+import Button from '@/components/shared/Button/Button';
 import styles from './set-bracket-name.module.scss';
 import { createBracket } from '@/lib/airtable';
 import { useUser } from '@/context/user-context/user-context';

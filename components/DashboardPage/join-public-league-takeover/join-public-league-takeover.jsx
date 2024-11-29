@@ -2,8 +2,8 @@ import { getLeagueMembers, joinLeague } from '@/lib/airtable';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES, topDawgCompetitionLeagueId } from '@/utils/constants';
 import { useRouter } from 'next/router';
-import Takeover from '@/components/shared/takeover/takeover';
-import Button from '@/components/shared/button/button';
+import Takeover from '@/components/shared/Takeover/Takeover';
+import Button from '@/components/shared/Button/Button';
 import styles from './join-public-league-takeover.module.scss';
 
 export default function JoinPublicLeagueTakeover({ setShowTakeover }) {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
 import { inviteMember } from '@/lib/mailgun';
 import { useUser } from '@/context/user-context/user-context';
 import Takeover from '@/components/shared/Takeover/Takeover';

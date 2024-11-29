@@ -1,4 +1,4 @@
-import Takeover from '@/components/shared/takeover/takeover';
+import Takeover from '@/components/shared/Takeover/Takeover';
 import styles from './rotate-phone-takeover.module.scss';
 import { useEffect, useState } from 'react';
 

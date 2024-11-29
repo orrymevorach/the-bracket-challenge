@@ -1,7 +1,7 @@
-import Takeover from '@/components/shared/takeover/takeover';
+import Takeover from '@/components/shared/Takeover/Takeover';
 import styles from './confirmation-takeover.module.scss';
 import { ROUTES } from '@/utils/constants';
-import Button from 'components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 

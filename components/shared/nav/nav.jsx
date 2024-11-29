@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { signOutOfFirebase } from '@/components/login/firebase-utils';
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
-import MobileNav from './mobile-nav/mobile-nav';
+import MobileNav from './MobileNav/MobileNav';
 
 export default function Nav() {
   const [isLoading, setIsLoading] = useState(false);

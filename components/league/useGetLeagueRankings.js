@@ -5,7 +5,7 @@ import {
   addNumberOfCorrectPicksToRoundData,
   getRanking,
   sortSelectionsIntoRounds,
-} from '@/components/dashboard/bracket-ranking-utils';
+} from '@/components/DashboardPage/bracket-ranking-utils';
 import { useRouter } from 'next/router';
 
 export default function useGetLeagueRankings() {

@@ -4,12 +4,12 @@ import MainDashboard from './MainDashboard/MainDashboard';
 import CreateLeagueTakeover from './CreateLeagueTakeover/CreateLeagueTakeover';
 import JoinLeagueTakeover from './JoinLeagueTakeover/JoinLeagueTakeover';
 import DashboardBar from './DashboardBar/DashboardBar';
-import Layout from '@/components/shared/layout/layout';
+import Layout from '@/components/shared/Layout/Layout';
 import Loader from '@/components/shared/Loader/Loader';
 import SettingsButton from './SettingsButton/SettingsButton';
 import { ROUTES } from '@/utils/constants';
 import styles from './Dashboard.module.scss';
-import OpeningSoon from '../dashboard/OpeningSoon/OpeningSoon';
+import OpeningSoon from './OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
 import Wrapper from '../shared/Wrapper/Wrapper';
 

@@ -1,10 +1,10 @@
 import styles from './league-page-layout.module.scss';
-import Loader from 'components/shared/loader/loader';
-import Layout from '@/components/shared/layout/layout';
+import Loader from '@/components/shared/Loader/Loader';
+import Layout from '@/components/shared/Layout/Layout';
 import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
 import SettingsButton from '../settings-button/settings-button';
 import { useUser } from '@/context/user-context/user-context';
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import InviteMemberTakeover from '@/components/league-settings/invite-member-takeover/invite-member-takeover';

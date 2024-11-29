@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { editBracketName, editLeagueName } from '@/lib/airtable';
-import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
 

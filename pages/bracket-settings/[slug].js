@@ -1,5 +1,5 @@
 import BracketSettings from '@/components/bracket-settings/bracket-settings';
-import Meta from '@/components/shared/head/head';
+import Meta from '@/components/shared/Head/Head';
 import { LeagueConfigProvider } from '@/context/league-config-context/league-config-context';
 import { UserProvider } from '@/context/user-context/user-context';
 import { getAllBrackets } from '@/lib/airtable';

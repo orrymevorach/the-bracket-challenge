@@ -2,7 +2,7 @@ import styles from './submission-form.module.scss';
 import { InputLabel, MenuItem, Select, TextareaAutosize } from '@mui/material';
 import { useState } from 'react';
 import clsx from 'clsx';
-import Input from '@/components/shared/input/input';
+import Input from '@/components/shared/Input/Input';
 
 export default function GetFormElement({
   type,

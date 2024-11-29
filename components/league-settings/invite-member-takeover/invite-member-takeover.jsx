@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
 import { inviteMember } from '@/lib/mailgun';
 import { useUser } from '@/context/user-context/user-context';
-import Takeover from '@/components/shared/takeover/takeover';
+import Takeover from '@/components/shared/Takeover/Takeover';
 import styles from './invite-member-takeover.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import { validateEmail } from '@/utils/utils';
 
 export default function InviteMemberTakeover({ setShowTakeover, leagueId }) {

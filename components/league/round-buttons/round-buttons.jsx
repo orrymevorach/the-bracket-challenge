@@ -3,7 +3,7 @@ import styles from './round-buttons.module.scss';
 import RoundButton from './round-button/round-button';
 import clsx from 'clsx';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
-import Dropdown from '@/components/shared/dropdown/dropdown';
+import Dropdown from '@/components/shared/Dropdown/Dropdown';
 import { useConfig } from '@/context/config-context/config-context';
 import { ROUNDS } from '@/utils/constants';
 

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import styles from './button.module.scss';
+import styles from './Button.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
 

@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import HamburgerMenu from '../hamburger-menu/hamburger-menu';
-import styles from './mobile-nav.module.scss';
+import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
+import styles from './MobileNav.module.scss';
 import clsx from 'clsx';
 import { ROUTES } from '@/utils/constants';
-import Button from '../../button/button';
+import Button from '@/components/shared/Button/Button';
 import { useState } from 'react';
 
 export default function MobileNav({ handleSignOut }) {

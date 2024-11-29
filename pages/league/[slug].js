@@ -4,7 +4,7 @@ import { LeagueConfigProvider } from '@/context/league-config-context/league-con
 import { ROUTES } from '@/utils/constants';
 import { getPageLoadData } from '@/lib/contentful';
 import { getAllLeagues } from '@/lib/airtable';
-import Meta from '@/components/shared/head/head';
+import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 
 export default function LeaguePage({ user }) {

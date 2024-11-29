@@ -1,6 +1,6 @@
 import ComingSoon from '@/components/coming-soon/coming-soon';
-import Meta from '@/components/shared/head/head';
-import Loader from '@/components/shared/loader/loader';
+import Meta from '@/components/shared/Head/Head';
+import Loader from '@/components/shared/Loader/Loader';
 import ParticlesContainer from '@/components/shared/particles/particles';
 import { getFeatureFlag, getPageLoadData } from '@/lib/contentful';
 import { useRouter } from 'next/router';

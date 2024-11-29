@@ -1,6 +1,6 @@
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
-import Loader from 'components/shared/loader/loader';
+import Loader from '@/components/shared/Loader/Loader';
 import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
 import Player from './player/player';

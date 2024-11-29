@@ -1,4 +1,4 @@
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import styles from './join-public-league-prompt.module.scss';
 
 export default function JoinPublicLeaguePrompt({ setShowTakeover = false }) {

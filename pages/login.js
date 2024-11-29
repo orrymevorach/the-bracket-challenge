@@ -1,4 +1,4 @@
-import Meta from '@/components/shared/head/head';
+import Meta from '@/components/shared/Head/Head';
 import { getPageLoadData } from '@/lib/airtable';
 import Login from 'components/login/login';
 import { UserProvider } from 'context/user-context/user-context';

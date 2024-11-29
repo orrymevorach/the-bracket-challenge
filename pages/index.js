@@ -1,8 +1,8 @@
 import HomePageLayout from '@/components/HomePage/Layout/Layout';
 import Media from '@/components/HomePage/Media/Media';
 import Nav from '@/components/HomePage/Nav/Nav';
-import Footer from '@/components/shared/footer/footer';
-import Meta from '@/components/shared/head/head';
+import Footer from '@/components/shared/Footer/Footer';
+import Meta from '@/components/shared/Head/Head';
 import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
 

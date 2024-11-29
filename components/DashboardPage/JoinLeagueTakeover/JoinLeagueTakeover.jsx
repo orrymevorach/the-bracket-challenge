@@ -1,7 +1,7 @@
 import { joinLeague } from '@/lib/airtable';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
-import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
 import { useState } from 'react';
 
 export default function JoinLeagueTakeover({ setShowTakeover }) {

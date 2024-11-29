@@ -1,6 +1,6 @@
 import Form from '@/components/contact/form/form';
-import Meta from '@/components/shared/head/head';
-import Layout from '@/components/shared/layout/layout';
+import Meta from '@/components/shared/Head/Head';
+import Layout from '@/components/shared/Layout/Layout';
 
 export default function ContactPage() {
   return (

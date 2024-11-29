@@ -2,7 +2,7 @@ import {
   addNumberOfCorrectPicksToRoundData,
   getRanking,
   sortSelectionsIntoRounds,
-} from '@/components/dashboard/bracket-ranking-utils';
+} from '@/components/DashboardPage/bracket-ranking-utils';
 import { getBracket, getLeague, getUser, getWinners } from '@/lib/airtable';
 import { getRecord } from '@/lib/airtable-utils';
 import { removeUnderscore } from '@/utils/utils';

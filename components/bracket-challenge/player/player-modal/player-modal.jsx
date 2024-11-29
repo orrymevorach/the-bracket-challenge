@@ -1,4 +1,4 @@
-import Takeover from '@/components/shared/takeover/takeover';
+import Takeover from '@/components/shared/Takeover/Takeover';
 import Image from 'next/image';
 import styles from './player-modal.module.scss';
 

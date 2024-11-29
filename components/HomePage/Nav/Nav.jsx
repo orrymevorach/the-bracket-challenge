@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styles from './Nav.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import { ROUTES } from '@/utils/constants';
 import { useUser } from '@/context/user-context/user-context';
 import Image from 'next/image';

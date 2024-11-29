@@ -1,4 +1,4 @@
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import GetFormElement from './formElements';
 import styles from './submission-form.module.scss';
 import clsx from 'clsx';

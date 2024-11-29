@@ -1,4 +1,4 @@
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import styles from './OpeningSoon.module.scss';
 
 export default function OpeningSoon() {

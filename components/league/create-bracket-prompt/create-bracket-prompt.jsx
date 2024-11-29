@@ -1,4 +1,4 @@
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 import styles from './create-bracket-prompt.module.scss';
 import { ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';

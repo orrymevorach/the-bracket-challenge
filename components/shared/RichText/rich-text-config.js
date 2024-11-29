@@ -1,4 +1,4 @@
-import Button from '../button/button';
+import Button from '../Button/Button';
 import styles from './RichText.module.scss';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 

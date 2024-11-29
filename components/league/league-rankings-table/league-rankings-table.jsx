@@ -1,7 +1,7 @@
 import { ROUTES } from '@/utils/constants';
 import styles from './league-rankings-table.module.scss';
 import { useRouter } from 'next/router';
-import Button from '@/components/shared/button/button';
+import Button from '@/components/shared/Button/Button';
 
 export default function LeagueRankingsTable({ leagueData }) {
   const router = useRouter();

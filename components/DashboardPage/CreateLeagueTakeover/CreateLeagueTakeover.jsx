@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createLeague } from '@/lib/airtable';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
-import LeagueTakeoverLayout from '@/components/shared/league-takeover-layout/league-takeover-layout';
+import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
 
 export default function CreateLeagueTakeover({ setShowTakeover }) {
   const [leagueName, setLeagueName] = useState('');

@@ -4,7 +4,7 @@ import { useLeagueConfig } from '@/context/league-config-context/league-config-c
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
-import Button from '../shared/button/button';
+import Button from '../shared/Button/Button';
 import EditLeagueNameTakeover from './edit-league-name-takeover/edit-league-name-takeover';
 import { getLeagueMembers } from '@/lib/airtable';
 import InviteMemberTakeover from './invite-member-takeover/invite-member-takeover';
