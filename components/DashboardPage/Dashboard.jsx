@@ -11,8 +11,9 @@ import { ROUTES } from '@/utils/constants';
 import styles from './Dashboard.module.scss';
 import OpeningSoon from '../dashboard/OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
+import Wrapper from '../shared/Wrapper/Wrapper';
 
-export default function Dashboard() {
+export default function Dashboard({ leagues }) {
   const user = useUser();
   const leagueData = user?.leagues;
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
@@ -31,27 +32,29 @@ export default function Dashboard() {
           text="Account"
         /> */}
       </DashboardBar>
-      {/* {showCreateLeagueTakeover && (
+      {showCreateLeagueTakeover && (
         <CreateLeagueTakeover setShowTakeover={setShowCreateLeagueTakeover} />
       )}
       {showJoinLeagueTakeover && (
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
       )}
-      {hasLeagues ? (
-        <MainDashboard
-          leagueData={leagueData}
-          setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
-          setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
-        />
-      ) : (
-        <NewUserDashboard
-          showCreateLeagueTakeover={showCreateLeagueTakeover}
-          setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
-          showJoinLeagueTakeover={showJoinLeagueTakeover}
-          setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
-        />
-      )} */}
-      <OpeningSoon />
+      <Wrapper>
+        {/* {hasLeagues ? (
+          <MainDashboard
+            leagueData={leagues}
+            setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
+            setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
+          />
+        ) : (
+          <NewUserDashboard
+            showCreateLeagueTakeover={showCreateLeagueTakeover}
+            setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
+            showJoinLeagueTakeover={showJoinLeagueTakeover}
+            setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
+          />
+        )} */}
+        <OpeningSoon />
+      </Wrapper>
     </Layout>
   );
 }

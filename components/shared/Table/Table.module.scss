@@ -52,7 +52,8 @@
     &.titleRow {
       font-size: 18px;
       height: 50px;
-      background-color: white !important;
+      background-color: #191919 !important;
+      color: white;
       &:after {
         content: '';
         position: absolute;
@@ -86,7 +87,7 @@ td.rank {
 
 .number {
   @include mixins.fontSecondaryBold;
-  background-color: #eadbff;
+  background-color: variables.$green;
   border-radius: 50%;
   padding-top: 4px;
   color: variables.$black;
@@ -118,11 +119,11 @@ td.rank {
 .table tr,
 .buttonContainer {
   &:nth-child(odd) {
-    background-color: #f0f0f0;
+    background-color: black;
   }
 
   &:nth-child(even) {
-    background-color: white;
+    background-color: variables.$newBlack;
   }
 }
 
@@ -138,7 +139,7 @@ td.rank {
   text-align: center;
   width: 200px;
   &.pulse {
-    @include mixins.pulseShadow($color: black);
+    @include mixins.pulseShadow($color: variables.$green, $opacity: 1);
   }
 }
 

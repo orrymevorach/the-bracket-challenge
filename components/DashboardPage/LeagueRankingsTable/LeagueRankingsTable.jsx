@@ -16,13 +16,7 @@ export default function LeagueRankingsTable({ leagueData }) {
   const user = useUser();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
-  const sortedBracketsByRank = leagueData.userBrackets?.sort((a, b) => {
-    const removeTieStringAndConvertToFloat = rank => parseFloat(rank);
-    const aFloat = removeTieStringAndConvertToFloat(a.rank);
-    const bFloat = removeTieStringAndConvertToFloat(b.rank);
-    if (aFloat > bFloat) return 1;
-    return -1;
-  });
+  const brackets = leagueData.json;
 
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
@@ -84,7 +78,7 @@ export default function LeagueRankingsTable({ leagueData }) {
               </tr>
             </thead>
             <tbody>
-              {sortedBracketsByRank
+              {brackets
                 .sort((a, b) => {
                   const aRank = a.selections?.leagueRank;
                   const bRank = b.selections?.leagueRank;
@@ -92,30 +86,19 @@ export default function LeagueRankingsTable({ leagueData }) {
                   return -1;
                 })
                 .map(bracket => {
-                  const { name, id, selections, leagueId } = bracket;
+                  const { name, id, selections } = bracket;
                   const totalPoints = selections?.totalPoints || 0;
                   const rank = selections?.leagueRank;
-                  const isCurrentUsersBracket =
-                    bracket?.memberID && bracket?.memberID[0] === user.id;
                   const numberOfWinners = selections?.numberOfWinners || 0;
                   return (
                     <tr
-                      key={`row-${leagueId[0]}-${name}`}
+                      key={`row-${leagueData.id}-${name}`}
                       onClick={() =>
-                        handleClick({ leagueId: leagueId[0], bracketId: id })
+                        handleClick({ leagueId: leagueData.id, bracketId: id })
                       }
                     >
                       <td className={tableStyles.rank}>
-                        <p className={tableStyles.number}>
-                          {/* {isCurrentUsersBracket && (
-                            <Image
-                              src={kiss}
-                              alt="lips"
-                              className={styles.kiss}
-                            />
-                          )} */}
-                          {rank}
-                        </p>
+                        <p className={tableStyles.number}>{rank}</p>
                       </td>
                       <td>
                         <p>{name}</p>
@@ -129,17 +112,15 @@ export default function LeagueRankingsTable({ leagueData }) {
             </tbody>
           </table>
           <div className={tableStyles.buttonsContainer}>
-            {sortedBracketsByRank.map(bracket => {
-              const isCurrentUsersBracket = user?.brackets?.includes(
-                bracket.id
-              );
+            {brackets.map(bracket => {
+              const isCurrentUsersBracket = bracket.id === user.id;
               const buttonText = isCurrentUsersBracket
-                ? 'Edit Song Selections'
-                : 'View Song Selections';
+                ? 'Edit Bracket'
+                : 'View Bracket';
               return (
                 <div
                   className={tableStyles.buttonContainer}
-                  key={`button-${bracket.leagueId[0]}-${bracket.name}`}
+                  key={`button-${bracket.id}-${bracket.name}`}
                 >
                   <Button
                     classNames={clsx(
@@ -148,11 +129,11 @@ export default function LeagueRankingsTable({ leagueData }) {
                     )}
                     handleClick={() =>
                       handleClick({
-                        leagueId: bracket.leagueId[0],
+                        leagueId: leagueData.id,
                         bracketId: bracket.id,
                       })
                     }
-                    isPurple={isCurrentUsersBracket}
+                    isSecondary={isCurrentUsersBracket}
                   >
                     {buttonText}
                   </Button>

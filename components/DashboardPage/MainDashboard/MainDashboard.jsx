@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPeopleGroup, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export default function MainDashboard({
-  leagueData,
+  leagueData = [],
   setShowCreateLeagueTakeover,
   setShowJoinLeagueTakeover,
 }) {
@@ -57,7 +57,7 @@ export default function MainDashboard({
             })}
         </div>
         {isDesktop && <Border />}
-        <OverallRankingsTable leagues={leagueData} />
+        {/* <OverallRankingsTable leagues={leagueData} /> */}
       </div>
     </Wrapper>
   );
