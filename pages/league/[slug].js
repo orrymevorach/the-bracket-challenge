@@ -7,12 +7,11 @@ import { getAllLeagues } from '@/lib/airtable';
 import Meta from '@/components/shared/head/head';
 import { UserProvider } from '@/context/user-context/user-context';
 
-export default function LeaguePage() {
-  return;
+export default function LeaguePage({ user }) {
   return (
     <>
       <Meta title="League" />
-      <UserProvider>
+      <UserProvider user={user}>
         <WinnersProvider>
           <LeagueConfigProvider>
             <League />
@@ -23,27 +22,24 @@ export default function LeaguePage() {
   );
 }
 
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-  const pageLoadData = await getPageLoadData({
-    url: ROUTES.LEAGUE,
-  });
+export async function getServerSideProps(context) {
+  const { user } = await getPageLoadData(context);
+  console.log('user', user);
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  // const uid = user.uID;
+  // const leagueData = await getUserLeaguesWithBrackets({ uid });
 
   return {
     props: {
-      ...pageLoadData,
+      user,
     },
-  };
-}
-
-export async function getStaticPaths() {
-  // const leagues = await getAllLeagues();
-  const leagues = [];
-
-  return {
-    paths: leagues.map(({ id }) => `/league/${id}`),
-    fallback: true,
   };
 }

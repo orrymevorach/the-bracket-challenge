@@ -1,0 +1,77 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.container {
+  margin-bottom: 80px;
+}
+
+.textContainer {
+  margin: 50px 0 30px;
+  text-align: center;
+}
+
+.paragraph {
+  @include mixins.fontSecondaryBold;
+  font-size: 20px;
+}
+
+.tilesContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 40px;
+}
+
+.tile {
+  @include mixins.fontSecondaryLight;
+  background-color: variables.$charcoal;
+  width: 33.3%;
+  height: 350px;
+  padding: 30px 40px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  li {
+    color: white;
+    list-style: disc;
+    margin-bottom: 7px;
+    line-height: 1.4;
+  }
+}
+
+.title {
+  text-align: center;
+  @include mixins.fontSecondaryBold;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 25px;
+}
+
+.button {
+  margin-top: auto;
+  @include mixins.pulseShadow;
+  &:hover {
+    color: white !important;
+    background-color: variables.$charcoal !important;
+  }
+}
+
+.icon {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: variables.$tablet) {
+  .tilesContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tile {
+    width: 100%;
+  }
+
+  .textContainer {
+    margin: 50px 0 30px;
+  }
+}

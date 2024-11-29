@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 @mixin fontPrimary {
   font-family: 'Adieu Bold';
   text-transform: uppercase;
@@ -24,4 +26,21 @@
 
 @mixin Natural {
   font-family: 'Natural';
+}
+
+@mixin pulseShadow($color: variables.$newBlack, $size: 15px, $opacity: 1) {
+  animation: infinite 2s pulseShadow ease-in-out;
+  box-shadow: 0 0 $size $color;
+
+  @keyframes pulseShadow {
+    0% {
+      box-shadow: none;
+    }
+    50% {
+      box-shadow: 0 0 $size rgba($color, $opacity);
+    }
+    100% {
+      box-shadow: none;
+    }
+  }
 }

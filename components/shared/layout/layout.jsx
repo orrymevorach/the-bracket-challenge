@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
+import Wrapper from '../Wrapper/Wrapper';
 
 export default function Layout({
   children,
@@ -15,16 +16,19 @@ export default function Layout({
   backButtonText = '',
   isDark = false,
   isFixed = false,
+  removeWrapper = false,
 }) {
   const user = useUser();
   const { isMobile } = useWindowSize();
 
   if (user?.isLoading) return <Loader isFullPage />;
 
+  const WrapperComponent = removeWrapper ? 'div' : Wrapper;
+
   return (
-    <>
-      <div className={styles.layout}>
-        <Nav isDark={isDark} isFixed={isFixed} />
+    <div className={styles.layout}>
+      <Nav isDark={isDark} isFixed={isFixed} />
+      <WrapperComponent>
         {backButtonText && (
           <Link href={backButtonHref} className={styles.backButton}>
             <FontAwesomeIcon
@@ -38,8 +42,8 @@ export default function Layout({
         )}
 
         {children}
-      </div>
+      </WrapperComponent>
       <Footer />
-    </>
+    </div>
   );
 }

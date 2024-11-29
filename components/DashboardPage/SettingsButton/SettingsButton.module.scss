@@ -1,0 +1,13 @@
+@use '@mixins' as mixins;
+
+.text {
+  margin-right: 7px;
+  font-size: 16px;
+  @include mixins.fontSecondary;
+}
+
+.button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

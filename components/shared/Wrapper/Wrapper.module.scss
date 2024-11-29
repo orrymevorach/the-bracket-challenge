@@ -1,0 +1,20 @@
+@use '@variables' as variables;
+
+@mixin wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: block;
+  position: relative;
+  @media screen and (max-width: 1200px) {
+    width: 1000px;
+  }
+  @media screen and (max-width: variables.$tablet) {
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+
+.wrapper {
+  @include wrapper;
+}

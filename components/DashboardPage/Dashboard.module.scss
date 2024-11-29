@@ -1,0 +1,13 @@
+@use '@variables' as variables;
+
+.settingsButton {
+  margin-left: auto;
+}
+
+@media screen and (max-width: variables.$tablet) {
+  .settingsButton {
+    margin: 0;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+}

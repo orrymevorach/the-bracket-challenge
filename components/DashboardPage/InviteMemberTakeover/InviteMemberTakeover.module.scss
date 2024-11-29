@@ -1,0 +1,67 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.container {
+  width: 500px;
+  position: relative;
+  height: auto;
+  min-height: 300px;
+}
+
+.title {
+  color: variables.$black;
+  @include mixins.fontSecondaryBold;
+  font-size: 32px;
+  margin: 15px 0 20px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.closeButton {
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.junkText {
+  color: variables.$black;
+  margin-bottom: 40px;
+  text-align: center;
+  @include mixins.fontSecondary;
+  line-height: 1.3;
+  font-size: 13px;
+}
+
+.inviteButton {
+  width: 230px;
+  svg {
+    margin-left: 8px;
+  }
+}
+
+.closeButton {
+  width: 230px;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: variables.$tablet) {
+  .container {
+    width: 90%;
+    text-align: center;
+  }
+  .instructions {
+    margin-top: 30px;
+    p {
+      margin-bottom: 15px;
+    }
+    li {
+      text-align: left;
+      font-size: 14px;
+    }
+    ol {
+      padding: 0;
+      margin: 0 15px;
+    }
+  }
+}

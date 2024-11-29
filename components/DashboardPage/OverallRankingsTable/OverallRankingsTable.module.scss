@@ -1,0 +1,8 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.dotdotdot {
+  @include mixins.fontPrimary;
+  font-size: 32px;
+  margin: 10px 0 10px 20px;
+}

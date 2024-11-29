@@ -1,0 +1,74 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.dashboardText {
+  font-size: 40px;
+  @include mixins.fontSecondaryBold;
+  color: white;
+}
+
+.tablesContainer {
+  display: grid;
+  grid-template-columns: 2.5fr 0.001fr 1fr;
+  gap: 50px;
+}
+
+.topContainer {
+  margin: 100px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scrollContainer {
+  overflow-x: auto;
+}
+
+.title {
+  @include mixins.fontSecondaryBold;
+  text-transform: uppercase;
+  font-size: 45px;
+}
+
+.buttonsContainer {
+  display: flex;
+}
+
+.button {
+  width: 230px;
+  text-transform: uppercase;
+  margin-right: 15px;
+  &:last-of-type {
+    margin-right: 0;
+  }
+  svg {
+    margin-left: 8px;
+  }
+}
+
+.table {
+  margin-bottom: 100px;
+}
+
+@media screen and (max-width: 1200px) {
+  .topContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px 0 0;
+    align-items: center;
+  }
+  .buttonsContainer {
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .button {
+    margin: 0;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: variables.$tablet) {
+  .tablesContainer {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
