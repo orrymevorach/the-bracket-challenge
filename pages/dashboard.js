@@ -4,16 +4,12 @@ import { getLeague } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';
 import { getPageLoadData } from '@/lib/airtable';
 
-export default function Dashboard({ leagues }) {
+export default function Dashboard({ user, leagues }) {
   return (
     <>
       <Meta title="Dashboard" />
-      <UserProvider>
-        {/* <WinnersProvider> */}
-        {/* <UserLeagueProvider userLeagueData={userLeagueData}> */}
+      <UserProvider user={user}>
         <DashboardPage leagues={leagues} />
-        {/* </UserLeagueProvider> */}
-        {/* </WinnersProvider> */}
       </UserProvider>
     </>
   );
@@ -43,6 +39,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      user,
       leagues,
     },
   };

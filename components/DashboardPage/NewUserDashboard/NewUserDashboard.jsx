@@ -17,11 +17,11 @@ export default function NewUserDashboard({
       </div>
       <div className={styles.tilesContainer}>
         <div className={styles.tile}>
-          <p className={styles.title}>Join A Private Group</p>
+          <p className={styles.title}>Join A Private League</p>
           <ul>
-            <li>Join an existing group created by someone you know</li>
+            <li>Join an existing League created by someone you know</li>
             <li>
-              You must receive an invite from your group administrator in order
+              You must receive an invite from your League administrator in order
               to join
             </li>
           </ul>
@@ -36,16 +36,16 @@ export default function NewUserDashboard({
             // isLight
             classNames={styles.button}
           >
-            Join A Group
+            Join A League
           </Button>
         </div>
         <div className={styles.tile}>
-          <p className={styles.title}>Create A Private Group</p>
+          <p className={styles.title}>Create A Private League</p>
           <ul>
             <li>Compete against your friends and family</li>
             <li>
-              As the group administrator, only people that you invite to your
-              group will have the ability to join
+              As the League administrator, only people that you invite to your
+              League will have the ability to join
             </li>
           </ul>
           <FontAwesomeIcon
@@ -59,7 +59,7 @@ export default function NewUserDashboard({
             // isLight
             classNames={styles.button}
           >
-            Create A Group
+            Create A League
           </Button>
         </div>
         {/* <div className={styles.tile}>

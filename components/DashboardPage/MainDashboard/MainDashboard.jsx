@@ -22,14 +22,14 @@ export default function MainDashboard({
       <div className={styles.tablesContainer}>
         <div className={styles.scrollContainer}>
           <div className={styles.topContainer}>
-            <p className={styles.title}>Your Groups</p>
+            <p className={styles.title}>Your Leagues</p>
             <div className={styles.buttonsContainer}>
               <Button
                 handleClick={() => setShowJoinLeagueTakeover(true)}
                 classNames={styles.button}
                 isPurple
               >
-                <span>Join Group</span>
+                <span>Join League</span>
                 <FontAwesomeIcon icon={faPeopleGroup} />
               </Button>
               <Button
@@ -37,7 +37,7 @@ export default function MainDashboard({
                 classNames={styles.button}
                 isPurple
               >
-                <span>Create Group</span>
+                <span>Create League</span>
                 <FontAwesomeIcon icon={faPlus} />
               </Button>
             </div>

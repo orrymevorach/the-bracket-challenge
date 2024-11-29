@@ -20,9 +20,9 @@ export default function CreateLeagueTakeover({ setShowTakeover }) {
     <LeagueTakeoverLayout
       setShowTakeover={setShowTakeover}
       handleSubmit={handleSubmit}
-      title="Create Group"
-      label="Enter a name for your group"
-      buttonLabel="Create Group"
+      title="Create League"
+      label="Enter a name for your league"
+      buttonLabel="Create League"
       inputValue={leagueName}
       setInputValue={setLeagueName}
     />

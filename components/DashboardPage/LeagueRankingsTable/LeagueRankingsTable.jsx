@@ -4,32 +4,21 @@ import { useRouter } from 'next/router';
 import Button from '@/components/shared/Button/Button';
 import { useUser } from '@/context/user-context/user-context';
 import clsx from 'clsx';
-import Image from 'next/image';
-import styles from './LeagueRankingsTable.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeover/InviteMemberTakeover';
 import { useState } from 'react';
+import { isEmpty } from '@/utils/utils';
 
 export default function LeagueRankingsTable({ leagueData }) {
   const router = useRouter();
   const user = useUser();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
-  const brackets = leagueData.json;
 
+  const brackets = leagueData.json;
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
-
-  const handleClick = ({ leagueId, bracketId }) => {
-    router.push({
-      pathname: ROUTES.SONG_CHALLENGE,
-      query: {
-        leagueId,
-        bracketId,
-      },
-    });
-  };
 
   const titleHeadings = [
     { title: 'Rank', classNames: tableStyles.rank },
@@ -52,12 +41,18 @@ export default function LeagueRankingsTable({ leagueData }) {
           {isAdmin && (
             <div className={tableStyles.topRowButtonsContainer}>
               <Button
-                isPurple
                 isSmall
                 classNames={tableStyles.inviteButton}
-                handleClick={() => setShowInviteMemberTakeover(true)}
+                handleClick={() =>
+                  router.push({
+                    pathname: ROUTES.LEAGUE,
+                    query: {
+                      leagueId: leagueData.id,
+                    },
+                  })
+                }
               >
-                Invite Member <FontAwesomeIcon icon={faPaperPlane} />
+                View League <FontAwesomeIcon icon={faBarsStaggered} />
               </Button>
             </div>
           )}
@@ -86,22 +81,17 @@ export default function LeagueRankingsTable({ leagueData }) {
                   return -1;
                 })
                 .map(bracket => {
-                  const { name, id, selections } = bracket;
+                  const { name, username, selections } = bracket;
                   const totalPoints = selections?.totalPoints || 0;
                   const rank = selections?.leagueRank;
                   const numberOfWinners = selections?.numberOfWinners || 0;
                   return (
-                    <tr
-                      key={`row-${leagueData.id}-${name}`}
-                      onClick={() =>
-                        handleClick({ leagueId: leagueData.id, bracketId: id })
-                      }
-                    >
+                    <tr key={`row-${leagueData.id}-${name}`}>
                       <td className={tableStyles.rank}>
                         <p className={tableStyles.number}>{rank}</p>
                       </td>
                       <td>
-                        <p>{name}</p>
+                        <p>{username}</p>
                       </td>
                       <td>
                         {totalPoints}/{numberOfWinners}
@@ -114,29 +104,35 @@ export default function LeagueRankingsTable({ leagueData }) {
           <div className={tableStyles.buttonsContainer}>
             {brackets.map(bracket => {
               const isCurrentUsersBracket = bracket.id === user.id;
-              const buttonText = isCurrentUsersBracket
+              const hasSelections = !isEmpty(bracket.selections);
+              const buttonText = hasSelections
                 ? 'Edit Bracket'
-                : 'View Bracket';
+                : 'Create Bracket';
               return (
                 <div
                   className={tableStyles.buttonContainer}
                   key={`button-${bracket.id}-${bracket.name}`}
                 >
-                  <Button
-                    classNames={clsx(
-                      tableStyles.button,
-                      isCurrentUsersBracket && tableStyles.pulse
-                    )}
-                    handleClick={() =>
-                      handleClick({
-                        leagueId: leagueData.id,
-                        bracketId: bracket.id,
-                      })
-                    }
-                    isSecondary={isCurrentUsersBracket}
-                  >
-                    {buttonText}
-                  </Button>
+                  {isCurrentUsersBracket && (
+                    <Button
+                      classNames={clsx(
+                        tableStyles.button,
+                        !hasSelections && tableStyles.pulse
+                      )}
+                      handleClick={() =>
+                        router.push({
+                          pathname: ROUTES.BRACKET,
+                          query: {
+                            leagueId: leagueData.id,
+                            bracketId: bracket.id,
+                          },
+                        })
+                      }
+                      isSecondary={isCurrentUsersBracket}
+                    >
+                      {buttonText}
+                    </Button>
+                  )}
                 </div>
               );
             })}

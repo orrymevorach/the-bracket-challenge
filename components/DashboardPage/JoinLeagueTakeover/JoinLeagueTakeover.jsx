@@ -20,9 +20,9 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
     <LeagueTakeoverLayout
       setShowTakeover={setShowTakeover}
       handleSubmit={handleSubmit}
-      title="Join Group"
-      label="Enter the ID for the group you would like to join"
-      buttonLabel="Join Group"
+      title="Join League"
+      label="Enter the ID for the league you would like to join"
+      buttonLabel="Join League"
       inputValue={leagueId}
       setInputValue={setLeagueId}
     />

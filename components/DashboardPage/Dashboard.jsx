@@ -39,7 +39,7 @@ export default function Dashboard({ leagues }) {
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
       )}
       <Wrapper>
-        {/* {hasLeagues ? (
+        {hasLeagues ? (
           <MainDashboard
             leagueData={leagues}
             setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
@@ -52,8 +52,8 @@ export default function Dashboard({ leagues }) {
             showJoinLeagueTakeover={showJoinLeagueTakeover}
             setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
           />
-        )} */}
-        <OpeningSoon />
+        )}
+        {/* <OpeningSoon /> */}
       </Wrapper>
     </Layout>
   );

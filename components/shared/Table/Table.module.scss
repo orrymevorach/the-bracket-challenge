@@ -14,10 +14,13 @@
   justify-content: space-between;
 }
 
-// .topRowButtonsContainer {
-//   display: flex;
-//   align-items: center;
-// }
+.topRowButtonsContainer {
+  display: flex;
+  align-items: center;
+  button:first-of-type {
+    margin-right: 10px;
+  }
+}
 
 .inviteButton {
   // margin-right: 20px;
@@ -45,7 +48,6 @@
   border-collapse: collapse; // to hide borders between cells
   tr {
     position: relative;
-    cursor: pointer;
     &:hover {
       background-color: rgba(variables.$charcoal, 0.1);
     }
