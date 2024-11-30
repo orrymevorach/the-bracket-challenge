@@ -32,6 +32,7 @@ export default function Button({
   isPeach = false,
   isNaked = false,
   isRound = false,
+  style = {},
 }) {
   const classnames = clsx(
     styles.button,
@@ -48,14 +49,14 @@ export default function Button({
 
   if (isAnchor) {
     return (
-      <a href={href} className={classnames}>
+      <a href={href} className={classnames} style={style}>
         {children}
       </a>
     );
   }
   if (href) {
     return (
-      <Link href={href} className={classnames}>
+      <Link href={href} className={classnames} style={style}>
         {children}
       </Link>
     );
@@ -66,13 +67,19 @@ export default function Button({
         className={classnames}
         disabled={isDisabled}
         onClick={handleClick}
+        style={style}
       >
         <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
       </button>
     );
   }
   return (
-    <button className={classnames} type="submit" disabled={isDisabled}>
+    <button
+      className={classnames}
+      type="submit"
+      disabled={isDisabled}
+      style={style}
+    >
       <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
     </button>
   );

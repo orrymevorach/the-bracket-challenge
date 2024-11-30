@@ -104,7 +104,14 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
                   return (
                     <tr key={`row-${leagueData.id}-${name}`}>
                       <td className={tableStyles.rank}>
-                        <p className={tableStyles.number}>{rank}</p>
+                        <p
+                          className={tableStyles.number}
+                          style={{
+                            backgroundColor: currentContest?.color,
+                          }}
+                        >
+                          {rank}
+                        </p>
                       </td>
                       <td>
                         <p>{username}</p>
@@ -135,6 +142,10 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
                         tableStyles.button,
                         !hasSelections && tableStyles.pulse
                       )}
+                      style={{
+                        backgroundColor: currentContest?.color,
+                        border: `1px solid ${currentContest?.color}`,
+                      }}
                       handleClick={() =>
                         router.push({
                           pathname: ROUTES.BRACKET,
@@ -144,7 +155,6 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
                           },
                         })
                       }
-                      isSecondary={isCurrentUsersBracket}
                     >
                       {buttonText}
                     </Button>

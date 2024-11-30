@@ -33,7 +33,10 @@ export default function Dashboard({ leagues, contests }) {
         /> */}
       </DashboardBar>
       {showCreateLeagueTakeover && (
-        <CreateLeagueTakeover setShowTakeover={setShowCreateLeagueTakeover} />
+        <CreateLeagueTakeover
+          setShowTakeover={setShowCreateLeagueTakeover}
+          contests={contests}
+        />
       )}
       {showJoinLeagueTakeover && (
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />

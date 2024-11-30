@@ -140,9 +140,6 @@ td.rank {
 .button {
   text-align: center;
   width: 200px;
-  &.pulse {
-    @include mixins.pulseShadow($color: variables.$green, $opacity: 1);
-  }
 }
 
 .inviteButton {
