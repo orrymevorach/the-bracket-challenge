@@ -1,6 +1,6 @@
 import styles from './login.module.scss';
-import { initFirebaseAuth } from '@/components/login/firebase-utils';
-import LoginWithEmailAndPassword from './login-with-email-and-password/login-with-email-and-password';
+import { initFirebaseAuth } from '@/components/LoginPage/firebase-utils';
+import LoginWithEmailAndPassword from './LoginWithEmailAndPassword/LoginWithEmailAndPassword';
 import Image from 'next/image';
 import logo from '@/public/logo-center-white.png';
 // import LoginWithGoogle from './login-with-google/login-with-google';

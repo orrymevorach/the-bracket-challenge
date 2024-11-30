@@ -4,7 +4,7 @@ import { COOKIES, ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-import { signOutOfFirebase } from '@/components/login/firebase-utils';
+import { signOutOfFirebase } from '@/components/LoginPage/firebase-utils';
 import Button from '@/components/shared/Button/Button';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
 import MobileNav from './MobileNav/MobileNav';

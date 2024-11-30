@@ -1,6 +1,6 @@
 import Button from '@/components/shared/Button/Button';
 import GetFormElement from './formElements';
-import styles from './submission-form.module.scss';
+import styles from './SubmissionForm.module.scss';
 import clsx from 'clsx';
 
 export default function SubmissionForm({

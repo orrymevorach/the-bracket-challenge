@@ -1,6 +1,6 @@
 import Takeover from '@/components/shared/Takeover/Takeover';
 import Button from '@/components/shared/Button/Button';
-import styles from './reset-password-takeover.module.scss';
+import styles from './ResetPasswordTakeover.module.scss';
 import Input from '@/components/shared/Input/Input';
 import { useState } from 'react';
 import { sendFirebasePasswordResetEmail } from '../../firebase-utils';

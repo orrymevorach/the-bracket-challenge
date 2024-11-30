@@ -1,6 +1,6 @@
 import Meta from '@/components/shared/Head/Head';
 import { getPageLoadData } from '@/lib/airtable';
-import Login from 'components/login/login';
+import Login from '@/components/LoginPage/Login';
 import { UserProvider } from 'context/user-context/user-context';
 
 export default function LoginPage() {

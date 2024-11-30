@@ -1,8 +1,8 @@
-import SubmissionForm from '../submission-form/submission-form';
+import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import useSubmissionForm from './useSubmissionForm';
 import { sendSubmissionForm } from 'lib/mailgun';
 import { useState } from 'react';
-import styles from './form.module.scss';
+import styles from './Form.module.scss';
 
 export default function Form() {
   const useFormReducer = useSubmissionForm();

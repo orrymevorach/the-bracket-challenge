@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import styles from './login-with-email-and-password.module.scss';
+import styles from './LoginWithEmailAndPassword.module.scss';
 import { useRouter } from 'next/router';
 import { COOKIES, ROUTES } from 'utils/constants';
 import Button from '@/components/shared/Button/Button';
 import { errors, signInWithFirebaseEmailAndPassword } from '../firebase-utils';
 import Input from '@/components/shared/Input/Input';
-import CreateAccountTakeover from './create-account-takeover/create-account-takeover';
+import CreateAccountTakeover from './CreateAccountTakeover/CreateAccountTakeover';
 import Cookies from 'js-cookie';
-import PromptNewUserTakeover from './prompt-new-user-takeover/prompt-new-user-takeover';
-import ResetPasswordTakeover from './reset-password-takeover/reset-password-takeover';
+import PromptNewUserTakeover from './PromptNewUserTakeover/PromptNewUserTakeover';
+import ResetPasswordTakeover from './ResetPasswordTakeover/ResetPasswordTakeover';
 import globalStyles from '@/styles/globalStyles.module.scss';
 import clsx from 'clsx';
 

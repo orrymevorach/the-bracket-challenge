@@ -1,5 +1,5 @@
 import Input from '@/components/shared/Input/Input';
-import styles from './create-user.module.scss';
+import styles from './CreateUser.module.scss';
 import { useState } from 'react';
 import Button from '@/components/shared/Button/Button';
 import { createFirebaseUser, errors } from '../../../firebase-utils';

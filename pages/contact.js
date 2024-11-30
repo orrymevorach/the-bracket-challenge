@@ -1,4 +1,4 @@
-import Form from '@/components/contact/form/form';
+import Form from '@/components/Contact/Form/Form';
 import Meta from '@/components/shared/Head/Head';
 import Layout from '@/components/shared/Layout/Layout';
 

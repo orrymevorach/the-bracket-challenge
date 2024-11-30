@@ -3,7 +3,7 @@ import { useState } from 'react';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import PageNotFound from './404';
-import PasswordProtectionTakeover from '@/components/password-protection-takeover/password-protection-takeover';
+import PasswordProtectionTakeover from '@/components/shared/PasswordProtectionTakeover/PasswordProtectionTakeover';
 import GoogleAnalytics from '@/components/shared/google-analytics/google-analytics';
 import { ConfigProvider } from '@/context/config-context/config-context';
 import { WindowSizeProvider } from '@/context/window-size-context/window-size-context';

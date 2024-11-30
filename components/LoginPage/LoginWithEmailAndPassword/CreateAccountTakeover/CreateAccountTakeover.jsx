@@ -1,6 +1,6 @@
 import Takeover from '@/components/shared/Takeover/Takeover';
-import styles from './create-account-takeover.module.scss';
-import CreateUser from './create-user/create-user';
+import styles from './CreateAccountTakeover.module.scss';
+import CreateUser from './CreateUser/CreateUser';
 
 export default function CreateAccountTakeover({ email, setIsCreatingNewUser }) {
   return (

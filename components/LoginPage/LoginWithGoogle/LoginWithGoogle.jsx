@@ -1,6 +1,6 @@
 import { createUser, getUser } from '@/lib/airtable';
-import styles from './login-with-google.module.scss';
-import { initGoogleAuthWithFirebase } from '@/components/login/firebase-utils';
+import styles from './LoginWithGoogle.module.scss';
+import { initGoogleAuthWithFirebase } from '@/components/LoginPage/firebase-utils';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import Button from '@/components/shared/Button/Button';
 import Cookies from 'js-cookie';

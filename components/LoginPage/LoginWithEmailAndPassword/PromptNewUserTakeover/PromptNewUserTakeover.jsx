@@ -1,6 +1,6 @@
 import Takeover from '@/components/shared/Takeover/Takeover';
 import Button from '@/components/shared/Button/Button';
-import styles from './prompt-new-user-takeover.module.scss';
+import styles from './PromptNewUserTakeover.module.scss';
 
 export default function PromptNewUserTakeover({
   setIsUserPromptedToCreateAccount,
