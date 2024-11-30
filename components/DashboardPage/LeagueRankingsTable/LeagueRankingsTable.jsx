@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import Button from '@/components/shared/Button/Button';
 import { useUser } from '@/context/user-context/user-context';
 import clsx from 'clsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeover/InviteMemberTakeover';
 import { useState } from 'react';
 import { isEmpty } from '@/utils/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 export default function LeagueRankingsTable({ leagueData, contests }) {
   const router = useRouter();
@@ -55,22 +55,14 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
             </span>
           </p>
           {isAdmin && (
-            <div className={tableStyles.topRowButtonsContainer}>
-              <Button
-                isSmall
-                classNames={tableStyles.inviteButton}
-                handleClick={() =>
-                  router.push({
-                    pathname: ROUTES.LEAGUE,
-                    query: {
-                      leagueId: leagueData.id,
-                    },
-                  })
-                }
-              >
-                View League <FontAwesomeIcon icon={faBarsStaggered} />
-              </Button>
-            </div>
+            <Button
+              isPurple
+              isSmall
+              classNames={tableStyles.inviteButton}
+              handleClick={() => setShowInviteMemberTakeover(true)}
+            >
+              Invite Member <FontAwesomeIcon icon={faPaperPlane} />
+            </Button>
           )}
         </div>
         <div className={tableStyles.innerContainer}>

@@ -2,7 +2,7 @@ import styles from './league-page-layout.module.scss';
 import Loader from '@/components/shared/Loader/Loader';
 import Layout from '@/components/shared/Layout/Layout';
 import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
-import SettingsButton from '../SettingsButton/SettingsButton';
+import SettingsButton from '../../DashboardPage/SettingsButton/SettingsButton';
 import { useUser } from '@/context/user-context/user-context';
 import Button from '@/components/shared/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
