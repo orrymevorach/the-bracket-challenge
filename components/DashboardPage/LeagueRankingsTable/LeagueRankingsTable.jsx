@@ -10,11 +10,15 @@ import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeove
 import { useState } from 'react';
 import { isEmpty } from '@/utils/utils';
 
-export default function LeagueRankingsTable({ leagueData }) {
+export default function LeagueRankingsTable({ leagueData, contests }) {
   const router = useRouter();
   const user = useUser();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
+
+  const currentContest = contests?.find(
+    ({ sport }) => leagueData.sport === sport
+  );
 
   const brackets = leagueData.json;
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
@@ -37,7 +41,19 @@ export default function LeagueRankingsTable({ leagueData }) {
 
       <div className={tableStyles.container}>
         <div className={tableStyles.topRow}>
-          <p className={tableStyles.title}>{leagueData.name}</p>
+          <p className={tableStyles.title}>
+            {leagueData.name}{' '}
+            <span
+              style={{
+                color: currentContest?.color,
+                WebkitTextStroke: currentContest?.textStrokeColor
+                  ? `1px ${currentContest?.textStrokeColor}`
+                  : '',
+              }}
+            >
+              {leagueData.sport}
+            </span>
+          </p>
           {isAdmin && (
             <div className={tableStyles.topRowButtonsContainer}>
               <Button

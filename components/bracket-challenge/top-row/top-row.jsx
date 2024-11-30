@@ -13,8 +13,8 @@ export default function TopRow({ bracketRecId, leagueId }) {
 
   useEffect(() => {
     const getBracketNameData = async () => {
-      const bracket = await getBracketName({ id: bracketRecId });
-      setBracketName(bracket.name);
+      const name = await getBracketName({ id: bracketRecId });
+      setBracketName(name);
     };
     if (bracketRecId && !bracketName) {
       getBracketNameData();

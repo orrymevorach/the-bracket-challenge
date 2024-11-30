@@ -10,7 +10,7 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
 
   const handleClick = ({ id }) => {
     router.push(
-      `${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}&leagueId=${router.query.slug}`
+      `${ROUTES.BRACKET_CHALLENGE}?bracketId=${id}&leagueId=${leagueData.id}`
     );
   };
   return (

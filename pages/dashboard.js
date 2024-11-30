@@ -1,15 +1,15 @@
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
-import { getLeague } from '@/lib/airtable';
+import { getContests, getLeague } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';
 import { getPageLoadData } from '@/lib/airtable';
 
-export default function Dashboard({ user, leagues }) {
+export default function Dashboard({ user, leagues, contests }) {
   return (
     <>
       <Meta title="Dashboard" />
       <UserProvider user={user}>
-        <DashboardPage leagues={leagues} />
+        <DashboardPage leagues={leagues} contests={contests} />
       </UserProvider>
     </>
   );
@@ -37,10 +37,13 @@ export async function getServerSideProps(context) {
     })
   );
 
+  const contests = await getContests();
+
   return {
     props: {
       user,
       leagues,
+      contests,
     },
   };
 }
