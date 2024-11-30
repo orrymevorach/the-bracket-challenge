@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import styles from './round-buttons.module.scss';
-import RoundButton from './round-button/round-button';
+import styles from './RoundButtons.module.scss';
+import RoundButton from './RoundButton/RoundButton';
 import clsx from 'clsx';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
 import Dropdown from '@/components/shared/Dropdown/Dropdown';

@@ -1,4 +1,4 @@
-import styles from './round-button.module.scss';
+import styles from './RoundButton.module.scss';
 import clsx from 'clsx';
 
 export default function RoundButton({

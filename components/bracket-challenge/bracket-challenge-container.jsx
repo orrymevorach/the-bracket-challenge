@@ -1,4 +1,4 @@
-import RoundButtons from '../league/round-buttons/round-buttons';
+import RoundButtons from '../LeaguePage/RoundButtons/RoundButtons';
 import { useEffect, useState } from 'react';
 import SetBracketName from './set-bracket-name/set-bracket-name';
 import Loader from '../shared/Loader/Loader';

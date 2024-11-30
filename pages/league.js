@@ -1,9 +1,8 @@
-import League from '@/components/league/league';
+import League from '@/components/LeaguePage/League';
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 import { getLeague, getPageLoadData } from '@/lib/airtable';
 import { getRecords } from '@/lib/airtable-utils';
-import run from '@/scripts/index';
 
 export default function LeaguePage({ user, league, contests }) {
   return (
@@ -32,8 +31,6 @@ export async function getServerSideProps(context) {
 
   const league = await getLeague({ id: leagueId });
   const json = JSON.parse(league.json);
-  const data = await run();
-  json[0].selections = data;
 
   return {
     props: {

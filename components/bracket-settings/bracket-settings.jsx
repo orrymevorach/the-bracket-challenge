@@ -1,5 +1,5 @@
 import styles from './bracket-settings.module.scss';
-import LeaguePageLayout from '../league/league-page-layout/league-page-layout';
+import LeaguePageLayout from '../LeaguePage/league-page-layout/league-page-layout';
 import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -1,5 +1,5 @@
-import styles from './league.module.scss';
-import LeagueRankingsTable from '@/components/league/league-rankings-table/league-rankings-table';
+import styles from './League.module.scss';
+import LeagueRankingsTable from '@/components/LeaguePage/LeagueRankingsTable/LeagueRankingsTable';
 import Layout from '../shared/Layout/Layout';
 import DashboardBar from '../DashboardPage/DashboardBar/DashboardBar';
 import Wrapper from '../shared/Wrapper/Wrapper';
