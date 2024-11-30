@@ -1,10 +1,8 @@
 import styles from './league.module.scss';
-import useGetLeagueRankings from '@/components/league/useGetLeagueRankings';
 import LeagueRankingsTable from '@/components/league/league-rankings-table/league-rankings-table';
-import LeaguePageLayout from './league-page-layout/league-page-layout';
-import CreateBracketPrompt from './create-bracket-prompt/create-bracket-prompt';
-import { useUser } from '@/context/user-context/user-context';
-import Loader from '../shared/Loader/Loader';
+import Layout from '../shared/Layout/Layout';
+import DashboardBar from '../DashboardPage/DashboardBar/DashboardBar';
+import Wrapper from '../shared/Wrapper/Wrapper';
 
 export const ROUNDS = [
   {
@@ -25,35 +23,15 @@ export const ROUNDS = [
   },
 ];
 
-export default function League() {
-  const { bracketsSortedByRankings } = useGetLeagueRankings();
-  const user = useUser();
-  if (!bracketsSortedByRankings)
-    return (
-      <LeaguePageLayout title="League Rankings:" hideBackButton>
-        <Loader />
-      </LeaguePageLayout>
-    );
-
-  const hasLeagueBrackets = bracketsSortedByRankings.length > 0;
-  const hasCurrentUserBracketData =
-    hasLeagueBrackets &&
-    bracketsSortedByRankings.find(({ memberID }) => {
-      return memberID[0] === user.id;
-    });
-
+export default function League({ league, contests }) {
   return (
-    <LeaguePageLayout title="League Rankings:" hideBackButton>
-      {!hasCurrentUserBracketData && (
+    <Layout removeWrapper>
+      <DashboardBar></DashboardBar>
+      <Wrapper>
         <div className={styles.mainContentContainer}>
-          <CreateBracketPrompt />
+          <LeagueRankingsTable leagueData={league} contests={contests} />
         </div>
-      )}
-      {hasLeagueBrackets && (
-        <div className={styles.mainContentContainer}>
-          <LeagueRankingsTable leagueData={bracketsSortedByRankings} />
-        </div>
-      )}
-    </LeaguePageLayout>
+      </Wrapper>
+    </Layout>
   );
 }
