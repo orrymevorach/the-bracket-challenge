@@ -13,7 +13,7 @@ import OpeningSoon from './OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
 import Wrapper from '../shared/Wrapper/Wrapper';
 
-export default function Dashboard({ leagues, contests }) {
+export default function Dashboard({ leagues, sports }) {
   const user = useUser();
   const leagueData = user?.leagues;
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
@@ -35,7 +35,7 @@ export default function Dashboard({ leagues, contests }) {
       {showCreateLeagueTakeover && (
         <CreateLeagueTakeover
           setShowTakeover={setShowCreateLeagueTakeover}
-          contests={contests}
+          sports={sports}
         />
       )}
       {showJoinLeagueTakeover && (
@@ -47,7 +47,7 @@ export default function Dashboard({ leagues, contests }) {
             leagueData={leagues}
             setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
             setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
-            contests={contests}
+            sports={sports}
           />
         ) : (
           <NewUserDashboard

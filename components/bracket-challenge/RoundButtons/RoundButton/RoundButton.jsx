@@ -2,16 +2,16 @@ import styles from './RoundButton.module.scss';
 import clsx from 'clsx';
 
 export default function RoundButton({
-  round,
-  setCurrentHoverRound,
-  currentRound,
-  currentHoverRound,
+  currentRoundIndex,
+  currentHoverRoundIndex,
+  setCurrentHoverRoundIndex,
   index,
   handleClick,
+  round,
 }) {
-  const isCurrentRounnd = currentHoverRound
-    ? !!(currentHoverRound.name === round.name)
-    : !!(round.name === currentRound.name);
+  const isCurrentRounnd = currentHoverRoundIndex
+    ? currentHoverRoundIndex === index
+    : currentRoundIndex === index;
 
   return (
     <button
@@ -21,11 +21,11 @@ export default function RoundButton({
         isCurrentRounnd && styles.active
       )}
       onClick={handleClick}
-      onMouseOver={() => setCurrentHoverRound(round)}
-      onMouseLeave={() => setCurrentHoverRound(null)}
+      onMouseOver={() => setCurrentHoverRoundIndex(index)}
+      onMouseLeave={() => setCurrentHoverRoundIndex(null)}
     >
-      <p className={styles.roundText}>Round {index + 1}</p>
-      <p className={styles.roundName}>{round.displayName}</p>
+      <p className={styles.roundText}>{round.name}</p>
+      <p className={styles.roundText}>{round.subBracket}</p>
     </button>
   );
 }

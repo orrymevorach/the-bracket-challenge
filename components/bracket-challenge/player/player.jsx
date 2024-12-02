@@ -12,29 +12,21 @@ import PlayerModal from './player-modal/player-modal';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
 
 export default function Player(player) {
-  const { name, matchupId, isChampion, winnerName, position, currentRound } =
-    player;
+  const { name, matchupId, isChampion, winnerName, position, flag } = player;
 
-  const { setWinner, snowboarders } = useMatchups();
+  const { setWinner, snowboarders, currentRoundIndex } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const {
-    config: { isSelectionsEnabled },
-  } = useConfig();
+  const isSelectionsEnabled = true; // TEMPORARY
   const { isMobile } = useWindowSize();
 
-  if (!snowboarders) return;
-  const snowboarder = snowboarders[name];
   const winner = winnerName ? snowboarders[winnerName] : '';
 
-  const [firstName, lastName] = snowboarder?.name
-    ? snowboarder.name.split(' ')
-    : '';
+  const [firstName, lastName] = name ? name.split(' ') : '';
   const [winnerFirstName, winnerLastName] = winner
     ? winner?.name.split(' ')
     : '';
 
-  const flagImage =
-    snowboarder?.flag && snowboarder.flag.length && snowboarder.flag[0];
+  const flagImage = flag && flag.length && flag[0];
   const winnerFlag = winner ? winner.flag[0] : '';
 
   const isCorrect = winner && winner.name === name;
@@ -48,7 +40,7 @@ export default function Player(player) {
 
   const handleClick = () => {
     if (!isSelectionsEnabled) return;
-    setWinner({ player: name, matchupId, currentRound });
+    setWinner({ player: name, matchupId, currentRoundIndex });
   };
 
   return (

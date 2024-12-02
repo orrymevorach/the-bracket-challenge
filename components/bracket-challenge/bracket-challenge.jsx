@@ -1,11 +1,8 @@
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
-import Loader from '@/components/shared/Loader/Loader';
 import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
 import Player from './player/player';
-import { useConfig } from '@/context/config-context/config-context';
-import RiderImagesLayout from './rider-images-layout/rider-images-layout';
 import useWindowSize from '@/hooks/useWindowSize';
 
 // Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
@@ -47,21 +44,17 @@ const splitAndRearrangeColumns = matchups => {
   return reArrangedMatchups;
 };
 
-export default function BracketChallenge({ bracketConfig, currentRound }) {
-  const { matchups } = useMatchups();
+export default function BracketChallenge() {
+  const { currentContest } = useMatchups();
   const { isMobile } = useWindowSize();
 
-  const {
-    config: { showMatchups },
-  } = useConfig();
+  const matchupsGroupedByRound = groupMatchupsByRound(currentContest.matchups);
 
-  const matchupsInCurrentRound = matchups[currentRound] || [];
-  const matchupsGroupedByRound = groupMatchupsByRound(matchupsInCurrentRound);
-
-  if (!showMatchups) return;
-  if (!matchupsGroupedByRound.length || !matchupsInCurrentRound.length) {
-    return <Loader isDotted classNames={styles.loader} />;
-  }
+  const bracketConfig = {
+    display: currentContest.display,
+    numberOfColumns: currentContest.numberOfColumns,
+    championRound: currentContest.championRound,
+  };
 
   // Remove bracket columns (rounds) from rounds that do not require them
   const matchupsInRound = matchupsGroupedByRound.slice(
@@ -71,6 +64,7 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
 
   const winnersColumn =
     matchupsGroupedByRound[bracketConfig.championRound - 1]?.matchups;
+
   // If matchups are meant to be mirrored, split up the columns re-order them
   // On mobile do not split columns because it is too wide on the screen
   const reArrangedMatchups =
@@ -79,17 +73,13 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
       : matchupsInRound;
 
   return (
-    <RiderImagesLayout currentRound={currentRound}>
+    <>
       <div className={styles.bracketChallengeContainer}>
         <div className={styles.row}>
           {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
           {reArrangedMatchups.map(({ matchups }, index) => {
             return (
-              <BracketColumn
-                matchups={matchups}
-                key={`matchup-${index}`}
-                currentRound={currentRound}
-              />
+              <BracketColumn matchups={matchups} key={`matchup-${index}`} />
             );
           })}
           <div className={styles.winnersColumn}>
@@ -98,18 +88,17 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
             ) : bracketConfig.display === 'short' ? (
               winnersColumn.map(bracket => {
                 const snowboarders = [bracket.team1, bracket.team2];
-                const winners = bracket.actualWinner;
-                if (!snowboarders || !winners) return;
-                return snowboarders.map((snowboarderName, playerIndex) => {
+                const winners = bracket.actualWinner || {};
+                return snowboarders.map((snowboarder, playerIndex) => {
                   const teamKey = playerIndex === 0 ? 'team1' : 'team2';
                   return (
                     <Player
                       key={`winners-column-${playerIndex}`}
-                      name={snowboarderName}
                       winnerName={winners[teamKey]}
                       position={playerIndex + 1}
                       isChampion
                       matchupId={bracket.matchupId}
+                      {...snowboarder}
                     />
                   );
                 });
@@ -126,6 +115,6 @@ export default function BracketChallenge({ bracketConfig, currentRound }) {
           </div>
         </div>
       </div>
-    </RiderImagesLayout>
+    </>
   );
 }

@@ -1,33 +1,27 @@
-import { useEffect, useState } from 'react';
 import styles from './top-row.module.scss';
-import { getBracketName } from '@/lib/airtable';
 import { useUser } from '@/context/user-context/user-context';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { useMatchups } from '@/context/matchup-context/matchup-context';
+import { useRouter } from 'next/router';
 
-export default function TopRow({ bracketRecId, leagueId }) {
-  const [bracketName, setBracketName] = useState('');
+export default function TopRow() {
+  const { bracket } = useMatchups();
   const user = useUser();
-  const isCurrentUsersBrackets = user?.brackets.includes(bracketRecId);
+  const router = useRouter();
+  const { leagueId, bracketId } = router.query;
 
-  useEffect(() => {
-    const getBracketNameData = async () => {
-      const name = await getBracketName({ id: bracketRecId });
-      setBracketName(name);
-    };
-    if (bracketRecId && !bracketName) {
-      getBracketNameData();
-    }
-  }, [bracketRecId, bracketName]);
+  const isCurrentUsersBrackets = user?.brackets?.includes(bracketId);
+
   return (
     <div className={styles.topContainer}>
       <div>
-        <p className={styles.leagueName}>{bracketName}</p>
+        <p className={styles.leagueName}>{bracket.name}</p>
       </div>
       {isCurrentUsersBrackets && (
         <Link
-          href={`/bracket-settings/${bracketRecId}?bracketId=${bracketRecId}&leagueId=${leagueId}`}
+          href={`/bracket-settings/${bracketId}?bracketId=${bracketId}&leagueId=${leagueId}`}
           className={styles.button}
         >
           <p className={styles.text}>Settings</p>{' '}

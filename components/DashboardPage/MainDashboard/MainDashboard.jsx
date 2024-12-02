@@ -13,7 +13,7 @@ export default function MainDashboard({
   leagueData = [],
   setShowCreateLeagueTakeover,
   setShowJoinLeagueTakeover,
-  contests,
+  sports,
 }) {
   const user = useUser();
   const { isDesktop } = useWindowSize();
@@ -52,10 +52,7 @@ export default function MainDashboard({
             .map(league => {
               return (
                 <div key={league.name} className={styles.table}>
-                  <LeagueRankingsTable
-                    leagueData={league}
-                    contests={contests}
-                  />
+                  <LeagueRankingsTable leagueData={league} sports={sports} />
                 </div>
               );
             })}

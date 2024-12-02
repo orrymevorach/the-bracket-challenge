@@ -11,7 +11,7 @@ import Button from '@/components/shared/Button/Button';
 import styles from './CreateLeagueTakeover.module.scss';
 import Toggle from '@/components/shared/Toggle/Toggle';
 
-export default function CreateLeagueTakeover({ setShowTakeover, contests }) {
+export default function CreateLeagueTakeover({ setShowTakeover, sports }) {
   const [leagueName, setLeagueName] = useState('');
   const [selectedToggle, setSelectedToggle] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +74,7 @@ export default function CreateLeagueTakeover({ setShowTakeover, contests }) {
             />
             <div className={styles.toggleContainer}>
               <Toggle
-                contests={contests}
+                sports={sports}
                 selectedToggle={selectedToggle}
                 setError={setError}
                 handleChange={handleChangeToggle}

@@ -10,15 +10,13 @@ import { isEmpty } from '@/utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
-export default function LeagueRankingsTable({ leagueData, contests }) {
+export default function LeagueRankingsTable({ leagueData, sports }) {
   const router = useRouter();
   const user = useUser();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
 
-  const currentContest = contests?.find(
-    ({ sport }) => leagueData.sport === sport
-  );
+  const currentContest = sports?.find(({ name }) => leagueData.sport === name);
 
   const brackets = leagueData.json;
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
@@ -118,7 +116,7 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
           </table>
           <div className={tableStyles.buttonsContainer}>
             {brackets.map(bracket => {
-              const isCurrentUsersBracket = bracket.id === user.id;
+              const isCurrentUsersBracket = bracket.userId === user.id;
               const hasSelections = !isEmpty(bracket.selections);
               const buttonText = hasSelections
                 ? 'Edit Bracket'
@@ -140,7 +138,9 @@ export default function LeagueRankingsTable({ leagueData, contests }) {
                       }}
                       handleClick={() =>
                         router.push({
-                          pathname: ROUTES.BRACKET,
+                          pathname: `${
+                            ROUTES.BRACKET_CHALLENGE
+                          }/${leagueData.sport.toLowerCase()}`,
                           query: {
                             leagueId: leagueData.id,
                             bracketId: bracket.id,

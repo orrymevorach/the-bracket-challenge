@@ -1,12 +1,12 @@
 import styles from './Toggle.module.scss';
-export default function Toggle({ contests, selectedToggle, handleChange }) {
+export default function Toggle({ sports, selectedToggle, handleChange }) {
   const handleToggle = value => {
     handleChange(value);
   };
 
   return (
     <form>
-      {contests.map(option => (
+      {sports.map(option => (
         <div key={option.name} className={styles.toggleContainer}>
           {/* Toggle Switch */}
           <div

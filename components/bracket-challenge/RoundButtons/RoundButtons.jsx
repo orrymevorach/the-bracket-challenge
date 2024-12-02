@@ -4,42 +4,25 @@ import RoundButton from './RoundButton/RoundButton';
 import clsx from 'clsx';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
 import Dropdown from '@/components/shared/Dropdown/Dropdown';
-import { useConfig } from '@/context/config-context/config-context';
-import { ROUNDS } from '@/utils/constants';
+import { useMatchups } from '@/context/matchup-context/matchup-context';
 
-export default function RoundButtons({
-  setCurrentRound,
-  currentRound,
-  setIsLoading,
-  classNames = '',
-}) {
-  const [currentHoverRound, setCurrentHoverRound] = useState(null);
+export default function RoundButtons({ classNames = '' }) {
+  const { currentRoundIndex, setCurrentRoundIndex, contests } = useMatchups();
+  const [currentHoverRoundIndex, setCurrentHoverRoundIndex] = useState(null);
   const props = {
-    setCurrentHoverRound,
-    setCurrentRound,
-    currentRound,
-    currentHoverRound,
-    setIsLoading,
+    currentRoundIndex,
+    setCurrentRoundIndex,
+    currentHoverRoundIndex,
+    setCurrentHoverRoundIndex,
   };
   const { isMobile } = useWindowSize();
-  const roundNames = ROUNDS.map(({ name, displayName }) => ({
-    label: displayName,
+  const roundNames = contests.map(({ name }) => ({
+    label: name,
     value: name,
   }));
 
-  const { config, setConfig } = useConfig();
-
-  const handleClick = roundName => {
-    const round = ROUNDS.find(({ name }) => name === roundName);
-    setIsLoading(true);
-    setTimeout(() => {
-      setCurrentRound(round);
-      setConfig({
-        ...config,
-        currentRound: round.name,
-      });
-      setIsLoading(false);
-    }, 300);
+  const handleClick = roundIndex => {
+    setCurrentRoundIndex(roundIndex);
   };
 
   return (
@@ -54,13 +37,13 @@ export default function RoundButtons({
           />
         </div>
       ) : (
-        ROUNDS.map((round, index) => (
+        contests.map((contest, index) => (
           <RoundButton
             {...props}
-            key={round.name}
-            round={round}
+            key={`${contest.name}-${contest.subBracket}-${index}`}
+            round={contest}
             index={index}
-            handleClick={() => handleClick(round.name)}
+            handleClick={() => handleClick(index)}
           />
         ))
       )}
