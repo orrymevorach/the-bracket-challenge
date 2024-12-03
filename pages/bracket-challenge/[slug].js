@@ -2,7 +2,7 @@ import BracketChallengeContainer from '@/components/bracket-challenge/bracket-ch
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
-import { getContestsWithSnowboardersData, getSports } from '@/lib/airtable';
+import { getContestsWithMatchupsData, getSports } from '@/lib/airtable';
 
 export default function BracketChallengePage({ contests }) {
   return (
@@ -43,7 +43,7 @@ function generateBracket(firstRoundMatchups) {
   return bracket;
 }
 export async function getStaticProps(context) {
-  const contestData = await getContestsWithSnowboardersData();
+  const contestData = await getContestsWithMatchupsData();
   const filterBySport = contestData.filter(
     contest => contest.sport[0].toLowerCase() === context.params.slug
   );

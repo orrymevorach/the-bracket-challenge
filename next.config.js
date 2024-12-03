@@ -70,6 +70,14 @@ const nextConfig = {
         source: `/api/airtable/get-winners-bracket`,
         destination: `/api/airtable/get-record`,
       },
+      {
+        source: `/api/airtable/get-contests`,
+        destination: `/api/airtable/get-records`,
+      },
+      {
+        source: `/api/airtable/get-matchup`,
+        destination: `/api/airtable/get-record-by-id`,
+      },
     ];
   },
 };

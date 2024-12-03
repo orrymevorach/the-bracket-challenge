@@ -1,6 +1,5 @@
 import { addWinnerToMatchups } from './matchup-utils';
 import { useRouter } from 'next/router';
-import useSetMatchups from './useSetMatchups';
 import useGetApi from '@/hooks/useGetApi';
 import { getBracket, getLeague } from '@/lib/airtable';
 
