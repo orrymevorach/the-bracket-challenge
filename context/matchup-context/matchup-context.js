@@ -25,13 +25,12 @@ export const MatchupDataProvider = ({ children, contests }) => {
   );
   const { data: leagueData } = useGetApi(() => getLeague({ id: leagueId }));
 
-  if (!bracketData || !leagueData) return null;
-  const json = leagueData.json;
-  const bracketsWithSelections = JSON.parse(json);
-  const currentBracketSelections = bracketsWithSelections.find(
+  const json = leagueData?.json;
+  const bracketsWithSelections = json ? JSON.parse(json) : [];
+  const currentBracket = bracketsWithSelections.find(
     bracket => bracket.id === bracketId
-  ).selections;
-  bracketData.selections = currentBracketSelections;
+  );
+  if (bracketData) bracketData.selections = currentBracket?.selections;
 
   const setWinner = ({ player, matchupId, currentRound }) => {
     // const updatedRoundMatchups = addWinnerToMatchups({

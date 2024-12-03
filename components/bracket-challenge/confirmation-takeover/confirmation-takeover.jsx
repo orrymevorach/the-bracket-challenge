@@ -4,11 +4,11 @@ import { ROUTES } from '@/utils/constants';
 import Button from '@/components/shared/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
-export default function ConfirmationTakeover({
-  setShowConfirmationTakeover,
-  leagueId,
-}) {
+export default function ConfirmationTakeover({ setShowConfirmationTakeover }) {
+  const router = useRouter();
+  const leagueId = router.query.leagueId;
   return (
     <Takeover
       handleClose={() => setShowConfirmationTakeover(false)}
