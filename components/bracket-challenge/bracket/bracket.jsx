@@ -24,7 +24,7 @@ export default function Bracket({
             winnerName={winners[index]}
             position={index + 1}
             isChampion={isChampion}
-            {...snowboarder}
+            name={snowboarder?.name}
           />
         );
       })}

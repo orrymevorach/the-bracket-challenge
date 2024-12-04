@@ -98,7 +98,7 @@ export default function BracketChallenge() {
                       position={playerIndex + 1}
                       isChampion
                       matchupId={bracket.matchupId}
-                      {...snowboarder}
+                      name={snowboarder}
                     />
                   );
                 });

@@ -10,9 +10,11 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import PlayerModal from './player-modal/player-modal';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
+import Loader from '@/components/shared/Loader/Loader';
 
 export default function Player(player) {
-  const { name, matchupId, isChampion, winnerName, position, flag } = player;
+  const [isLoading, setIsLoading] = useState(false);
+  const { name, matchupId, isChampion, winnerName, position } = player;
 
   const { setWinner, snowboarders, currentRoundIndex } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -21,12 +23,14 @@ export default function Player(player) {
 
   const winner = winnerName ? snowboarders[winnerName] : '';
 
-  const [firstName, lastName] = name ? name.split(' ') : '';
+  const [firstName, lastName] =
+    name && typeof name === 'string' ? name.split(' ') : '';
   const [winnerFirstName, winnerLastName] = winner
     ? winner?.name.split(' ')
     : '';
 
-  const flagImage = flag && flag.length && flag[0];
+  const snowboarder = snowboarders[name];
+  const flagImage = snowboarder && snowboarder.flag[0];
   const winnerFlag = winner ? winner.flag[0] : '';
 
   const isCorrect = winner && winner.name === name;
@@ -38,9 +42,11 @@ export default function Player(player) {
   const round = matchupId?.split('_M')[0].replace('R', '');
   const pointsWonForCorrectPick = mapRoundToPoints[round - 1];
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!isSelectionsEnabled) return;
-    setWinner({ player: name, matchupId, currentRoundIndex });
+    setIsLoading(true);
+    await setWinner({ player: name, matchupId, currentRoundIndex });
+    setIsLoading(false);
   };
 
   return (
@@ -81,28 +87,32 @@ export default function Player(player) {
             )}
             onClick={handleClick}
           >
-            <div className={styles.textFlagContainer}>
-              {winner && !isCorrect ? (
-                <div>
-                  <p className={styles.playerName}>{winnerFirstName}</p>
-                  <p className={styles.playerName}>{winnerLastName}</p>
-                </div>
-              ) : (
-                <div>
-                  <p className={styles.playerName}>{firstName}</p>
-                  <p className={styles.playerName}>{lastName}</p>
-                </div>
-              )}
-              {flagImage && (
-                <Image
-                  src={winnerFlag?.url || flagImage.url}
-                  alt="hometown flag"
-                  className={styles.flag}
-                  width="50"
-                  height="50"
-                />
-              )}
-            </div>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <div className={styles.textFlagContainer}>
+                {winner && !isCorrect ? (
+                  <div>
+                    <p className={styles.playerName}>{winnerFirstName}</p>
+                    <p className={styles.playerName}>{winnerLastName}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p className={styles.playerName}>{firstName}</p>
+                    <p className={styles.playerName}>{lastName}</p>
+                  </div>
+                )}
+                {flagImage && (
+                  <Image
+                    src={winnerFlag?.url || flagImage.url}
+                    alt="hometown flag"
+                    className={styles.flag}
+                    width="50"
+                    height="50"
+                  />
+                )}
+              </div>
+            )}
           </button>
           {(winner && isCorrect && isPositionEven) ||
           (winner && isCorrect && !isPositionEven && isChampion) ? (

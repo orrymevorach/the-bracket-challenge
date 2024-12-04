@@ -2,14 +2,18 @@ import BracketChallengeContainer from '@/components/bracket-challenge/bracket-ch
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
-import { getContestsWithMatchupsData, getSports } from '@/lib/airtable';
+import {
+  getContestsWithMatchupsData,
+  getSnowboarders,
+  getSports,
+} from '@/lib/airtable';
 
-export default function BracketChallengePage({ contests }) {
+export default function BracketChallengePage({ contests, snowboarders }) {
   return (
     <>
       <Meta title="Bracket Challenge" />
       <UserProvider>
-        <MatchupDataProvider contests={contests}>
+        <MatchupDataProvider contests={contests} snowboarders={snowboarders}>
           <BracketChallengeContainer />
         </MatchupDataProvider>
       </UserProvider>
@@ -56,9 +60,16 @@ export async function getStaticProps(context) {
     };
   });
 
+  const { snowboarders } = await getSnowboarders();
+  const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
+    acc[snowboarder.name] = snowboarder;
+    return acc;
+  }, {});
+
   return {
     props: {
       contests: sportsWithAllMatchus,
+      snowboarders: snowboardersAsMap,
     },
   };
 }

@@ -1,6 +1,6 @@
 import { isEven } from '@/utils/utils';
 
-export function addWinnerToMatchups({ player, matchups, matchupId }) {
+function addWinnerToMatchups({ player, matchups, matchupId }) {
   const round = parseFloat(matchupId.split('_M')[0].replace('R', ''));
   const position = parseFloat(matchupId.split('_M')[1]);
   // Determining the next round number
@@ -28,3 +28,27 @@ export function addWinnerToMatchups({ player, matchups, matchupId }) {
   });
   return updatedMatchups;
 }
+
+export const addUpdatedBracketSelectionsToMatchups = (
+  updatedBracketSelections,
+  contests
+) => {
+  const contestsCopy = Array.from(contests);
+
+  // Loop through the updated bracket selections for each contest, and add the winner to the matchups
+  for (let i = 0; i < updatedBracketSelections.length; i++) {
+    const contest = updatedBracketSelections[i];
+    const contestAsArray = Object.entries(contest);
+    for (let [matchupId, selectedWinner] of contestAsArray) {
+      if (matchupId.includes('_')) {
+        const updatedMatchups = addWinnerToMatchups({
+          player: selectedWinner,
+          matchups: contestsCopy[i].matchups,
+          matchupId,
+        });
+        contestsCopy[i].matchups = updatedMatchups;
+      }
+    }
+  }
+  return contestsCopy;
+};

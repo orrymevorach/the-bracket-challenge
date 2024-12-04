@@ -31,7 +31,6 @@ export default function CreateLeagueTakeover({ setShowTakeover, sports }) {
       sport: selectedToggle,
     });
     window.location = `${ROUTES.DASHBOARD}`;
-    setIsLoading(false);
   };
 
   const handleChangeInput = e => {

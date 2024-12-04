@@ -1,46 +1,101 @@
-import { addWinnerToMatchups } from './matchup-utils';
+import { addUpdatedBracketSelectionsToMatchups } from './matchup-utils';
 import { useRouter } from 'next/router';
 import useGetApi from '@/hooks/useGetApi';
-import { getBracket, getLeague } from '@/lib/airtable';
+import { getBracket } from '@/lib/airtable';
+import { updateRecord } from '@/lib/airtable-utils';
+import { isEmpty } from '@/utils/utils';
 
-const { createContext, useContext, useState } = require('react');
+const { createContext, useContext, useState, useEffect } = require('react');
 const MatchupContext = createContext();
 
 export const useMatchups = () => {
   return useContext(MatchupContext);
 };
 
-export const MatchupDataProvider = ({ children, contests }) => {
+export const MatchupDataProvider = ({
+  children,
+  contests: initialContestsData,
+  snowboarders,
+}) => {
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+  const [contests, setContests] = useState(initialContestsData);
   const currentContest = contests[currentRoundIndex];
+  const [bracket, setBracket] = useState(null);
 
   const router = useRouter();
 
+  // Get bracket data
   const bracketId = router.query.bracketId;
-  const leagueId = router.query.leagueId;
-
   const { data: bracketData } = useGetApi(() =>
     getBracket({ recId: bracketId })
   );
-  const { data: leagueData } = useGetApi(() => getLeague({ id: leagueId }));
 
-  const json = leagueData?.json;
-  const bracketsWithSelections = json ? JSON.parse(json) : [];
-  const currentBracket = bracketsWithSelections.find(
-    bracket => bracket.id === bracketId
-  );
-  if (bracketData) bracketData.selections = currentBracket?.selections;
+  // On page load, add saved bracket selections to matchups
+  useEffect(() => {
+    if (bracketData && !bracket?.selections) {
+      const bracketSelections = bracketData?.selections
+        ? JSON.parse(bracketData.selections)
+        : {};
+      const hasBracketSelections = !isEmpty(bracketSelections);
+      if (hasBracketSelections) {
+        const contestsWithUpdatedMatchups =
+          addUpdatedBracketSelectionsToMatchups(bracketSelections, contests);
+        setBracket({
+          ...bracketData,
+          selections: bracketSelections,
+        });
+        setContests(contestsWithUpdatedMatchups);
+      } else {
+        setBracket(bracketData);
+      }
+    }
+  }, [bracket, bracketData]);
 
-  const setWinner = ({ player, matchupId, currentRound }) => {
-    // const updatedRoundMatchups = addWinnerToMatchups({
-    //   player,
-    //   matchups: matchups[currentRound],
-    //   matchupId,
-    // });
-    // // Making a copy so that state gets updated and creates a refresh
-    // const matchupsCopy = { ...matchups };
-    // matchupsCopy[currentRound] = updatedRoundMatchups;
-    // setMatchups(matchupsCopy);
+  const setWinner = async ({ player, matchupId }) => {
+    let bracketSelections = bracket?.selections;
+
+    // If user has no previous selections, create an array of objects with the name and subBracket data for each contest in this sport
+    // This happens if the user is making selections for the first time
+    if (!bracketSelections) {
+      bracketSelections = Array.from(contests).map(contest => ({
+        name: contest.name,
+        subBracket: contest.subBracket,
+      }));
+    }
+
+    // Get existing selections of current contest
+    const bracketSelectionsInCurrentContest =
+      bracketSelections[currentRoundIndex];
+    // Add the new selection to current contest
+    const currentContestSelectionsWithWinner = {
+      ...bracketSelectionsInCurrentContest,
+      [matchupId]: player,
+    };
+
+    // Add the current contest with the latest selection to the bracket selections
+    bracketSelections[currentRoundIndex] = currentContestSelectionsWithWinner;
+
+    // Update the airtable record with the new selections
+    await updateRecord({
+      tableId: 'User Brackets',
+      recordId: bracketId,
+      newFields: {
+        Selections: JSON.stringify(bracketSelections),
+      },
+    });
+
+    // Get the updated matchups with the new selection
+    const contestsWithUpdatedMatchups = addUpdatedBracketSelectionsToMatchups(
+      bracketSelections,
+      contests
+    );
+
+    // Set both the updated contest and bracket data with the latest selections
+    setBracket({
+      ...bracketData,
+      selections: bracketSelections,
+    });
+    setContests(contestsWithUpdatedMatchups);
   };
 
   const value = {
@@ -49,7 +104,8 @@ export const MatchupDataProvider = ({ children, contests }) => {
     currentRoundIndex,
     setCurrentRoundIndex,
     currentContest,
-    bracket: bracketData,
+    bracket,
+    snowboarders,
   };
 
   return (
