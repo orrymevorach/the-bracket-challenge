@@ -1,6 +1,6 @@
 import { isEven } from '@/utils/utils';
 
-function addWinnerToMatchups({ player, matchups, matchupId }) {
+function addWinnerToMatchups({ player, matchups, matchupId, winner }) {
   const round = parseFloat(matchupId.split('_M')[0].replace('R', ''));
   const position = parseFloat(matchupId.split('_M')[1]);
   // Determining the next round number
@@ -16,8 +16,16 @@ function addWinnerToMatchups({ player, matchups, matchupId }) {
     if (matchup.matchupId === nextMatchupId) {
       if (isPositionEven) {
         matchup.team2 = player;
+        matchup.actualWinner = {
+          ...matchup?.actualWinner,
+          team2: winner.name,
+        };
       } else {
         matchup.team1 = player;
+        matchup.actualWinner = {
+          ...matchup?.actualWinner,
+          team1: winner.name,
+        };
       }
     }
     // Set the winner for the current matchup
@@ -40,11 +48,20 @@ export const addUpdatedBracketSelectionsToMatchups = (
     const contest = updatedBracketSelections[i];
     const contestAsArray = Object.entries(contest);
     for (let [matchupId, selectedWinner] of contestAsArray) {
+      // Convert the matchups into an object, where the key is the matchupId
+      const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {
+        acc[curr.matchupId] = curr;
+        return acc;
+      }, {});
+      // Get the current matchup data, so that we can get the actual winner
+      const currentMatchup = matchupsAsMap[matchupId];
+      const winner = currentMatchup?.actualWinner;
       if (matchupId.includes('_')) {
         const updatedMatchups = addWinnerToMatchups({
           player: selectedWinner,
           matchups: contestsCopy[i].matchups,
           matchupId,
+          winner,
         });
         contestsCopy[i].matchups = updatedMatchups;
       }
