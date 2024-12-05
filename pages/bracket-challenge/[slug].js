@@ -7,6 +7,7 @@ import {
   getSnowboarders,
   getSports,
 } from '@/lib/airtable';
+import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 
 export default function BracketChallengePage({ contests, snowboarders }) {
   return (
@@ -21,42 +22,18 @@ export default function BracketChallengePage({ contests, snowboarders }) {
   );
 }
 
-function generateBracket(firstRoundMatchups) {
-  const totalRounds = Math.ceil(Math.log2(firstRoundMatchups.length));
-
-  const bracket = [...firstRoundMatchups];
-
-  for (let round = 1; round <= totalRounds + 1; round++) {
-    const numberOfMatchupsInRound = Math.ceil(
-      firstRoundMatchups.length / Math.pow(2, round - 1)
-    );
-
-    if (round !== 1) {
-      for (let i = 1; i <= numberOfMatchupsInRound; i++) {
-        bracket.push({
-          matchupId: `R${round}_M${i}`,
-          position: i,
-          round: round,
-          team1: {}, // Placeholder for team 1
-          team2: {}, // Placeholder for team 2
-        });
-      }
-    }
-  }
-
-  return bracket;
-}
 export async function getStaticProps(context) {
-  const contestData = await getContestsWithMatchupsData();
-  const filterBySport = contestData.filter(
+  const contests = await getContestsWithMatchupsData();
+  const contestsInCurrentSport = contests.filter(
     contest => contest.sport[0].toLowerCase() === context.params.slug
   );
-  const sportsWithAllMatchus = filterBySport.map(sport => {
-    const firstRoundMatchups = sport.matchups;
-    const allMatchups = generateBracket(firstRoundMatchups);
+  const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
+    const matchups = contest.matchups;
+    const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
+      createPlaceholdersForFutureRounds(matchups);
     return {
-      ...sport,
-      matchups: allMatchups,
+      ...contest,
+      matchups: matchupsWithExistingDataAndPlaceholdersForFutureRounds,
     };
   });
 
@@ -68,7 +45,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      contests: sportsWithAllMatchus,
+      contests: contestsWithAllMatchups,
       snowboarders: snowboardersAsMap,
     },
   };

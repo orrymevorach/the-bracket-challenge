@@ -1,8 +1,8 @@
 export const mapRoundToPoints = {
-  1: 1,
-  2: 2,
-  3: 4,
-  4: 8,
+  1: 10,
+  2: 20,
+  3: 40,
+  4: 80,
 };
 
 export function addRankingsToObjects({ inputArray = [] }) {

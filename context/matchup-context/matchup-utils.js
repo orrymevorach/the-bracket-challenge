@@ -18,13 +18,13 @@ function addWinnerToMatchups({ player, matchups, matchupId, winner }) {
         matchup.team2 = player;
         matchup.actualWinner = {
           ...matchup?.actualWinner,
-          team2: winner.name,
+          team2: winner,
         };
       } else {
         matchup.team1 = player;
         matchup.actualWinner = {
           ...matchup?.actualWinner,
-          team1: winner.name,
+          team1: winner,
         };
       }
     }
@@ -39,7 +39,8 @@ function addWinnerToMatchups({ player, matchups, matchupId, winner }) {
 
 export const addUpdatedBracketSelectionsToMatchups = (
   updatedBracketSelections,
-  contests
+  contests,
+  snowboarders
 ) => {
   const contestsCopy = Array.from(contests);
 
@@ -48,17 +49,18 @@ export const addUpdatedBracketSelectionsToMatchups = (
     const contest = updatedBracketSelections[i];
     const contestAsArray = Object.entries(contest);
     for (let [matchupId, selectedWinner] of contestAsArray) {
-      // Convert the matchups into an object, where the key is the matchupId
+      // Convert the matchups into an object, where the lookup key is the matchupId
       const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {
         acc[curr.matchupId] = curr;
         return acc;
       }, {});
       // Get the current matchup data, so that we can get the actual winner
       const currentMatchup = matchupsAsMap[matchupId];
+
       const winner = currentMatchup?.actualWinner;
       if (matchupId.includes('_')) {
         const updatedMatchups = addWinnerToMatchups({
-          player: selectedWinner,
+          player: snowboarders[selectedWinner],
           matchups: contestsCopy[i].matchups,
           matchupId,
           winner,
@@ -69,3 +71,45 @@ export const addUpdatedBracketSelectionsToMatchups = (
   }
   return contestsCopy;
 };
+
+// Creates placeholders for future rounds of the bracket that do not come from the data
+export function createPlaceholdersForFutureRounds(allMatchups) {
+  const firstRoundMatchups = allMatchups.filter(({ matchupId }) => {
+    if (matchupId.includes('R1')) return true;
+    return false;
+  });
+
+  const totalRounds = Math.ceil(Math.log2(firstRoundMatchups.length)) + 1;
+
+  const matchupsAsMap = allMatchups.reduce((acc, curr) => {
+    acc[curr.matchupId] = curr;
+    return acc;
+  }, {});
+
+  const matchups = [...allMatchups];
+
+  // First, we loop through each round in the contest
+  for (let currentRound = 1; currentRound <= totalRounds; currentRound++) {
+    // Since it is  possible that only some of the matchups come from the data, we have to determine how many there should be in total
+    // For example, if only the first round matchups have been announced, we need to figure out how many matchups there will be in the second and possible future rounds
+    const numberOfMatchupsInRound =
+      firstRoundMatchups.length / Math.pow(2, currentRound - 1);
+
+    // Second, we loop through all the matchups
+    for (let i = 1; i <= numberOfMatchupsInRound; i++) {
+      const matchupId = `R${currentRound}_M${i}`;
+      // If the matchup does not exist in the matchups array, we add a placeholder so that it shows up in the bracket
+      if (!matchupsAsMap[matchupId]) {
+        matchups.push({
+          matchupId: `R${currentRound}_M${i}`,
+          position: i,
+          round: currentRound,
+          team1: {}, // Placeholder for team 1
+          team2: {}, // Placeholder for team 2
+        });
+      }
+    }
+  }
+
+  return matchups;
+}

@@ -39,7 +39,11 @@ export const MatchupDataProvider = ({
       const hasBracketSelections = !isEmpty(bracketSelections);
       if (hasBracketSelections) {
         const contestsWithUpdatedMatchups =
-          addUpdatedBracketSelectionsToMatchups(bracketSelections, contests);
+          addUpdatedBracketSelectionsToMatchups(
+            bracketSelections,
+            contests,
+            snowboarders
+          );
         setBracket({
           ...bracketData,
           selections: bracketSelections,
@@ -64,8 +68,17 @@ export const MatchupDataProvider = ({
     }
 
     // Get existing selections of current contest
-    const bracketSelectionsInCurrentContest =
+    let bracketSelectionsInCurrentContest =
       bracketSelections[currentRoundIndex];
+
+    // If there are not existing selections of current contest, add contest details to ibject
+    if (!bracketSelectionsInCurrentContest) {
+      bracketSelectionsInCurrentContest = {
+        name: contests[currentRoundIndex].name,
+        subBracket: contests[currentRoundIndex].subBracket,
+      };
+    }
+
     // Add the new selection to current contest
     const currentContestSelectionsWithWinner = {
       ...bracketSelectionsInCurrentContest,
@@ -87,7 +100,8 @@ export const MatchupDataProvider = ({
     // Get the updated matchups with the new selection
     const contestsWithUpdatedMatchups = addUpdatedBracketSelectionsToMatchups(
       bracketSelections,
-      contests
+      contests,
+      snowboarders
     );
 
     // Set both the updated contest and bracket data with the latest selections

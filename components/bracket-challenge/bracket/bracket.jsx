@@ -21,7 +21,7 @@ export default function Bracket({
           <Player
             key={`matchup-${matchupId}-${index}`}
             matchupId={matchupId}
-            winnerName={winners[index]}
+            winnerName={winners[index]?.name}
             position={index + 1}
             isChampion={isChampion}
             name={snowboarder?.name}

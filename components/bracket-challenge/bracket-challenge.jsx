@@ -62,8 +62,13 @@ export default function BracketChallenge() {
     bracketConfig.numberOfColumns
   );
 
-  const winnersColumn =
-    matchupsGroupedByRound[bracketConfig.championRound - 1]?.matchups;
+  // For regular bracket - the only scenario with a final player at the end (i.e. not a full bracket), add a column for the winners
+  const winnersColumnMatchup =
+    matchupsGroupedByRound[matchupsGroupedByRound.length - 1]?.matchups;
+  const winnersColumnMatchupRound = parseFloat(
+    winnersColumnMatchup[0]?.matchupId.split('_')[0].replace('R', '')
+  );
+  const winnersColumnMatchupId = `R${winnersColumnMatchupRound + 1}_M1`;
 
   // If matchups are meant to be mirrored, split up the columns re-order them
   // On mobile do not split columns because it is too wide on the screen
@@ -78,41 +83,27 @@ export default function BracketChallenge() {
         <div className={styles.row}>
           {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
           {reArrangedMatchups.map(({ matchups }, index) => {
+            const round = matchups[0].round;
+            const isChampion = round === bracketConfig.championRound;
             return (
-              <BracketColumn matchups={matchups} key={`matchup-${index}`} />
+              <BracketColumn
+                matchups={matchups}
+                key={`matchup-${index}`}
+                isChampion={isChampion}
+              />
             );
           })}
-          <div className={styles.winnersColumn}>
-            {bracketConfig.display === 'mirror' ? (
-              ''
-            ) : bracketConfig.display === 'short' ? (
-              winnersColumn.map(bracket => {
-                const snowboarders = [bracket.team1, bracket.team2];
-                const winners = bracket.actualWinner || {};
-                return snowboarders.map((snowboarder, playerIndex) => {
-                  const teamKey = playerIndex === 0 ? 'team1' : 'team2';
-                  return (
-                    <Player
-                      key={`winners-column-${playerIndex}`}
-                      winnerName={winners[teamKey]}
-                      position={playerIndex + 1}
-                      isChampion
-                      matchupId={bracket.matchupId}
-                      name={snowboarder}
-                    />
-                  );
-                });
-              })
-            ) : (
+          {bracketConfig.display === 'regular' && (
+            <div className={styles.winnersColumn}>
               <Player
-                name={winnersColumn[0].team1}
-                winnerName={winnersColumn[0].actualWinner.team1}
+                name={winnersColumnMatchup[0].winner?.name}
+                winnerName={winnersColumnMatchup[0].actualWinner?.name}
                 position={1}
                 isChampion
-                matchupId={winnersColumn[0].matchupId}
+                matchupId={winnersColumnMatchupId}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </>
