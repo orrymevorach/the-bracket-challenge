@@ -3,22 +3,25 @@ import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import {
+  getContests,
   getContestsWithMatchupsData,
   getSnowboarders,
   getSports,
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
+import { getRecordById } from '@/lib/airtable-utils';
 
 export default function BracketChallengePage({
-  // contests = [],
-  // snowboarders = {},
+  contests,
+  snowboarders,
+  contestsInCurrentSport,
   // contestsInCurrentSport,
   // contestsWithAllMatchups,
-  slug,
-  contestsInCurrentSport,
 }) {
-  console.log('slug', slug);
+  console.log('contests', contests);
+  console.log('snowboarders', snowboarders);
   console.log('contestsInCurrentSport', contestsInCurrentSport);
+
   // console.log('contests', contests);
   // console.log('contestsInCurrentSport', contestsInCurrentSport);
   // console.log('contestsWithAllMatchups', contestsWithAllMatchups);
@@ -37,18 +40,53 @@ export default function BracketChallengePage({
 }
 
 export async function getStaticProps(context) {
-  const contests = await getContestsWithMatchupsData();
+  const contests = await getContests();
   if (!contests?.length)
     return {
       props: {},
     };
-  const contestsInCurrentSport = contests.filter(contest => {
+
+  const { snowboarders } = await getSnowboarders();
+  const snowboardersMap = snowboarders.reduce((acc, snowboarder) => {
+    acc[snowboarder.id] = snowboarder;
+    return acc;
+  }, {});
+
+  const contestsWithMatchups = await Promise.all(
+    contests.map(async contest => {
+      const matchups = contest.matchups || [];
+      const matchupsData = await Promise.all(
+        matchups.map(async matchupId => {
+          const { record: matchup } = await getRecordById({
+            tableId: 'Matchups',
+            recordId: matchupId,
+            // endpoint: '/get-matchup',
+          });
+          const team1 = snowboardersMap[matchup.team1];
+          const team2 = snowboardersMap[matchup.team2];
+          const actualWinner = matchup.actualWinner
+            ? snowboardersMap[matchup.actualWinner]
+            : '';
+          return {
+            ...matchup,
+            team1,
+            team2,
+            actualWinner,
+          };
+        })
+      );
+      return {
+        ...contest,
+        matchups: matchupsData,
+      };
+    })
+  );
+
+  const contestsInCurrentSport = contestsWithMatchups.filter(contest => {
     if (!contest.sport) return false;
     return contest.sport[0].toLowerCase() === context.params.slug;
   });
-  return {
-    props: { slug: context.params.slug, contestsInCurrentSport },
-  };
+
   const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
     const matchups = contest.matchups;
     if (!matchups?.length) return contest;
@@ -60,7 +98,6 @@ export async function getStaticProps(context) {
     };
   });
 
-  const { snowboarders } = await getSnowboarders();
   const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
     acc[snowboarder.name] = snowboarder;
     return acc;
@@ -71,7 +108,6 @@ export async function getStaticProps(context) {
       contests: contestsWithAllMatchups,
       snowboarders: snowboardersAsMap,
       contestsInCurrentSport,
-      contestsWithAllMatchups,
     },
   };
 }
