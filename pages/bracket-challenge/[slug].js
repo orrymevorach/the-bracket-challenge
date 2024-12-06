@@ -12,8 +12,14 @@ import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/mat
 export default function BracketChallengePage({
   contests = [],
   snowboarders = {},
+  contestsInCurrentSport,
+  contestsWithAllMatchups,
+  snowboardersAsMap,
 }) {
   console.log('contests', contests);
+  console.log('contestsInCurrentSport', contestsInCurrentSport);
+  console.log('contestsWithAllMatchups', contestsWithAllMatchups);
+  console.log('snowboardersAsMap', snowboardersAsMap);
   return (
     <>
       <Meta title="Bracket Challenge" />
@@ -57,6 +63,9 @@ export async function getStaticProps(context) {
     props: {
       contests: contestsWithAllMatchups,
       snowboarders: snowboardersAsMap,
+      contestsInCurrentSport,
+      contestsWithAllMatchups,
+      snowboardersAsMap,
     },
   };
 }
