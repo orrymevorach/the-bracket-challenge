@@ -37,6 +37,7 @@ export async function getStaticProps(context) {
   });
   const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
     const matchups = contest.matchups;
+    if (!matchups?.length) return contest;
     const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
       createPlaceholdersForFutureRounds(matchups);
     return {
