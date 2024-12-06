@@ -31,9 +31,10 @@ export async function getStaticProps(context) {
     return {
       props: {},
     };
-  const contestsInCurrentSport = contests.filter(
-    contest => contest.sport[0].toLowerCase() === context.params.slug
-  );
+  const contestsInCurrentSport = contests.filter(contest => {
+    if (!contest.sport) return false;
+    return contest.sport[0].toLowerCase() === context.params.slug;
+  });
   const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
     const matchups = contest.matchups;
     const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
