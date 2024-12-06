@@ -28,7 +28,6 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
     { title: 'Total Points' },
     { title: 'Correct Picks' },
   ];
-
   return (
     <>
       {showInviteMemberTakeover && (
@@ -120,41 +119,41 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
           </table>
           <div className={tableStyles.buttonsContainer}>
             {brackets.map(bracket => {
-              const isCurrentUsersBracket = bracket.userId === user.id;
+              const isCurrentUsersBracket = user.brackets?.includes(bracket.id);
               const hasSelections = !isEmpty(bracket.selections);
-              const buttonText = hasSelections
+              const buttonText = isCurrentUsersBracket
                 ? 'Edit Bracket'
-                : 'Create Bracket';
+                : 'View Bracket';
               return (
                 <div
                   className={tableStyles.buttonContainer}
                   key={`button-${bracket.id}-${bracket.name}`}
                 >
-                  {isCurrentUsersBracket && (
-                    <Button
-                      classNames={clsx(
-                        tableStyles.button,
-                        !hasSelections && tableStyles.pulse
-                      )}
-                      style={{
-                        backgroundColor: currentContest?.color,
-                        border: `1px solid ${currentContest?.color}`,
-                      }}
-                      handleClick={() =>
-                        router.push({
-                          pathname: `${
-                            ROUTES.BRACKET_CHALLENGE
-                          }/${leagueData.sport.toLowerCase()}`,
-                          query: {
-                            leagueId: leagueData.id,
-                            bracketId: bracket.id,
-                          },
-                        })
-                      }
-                    >
-                      {buttonText}
-                    </Button>
-                  )}
+                  {/* {isCurrentUsersBracket && ( */}
+                  <Button
+                    classNames={clsx(
+                      tableStyles.button,
+                      !hasSelections && tableStyles.pulse
+                    )}
+                    style={{
+                      backgroundColor: currentContest?.color,
+                      border: `1px solid ${currentContest?.color}`,
+                    }}
+                    handleClick={() =>
+                      router.push({
+                        pathname: `${
+                          ROUTES.BRACKET_CHALLENGE
+                        }/${leagueData.sport.toLowerCase()}`,
+                        query: {
+                          leagueId: leagueData.id,
+                          bracketId: bracket.id,
+                        },
+                      })
+                    }
+                  >
+                    {buttonText}
+                  </Button>
+                  {/* )} */}
                 </div>
               );
             })}
