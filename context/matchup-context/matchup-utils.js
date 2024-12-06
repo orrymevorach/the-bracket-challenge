@@ -58,7 +58,7 @@ export const addUpdatedBracketSelectionsToMatchups = (
       const currentMatchup = matchupsAsMap[matchupId];
 
       const winner = currentMatchup?.actualWinner;
-      if (matchupId.includes('_')) {
+      if (matchupId?.includes('_')) {
         const updatedMatchups = addWinnerToMatchups({
           player: snowboarders[selectedWinner],
           matchups: contestsCopy[i].matchups,
@@ -73,7 +73,8 @@ export const addUpdatedBracketSelectionsToMatchups = (
 };
 
 // Creates placeholders for future rounds of the bracket that do not come from the data
-export function createPlaceholdersForFutureRounds(allMatchups) {
+export function createPlaceholdersForFutureRounds(allMatchups = []) {
+  if (!allMatchups?.length) return [];
   const firstRoundMatchups = allMatchups.filter(({ matchupId }) => {
     if (matchupId.includes('R1')) return true;
     return false;
