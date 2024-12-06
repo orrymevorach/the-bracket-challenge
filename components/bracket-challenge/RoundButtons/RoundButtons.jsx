@@ -16,14 +16,25 @@ export default function RoundButtons({ classNames = '' }) {
     setCurrentHoverRoundIndex,
   };
   const { isMobile } = useWindowSize();
-  const roundNames = contests.map(({ name }) => ({
-    label: name,
-    value: name,
-  }));
 
-  const handleClick = roundIndex => {
-    setCurrentRoundIndex(roundIndex);
+  const handleClick = (roundIndex, roundName) => {
+    // Desktop implementation
+    if (roundIndex !== undefined) {
+      setCurrentRoundIndex(roundIndex);
+      return;
+    }
+    // Mobile implementation
+    const getRoundIndex = contests.findIndex(
+      contest => `${contest.name} ${contest.subBracket}` === roundName
+    );
+    setCurrentRoundIndex(getRoundIndex);
+    return;
   };
+
+  const roundNames = contests.map(contest => ({
+    label: `${contest.name} ${contest.subBracket}`,
+    value: `${contest.name} ${contest.subBracket}`,
+  }));
 
   return (
     <div className={clsx(styles.roundHeadingContainer, classNames)}>
@@ -33,7 +44,7 @@ export default function RoundButtons({ classNames = '' }) {
             options={roundNames}
             heading="Select A Round"
             handleChange={handleClick}
-            currentSelection={currentRound.name}
+            currentSelection={roundNames[currentRoundIndex]?.value}
           />
         </div>
       ) : (

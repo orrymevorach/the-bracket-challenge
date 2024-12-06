@@ -25,13 +25,17 @@ export default function Dropdown({
           id="demo-simple-select"
           value={currentSelection}
           label="Age"
-          onChange={e => handleChange(e.target.value)}
+          onChange={e => handleChange(undefined, e.target.value)}
           className={styles.select}
           defaultValue={'hey dude'}
         >
           {options.map(({ label, value }) => {
             return (
-              <MenuItem key={value} value={value}>
+              <MenuItem
+                key={value}
+                value={value}
+                onChange={() => console.log('changed!')}
+              >
                 {label}
               </MenuItem>
             );
