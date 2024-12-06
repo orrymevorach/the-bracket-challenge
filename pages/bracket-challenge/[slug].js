@@ -13,6 +13,7 @@ export default function BracketChallengePage({
   contests = [],
   snowboarders = {},
 }) {
+  console.log('contests', contests);
   return (
     <>
       <Meta title="Bracket Challenge" />
