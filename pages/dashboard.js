@@ -3,28 +3,42 @@ import { UserProvider } from '@/context/user-context/user-context';
 import { getContests, getLeague, getSports } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';
 import { getPageLoadData } from '@/lib/airtable';
+import { getFeatureFlag } from '@/lib/contentful';
 
-export default function Dashboard({ user, leagues, sports }) {
+export default function Dashboard({
+  user,
+  leagues,
+  sports,
+  enableDashboardFeatureFlag,
+}) {
   return (
     <>
       <Meta title="Dashboard" />
       <UserProvider user={user}>
-        <DashboardPage leagues={leagues} sports={sports} />
+        <DashboardPage
+          leagues={leagues}
+          sports={sports}
+          enableDashboardFeatureFlag={enableDashboardFeatureFlag}
+        />
       </UserProvider>
     </>
   );
 }
 
 export async function getServerSideProps(context) {
+  const enableDashboardFeatureFlag = await getFeatureFlag({
+    name: 'ENABLE_DASHBOARD',
+  });
   const { user } = await getPageLoadData(context);
   const sports = await getSports();
 
   const leagueIds = user.leagues;
-  if (!leagueIds) {
+  if (!leagueIds || !enableDashboardFeatureFlag) {
     return {
       props: {
         leagues: [],
         sports,
+        enableDashboardFeatureFlag,
       },
     };
   }
@@ -45,6 +59,7 @@ export async function getServerSideProps(context) {
       user,
       leagues,
       sports,
+      enableDashboardFeatureFlag,
     },
   };
 }

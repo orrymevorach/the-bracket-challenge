@@ -13,7 +13,11 @@ import OpeningSoon from './OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
 import Wrapper from '../shared/Wrapper/Wrapper';
 
-export default function Dashboard({ leagues, sports }) {
+export default function Dashboard({
+  leagues,
+  sports,
+  enableDashboardFeatureFlag,
+}) {
   const user = useUser();
   const leagueData = user?.leagues;
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
@@ -42,7 +46,9 @@ export default function Dashboard({ leagues, sports }) {
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
       )}
       <Wrapper>
-        {/* {hasLeagues ? (
+        {!enableDashboardFeatureFlag ? (
+          <OpeningSoon />
+        ) : hasLeagues ? (
           <MainDashboard
             leagueData={leagues}
             setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
@@ -56,8 +62,7 @@ export default function Dashboard({ leagues, sports }) {
             showJoinLeagueTakeover={showJoinLeagueTakeover}
             setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
           />
-        )} */}
-        <OpeningSoon />
+        )}
       </Wrapper>
     </Layout>
   );
