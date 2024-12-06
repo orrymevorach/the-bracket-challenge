@@ -9,14 +9,16 @@ import {
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 
-export default function BracketChallengePage(
-  {
-    // contests = [],
-    // snowboarders = {},
-    // contestsInCurrentSport,
-    // contestsWithAllMatchups,
-  }
-) {
+export default function BracketChallengePage({
+  // contests = [],
+  // snowboarders = {},
+  // contestsInCurrentSport,
+  // contestsWithAllMatchups,
+  slug,
+  contestsInCurrentSport,
+}) {
+  console.log('slug', slug);
+  console.log('contestsInCurrentSport', contestsInCurrentSport);
   // console.log('contests', contests);
   // console.log('contestsInCurrentSport', contestsInCurrentSport);
   // console.log('contestsWithAllMatchups', contestsWithAllMatchups);
@@ -45,7 +47,7 @@ export async function getStaticProps(context) {
     return contest.sport[0].toLowerCase() === context.params.slug;
   });
   return {
-    props: { slug: context.params.slug },
+    props: { slug: context.params.slug, contestsInCurrentSport },
   };
   const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
     const matchups = contest.matchups;
