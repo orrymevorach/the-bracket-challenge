@@ -12,14 +12,12 @@ import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/mat
 import { getRecordById } from '@/lib/airtable-utils';
 
 export default function BracketChallengePage({
-  contests,
-  snowboarders,
   contestsInCurrentSport,
+  contestsWithMatchups,
   // contestsInCurrentSport,
   // contestsWithAllMatchups,
 }) {
-  console.log('contests', contests);
-  console.log('snowboarders', snowboarders);
+  console.log('contestsWithMatchups', contestsWithMatchups);
   console.log('contestsInCurrentSport', contestsInCurrentSport);
 
   // console.log('contests', contests);
@@ -52,9 +50,15 @@ export async function getStaticProps(context) {
     return acc;
   }, {});
 
+  const contestsInCurrentSport = contests.filter(contest => {
+    if (!contest.sport) return false;
+    return contest.sport[0].toLowerCase() === context.params.slug;
+  });
+
   const contestsWithMatchups = await Promise.all(
-    contests.map(async contest => {
+    contestsInCurrentSport.map(async contest => {
       const matchups = contest.matchups || [];
+      if (!matchups.length) return contest;
       const matchupsData = await Promise.all(
         matchups.map(async matchupId => {
           const { record: matchup } = await getRecordById({
@@ -82,11 +86,12 @@ export async function getStaticProps(context) {
     })
   );
 
-  const contestsInCurrentSport = contestsWithMatchups.filter(contest => {
-    if (!contest.sport) return false;
-    return contest.sport[0].toLowerCase() === context.params.slug;
-  });
-
+  return {
+    props: {
+      contestsInCurrentSport,
+      contestsWithMatchups,
+    },
+  };
   const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
     const matchups = contest.matchups;
     if (!matchups?.length) return contest;
