@@ -88,7 +88,7 @@ export async function getStaticProps(context) {
     })
   );
 
-  const contestsWithAllMatchups = contestsInCurrentSport.map(contest => {
+  const contestsWithAllMatchups = contestsWithMatchups.map(contest => {
     const matchups = contest.matchups;
     if (!matchups?.length) return contest;
     const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
