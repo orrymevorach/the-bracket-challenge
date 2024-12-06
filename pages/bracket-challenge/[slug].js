@@ -11,9 +11,8 @@ import {
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 import { getRecordById } from '@/lib/airtable-utils';
 
-export default function BracketChallengePage({ contests, snowboarders }) {
-  console.log('contests', contests);
-  console.log('snowboarders', snowboarders);
+export default function BracketChallengePage({ contests = [], snowboarders }) {
+  if (!contests.length) return null;
 
   // console.log('contests', contests);
   // console.log('contestsInCurrentSport', contestsInCurrentSport);
