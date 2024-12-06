@@ -76,7 +76,7 @@ export const addUpdatedBracketSelectionsToMatchups = (
 export function createPlaceholdersForFutureRounds(allMatchups = []) {
   if (!allMatchups?.length) return [];
   const firstRoundMatchups = allMatchups.filter(({ matchupId }) => {
-    if (matchupId.includes('R1')) return true;
+    if (matchupId?.includes('R1')) return true;
     return false;
   });
 
