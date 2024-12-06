@@ -19,7 +19,6 @@ export default function BracketChallengePage({ contests, snowboarders }) {
   // console.log('contestsInCurrentSport', contestsInCurrentSport);
   // console.log('contestsWithAllMatchups', contestsWithAllMatchups);
   // console.log('snowboarders', snowboarders);
-  return;
   return (
     <>
       <Meta title="Bracket Challenge" />
