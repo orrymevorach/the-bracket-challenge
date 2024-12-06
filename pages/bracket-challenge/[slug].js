@@ -9,7 +9,10 @@ import {
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 
-export default function BracketChallengePage({ contests, snowboarders }) {
+export default function BracketChallengePage({
+  contests = [],
+  snowboarders = {},
+}) {
   return (
     <>
       <Meta title="Bracket Challenge" />
@@ -24,6 +27,10 @@ export default function BracketChallengePage({ contests, snowboarders }) {
 
 export async function getStaticProps(context) {
   const contests = await getContestsWithMatchupsData();
+  if (!contests?.length)
+    return {
+      props: {},
+    };
   const contestsInCurrentSport = contests.filter(
     contest => contest.sport[0].toLowerCase() === context.params.slug
   );
