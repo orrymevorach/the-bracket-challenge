@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
   const leagues = await Promise.all(
     leagueIds.map(async id => {
       const league = await getLeague({ id });
-      const json = JSON.parse(league.json);
+      const json = league?.json ? JSON.parse(league.json) : [];
 
       return {
         ...league,

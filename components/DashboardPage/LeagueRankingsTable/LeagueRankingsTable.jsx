@@ -25,6 +25,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
   const titleHeadings = [
     { title: 'Rank', classNames: tableStyles.rank },
     { title: 'Team Name' },
+    { title: 'Total Points' },
     { title: 'Correct Picks' },
   ];
 
@@ -81,16 +82,18 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
             <tbody>
               {brackets
                 .sort((a, b) => {
-                  const aRank = a.selections?.leagueRank;
-                  const bRank = b.selections?.leagueRank;
+                  let aRank = a.rankData?.rank;
+                  let bRank = b.rankData?.rank;
                   if (aRank > bRank) return 1;
                   return -1;
                 })
                 .map(bracket => {
-                  const { name, username, selections } = bracket;
-                  const totalPoints = selections?.totalPoints || 0;
-                  const rank = selections?.leagueRank;
-                  const numberOfWinners = selections?.numberOfWinners || 0;
+                  const { name, rankData, bracketName } = bracket;
+                  const totalPoints = rankData?.totalPoints || 0;
+                  const rank = rankData?.rank;
+                  const numberOfWinners = rankData?.numberOfWinners || 0;
+                  const correctPicks = rankData?.correctPicks || 0;
+
                   return (
                     <tr key={`row-${leagueData.id}-${name}`}>
                       <td className={tableStyles.rank}>
@@ -104,10 +107,11 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                         </p>
                       </td>
                       <td>
-                        <p>{username}</p>
+                        <p>{bracketName}</p>
                       </td>
+                      <td>{totalPoints}</td>
                       <td>
-                        {totalPoints}/{numberOfWinners}
+                        {correctPicks}/{numberOfWinners}
                       </td>
                     </tr>
                   );

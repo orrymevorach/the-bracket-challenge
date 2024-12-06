@@ -48,6 +48,7 @@
   border-collapse: collapse; // to hide borders between cells
   tr {
     position: relative;
+    color: white;
     &:hover {
       background-color: rgba(variables.$charcoal, 0.1);
     }
@@ -92,7 +93,7 @@ td.rank {
   background-color: variables.$green;
   border-radius: 50%;
   padding-top: 4px;
-  color: variables.$black;
+  color: white;
   font-size: 18px;
   border: 1px solid black;
   width: 40px;
