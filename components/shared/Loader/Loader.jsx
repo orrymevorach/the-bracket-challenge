@@ -1,4 +1,4 @@
-import styles from './loader.module.scss';
+import styles from './Loader.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';

@@ -1,4 +1,4 @@
-import styles from './login.module.scss';
+import styles from './Login.module.scss';
 import { initFirebaseAuth } from '@/components/LoginPage/firebase-utils';
 import LoginWithEmailAndPassword from './LoginWithEmailAndPassword/LoginWithEmailAndPassword';
 import Image from 'next/image';

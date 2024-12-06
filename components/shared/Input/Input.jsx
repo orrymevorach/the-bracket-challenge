@@ -1,4 +1,4 @@
-import styles from './input.module.scss';
+import styles from './Input.module.scss';
 import { TextField } from '@mui/material';
 import clsx from 'clsx';
 
