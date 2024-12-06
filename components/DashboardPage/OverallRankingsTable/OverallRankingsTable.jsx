@@ -3,11 +3,11 @@ import styles from './OverallRankingsTable.module.scss';
 import { useRouter } from 'next/router';
 import tableStyles from '@/components/shared/Table/Table.module.scss';
 import useGetApi from '@/hooks/useGetApi';
-import { getAllBracketsRanked } from '@/lib/airtable';
+import { getAllBrackets } from '@/lib/airtable';
 import Loader from '@/components/shared/Loader/Loader';
 
 export default function OverallRankingsTable({ leagues }) {
-  const { data: allBracketsRanked = [] } = useGetApi(getAllBracketsRanked);
+  const { data: allBracketsRanked = [] } = useGetApi(getAllBrackets);
   const router = useRouter();
 
   if (!leagues?.length || !allBracketsRanked)
