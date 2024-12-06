@@ -54,7 +54,7 @@ export default function BracketChallengeContainer() {
   const hasMatchups = currentContest?.matchups?.length > 0;
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';
   const isCurrentUsersBracket = user?.brackets?.includes(bracket.id);
-  const isBracketLocked = currentContest.lockBrackets === 'True';
+  const isBracketLocked = currentContest?.lockBrackets === 'True';
 
   return (
     <Layout>
