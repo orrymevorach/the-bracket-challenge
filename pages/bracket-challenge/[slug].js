@@ -11,22 +11,7 @@ import {
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 import { getRecordById } from '@/lib/airtable-utils';
 
-export default function BracketChallengePage({
-  contestsInCurrentSport,
-  contestsWithMatchups,
-  contestsWithAllMatchups,
-  // contestsInCurrentSport,
-  // contestsWithAllMatchups,
-}) {
-  console.log('contestsWithMatchups', contestsWithMatchups);
-  console.log('contestsInCurrentSport', contestsInCurrentSport);
-  console.log('contestsWithAllMatchups', contestsWithAllMatchups);
-
-  // console.log('contests', contests);
-  // console.log('contestsInCurrentSport', contestsInCurrentSport);
-  // console.log('contestsWithAllMatchups', contestsWithAllMatchups);
-  // console.log('snowboarders', snowboarders);
-  return;
+export default function BracketChallengePage({ contests, snowboarders }) {
   return (
     <>
       <Meta title="Bracket Challenge" />
@@ -98,13 +83,6 @@ export async function getStaticProps(context) {
       matchups: matchupsWithExistingDataAndPlaceholdersForFutureRounds,
     };
   });
-  return {
-    props: {
-      contestsInCurrentSport,
-      contestsWithMatchups,
-      contestsWithAllMatchups,
-    },
-  };
 
   const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
     acc[snowboarder.name] = snowboarder;
@@ -115,7 +93,6 @@ export async function getStaticProps(context) {
     props: {
       contests: contestsWithAllMatchups,
       snowboarders: snowboardersAsMap,
-      contestsInCurrentSport,
     },
   };
 }
