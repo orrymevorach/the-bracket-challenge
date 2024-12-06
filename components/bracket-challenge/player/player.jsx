@@ -11,8 +11,12 @@ import { useState } from 'react';
 import PlayerModal from './player-modal/player-modal';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
 import Loader from '@/components/shared/Loader/Loader';
+import { useUser } from '@/context/user-context/user-context';
+import { useRouter } from 'next/router';
 
 export default function Player(player) {
+  const user = useUser();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { name, matchupId, isChampion, winnerName, position } = player;
 
@@ -42,11 +46,17 @@ export default function Player(player) {
   const round = matchupId?.split('_M')[0].replace('R', '');
   const pointsWonForCorrectPick = mapRoundToPoints[round - 1];
 
+  const userBrackets = user?.brackets;
+  const bracketId = router.query.bracketId;
+  const isCurrentUsersBracket = userBrackets?.includes(bracketId);
+
   const handleClick = async () => {
-    if (!isSelectionsEnabled) return;
-    setIsLoading(true);
-    await setWinner({ player: name, matchupId, currentRoundIndex });
-    setIsLoading(false);
+    if (isCurrentUsersBracket && isSelectionsEnabled) {
+      setIsLoading(true);
+      await setWinner({ player: name, matchupId, currentRoundIndex });
+      setIsLoading(false);
+    }
+    return;
   };
 
   return (
@@ -83,7 +93,9 @@ export default function Player(player) {
               styles.playerContainer,
               isCorrect && styles.greenBorder,
               winner && !isCorrect && styles.redBorder,
-              isSelectionsEnabled && styles.isSelectionsEnabled
+              isCurrentUsersBracket &&
+                isSelectionsEnabled &&
+                styles.isSelectionsEnabled
             )}
             onClick={handleClick}
           >

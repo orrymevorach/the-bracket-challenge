@@ -111,7 +111,6 @@ export const MatchupDataProvider = ({
     });
     setContests(contestsWithUpdatedMatchups);
   };
-
   const value = {
     setWinner,
     contests,
