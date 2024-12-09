@@ -10,11 +10,11 @@ export default function MatchupsNotAvailable() {
       <p className={styles.matchupsNotAvailableText}>
         Selections for {currentContest?.name} are not yet available. Check out{' '}
         <Link
-          href="https://www.instagram.com/nstbracketchallenge/"
+          href="https://www.instagram.com/the_bracketchallenge/"
           target="_blank"
           className={styles.link}
         >
-          @nstbracketchallenge
+          @the_bracketchallenge
         </Link>{' '}
         for updates.
       </p>

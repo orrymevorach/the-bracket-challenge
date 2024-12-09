@@ -17,7 +17,9 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
 
-  const currentContest = sports?.find(({ name }) => leagueData.sport === name);
+  const currentContest = sports?.find(
+    ({ name }) => leagueData.sport[0] === name
+  );
 
   const brackets = leagueData.json;
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
@@ -145,7 +147,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                       router.push({
                         pathname: `${
                           ROUTES.BRACKET_CHALLENGE
-                        }/${leagueData.sport.toLowerCase()}`,
+                        }/${leagueData.sport[0].toLowerCase()}`,
                         query: {
                           leagueId: leagueData.id,
                           bracketId: bracket.id,

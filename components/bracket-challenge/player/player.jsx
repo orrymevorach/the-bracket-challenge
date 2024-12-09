@@ -34,7 +34,7 @@ export default function Player(player) {
     : '';
 
   const snowboarder = snowboarders[name];
-  const flagImage = snowboarder && snowboarder.flag[0];
+  const flagImage = snowboarder?.flag && snowboarder.flag[0];
   const winnerFlag = winner ? winner.flag[0] : '';
 
   const isCorrect = winner && winner.name === name;

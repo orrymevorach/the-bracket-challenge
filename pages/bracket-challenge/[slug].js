@@ -33,12 +33,13 @@ export async function getStaticProps(context) {
     return {
       props: {},
     };
+
+  const sport = context.params.slug;
   const contestsInCurrentSport = contests.filter(contest => {
     if (!contest.sport) return false;
-    return contest.sport[0].toLowerCase() === context.params.slug;
+    return contest.sport[0].toLowerCase() === sport.toLowerCase();
   });
-
-  const { snowboarders } = await getSnowboarders();
+  const { snowboarders } = await getSnowboarders({ sport });
 
   const contestsWithSelectedWinnersAndMatchups =
     await populateContestsWithSelectedWinnersAndMatchups(

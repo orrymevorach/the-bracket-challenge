@@ -25,10 +25,12 @@ export default function CreateLeagueTakeover({ setShowTakeover, sports }) {
       return;
     }
     setIsLoading(true);
+    const currentSport = sports.find(({ name }) => name === selectedToggle);
+    const currentSportRecId = currentSport?.id;
     await createLeague({
       name: leagueName,
       user,
-      sport: selectedToggle,
+      sportRecId: currentSportRecId,
     });
     window.location = `${ROUTES.DASHBOARD}`;
   };

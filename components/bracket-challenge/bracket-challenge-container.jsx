@@ -10,8 +10,6 @@ import styles from './bracket-challenge-container.module.scss';
 import BracketChallenge from './bracket-challenge';
 import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
 import Layout from '../shared/Layout/Layout';
-import { updateUserBracket } from '@/lib/airtable';
-import Button from '../shared/Button/Button';
 import { useMatchups } from '@/context/matchup-context/matchup-context';
 import TopRow from './top-row/top-row';
 import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
@@ -31,25 +29,6 @@ export default function BracketChallengeContainer() {
   const { isMobile } = useWindowSize();
 
   if (!bracket || !user) return <Loader isFullPage />;
-
-  // const handleSubmit = async () => {
-  //   setIsSubmitting(true);
-  //   const rounds = Object.entries(matchups).reduce((acc, curr) => {
-  //     const [roundName, roundMatchups] = curr;
-  //     for (let matchup of roundMatchups) {
-  //       const suffix = ROUND_SUFFIXES[roundName];
-  //       const key = `${suffix}${matchup.matchupId}`;
-  //       if (matchup.winner) {
-  //         acc[key] = matchup.winner;
-  //       }
-  //     }
-  //     return acc;
-  //   }, {});
-
-  //   await updateUserBracket({ rounds, id: router.query.bracketId });
-  //   setIsSubmitting(false);
-  //   setShowConfirmationTakeover(true);
-  // };
 
   const hasMatchups = currentContest?.matchups?.length > 0;
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';
@@ -72,16 +51,6 @@ export default function BracketChallengeContainer() {
           ) : (
             <MatchupsNotAvailable />
           )}
-
-          {/* {isMatchupsLoaded && showMatchups && isSelectionsEnabled && (
-                  <Button
-                    classNames={styles.submitButton}
-                    handleClick={handleSubmit}
-                    isLoading={isSubmitting}
-                  >
-                    Submit
-                  </Button>
-                )} */}
         </div>
       )}
       {showConfirmationTakeover && (
