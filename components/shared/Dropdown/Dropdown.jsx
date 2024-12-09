@@ -31,11 +31,7 @@ export default function Dropdown({
         >
           {options.map(({ label, value }) => {
             return (
-              <MenuItem
-                key={value}
-                value={value}
-                onChange={() => console.log('changed!')}
-              >
+              <MenuItem key={value} value={value}>
                 {label}
               </MenuItem>
             );

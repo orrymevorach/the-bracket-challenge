@@ -1,4 +1,5 @@
 import { ROUTES } from '@/utils/constants';
+import styles from './LeagueRankingsTable.module.scss';
 import tableStyles from '@/components/shared/Table/Table.module.scss';
 import { useRouter } from 'next/router';
 import Button from '@/components/shared/Button/Button';
@@ -42,6 +43,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
           <p className={tableStyles.title}>
             {leagueData.name}{' '}
             <span
+              className={styles.contestName}
               style={{
                 color: currentContest?.color,
                 WebkitTextStroke: currentContest?.textStrokeColor

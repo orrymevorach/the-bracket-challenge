@@ -28,7 +28,6 @@ export default function MainDashboard({
               <Button
                 handleClick={() => setShowJoinLeagueTakeover(true)}
                 classNames={styles.button}
-                isPurple
               >
                 <span>Join League</span>
                 <FontAwesomeIcon icon={faPeopleGroup} />
@@ -36,7 +35,6 @@ export default function MainDashboard({
               <Button
                 handleClick={() => setShowCreateLeagueTakeover(true)}
                 classNames={styles.button}
-                isPurple
               >
                 <span>Create League</span>
                 <FontAwesomeIcon icon={faPlus} />

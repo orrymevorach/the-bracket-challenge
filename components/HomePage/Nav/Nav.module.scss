@@ -83,10 +83,12 @@ button.joinButton {
 
 @media screen and (max-width: variables.$mobile) {
   .nav {
+    margin: 0 auto;
+    padding: 30px 20px;
+    align-items: center;
     &.fixed {
       padding: 0 20px;
     }
-    align-items: center;
   }
 
   .logo {

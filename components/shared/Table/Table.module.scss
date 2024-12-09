@@ -12,6 +12,8 @@
 .topRow {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .topRowButtonsContainer {
@@ -23,8 +25,8 @@
 }
 
 .inviteButton {
-  // margin-right: 20px;
   @include mixins.fontSecondaryBold;
+  margin-top: 0 !important;
   &:hover {
     svg {
       color: white;
@@ -39,7 +41,6 @@
 .title {
   @include mixins.fontPrimary;
   font-size: 32px;
-  margin-bottom: 20px;
 }
 
 .table {
@@ -174,6 +175,6 @@ td.rank {
     margin: 0;
   }
   .title {
-    // margin: 0;
+    font-size: 24px;
   }
 }

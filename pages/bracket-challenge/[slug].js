@@ -9,9 +9,10 @@ import {
   getSports,
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
-import { getRecordById } from '@/lib/airtable-utils';
+import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
 
 export default function BracketChallengePage({ contests = [], snowboarders }) {
+  useRouteOnAuth();
   if (!contests.length) return null;
 
   return (
@@ -57,22 +58,16 @@ export async function getStaticProps(context) {
       };
     }
   );
+
   const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
     acc[snowboarder.name] = snowboarder;
     return acc;
   }, {});
-  return {
-    props: {
-      contests: contestsWithAllMatchups,
-      snowboarders: snowboardersAsMap,
-    },
-  };
 
   return {
     props: {
       contests: contestsWithAllMatchups,
       snowboarders: snowboardersAsMap,
-      contestsInCurrentSport,
     },
   };
 }
