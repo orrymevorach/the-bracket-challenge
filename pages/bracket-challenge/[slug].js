@@ -20,7 +20,7 @@ export default function BracketChallengePage({ contests = [], snowboarders }) {
       <Meta title="Bracket Challenge" />
       <UserProvider>
         <MatchupDataProvider contests={contests} snowboarders={snowboarders}>
-          {/* <BracketChallengeContainer /> */}
+          <BracketChallengeContainer />
         </MatchupDataProvider>
       </UserProvider>
     </>

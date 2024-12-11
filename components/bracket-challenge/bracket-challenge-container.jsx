@@ -46,11 +46,11 @@ export default function BracketChallengeContainer() {
           <TopRow />
           <RoundButtons contests={contests} />
           {isBracketLocked && isCurrentUsersBracket && <BracketsLocked />}
-          {hasMatchups && isSelectionsEnabled ? (
+          {/* {hasMatchups && isSelectionsEnabled ? (
             <BracketChallenge />
-          ) : (
-            <MatchupsNotAvailable />
-          )}
+          ) : ( */}
+          <MatchupsNotAvailable />
+          {/* )} */}
         </div>
       )}
       {showConfirmationTakeover && (
