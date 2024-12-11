@@ -12,8 +12,7 @@ import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/mat
 import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
 
 export default function BracketChallengePage({ contests = [], snowboarders }) {
-  return;
-  // useRouteOnAuth();
+  useRouteOnAuth();
   if (!contests.length) return null;
 
   return (
@@ -21,7 +20,7 @@ export default function BracketChallengePage({ contests = [], snowboarders }) {
       <Meta title="Bracket Challenge" />
       <UserProvider>
         <MatchupDataProvider contests={contests} snowboarders={snowboarders}>
-          <BracketChallengeContainer />
+          {/* <BracketChallengeContainer /> */}
         </MatchupDataProvider>
       </UserProvider>
     </>
