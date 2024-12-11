@@ -3,10 +3,10 @@ import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
 import { MatchupDataProvider } from '@/context/matchup-context/matchup-context';
 import {
-  getContests,
   populateContestsWithSelectedWinnersAndMatchups,
-  getSnowboarders,
   getSports,
+  getContestsBySport,
+  getSnowboardersBySport,
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
@@ -28,22 +28,19 @@ export default function BracketChallengePage({ contests = [], snowboarders }) {
 }
 
 export async function getStaticProps(context) {
-  const contests = await getContests();
+  const sport = context.params.slug;
+
+  const contests = await getContestsBySport({ sport });
   if (!contests?.length)
     return {
       props: {},
     };
 
-  const sport = context.params.slug;
-  const contestsInCurrentSport = contests.filter(contest => {
-    if (!contest.sport) return false;
-    return contest.sport[0].toLowerCase() === sport.toLowerCase();
-  });
-  const { snowboarders } = await getSnowboarders({ sport });
+  const { snowboarders } = await getSnowboardersBySport({ sport });
 
   const contestsWithSelectedWinnersAndMatchups =
     await populateContestsWithSelectedWinnersAndMatchups(
-      contestsInCurrentSport,
+      contests,
       snowboarders
     );
 
@@ -65,9 +62,13 @@ export async function getStaticProps(context) {
     return acc;
   }, {});
 
+  const sortedContests = contestsWithAllMatchups.sort((a, b) => {
+    if (a.order < b.order) return -1;
+    return 1;
+  });
   return {
     props: {
-      contests: contestsWithAllMatchups,
+      contests: sortedContests,
       snowboarders: snowboardersAsMap,
     },
   };

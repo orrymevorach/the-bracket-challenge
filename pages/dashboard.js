@@ -1,6 +1,6 @@
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
-import { getContests, getLeague, getSports } from '@/lib/airtable';
+import { getLeague, getSports } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';
 import { getPageLoadData } from '@/lib/airtable';
 import { getFeatureFlag } from '@/lib/contentful';

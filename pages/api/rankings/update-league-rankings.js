@@ -3,9 +3,9 @@ import {
   mapRoundToPoints,
 } from '@/pages/api/rankings/bracket-ranking-utils';
 import {
-  getSnowboarders,
   getBracket,
   getMatchupsBySport,
+  getSnowboardersBySport,
 } from '@/lib/airtable';
 import { getRecordsByFieldValue, updateRecord } from '@/lib/airtable-utils';
 
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const { sport, subBracket } = { ...req.body, ...req.query };
 
   //   Get snowboarders
-  const { snowboarders } = await getSnowboarders({ sport });
+  const { snowboarders } = await getSnowboardersBySport({ sport });
   const snowboarderAsMap = snowboarders.reduce((acc, snowboarder) => {
     acc[snowboarder.id] = snowboarder.name;
     return acc;
