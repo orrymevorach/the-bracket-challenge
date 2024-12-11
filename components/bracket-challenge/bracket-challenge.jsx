@@ -50,17 +50,20 @@ export default function BracketChallenge() {
 
   const matchupsGroupedByRound = groupMatchupsByRound(currentContest.matchups);
 
-  const bracketConfig = {
-    display: currentContest.display,
-    numberOfColumns: currentContest.numberOfColumns,
-    championRound: currentContest.championRound,
-  };
+  const display = currentContest.display;
 
-  // Remove bracket columns (rounds) from rounds that do not require them
-  const matchupsInRound = matchupsGroupedByRound.slice(
-    0,
-    bracketConfig.numberOfColumns
-  );
+  // "Mirror" and "short" display types only show the first two rounds
+  const matchupsInRound =
+    display !== 'regular'
+      ? matchupsGroupedByRound.slice(0, 2)
+      : matchupsGroupedByRound;
+
+  // If matchups are meant to be mirrored, split up the columns re-order them
+  // On mobile do not split columns because it is too wide on the screen
+  const reArrangedMatchups =
+    display === 'mirror' && !isMobile
+      ? splitAndRearrangeColumns(matchupsInRound)
+      : matchupsInRound;
 
   // For regular bracket - the only scenario with a final player at the end (i.e. not a full bracket), add a column for the winners
   const winnersColumnMatchup =
@@ -70,12 +73,11 @@ export default function BracketChallenge() {
   );
   const winnersColumnMatchupId = `R${winnersColumnMatchupRound + 1}_M1`;
 
-  // If matchups are meant to be mirrored, split up the columns re-order them
-  // On mobile do not split columns because it is too wide on the screen
-  const reArrangedMatchups =
-    bracketConfig.display === 'mirror' && !isMobile
-      ? splitAndRearrangeColumns(matchupsInRound)
-      : matchupsInRound;
+  // Used for "short" and "mirror" display types to determine the round of the champion
+  const championRound =
+    matchupsInRound.length &&
+    matchupsInRound[matchupsInRound.length - 1].matchups.length &&
+    matchupsInRound[matchupsInRound.length - 1].matchups[0].round;
 
   return (
     <>
@@ -84,7 +86,7 @@ export default function BracketChallenge() {
           {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
           {reArrangedMatchups.map(({ matchups }, index) => {
             const round = matchups[0].round;
-            const isChampion = round === bracketConfig.championRound;
+            const isChampion = display !== 'regular' && round === championRound;
             return (
               <BracketColumn
                 matchups={matchups}
@@ -93,7 +95,7 @@ export default function BracketChallenge() {
               />
             );
           })}
-          {bracketConfig.display === 'regular' && (
+          {display === 'regular' && (
             <div className={styles.winnersColumn}>
               <Player
                 name={winnersColumnMatchup[0].winner?.name}
