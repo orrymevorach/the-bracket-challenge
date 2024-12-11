@@ -1,3 +1,8 @@
+// Display options:
+// 1. regular - doesn't affect anything, more of a placeholder
+// 2. short - used for shortened rounds where there is only one round per matchup
+// 3. mirror - used when we want to split the brackets and mirror them on the screen
+
 import styles from './bracket-challenge.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import BracketColumn from './bracket-column/bracket-column';
@@ -47,6 +52,8 @@ const splitAndRearrangeColumns = matchups => {
 export default function BracketChallenge() {
   const { currentContest } = useMatchups();
   const { isMobile } = useWindowSize();
+  console.log('currentContest', currentContest);
+  return;
 
   const matchupsGroupedByRound = groupMatchupsByRound(currentContest.matchups);
 

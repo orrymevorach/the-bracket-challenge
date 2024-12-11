@@ -1,8 +1,3 @@
-// Display options:
-// 1. regular - doesn't affect anything, more of a placeholder
-// 2. short - used for shortened rounds where there is only one round per matchup
-// 3. mirror - used when we want to split the brackets and mirror them on the screen
-
 import RoundButtons from './RoundButtons/RoundButtons';
 import { useState } from 'react';
 import SetBracketName from './set-bracket-name/set-bracket-name';
@@ -46,11 +41,11 @@ export default function BracketChallengeContainer() {
           <TopRow />
           <RoundButtons contests={contests} />
           {isBracketLocked && isCurrentUsersBracket && <BracketsLocked />}
-          {/* {hasMatchups && isSelectionsEnabled ? (
+          {hasMatchups && isSelectionsEnabled ? (
             <BracketChallenge />
-          ) : ( */}
-          <MatchupsNotAvailable />
-          {/* )} */}
+          ) : (
+            <MatchupsNotAvailable />
+          )}
         </div>
       )}
       {showConfirmationTakeover && (
