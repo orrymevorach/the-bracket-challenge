@@ -54,8 +54,6 @@ export default function BracketChallenge() {
   const { isMobile } = useWindowSize();
 
   const matchupsGroupedByRound = groupMatchupsByRound(currentContest.matchups);
-  console.log('matchupsGroupedByRound', matchupsGroupedByRound);
-  return;
 
   const display = currentContest.display;
 
