@@ -49,16 +49,16 @@ export const addUpdatedBracketSelectionsToMatchups = (
     const contest = updatedBracketSelections[i];
     const contestAsArray = Object.entries(contest);
     for (let [matchupId, selectedWinner] of contestAsArray) {
-      // Convert the matchups into an object, where the lookup key is the matchupId
-      const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {
-        acc[curr.matchupId] = curr;
-        return acc;
-      }, {});
-      // Get the current matchup data, so that we can get the actual winner
-      const currentMatchup = matchupsAsMap[matchupId];
-
-      const winner = currentMatchup?.actualWinner;
       if (matchupId?.includes('_')) {
+        // Convert the matchups into an object, where the lookup key is the matchupId
+        const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {
+          acc[curr.matchupId] = curr;
+          return acc;
+        }, {});
+        // Get the current matchup data, so that we can get the actual winner
+        const currentMatchup = matchupsAsMap[matchupId];
+
+        const winner = currentMatchup?.actualWinner;
         const updatedMatchups = addWinnerToMatchups({
           player: snowboarders[selectedWinner],
           matchups: contestsCopy[i].matchups,

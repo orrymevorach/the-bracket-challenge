@@ -1,75 +1,116 @@
-import { getWinners } from '@/lib/airtable';
-import { addRank } from '@/lib/airtable-utils';
-
-const Airtable = require('airtable');
-const contentful = require('contentful');
-
-// Airtable Config
-var airtableBase = new Airtable({
-  apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
-}).base(process.env.AIRTABLE_BASE);
-
-const client = contentful.createClient({
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
-});
-
-const getLeagueWithBrackets = async ({ leagueId }) => {
-  const { record: leagueData } = await getRecordById({
-    tableId: 'Leagues',
-    recordId: leagueId,
-  });
-
-  const bracketIds = leagueData?.userBrackets;
-
-  if (!bracketIds) {
-    res.status(200).json({ records: leagueData });
-  }
-
-  const bracketsWithData = await Promise.all(
-    bracketIds.map(async bracketId => {
-      const userData = await getUserByRecordId({
-        recId: bracketId,
-      });
-      const selections = userData.selections
-        ? JSON.parse(userData.selections)
-        : {};
-      return {
-        ...userData,
-        selections,
-      };
-    })
-  );
-
-  leagueData.userBrackets = bracketsWithData;
-  return leagueData;
-};
+import {
+  addRank,
+  mapRoundToPoints,
+} from '@/pages/api/rankings/bracket-ranking-utils';
+import {
+  getSnowboarders,
+  getBracket,
+  getMatchupsBySport,
+} from '@/lib/airtable';
+import { getRecordsByFieldValue, updateRecord } from '@/lib/airtable-utils';
 
 export default async function handler(req, res) {
-  const { leagueId } = { ...req.body, ...req.query };
+  const { sport, subBracket } = { ...req.body, ...req.query };
 
-  const league = await getLeagueWithBrackets({ leagueId });
+  //   Get snowboarders
+  const { snowboarders } = await getSnowboarders({ sport });
+  const snowboarderAsMap = snowboarders.reduce((acc, snowboarder) => {
+    acc[snowboarder.id] = snowboarder.name;
+    return acc;
+  }, {});
 
-  const winners = await getWinners();
+  //   Get matchups in current sport
+  const matchups = await getMatchupsBySport({ sport });
 
-  const numberOfWinners = winners?.length || 0;
+  //   get winners for each matchup
+  let winners = [];
+  for (let matchup of matchups) {
+    if (matchup.actualWinner) {
+      const round = parseFloat(matchup.round);
+      const points = mapRoundToPoints[round];
+      winners.push({
+        matchupId: matchup.matchupId,
+        winner: snowboarderAsMap[matchup.actualWinner[0]],
+        points,
+      });
+    }
+  }
 
-  // Add logic here ....
-
-  // Add rankings to each bracket based on the total points
-  const bracketsRanked = addRank(userBrackets);
-
-  // Loop through one more time and update the record for each bracket in airtable
-  bracketsRanked.forEach(async userBracket => {
-    await airtableBase('User Brackets').update([
-      {
-        id: userBracket.id,
-        fields: {
-          Selections: JSON.stringify(userBracket.selections),
-        },
-      },
-    ]);
+  //   Get all leagues for the sport, get all brackets for each league, and update rankings
+  const { records: leagues } = await getRecordsByFieldValue({
+    tableId: 'Leagues',
+    fieldName: 'Sport',
+    fieldValue: sport,
   });
+  for (let leagueData of leagues) {
+    const bracketIds = leagueData?.userBrackets;
 
-  res.status(200).json({ bracketsRanked });
+    if (!bracketIds) {
+      return leagueData;
+    }
+
+    const bracketsWithScoringData = await Promise.all(
+      bracketIds.map(async bracketId => {
+        const bracketData = await getBracket({
+          recId: bracketId,
+        });
+        // Bracket selections
+        const selections = bracketData.selections
+          ? JSON.parse(bracketData.selections)
+          : [];
+
+        const rankData = {
+          correctPicks: 0,
+          totalPoints: 0,
+          numberOfWinners: 0,
+        };
+
+        // Calculate the points and number of correct picks for each bracket
+        const selectionsWithRankings = selections.map(subBracketData => {
+          if (subBracketData.subBracket === subBracket) {
+            // let totalPoints = subBracketData.totalPoints || 0;
+            // let correctPicks = subBracketData.correctPicks || 0;
+            // let numberOfWinners = subBracketData.numberOfWinners || 0;
+            for (let winner of winners) {
+              const { matchupId, winner: actualWinner, points } = winner;
+              if (subBracketData[matchupId] === actualWinner) {
+                // correctPicks += 1;
+                // totalPoints += points;
+                // numberOfWinners += 1;
+
+                rankData.correctPicks += 1;
+                rankData.totalPoints += points;
+                rankData.numberOfWinners += 1;
+              } else {
+                // numberOfWinners += 1;
+                rankData.numberOfWinners += 1;
+              }
+              // subBracketData.totalPoints = totalPoints;
+              // subBracketData.correctPicks = correctPicks;
+              // subBracketData.numberOfWinners = numberOfWinners;
+            }
+          }
+          return subBracketData;
+        });
+        return {
+          bracketName: bracketData.name,
+          id: bracketId,
+          selections: selectionsWithRankings,
+          rankData,
+        };
+      })
+    );
+
+    // Add rankings to each bracket based on the total points
+    const bracketsRanked = addRank(bracketsWithScoringData);
+    const leagueId = leagueData.id;
+    await updateRecord({
+      tableId: 'Leagues',
+      recordId: leagueId,
+      newFields: {
+        json: JSON.stringify(bracketsRanked),
+      },
+    });
+    res.status(200).json({ bracketsRanked });
+  }
 }

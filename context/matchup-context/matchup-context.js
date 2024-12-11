@@ -71,7 +71,7 @@ export const MatchupDataProvider = ({
     let bracketSelectionsInCurrentContest =
       bracketSelections[currentRoundIndex];
 
-    // If there are not existing selections of current contest, add contest details to ibject
+    // If there are not existing selections of current contest, add contest details to object
     if (!bracketSelectionsInCurrentContest) {
       bracketSelectionsInCurrentContest = {
         name: contests[currentRoundIndex].name,
