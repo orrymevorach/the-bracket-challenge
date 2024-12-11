@@ -52,10 +52,10 @@ const splitAndRearrangeColumns = matchups => {
 export default function BracketChallenge() {
   const { currentContest } = useMatchups();
   const { isMobile } = useWindowSize();
-  console.log('currentContest', currentContest);
-  return;
 
   const matchupsGroupedByRound = groupMatchupsByRound(currentContest.matchups);
+  console.log('matchupsGroupedByRound', matchupsGroupedByRound);
+  return;
 
   const display = currentContest.display;
 
