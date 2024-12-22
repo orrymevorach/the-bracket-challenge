@@ -14,6 +14,7 @@ export const ROUTES = {
 
 export const COOKIES = {
   UID: 'uid',
+  USER_RECORD_ID: 'user_record_id',
 };
 
 export const ROUND_NAMES = {

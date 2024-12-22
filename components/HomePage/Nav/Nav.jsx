@@ -3,7 +3,7 @@ import styles from './Nav.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/shared/Button/Button';
-import { ROUTES } from '@/utils/constants';
+import { COOKIES, ROUTES } from '@/utils/constants';
 import { useUser } from '@/context/user-context/user-context';
 import Image from 'next/image';
 import desktopDarkLogo from '@/public/logo-center.png';
@@ -11,23 +11,10 @@ import desktopLightLogo from '@/public/logo-center-white.png';
 import mobileDarkLogo from '@/public/logo-bracket.png';
 import mobileLightLogo from '@/public/logo-bracket-white.png';
 import clsx from 'clsx';
-
 import useWindowSize from '@/hooks/useWindowSize';
-
-const getLinks = ({ user }) => [
-  // {
-  //   label: 'Schedule',
-  //   href: '/schedule',
-  // },
-  // {
-  //   label: 'Watch',
-  //   href: '#',
-  // },
-  {
-    label: user?.id ? 'Dashboard' : 'Join Now',
-    href: user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN,
-  },
-];
+import { useRouter } from 'next/router';
+import { signOutOfFirebase } from '@/components/LoginPage/firebase-utils';
+import Cookies from 'js-cookie';
 
 const mapDeviceToLogo = {
   mobile: {
@@ -42,44 +29,40 @@ const mapDeviceToLogo = {
 
 export default function Nav({ isDark, isFixed }) {
   const user = useUser();
+  const router = useRouter();
+  const isHomePage = router.pathname === ROUTES.HOME;
+  const buttonText = user?.id ? 'Sign In' : 'Sign Up';
+
   const loginHref = user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN;
-  const links = getLinks({ user });
   const { isMobile } = useWindowSize();
   const logoTheme = isDark ? 'dark' : 'light';
   const logo = mapDeviceToLogo[isMobile ? 'mobile' : 'desktop'][logoTheme];
+
+  const handleSignOut = async () => {
+    await signOutOfFirebase();
+    Cookies.remove(COOKIES.UID);
+    Cookies.remove(COOKIES.USER_RECORD_ID);
+    window.location = ROUTES.HOME;
+  };
+
   return (
     <nav className={clsx(styles.nav, isFixed && styles.fixed)}>
       <Link href={ROUTES.HOME}>
         <Image src={logo} alt="logo" className={styles.logo} />
       </Link>
-      {/* This is a placeholder for the logo */}
-      {/* <ul className={styles.items}> */}
-      <ul>
-        {/* {links.map(({ label, href }) => {
-          return (
-            <li key={label} className={styles.navItem}>
-              <Link href={href}>{label}</Link>
-            </li>
-          );
-        })} */}
-      </ul>
 
-      {/* {user?.id ? ( */}
-      <Button classNames={styles.userIcon} isNaked href={loginHref}>
-        <FontAwesomeIcon icon={faUser} size="lg" color="white" />
-      </Button>
-      {/* ) : (
-        <Button
-          isSecondary
-          isRound
-          classNames={styles.joinButton}
-          href={{
-            pathname: ROUTES.LOGIN,
-          }}
-        >
-          Join Now
+      {isHomePage ? (
+        <Button href={loginHref}>
+          <p className={styles.signInText}>{buttonText}</p>
+          <div classNames={styles.userIcon}>
+            <FontAwesomeIcon icon={faUser} size="lg" color="white" />
+          </div>
         </Button>
-      )} */}
+      ) : (
+        <Button handleClick={handleSignOut} isSmall>
+          <p>Sign Out</p>
+        </Button>
+      )}
     </nav>
   );
 }

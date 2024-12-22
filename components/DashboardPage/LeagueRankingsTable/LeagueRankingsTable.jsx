@@ -30,6 +30,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
     { title: 'Team Name' },
     { title: 'Total Points' },
     { title: 'Correct Picks' },
+    // { title: 'Dark Horse' },
   ];
   return (
     <>
@@ -116,6 +117,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                       <td>
                         {correctPicks}/{numberOfWinners}
                       </td>
+                      {/* <td></td> */}
                     </tr>
                   );
                 })}

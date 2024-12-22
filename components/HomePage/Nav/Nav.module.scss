@@ -81,6 +81,10 @@ button.joinButton {
   @include mixins.fontSecondaryBold;
 }
 
+.signInText {
+  margin-right: 12px;
+}
+
 @media screen and (max-width: variables.$mobile) {
   .nav {
     margin: 0 auto;
