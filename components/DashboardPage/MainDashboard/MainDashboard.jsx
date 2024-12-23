@@ -19,45 +19,43 @@ export default function MainDashboard({
   const { isDesktop } = useWindowSize();
 
   return (
-    <Wrapper>
-      <div className={styles.tablesContainer}>
-        <div className={styles.scrollContainer}>
-          <div className={styles.topContainer}>
-            <p className={styles.title}>Your Leagues</p>
-            <div className={styles.buttonsContainer}>
-              <Button
-                handleClick={() => setShowJoinLeagueTakeover(true)}
-                classNames={styles.button}
-              >
-                <span>Join League</span>
-                <FontAwesomeIcon icon={faPeopleGroup} />
-              </Button>
-              <Button
-                handleClick={() => setShowCreateLeagueTakeover(true)}
-                classNames={styles.button}
-              >
-                <span>Create League</span>
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
-            </div>
+    <div className={styles.tablesContainer}>
+      <div className={styles.scrollContainer}>
+        <div className={styles.topContainer}>
+          <p className={styles.title}>Your Leagues</p>
+          <div className={styles.buttonsContainer}>
+            <Button
+              handleClick={() => setShowJoinLeagueTakeover(true)}
+              classNames={styles.button}
+            >
+              <span>Join League</span>
+              <FontAwesomeIcon icon={faPeopleGroup} />
+            </Button>
+            <Button
+              handleClick={() => setShowCreateLeagueTakeover(true)}
+              classNames={styles.button}
+            >
+              <span>Create League</span>
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
           </div>
-          {leagueData
-            .sort(a => {
-              const leagueAdmin = a?.admin && a.admin[0];
-              const isAdmin = leagueAdmin && user.id === leagueAdmin;
-              if (isAdmin) return -1;
-            })
-            .map(league => {
-              return (
-                <div key={league.name} className={styles.table}>
-                  <LeagueRankingsTable leagueData={league} sports={sports} />
-                </div>
-              );
-            })}
         </div>
-        {isDesktop && <Border />}
-        {/* <OverallRankingsTable leagues={leagueData} /> */}
+        {leagueData
+          .sort(a => {
+            const leagueAdmin = a?.admin && a.admin[0];
+            const isAdmin = leagueAdmin && user.id === leagueAdmin;
+            if (isAdmin) return -1;
+          })
+          .map(league => {
+            return (
+              <div key={league.name} className={styles.table}>
+                <LeagueRankingsTable leagueData={league} sports={sports} />
+              </div>
+            );
+          })}
       </div>
-    </Wrapper>
+      {isDesktop && <Border />}
+      {/* <OverallRankingsTable leagues={leagueData} /> */}
+    </div>
   );
 }

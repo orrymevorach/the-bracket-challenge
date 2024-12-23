@@ -1,46 +1,103 @@
-import { useUser } from '@/context/user-context/user-context';
-import styles from './nav.module.scss';
-import { COOKIES, ROUTES } from '@/utils/constants';
-import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
-import { useState } from 'react';
-import { signOutOfFirebase } from '@/components/LoginPage/firebase-utils';
+import Link from 'next/link';
+import styles from './Nav.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/shared/Button/Button';
-import { useWindowSize } from '@/context/window-size-context/window-size-context';
-import MobileNav from './MobileNav/MobileNav';
+import { COOKIES, ROUTES } from '@/utils/constants';
+import { useUser } from '@/context/user-context/user-context';
+import Image from 'next/image';
+import desktopDarkLogo from '@/public/logo-center.png';
+import desktopLightLogo from '@/public/logo-center-white.png';
+import mobileDarkLogo from '@/public/logo-bracket.png';
+import mobileLightLogo from '@/public/logo-bracket-white.png';
+import clsx from 'clsx';
+import useWindowSize from '@/hooks/useWindowSize';
+import { useRouter } from 'next/router';
+import { signOutOfFirebase } from '@/components/LoginPage/firebase-utils';
+import Cookies from 'js-cookie';
+import MobileNav from '@/components/shared/Nav/MobileNav/MobileNav';
+import Wrapper from '../Wrapper/Wrapper';
 
-export default function Nav() {
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+const mapDeviceToLogo = {
+  mobile: {
+    light: mobileLightLogo,
+    dark: mobileDarkLogo,
+  },
+  desktop: {
+    light: desktopLightLogo,
+    dark: desktopDarkLogo,
+  },
+};
+
+export default function Nav({ isDark, isFixed, children = null }) {
   const user = useUser();
-  const { isMobile } = useWindowSize();
+  const router = useRouter();
+  const { isMobile, isDesktop } = useWindowSize();
 
-  const { pathname } = router;
-  const firstName = user.name?.split(' ')[0];
+  const isHomePage = router.pathname === ROUTES.HOME;
+  const isBracketChallengePage = router.pathname.includes(
+    ROUTES.BRACKET_CHALLENGE
+  );
+  const isDashboardPage = router.pathname === ROUTES.DASHBOARD;
+
+  const buttonText = user?.id ? 'Sign In' : 'Sign Up';
+
+  const loginHref = user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN;
+  const logoTheme = isDark ? 'dark' : 'light';
+  const logo = mapDeviceToLogo[isMobile ? 'mobile' : 'desktop'][logoTheme];
 
   const handleSignOut = async () => {
-    setIsLoading(true);
     await signOutOfFirebase();
     Cookies.remove(COOKIES.UID);
-    router.push(ROUTES.HOME);
+    Cookies.remove(COOKIES.USER_RECORD_ID);
+    window.location = ROUTES.HOME;
   };
+
   return (
-    <div className={styles.container}>
-      <p className={styles.name}>Hey {firstName}!</p>
-      {!isMobile ? (
-        <nav className={styles.buttonsContainer}>
-          {pathname !== ROUTES.DASHBOARD && (
-            <Button classNames={styles.button} href={ROUTES.DASHBOARD}>
-              Dashboard
-            </Button>
+    <nav className={clsx(styles.nav, isFixed && styles.fixed)}>
+      <Wrapper>
+        <div
+          className={styles.grid}
+          style={{
+            gridTemplateColumns:
+              isDesktop && !!children ? '1fr 1fr 1fr' : '1fr 1fr',
+          }}
+        >
+          <Link href={ROUTES.HOME}>
+            <Image src={logo} alt="logo" className={styles.logo} />
+          </Link>
+          {isDesktop && children}
+          {isMobile && !isHomePage ? (
+            <MobileNav handleSignOut={handleSignOut} />
+          ) : (
+            <div className={styles.buttonsContainer}>
+              {isBracketChallengePage && (
+                <Button
+                  href={ROUTES.DASHBOARD}
+                  isSmall
+                  classNames={styles.dashboardButton}
+                >
+                  Dashboard
+                </Button>
+              )}
+              {isHomePage && (
+                <Button href={loginHref}>
+                  <p className={styles.signInText}>{buttonText}</p>
+                  <div classNames={styles.userIcon}>
+                    <FontAwesomeIcon icon={faUser} size="lg" color="white" />
+                  </div>
+                </Button>
+              )}
+              {isDashboardPage && (
+                <Button handleClick={handleSignOut} isSmall>
+                  <p>Sign Out</p>
+                </Button>
+              )}
+            </div>
           )}
-          <Button isLoading={isLoading} handleClick={handleSignOut}>
-            Sign Out
-          </Button>
-        </nav>
-      ) : (
-        <MobileNav handleSignOut={handleSignOut} />
-      )}
-    </div>
+        </div>
+        {!isDesktop && children}
+      </Wrapper>
+    </nav>
   );
 }

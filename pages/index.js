@@ -1,6 +1,6 @@
 import HomePageLayout from '@/components/HomePage/Layout/Layout';
 import Media from '@/components/HomePage/Media/Media';
-import Nav from '@/components/HomePage/Nav/Nav';
+import Nav from '@/components/shared/Nav/Nav';
 import Footer from '@/components/shared/Footer/Footer';
 import Meta from '@/components/shared/Head/Head';
 import { getMedia } from '@/lib/contentful';

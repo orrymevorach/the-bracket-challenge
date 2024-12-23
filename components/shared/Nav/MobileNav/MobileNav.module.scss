@@ -35,6 +35,13 @@
   margin-bottom: 15px;
 }
 
+.hamburger {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+}
+
 @keyframes slideRight {
   0% {
     transform: translateX(-100%);
