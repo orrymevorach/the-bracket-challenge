@@ -31,6 +31,9 @@ export default function Nav({ isDark, isFixed }) {
   const user = useUser();
   const router = useRouter();
   const isHomePage = router.pathname === ROUTES.HOME;
+  const isBracketChallengePage = router.pathname.includes(
+    ROUTES.BRACKET_CHALLENGE
+  );
   const buttonText = user?.id ? 'Sign In' : 'Sign Up';
 
   const loginHref = user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN;
@@ -50,19 +53,29 @@ export default function Nav({ isDark, isFixed }) {
       <Link href={ROUTES.HOME}>
         <Image src={logo} alt="logo" className={styles.logo} />
       </Link>
-
-      {isHomePage ? (
-        <Button href={loginHref}>
-          <p className={styles.signInText}>{buttonText}</p>
-          <div classNames={styles.userIcon}>
-            <FontAwesomeIcon icon={faUser} size="lg" color="white" />
-          </div>
-        </Button>
-      ) : (
-        <Button handleClick={handleSignOut} isSmall>
-          <p>Sign Out</p>
-        </Button>
-      )}
+      <div className={styles.buttonsContainer}>
+        {isBracketChallengePage && (
+          <Button
+            href={ROUTES.DASHBOARD}
+            isSmall
+            classNames={styles.dashboardButton}
+          >
+            Dashboard
+          </Button>
+        )}
+        {isHomePage ? (
+          <Button href={loginHref}>
+            <p className={styles.signInText}>{buttonText}</p>
+            <div classNames={styles.userIcon}>
+              <FontAwesomeIcon icon={faUser} size="lg" color="white" />
+            </div>
+          </Button>
+        ) : (
+          <Button handleClick={handleSignOut} isSmall>
+            <p>Sign Out</p>
+          </Button>
+        )}
+      </div>
     </nav>
   );
 }

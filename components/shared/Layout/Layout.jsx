@@ -42,8 +42,8 @@ export default function Layout({
         )}
 
         {children}
-        <Footer />
       </WrapperComponent>
+      <Footer />
     </div>
   );
 }

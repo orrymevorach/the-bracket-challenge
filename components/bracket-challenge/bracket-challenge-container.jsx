@@ -13,6 +13,7 @@ import { useWindowSize } from '@/context/window-size-context/window-size-context
 import RotatePhoneTakeover from './rotate-phone-takeover/rotate-phone-takeover';
 import { useUser } from '@/context/user-context/user-context';
 import Loader from '../shared/Loader/Loader';
+import ProgressBar from './ProgressBar/ProgressBar';
 
 export default function BracketChallengeContainer() {
   const { contests, currentContest, bracket } = useMatchups();
@@ -40,6 +41,7 @@ export default function BracketChallengeContainer() {
 
           <TopRow />
           <RoundButtons contests={contests} />
+          <ProgressBar />
           {isBracketLocked && isCurrentUsersBracket && <BracketsLocked />}
           {hasMatchups && isSelectionsEnabled ? (
             <BracketChallenge />
