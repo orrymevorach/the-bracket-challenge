@@ -72,7 +72,7 @@ export default function ProgressBar() {
 
         <p className={styles.progressText}>
           {allSelectedWinners.length} / {allMatchups.length}
-          <span> picks complete</span>
+          {!isMobile && <span> picks complete</span>}
         </p>
         {currentRoundIndex < contests.length - 1 ? (
           <button className={styles.next} onClick={handleClickNext}>
@@ -91,6 +91,7 @@ export default function ProgressBar() {
         className={styles.progressBarContainer}
         style={{
           backgroundColor,
+          border: `2px solid ${progressBarColor}`,
         }}
       >
         <div

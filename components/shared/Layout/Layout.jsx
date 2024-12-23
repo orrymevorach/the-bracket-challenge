@@ -17,6 +17,7 @@ export default function Layout({
   isDark = false,
   isFixed = false,
   removeWrapper = false,
+  NavChildren = null,
 }) {
   const user = useUser();
   const { isMobile } = useWindowSize();
@@ -27,7 +28,9 @@ export default function Layout({
 
   return (
     <div className={styles.layout}>
-      <Nav isDark={isDark} isFixed={isFixed} />
+      <Nav isDark={isDark} isFixed={isFixed}>
+        {NavChildren && <NavChildren />}
+      </Nav>
       <WrapperComponent>
         {backButtonText && (
           <Link href={backButtonHref} className={styles.backButton}>

@@ -2,7 +2,7 @@
 @use '@variables' as variables;
 
 .container {
-  margin-top: 50px;
+  padding: 10px 0;
 }
 .dropdown {
   display: flex;
@@ -26,6 +26,7 @@
   text-align: center;
   font-size: 22px;
   color: white;
+  margin-bottom: 10px;
 }
 
 .select {

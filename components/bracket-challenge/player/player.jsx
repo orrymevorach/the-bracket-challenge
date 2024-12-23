@@ -19,9 +19,16 @@ export default function Player(player) {
   const [isLoading, setIsLoading] = useState(false);
   const { name, matchupId, isChampion, winnerName, position } = player;
 
-  const { setWinner, snowboarders, currentRoundIndex } = useMatchups();
+  const {
+    setWinner,
+    snowboarders,
+    currentRoundIndex,
+    currentContest: { lockBrackets, enableSelections },
+  } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const isSelectionsEnabled = true; // TEMPORARY
+
+  const isSelectionsEnabled =
+    lockBrackets === 'False' && enableSelections === 'True';
   const { isMobile } = useWindowSize();
 
   const winner = winnerName ? snowboarders[winnerName] : '';

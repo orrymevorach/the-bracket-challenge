@@ -30,6 +30,19 @@
   margin-right: 7px;
 }
 
+.sport,
+.bracketName {
+  text-transform: uppercase;
+  font-size: 50px;
+  @include mixins.fontPrimary;
+  text-align: center;
+  color: white;
+}
+
+.bracketName {
+  font-size: 40px;
+}
+
 @media screen and (max-width: variables.$mobile) {
   .container {
     overflow-x: scroll;
@@ -46,5 +59,10 @@
     P {
       font-size: 14px;
     }
+  }
+
+  .sport,
+  .bracketName {
+    font-size: 30px;
   }
 }

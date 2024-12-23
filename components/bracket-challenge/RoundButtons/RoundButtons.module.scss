@@ -2,9 +2,10 @@
 
 .roundHeadingContainer {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 60px;
-  margin-top: 40px;
+  justify-content: center;
+  background-color: variables.$charcoal;
+  padding: 10px 0;
+  margin: 40px 0 30px;
 }
 
 @media screen and (max-width: variables.$mobile) {

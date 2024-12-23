@@ -2,18 +2,23 @@
 @use '@mixins' as mixins;
 
 .roundHeadingButton {
-  width: 33.3%;
   text-align: center;
   background: none;
   border: none;
   color: white;
   position: relative;
-  margin-bottom: 30px;
+  margin: 0 30px;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
   &.active {
     &:after {
       content: '';
       position: absolute;
-      bottom: -15px;
+      bottom: -10px;
       width: 100px;
       height: 3px;
       background-color: variables.$yellow;
