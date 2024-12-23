@@ -16,19 +16,29 @@ export default function ProgressBar() {
     : '#f3f3f3';
 
   const allMatchups = contests
-    .flatMap(contest => {
-      if (contest.enableSelections === 'True') return contest.matchups;
+    .map(contest => {
+      // If selections are disabled, user is not able to make picks for that contest
+      if (contest.enableSelections === 'False') return;
+      return contest.matchups
+        .map(matchup => {
+          // If display is not regular, user is only able to pick winners from the first round
+          if (contest.display !== 'regular' && matchup.round > 1) return null;
+          return matchup;
+        })
+        .filter(contest => !!contest);
     })
-    .filter(contest => !!contest);
+    .filter(contest => !!contest)
+    .flat();
 
   const allSelectedWinners = contests
     .map(contest => {
-      if (contest.enableSelections === 'True')
-        return contest.matchups
-          .map(matchup => {
-            return matchup.winner;
-          })
-          .filter(contest => !!contest);
+      if (contest.enableSelections === 'False') return;
+      return contest.matchups
+        .map(matchup => {
+          if (contest.display !== 'regular' && matchup.round > 1) return null;
+          return matchup.winner;
+        })
+        .filter(contest => !!contest);
     })
     .flat();
   const progress = (allSelectedWinners.length / allMatchups.length) * 100;
