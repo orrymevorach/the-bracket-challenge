@@ -78,26 +78,14 @@ export default function BracketChallenge() {
   );
   const winnersColumnMatchupId = `R${winnersColumnMatchupRound + 1}_M1`;
 
-  // Used for "short" and "mirror" display types to determine the round of the champion
-  const championRound =
-    matchupsInRound.length &&
-    matchupsInRound[matchupsInRound.length - 1].matchups.length &&
-    matchupsInRound[matchupsInRound.length - 1].matchups[0].round;
-
   return (
     <>
       <div className={styles.bracketChallengeContainer}>
         <div className={styles.row}>
           {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
           {reArrangedMatchups.map(({ matchups }, index) => {
-            const round = matchups[0].round;
-            const isChampion = display !== 'regular' && round === championRound;
             return (
-              <BracketColumn
-                matchups={matchups}
-                key={`matchup-${index}`}
-                isChampion={isChampion}
-              />
+              <BracketColumn matchups={matchups} key={`matchup-${index}`} />
             );
           })}
           {display === 'regular' && (

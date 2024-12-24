@@ -38,7 +38,7 @@ export default function BracketChallengeContainer() {
   const user = useUser();
   const { isMobile } = useWindowSize();
 
-  if (!bracket || !user) return <Loader isFullPage />;
+  if (!bracket || !user) return <Loader isFullPage isBrackets />;
 
   const hasMatchups = currentContest?.matchups?.length > 0;
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';

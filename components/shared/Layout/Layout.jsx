@@ -21,7 +21,7 @@ export default function Layout({
   const user = useUser();
   const { isMobile } = useWindowSize();
 
-  if (user?.isLoading) return <Loader isFullPage />;
+  if (user?.isLoading) return <Loader isFullPage isBrackets />;
 
   const WrapperComponent = removeWrapper ? 'div' : Wrapper;
 
