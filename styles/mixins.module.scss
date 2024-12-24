@@ -28,7 +28,7 @@
   font-family: 'Natural';
 }
 
-@mixin pulseShadow($color: variables.$newBlack, $size: 15px, $opacity: 1) {
+@mixin pulseShadow($color: #fff, $size: 15px, $opacity: 1) {
   animation: infinite 2s pulseShadow ease-in-out;
   box-shadow: 0 0 $size $color;
 
