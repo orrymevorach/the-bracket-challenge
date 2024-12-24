@@ -41,6 +41,19 @@
 
 .bracketName {
   font-size: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  svg {
+    font-size: 16px;
+    margin-left: 10px;
+    margin-bottom: 6px;
+  }
+}
+
+.editButton {
+  background: none;
+  border: none;
 }
 
 @media screen and (max-width: variables.$mobile) {

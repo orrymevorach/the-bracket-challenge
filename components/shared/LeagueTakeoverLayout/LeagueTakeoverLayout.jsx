@@ -24,7 +24,6 @@ export default function LeagueTakeoverLayout({
     e.preventDefault();
     setIsLoading(true);
     await handleSubmit();
-    setIsLoading(false);
   };
 
   return (

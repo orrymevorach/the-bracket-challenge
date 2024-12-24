@@ -5,15 +5,23 @@ import BracketChallenge from './bracket-challenge';
 import MatchupsNotAvailable from './matchups-not-available/matchups-not-available';
 import Layout from '../shared/Layout/Layout';
 import { useMatchups } from '@/context/matchup-context/matchup-context';
-import ConfirmationTakeover from './confirmation-takeover/confirmation-takeover';
 import BracketsLocked from './brackets-locked/brackets-locked';
 import { useWindowSize } from '@/context/window-size-context/window-size-context';
 import RotatePhoneTakeover from './rotate-phone-takeover/rotate-phone-takeover';
 import { useUser } from '@/context/user-context/user-context';
 import Loader from '../shared/Loader/Loader';
 import ProgressBar from './ProgressBar/ProgressBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import EditBracketNameTakeover from './EditBracketNameTakeover/EditBracketNameTakeover';
 
-const NavChildren = ({ bracket, currentContest, sport }) => (
+const NavChildren = ({
+  bracket,
+  currentContest,
+  sport,
+  isCurrentUsersBracket,
+  setShowEditBracketNameTakeover,
+}) => (
   <div>
     <p
       className={styles.sport}
@@ -26,13 +34,23 @@ const NavChildren = ({ bracket, currentContest, sport }) => (
     >
       {sport}
     </p>
-    <p className={styles.bracketName}>{bracket.name}</p>
+    <p className={styles.bracketName}>
+      {bracket.name}{' '}
+      {isCurrentUsersBracket && (
+        <button
+          className={styles.editButton}
+          onClick={() => setShowEditBracketNameTakeover(true)}
+        >
+          <FontAwesomeIcon icon={faEdit} color="white" />
+        </button>
+      )}
+    </p>
   </div>
 );
 
 export default function BracketChallengeContainer() {
   const { contests, currentContest, bracket } = useMatchups();
-  const [showConfirmationTakeover, setShowConfirmationTakeover] =
+  const [showEditBracketNameTakeover, setShowEditBracketNameTakeover] =
     useState(false);
 
   const user = useUser();
@@ -54,6 +72,8 @@ export default function BracketChallengeContainer() {
           sport={sport}
           currentContest={currentContest}
           bracket={bracket}
+          isCurrentUsersBracket={isCurrentUsersBracket}
+          setShowEditBracketNameTakeover={setShowEditBracketNameTakeover}
         />
       )}
     >
@@ -68,10 +88,10 @@ export default function BracketChallengeContainer() {
           <MatchupsNotAvailable />
         )}
       </div>
-      {showConfirmationTakeover && (
-        <ConfirmationTakeover
-          leagueId={leagueId}
-          setShowConfirmationTakeover={setShowConfirmationTakeover}
+      {showEditBracketNameTakeover && (
+        <EditBracketNameTakeover
+          setShowTakeover={setShowEditBracketNameTakeover}
+          bracket={bracket}
         />
       )}
     </Layout>
