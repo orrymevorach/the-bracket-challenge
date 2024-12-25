@@ -7,7 +7,6 @@ import { useUser } from '@/context/user-context/user-context';
 import clsx from 'clsx';
 import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeover/InviteMemberTakeover';
 import { useState } from 'react';
-import { isEmpty } from '@/utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 

@@ -22,7 +22,7 @@ const NavChildren = ({
   isCurrentUsersBracket,
   setShowEditBracketNameTakeover,
 }) => (
-  <div>
+  <div className={styles.navChildren}>
     <p
       className={styles.sport}
       style={{
@@ -34,17 +34,21 @@ const NavChildren = ({
     >
       {sport}
     </p>
-    <p className={styles.bracketName}>
-      {bracket.name}{' '}
+    <div className={styles.bracketNameContainer}>
+      <p className={styles.bracketName}>{bracket.name} </p>
       {isCurrentUsersBracket && (
         <button
           className={styles.editButton}
           onClick={() => setShowEditBracketNameTakeover(true)}
         >
-          <FontAwesomeIcon icon={faEdit} color="white" />
+          <FontAwesomeIcon
+            icon={faEdit}
+            color="white"
+            className={styles.editIcon}
+          />
         </button>
       )}
-    </p>
+    </div>
   </div>
 );
 

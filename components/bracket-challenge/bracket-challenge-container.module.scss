@@ -39,16 +39,25 @@
   color: white;
 }
 
+.bracketNameContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .bracketName {
   font-size: 40px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  svg {
-    font-size: 16px;
-    margin-left: 10px;
-    margin-bottom: 6px;
-  }
+  position: relative;
+}
+
+.editIcon {
+  position: absolute;
+  font-size: 16px;
+  bottom: 8px;
+  margin-left: 10px;
+}
+
+.navChildren {
+  text-align: center;
 }
 
 .editButton {
