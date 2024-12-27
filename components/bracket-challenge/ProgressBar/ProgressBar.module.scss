@@ -4,7 +4,7 @@
 .container {
   margin-bottom: 50px;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 
   &.sticky {
     position: fixed;
@@ -70,5 +70,22 @@
 @media screen and (max-width: variables.$mobile) {
   .container {
     margin: 0 15px 50px;
+    &.sticky {
+      padding: 20px 20px;
+      margin: 0;
+    }
+  }
+  .topRow {
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progressText {
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+    span {
+      font-size: 11px;
+    }
   }
 }

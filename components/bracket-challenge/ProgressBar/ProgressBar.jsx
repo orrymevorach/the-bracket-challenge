@@ -107,7 +107,7 @@ export default function ProgressBar() {
 
           <p className={styles.progressText}>
             {numberOfSelectedWinners} / {numberOfMatchups}
-            {!isMobile && <span> picks complete</span>}
+            <span> picks complete</span>
           </p>
           {currentRoundIndex < contests.length - 1 ? (
             <button className={styles.next} onClick={handleClickNext}>
