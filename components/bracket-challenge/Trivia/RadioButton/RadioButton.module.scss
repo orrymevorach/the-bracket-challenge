@@ -1,0 +1,104 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.radioOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  position: relative;
+  border: 3px solid rgba(0, 0, 0, 0);
+  width: 111px;
+  height: 150px;
+  margin: 0 10px 10px;
+  &:hover {
+    border: 3px solid rgba(variables.$yellow, 0.3);
+    &:before {
+      content: '';
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.3);
+      width: 100%;
+      height: 105px;
+    }
+  }
+  &.disabled:hover {
+    border: 3px solid rgba(0, 0, 0, 0);
+    &:before {
+      display: none;
+    }
+  }
+  &.checked {
+    border: 3px solid variables.$yellow;
+    &:before {
+      content: '';
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.1);
+      width: 100%;
+      height: 105px;
+    }
+  }
+  &.loading {
+    justify-content: center;
+  }
+  &.correct {
+    border: 3px solid variables.$green;
+    &:before {
+      content: '';
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.1);
+      width: 100%;
+      height: 105px;
+    }
+    &:after {
+      content: '✓';
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 30px;
+      color: variables.$green;
+    }
+
+    &.disabled {
+      border: 3px solid variables.$green;
+    }
+  }
+  &.incorrect {
+    border: 3px solid red;
+    &:before {
+      content: '';
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.1);
+      width: 100%;
+      height: 105px;
+    }
+    &:after {
+      content: '✗';
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 30px;
+      color: red;
+    }
+    &.disabled {
+      border: 3px solid red;
+    }
+  }
+}
+.radioInput {
+  display: none;
+}
+.optionName {
+  margin-top: 4px;
+  font-size: 10px;
+  @include mixins.fontPrimary;
+  margin-top: 7px;
+}
+
+.check {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top: 40px;
+  z-index: 2;
+}

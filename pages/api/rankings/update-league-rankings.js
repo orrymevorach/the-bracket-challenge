@@ -68,26 +68,15 @@ export default async function handler(req, res) {
         // Calculate the points and number of correct picks for each bracket
         const selectionsWithRankings = selections.map(subBracketData => {
           if (subBracketData.subBracket === subBracket) {
-            // let totalPoints = subBracketData.totalPoints || 0;
-            // let correctPicks = subBracketData.correctPicks || 0;
-            // let numberOfWinners = subBracketData.numberOfWinners || 0;
             for (let winner of winners) {
               const { matchupId, winner: actualWinner, points } = winner;
               if (subBracketData[matchupId] === actualWinner) {
-                // correctPicks += 1;
-                // totalPoints += points;
-                // numberOfWinners += 1;
-
                 rankData.correctPicks += 1;
                 rankData.totalPoints += points;
                 rankData.numberOfWinners += 1;
               } else {
-                // numberOfWinners += 1;
                 rankData.numberOfWinners += 1;
               }
-              // subBracketData.totalPoints = totalPoints;
-              // subBracketData.correctPicks = correctPicks;
-              // subBracketData.numberOfWinners = numberOfWinners;
             }
           }
           return subBracketData;

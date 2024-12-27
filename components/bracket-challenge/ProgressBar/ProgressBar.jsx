@@ -7,6 +7,34 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
 
+const getProgressBarData = contests => {
+  let numberOfMatchups = 0;
+  let numberOfSelectedWinners = 0;
+  for (let contest of contests) {
+    if (contest.enableSelections === 'False') continue;
+    if (contest.questions) {
+      for (let question of contest.questions) {
+        numberOfMatchups++;
+        if (question.selectedWinner) numberOfSelectedWinners++;
+        continue;
+      }
+    }
+    if (contest.matchups) {
+      for (let matchup of contest.matchups) {
+        if (contest.display !== 'regular' && matchup.round > 1) continue;
+        numberOfMatchups++;
+        if (matchup.winner) numberOfSelectedWinners++;
+        continue;
+      }
+    }
+  }
+
+  return {
+    numberOfMatchups,
+    numberOfSelectedWinners,
+  };
+};
+
 export default function ProgressBar() {
   const { isMobile } = useWindowSize();
   const { contests, currentRoundIndex, setCurrentRoundIndex } = useMatchups();
@@ -15,33 +43,10 @@ export default function ProgressBar() {
     ? contests[0].color
     : '#f3f3f3';
 
-  const allMatchups = contests
-    .map(contest => {
-      // If selections are disabled, user is not able to make picks for that contest
-      if (contest.enableSelections === 'False') return;
-      return contest.matchups
-        .map(matchup => {
-          // If display is not regular, user is only able to pick winners from the first round
-          if (contest.display !== 'regular' && matchup.round > 1) return null;
-          return matchup;
-        })
-        .filter(contest => !!contest);
-    })
-    .filter(contest => !!contest)
-    .flat();
+  const { numberOfMatchups, numberOfSelectedWinners } =
+    getProgressBarData(contests);
 
-  const allSelectedWinners = contests
-    .map(contest => {
-      if (contest.enableSelections === 'False') return;
-      return contest.matchups
-        .map(matchup => {
-          if (contest.display !== 'regular' && matchup.round > 1) return null;
-          return matchup.winner;
-        })
-        .filter(contest => !!contest);
-    })
-    .flat();
-  const progress = (allSelectedWinners.length / allMatchups.length) * 100;
+  const progress = (numberOfSelectedWinners / numberOfMatchups) * 100;
 
   const handleClickPrevious = () => {
     if (currentRoundIndex <= 0) return;
@@ -52,8 +57,6 @@ export default function ProgressBar() {
     if (currentRoundIndex === contests.length - 1) return;
     setCurrentRoundIndex(currentRoundIndex + 1);
   };
-
-  if (!allMatchups.length) return null;
 
   return (
     <div className={styles.container}>
@@ -71,7 +74,7 @@ export default function ProgressBar() {
         )}
 
         <p className={styles.progressText}>
-          {allSelectedWinners.length} / {allMatchups.length}
+          {numberOfSelectedWinners} / {numberOfMatchups}
           {!isMobile && <span> picks complete</span>}
         </p>
         {currentRoundIndex < contests.length - 1 ? (

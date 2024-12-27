@@ -1,0 +1,24 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.questionContainer {
+  margin-bottom: 80px;
+}
+
+.question {
+  margin-bottom: 25px;
+  @include mixins.fontSecondaryMedium;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.radioButtonForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: variables.$tablet) {
+  .radioButtonForm {
+    justify-content: center;
+  }
+}

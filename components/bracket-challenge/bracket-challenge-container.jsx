@@ -14,6 +14,7 @@ import ProgressBar from './ProgressBar/ProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditBracketNameTakeover from './EditBracketNameTakeover/EditBracketNameTakeover';
+import Trivia from './Trivia/Trivia';
 
 const NavChildren = ({
   bracket,
@@ -63,6 +64,7 @@ export default function BracketChallengeContainer() {
   if (!bracket || !user) return <Loader isFullPage isBrackets />;
 
   const hasMatchups = currentContest?.matchups?.length > 0;
+  const hasTrivia = currentContest?.questions?.length > 0;
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';
   const isCurrentUsersBracket = user?.brackets?.includes(bracket.id);
   const isBracketLocked = currentContest?.lockBrackets === 'True';
@@ -86,11 +88,9 @@ export default function BracketChallengeContainer() {
         {isMobile && <RotatePhoneTakeover />}
         {isCurrentUsersBracket && !isBracketLocked && <ProgressBar />}
         {isBracketLocked && isCurrentUsersBracket && <BracketsLocked />}
-        {hasMatchups && isSelectionsEnabled ? (
-          <BracketChallenge />
-        ) : (
-          <MatchupsNotAvailable />
-        )}
+        {!isSelectionsEnabled && <MatchupsNotAvailable />}
+        {hasMatchups && isSelectionsEnabled && <BracketChallenge />}
+        {hasTrivia && isSelectionsEnabled && <Trivia />}
       </div>
       {showEditBracketNameTakeover && (
         <EditBracketNameTakeover

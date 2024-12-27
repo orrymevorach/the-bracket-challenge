@@ -49,7 +49,20 @@ export const addUpdatedBracketSelectionsToMatchups = (
     const contest = updatedBracketSelections[i];
     const contestAsArray = Object.entries(contest);
     for (let [matchupId, selectedWinner] of contestAsArray) {
-      if (matchupId?.includes('_')) {
+      if (matchupId !== 'name' && matchupId !== 'subBracket') {
+        // If the contest is trivia (dark horse), we add selected winner to data
+        // The matchup id is the question, it's a little confusing but that is how it is for now
+        if (contestsCopy[i].questions) {
+          const updatedQuestions = contestsCopy[i].questions.map(question => {
+            if (matchupId === question.question) {
+              question.selectedWinner = selectedWinner;
+            }
+            return question;
+          });
+          contestsCopy[i].questions = updatedQuestions;
+          continue;
+        }
+        // If the contest is not trivia, it is a bracket challenge
         // Convert the matchups into an object, where the lookup key is the matchupId
         const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {
           acc[curr.matchupId] = curr;

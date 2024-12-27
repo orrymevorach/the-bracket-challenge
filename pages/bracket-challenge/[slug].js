@@ -7,6 +7,7 @@ import {
   getSports,
   getContestsBySport,
   getSnowboardersBySport,
+  getQuestions,
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
@@ -57,12 +58,24 @@ export async function getStaticProps(context) {
     }
   );
 
+  const contestsWithAllMatchupsAndTriviaData = await Promise.all(
+    contestsWithAllMatchups.map(async contest => {
+      const questions = contest.questions;
+      if (!questions) return contest;
+      const questionsData = await getQuestions({ recIds: questions });
+      return {
+        ...contest,
+        questions: questionsData,
+      };
+    })
+  );
+
   const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
     acc[snowboarder.name] = snowboarder;
     return acc;
   }, {});
 
-  const sortedContests = contestsWithAllMatchups.sort((a, b) => {
+  const sortedContests = contestsWithAllMatchupsAndTriviaData.sort((a, b) => {
     if (a.order < b.order) return -1;
     return 1;
   });
