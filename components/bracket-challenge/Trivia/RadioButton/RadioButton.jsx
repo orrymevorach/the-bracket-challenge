@@ -36,6 +36,11 @@ export default function RadioButton({
         isDisabled && styles.disabled
       )}
       key={name}
+      onClick={
+        isDisabled
+          ? () => {}
+          : () => handleClick({ name, matchupId: question.question })
+      }
     >
       {isLoading ? (
         <Loader isDotted />
@@ -47,11 +52,6 @@ export default function RadioButton({
             name="options"
             value={name}
             className={styles.radioInput}
-            onClick={
-              isDisabled
-                ? () => {}
-                : () => handleClick({ name, matchupId: question.question })
-            }
             defaultChecked={isChecked}
           />
           <p className={styles.optionName}>

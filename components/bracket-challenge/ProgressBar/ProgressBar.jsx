@@ -6,6 +6,8 @@ import {
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
+import { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 
 const getProgressBarData = contests => {
   let numberOfMatchups = 0;
@@ -38,15 +40,30 @@ const getProgressBarData = contests => {
 export default function ProgressBar() {
   const { isMobile } = useWindowSize();
   const { contests, currentRoundIndex, setCurrentRoundIndex } = useMatchups();
-  const progressBarColor = contests[0].textStrokeColor || contests[0].color;
-  const backgroundColor = contests[0].textStrokeColor
-    ? contests[0].color
-    : '#f3f3f3';
+
+  // used for sticky behavior
+  const componentRef = useRef(null);
+  const placeholderRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+  // sticky behavior when window scrolls past component
+  useEffect(() => {
+    const handleScroll = () => {
+      if (placeholderRef.current && componentRef.current) {
+        const placeholderTop =
+          placeholderRef.current.getBoundingClientRect().top;
+
+        // Check if the placeholder is visible in the viewport
+        setIsSticky(placeholderTop <= 0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const { numberOfMatchups, numberOfSelectedWinners } =
     getProgressBarData(contests);
-
-  const progress = (numberOfSelectedWinners / numberOfMatchups) * 100;
 
   const handleClickPrevious = () => {
     if (currentRoundIndex <= 0) return;
@@ -58,56 +75,72 @@ export default function ProgressBar() {
     setCurrentRoundIndex(currentRoundIndex + 1);
   };
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.topRow}>
-        {currentRoundIndex > 0 ? (
-          <button className={styles.previous} onClick={handleClickPrevious}>
-            <FontAwesomeIcon
-              icon={faChevronCircleLeft}
-              size={isMobile ? '2x' : 'lg'}
-            />{' '}
-            {!isMobile && 'Previous bracket'}
-          </button>
-        ) : (
-          <div />
-        )}
+  const progress = (numberOfSelectedWinners / numberOfMatchups) * 100;
+  const progressBarColor = contests[0].textStrokeColor || contests[0].color;
+  const backgroundColor = contests[0].textStrokeColor
+    ? contests[0].color
+    : '#f3f3f3';
 
-        <p className={styles.progressText}>
-          {numberOfSelectedWinners} / {numberOfMatchups}
-          {!isMobile && <span> picks complete</span>}
-        </p>
-        {currentRoundIndex < contests.length - 1 ? (
-          <button className={styles.next} onClick={handleClickNext}>
-            {!isMobile && 'Next bracket'}{' '}
-            <FontAwesomeIcon
-              icon={faChevronCircleRight}
-              size={isMobile ? '2x' : 'lg'}
-            />
-          </button>
-        ) : (
-          <div />
-        )}
-      </div>
+  return (
+    <>
+      <div
+        ref={placeholderRef}
+        style={{ height: isSticky ? componentRef.current?.offsetHeight : 0 }}
+      />
 
       <div
-        className={styles.progressBarContainer}
-        style={{
-          backgroundColor,
-          border: `2px solid ${progressBarColor}`,
-        }}
+        className={clsx(styles.container, isSticky && styles.sticky)}
+        ref={componentRef}
       >
+        <div className={styles.topRow}>
+          {currentRoundIndex > 0 ? (
+            <button className={styles.previous} onClick={handleClickPrevious}>
+              <FontAwesomeIcon
+                icon={faChevronCircleLeft}
+                size={isMobile ? '2x' : 'lg'}
+              />{' '}
+              {!isMobile && 'Previous bracket'}
+            </button>
+          ) : (
+            <div />
+          )}
+
+          <p className={styles.progressText}>
+            {numberOfSelectedWinners} / {numberOfMatchups}
+            {!isMobile && <span> picks complete</span>}
+          </p>
+          {currentRoundIndex < contests.length - 1 ? (
+            <button className={styles.next} onClick={handleClickNext}>
+              {!isMobile && 'Next bracket'}{' '}
+              <FontAwesomeIcon
+                icon={faChevronCircleRight}
+                size={isMobile ? '2x' : 'lg'}
+              />
+            </button>
+          ) : (
+            <div />
+          )}
+        </div>
+
         <div
-          className={styles.progressBar}
+          className={styles.progressBarContainer}
           style={{
-            width: `${progress}%`,
-            backgroundColor: progressBarColor,
+            backgroundColor,
+            border: `2px solid ${progressBarColor}`,
           }}
-          aria-valuenow={progress}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        />
+        >
+          <div
+            className={styles.progressBar}
+            style={{
+              width: `${progress}%`,
+              backgroundColor: progressBarColor,
+            }}
+            aria-valuenow={progress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

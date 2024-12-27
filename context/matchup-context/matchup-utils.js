@@ -62,6 +62,7 @@ export const addUpdatedBracketSelectionsToMatchups = (
           contestsCopy[i].questions = updatedQuestions;
           continue;
         }
+        if (!contestsCopy[i].matchups) continue;
         // If the contest is not trivia, it is a bracket challenge
         // Convert the matchups into an object, where the lookup key is the matchupId
         const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {

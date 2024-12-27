@@ -40,6 +40,14 @@
   }
   &.loading {
     justify-content: center;
+    &:hover {
+      &:before {
+        display: none;
+      }
+    }
+    &:before {
+      display: none;
+    }
   }
   &.correct {
     border: 3px solid variables.$green;

@@ -3,6 +3,18 @@
 
 .container {
   margin-bottom: 50px;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; // Optional: Ensure it stays above other content
+    background-color: #191919;
+    padding: 20px 50px;
+  }
 }
 
 .progressBarContainer {
