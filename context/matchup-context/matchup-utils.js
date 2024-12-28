@@ -38,48 +38,49 @@ function addWinnerToMatchups({ player, matchups, matchupId, winner }) {
 }
 
 export const addUpdatedBracketSelectionsToMatchups = (
-  updatedBracketSelections,
+  updatedBracketSelections = [],
   contests,
   snowboarders
 ) => {
   const contestsCopy = Array.from(contests);
 
   // Loop through the updated bracket selections for each contest, and add the winner to the matchups
-  for (let i = 0; i < updatedBracketSelections.length; i++) {
-    const contest = updatedBracketSelections[i];
-    const contestAsArray = Object.entries(contest);
-    for (let [matchupId, selectedWinner] of contestAsArray) {
-      if (matchupId !== 'name' && matchupId !== 'subBracket') {
-        // If the contest is trivia (dark horse), we add selected winner to data
-        // The matchup id is the question, it's a little confusing but that is how it is for now
-        if (contestsCopy[i].questions) {
-          const updatedQuestions = contestsCopy[i].questions.map(question => {
-            if (matchupId === question.question) {
-              question.selectedWinner = selectedWinner;
-            }
-            return question;
-          });
-          contestsCopy[i].questions = updatedQuestions;
-          continue;
-        }
-        if (!contestsCopy[i].matchups) continue;
-        // If the contest is not trivia, it is a bracket challenge
-        // Convert the matchups into an object, where the lookup key is the matchupId
-        const matchupsAsMap = contestsCopy[i].matchups.reduce((acc, curr) => {
-          acc[curr.matchupId] = curr;
-          return acc;
-        }, {});
-        // Get the current matchup data, so that we can get the actual winner
-        const currentMatchup = matchupsAsMap[matchupId];
+  for (let i = 0; i < contestsCopy.length; i++) {
+    const contest = contests[i];
+    const bracketSelectionsInCurrentRound = updatedBracketSelections[i];
+    // If the contest is trivia (dark horse), we add selected winner to data
+    // The matchup id is the question, it's a little confusing but that is how it is for now
+    if (contest.questions) {
+      // Loop through each question and add the selected winner to the question
+      const updatedQuestions = contest.questions.map(questionData => {
+        const question = questionData.question;
+        const selectedWinner = bracketSelectionsInCurrentRound
+          ? bracketSelectionsInCurrentRound[question]
+          : '';
 
-        const winner = currentMatchup?.actualWinner;
+        if (selectedWinner) {
+          questionData.selectedWinner = selectedWinner;
+        }
+        return questionData;
+      });
+      contest.questions = updatedQuestions;
+      continue;
+    }
+    // If the contest is not trivia, it is a bracket challenge
+    if (contest.matchups) {
+      // Loop through each matchup and add the winners to the matchups
+      for (let { matchupId, actualWinner } of contest.matchups) {
+        const selectedWinner = bracketSelectionsInCurrentRound
+          ? bracketSelectionsInCurrentRound[matchupId]
+          : '';
+
         const updatedMatchups = addWinnerToMatchups({
           player: snowboarders[selectedWinner],
-          matchups: contestsCopy[i].matchups,
+          matchups: contest.matchups,
           matchupId,
-          winner,
+          winner: actualWinner,
         });
-        contestsCopy[i].matchups = updatedMatchups;
+        contest.matchups = updatedMatchups;
       }
     }
   }

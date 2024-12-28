@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import useGetApi from '@/hooks/useGetApi';
 import { getBracket } from '@/lib/airtable';
 import { updateRecord } from '@/lib/airtable-utils';
-import { isEmpty } from '@/utils/utils';
 
 const { createContext, useContext, useState, useEffect } = require('react');
 const MatchupContext = createContext();
@@ -35,23 +34,18 @@ export const MatchupDataProvider = ({
     if (bracketData && !bracket?.selections) {
       const bracketSelections = bracketData?.selections
         ? JSON.parse(bracketData.selections)
-        : {};
-      const hasBracketSelections = !isEmpty(bracketSelections);
-      if (hasBracketSelections) {
-        const contestsWithUpdatedMatchups =
-          addUpdatedBracketSelectionsToMatchups(
-            bracketSelections,
-            contests,
-            snowboarders
-          );
-        setBracket({
-          ...bracketData,
-          selections: bracketSelections,
-        });
-        setContests(contestsWithUpdatedMatchups);
-      } else {
-        setBracket(bracketData);
-      }
+        : [];
+
+      const contestsWithUpdatedMatchups = addUpdatedBracketSelectionsToMatchups(
+        bracketSelections,
+        contests,
+        snowboarders
+      );
+      setBracket({
+        ...bracketData,
+        selections: bracketSelections,
+      });
+      setContests(contestsWithUpdatedMatchups);
     }
   }, [bracket, bracketData]);
 

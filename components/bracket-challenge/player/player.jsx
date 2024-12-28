@@ -42,6 +42,7 @@ export default function Player(player) {
   const snowboarder = snowboarders[name];
   const flagImage = snowboarder?.flag && snowboarder.flag[0];
   const winnerFlag = winner ? winner.flag[0] : '';
+  const flagToShow = winnerFlag || flagImage;
 
   const isCorrect = winner && winner.name === name;
 
@@ -120,9 +121,9 @@ export default function Player(player) {
                     <p className={styles.playerName}>{lastName}</p>
                   </div>
                 )}
-                {flagImage && (
+                {flagToShow && (
                   <Image
-                    src={winnerFlag?.url || flagImage.url}
+                    src={flagToShow.url}
                     alt="hometown flag"
                     className={styles.flag}
                     width="50"
