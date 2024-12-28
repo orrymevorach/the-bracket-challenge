@@ -64,7 +64,6 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
           {isAdmin && (
             <Button
               isPurple
-              isSmall
               classNames={tableStyles.inviteButton}
               handleClick={() => setShowInviteMemberTakeover(true)}
             >

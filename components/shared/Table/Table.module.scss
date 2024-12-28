@@ -25,7 +25,6 @@
 }
 
 .inviteButton {
-  @include mixins.fontSecondaryBold;
   margin-top: 0 !important;
   &:hover {
     svg {
