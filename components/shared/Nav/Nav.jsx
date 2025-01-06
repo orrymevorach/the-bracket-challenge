@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './Nav.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSignIn, faUser } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/shared/Button/Button';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import { useUser } from '@/context/user-context/user-context';
@@ -39,8 +39,6 @@ export default function Nav({ isDark, isFixed, children = null }) {
     ROUTES.BRACKET_CHALLENGE
   );
   const isDashboardPage = router.pathname === ROUTES.DASHBOARD;
-
-  const buttonText = user?.id ? 'Sign In' : 'Sign Up';
 
   const loginHref = user?.id ? ROUTES.DASHBOARD : ROUTES.LOGIN;
   const logoTheme = isDark ? 'dark' : 'light';
@@ -81,12 +79,42 @@ export default function Nav({ isDark, isFixed, children = null }) {
                 </Button>
               )}
               {isHomePage && (
-                <Button href={loginHref}>
-                  <p className={styles.signInText}>{buttonText}</p>
-                  <div classNames={styles.userIcon}>
-                    <FontAwesomeIcon icon={faUser} size="lg" color="white" />
-                  </div>
-                </Button>
+                <>
+                  <Button
+                    href={loginHref}
+                    isSmall={!isDesktop}
+                    classNames={styles.button}
+                  >
+                    <p className={styles.signInText}>Sign In</p>
+                    <div classNames={styles.userIcon}>
+                      <FontAwesomeIcon
+                        icon={faSignIn}
+                        size="md"
+                        color="white"
+                      />
+                    </div>
+                  </Button>
+                  {!user?.id && (
+                    <Button
+                      href={{
+                        pathname: ROUTES.LOGIN,
+                        query: { newUser: true },
+                      }}
+                      classNames={styles.button}
+                      isSmall={!isDesktop}
+                      isSecondary
+                    >
+                      <p className={styles.signInText}>Sign Up</p>
+                      <div classNames={styles.userIcon}>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          size="md"
+                          color="black"
+                        />
+                      </div>
+                    </Button>
+                  )}
+                </>
               )}
               {isDashboardPage && (
                 <Button handleClick={handleSignOut} isSmall isNaked>

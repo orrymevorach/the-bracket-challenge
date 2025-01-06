@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './LoginWithEmailAndPassword.module.scss';
 import { useRouter } from 'next/router';
 import { COOKIES, ROUTES } from 'utils/constants';
@@ -22,6 +22,13 @@ export default function LoginWithEmailAndPassword() {
   const [isUserPromptedToCreateAccount, setIsUserPromptedToCreateAccount] =
     useState(false);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
+
+  const hasNewUserQuery = router.query.newUser === 'true';
+  useEffect(() => {
+    if (hasNewUserQuery) {
+      setIsCreatingNewUser(true);
+    }
+  }, [hasNewUserQuery]);
 
   const handleSubmit = async e => {
     e.preventDefault();
