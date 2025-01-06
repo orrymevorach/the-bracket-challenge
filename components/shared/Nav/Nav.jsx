@@ -86,13 +86,7 @@ export default function Nav({ isDark, isFixed, children = null }) {
                     classNames={styles.button}
                   >
                     <p className={styles.signInText}>Sign In</p>
-                    <div classNames={styles.userIcon}>
-                      <FontAwesomeIcon
-                        icon={faSignIn}
-                        size="md"
-                        color="white"
-                      />
-                    </div>
+                    <FontAwesomeIcon icon={faSignIn} color="white" />
                   </Button>
                   {!user?.id && (
                     <Button
@@ -105,13 +99,7 @@ export default function Nav({ isDark, isFixed, children = null }) {
                       isSecondary
                     >
                       <p className={styles.signInText}>Sign Up</p>
-                      <div classNames={styles.userIcon}>
-                        <FontAwesomeIcon
-                          icon={faUser}
-                          size="md"
-                          color="black"
-                        />
-                      </div>
+                      <FontAwesomeIcon icon={faUser} color="black" />
                     </Button>
                   )}
                 </>

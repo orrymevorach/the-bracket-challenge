@@ -28,43 +28,6 @@
   padding: 10px 20px;
 }
 
-.userIcon {
-  position: relative;
-  color: white;
-  transition: 0.3s;
-  svg {
-    color: white;
-    position: relative;
-    z-index: 2;
-    padding-right: 0.5px;
-  }
-  &:after {
-    content: '';
-    transition: 0.3s;
-    position: absolute;
-    top: -9px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 1);
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-  }
-  &:hover {
-    color: variables.$newBlack;
-    transition: 0.3s;
-    svg {
-      color: variables.$newBlack;
-      transition: 0.3s;
-    }
-    &:after {
-      background-color: white;
-      border: none;
-    }
-  }
-}
-
 .logo {
   width: 150px;
   height: auto;
@@ -82,6 +45,8 @@
 
 .button {
   border: none;
+  min-width: auto;
+  width: 140px;
   &:nth-of-type(2) {
     margin-left: 10px;
     p {
@@ -105,19 +70,6 @@
     background: none;
   }
 
-  .userIcon {
-    margin-right: 5px;
-
-    svg {
-      width: 12px;
-    }
-    &:after {
-      width: 25px;
-      height: 25px;
-      top: -6px;
-      background-color: black;
-    }
-  }
   .buttonsContainer {
     flex-direction: column;
     align-items: flex-end;
