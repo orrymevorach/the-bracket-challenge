@@ -9,12 +9,18 @@ const airtableBase = new Airtable({
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { tableId, fieldName, fieldValue } = req.body;
+    const { tableId, formulaArray } = req.body;
+    const formula = formulaArray
+      .map(({ fieldName, fieldValue }) => {
+        return `{${fieldName}} = "${fieldValue}"`;
+      })
+      .join(', ');
+
     try {
       const records = [];
       await airtableBase(tableId)
         .select({
-          filterByFormula: `{${fieldName}} = "${fieldValue}"`, // Use Airtable's formula syntax
+          filterByFormula: `AND(${formula})`,
         })
         .eachPage((pageRecords, fetchNextPage) => {
           records.push(...pageRecords);

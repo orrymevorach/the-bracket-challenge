@@ -39,8 +39,12 @@ export default async function handler(req, res) {
   //   Get all leagues for the sport, get all brackets for each league, and update rankings
   const { records: leagues } = await getRecordsByFieldValue({
     tableId: 'Leagues',
-    fieldName: 'Sport',
-    fieldValue: sport,
+    formulaArray: [
+      {
+        fieldName: 'Sport',
+        fieldValue: sport,
+      },
+    ],
   });
   for (let leagueData of leagues) {
     const bracketIds = leagueData?.userBrackets;

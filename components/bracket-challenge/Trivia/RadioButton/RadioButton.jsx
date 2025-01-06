@@ -16,7 +16,7 @@ export default function RadioButton({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const { setWinner } = useMatchups();
-  const imgSrc = image[0].url;
+  const imgSrc = image && image.length ? image[0].url : '';
 
   const handleClick = async ({ name, matchupId }) => {
     setIsLoading(true);

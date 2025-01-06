@@ -70,6 +70,7 @@ export const addUpdatedBracketSelectionsToMatchups = (
     if (contest.matchups) {
       // Loop through each matchup and add the winners to the matchups
       for (let { matchupId, actualWinner } of contest.matchups) {
+        if (!matchupId) continue;
         const selectedWinner = bracketSelectionsInCurrentRound
           ? bracketSelectionsInCurrentRound[matchupId]
           : '';
@@ -128,4 +129,51 @@ export function createPlaceholdersForFutureRounds(allMatchups = []) {
   }
 
   return matchups;
+}
+
+export function mapMatchupsAndSnowboardersToContestData(
+  contests,
+  snowboarders,
+  matchups
+) {
+  const snowboardersAsMap = Object.values(snowboarders).reduce(
+    (acc, snowboarder) => {
+      acc[snowboarder.id] = snowboarder;
+      return acc;
+    },
+    {}
+  );
+
+  const mapMatchupIdToMatchup = matchups.reduce((acc, matchup) => {
+    acc[matchup.id] = matchup;
+    return acc;
+  }, {});
+
+  const contestsWithMatchups = contests.map(contest => {
+    const matchups = contest.matchups || [];
+    if (!matchups.length) return contest;
+    const matchupsData = matchups.map(matchup => {
+      const updatedMatchup = mapMatchupIdToMatchup[matchup.id];
+      if (!updatedMatchup) return matchup;
+
+      const team1 = snowboardersAsMap[updatedMatchup.team1];
+      const team2 = snowboardersAsMap[updatedMatchup.team2];
+      const actualWinner = updatedMatchup.actualWinner
+        ? snowboardersAsMap[updatedMatchup.actualWinner]
+        : '';
+      return {
+        ...updatedMatchup,
+        team1,
+        team2,
+        actualWinner,
+      };
+    });
+
+    return {
+      ...contest,
+      matchups: matchupsData,
+    };
+  });
+
+  return contestsWithMatchups;
 }

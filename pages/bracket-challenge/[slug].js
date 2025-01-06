@@ -62,7 +62,10 @@ export async function getStaticProps(context) {
     contestsWithAllMatchups.map(async contest => {
       const questions = contest.questions;
       if (!questions) return contest;
-      const questionsData = await getQuestions({ recIds: questions });
+      const questionsData = await getQuestions({
+        recIds: questions,
+        snowboarders,
+      });
       return {
         ...contest,
         questions: questionsData,

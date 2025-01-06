@@ -1,7 +1,10 @@
-import { addUpdatedBracketSelectionsToMatchups } from './matchup-utils';
+import {
+  addUpdatedBracketSelectionsToMatchups,
+  mapMatchupsAndSnowboardersToContestData,
+} from './matchup-utils';
 import { useRouter } from 'next/router';
 import useGetApi from '@/hooks/useGetApi';
-import { getBracket } from '@/lib/airtable';
+import { getBracket, getMatchupsBySport } from '@/lib/airtable';
 import { updateRecord } from '@/lib/airtable-utils';
 
 const { createContext, useContext, useState, useEffect } = require('react');
@@ -20,7 +23,6 @@ export const MatchupDataProvider = ({
   const [contests, setContests] = useState(initialContestsData);
   const currentContest = contests[currentRoundIndex];
   const [bracket, setBracket] = useState(null);
-
   const router = useRouter();
 
   // Get bracket data
@@ -29,25 +31,39 @@ export const MatchupDataProvider = ({
     getBracket({ recId: bracketId })
   );
 
+  const sport = currentContest.sport[0];
+  const { data: matchups } = useGetApi(() =>
+    getMatchupsBySport({
+      sport,
+    })
+  );
+
   // On page load, add saved bracket selections to matchups
   useEffect(() => {
-    if (bracketData && !bracket?.selections) {
+    if (bracketData && !bracket?.selections && matchups) {
       const bracketSelections = bracketData?.selections
         ? JSON.parse(bracketData.selections)
         : [];
 
-      const contestsWithUpdatedMatchups = addUpdatedBracketSelectionsToMatchups(
-        bracketSelections,
+      const contestsWithData = mapMatchupsAndSnowboardersToContestData(
         contests,
-        snowboarders
+        snowboarders,
+        matchups
       );
+
+      const contestsWithBracketSelections =
+        addUpdatedBracketSelectionsToMatchups(
+          bracketSelections,
+          contestsWithData,
+          snowboarders
+        );
       setBracket({
         ...bracketData,
         selections: bracketSelections,
       });
-      setContests(contestsWithUpdatedMatchups);
+      setContests(contestsWithBracketSelections);
     }
-  }, [bracket, bracketData]);
+  }, [bracket, bracketData, matchups]);
 
   const setWinner = async ({ player, matchupId }) => {
     let bracketSelections = bracket?.selections;
