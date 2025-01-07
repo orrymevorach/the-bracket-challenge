@@ -3,7 +3,7 @@ import styles from './CreateUser.module.scss';
 import { useState } from 'react';
 import Button from '@/components/shared/Button/Button';
 import { createFirebaseUser, errors } from '../../../firebase-utils';
-import { createUser } from '@/lib/airtable';
+import { createUser, joinLeague } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import Cookies from 'js-cookie';
@@ -55,6 +55,12 @@ export default function CreateUser({ email }) {
         username,
         email: emailInput,
       });
+      if (router.query.leagueId) {
+        await joinLeague({
+          user: newUserResponse,
+          leagueId: router.query.leagueId,
+        });
+      }
       setIsLoading(false);
       router.push({
         pathname: ROUTES.DASHBOARD,

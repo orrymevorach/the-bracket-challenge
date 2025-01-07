@@ -41,7 +41,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
       {showInviteMemberTakeover && (
         <InviteMemberTakeover
           setShowTakeover={setShowInviteMemberTakeover}
-          leagueId={leagueData.id}
+          leagueData={leagueData}
         />
       )}
 
@@ -55,7 +55,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                 color: currentContest?.color,
                 WebkitTextStroke: currentContest?.textStrokeColor
                   ? `1px ${currentContest?.textStrokeColor}`
-                  : '',
+                  : 'initial',
               }}
             >
               {leagueData.sport}
@@ -77,7 +77,9 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
               <tr className={tableStyles.titleRow}>
                 {titleHeadings.map(({ title, classNames }, index) => {
                   const width =
-                    index === 0 ? '' : `${100 / (titleHeadings.length - 1)}%`;
+                    index === 0
+                      ? 'auto'
+                      : `${100 / (titleHeadings.length - 1)}%`;
                   return (
                     <th key={title} className={classNames} style={{ width }}>
                       {title}
@@ -95,14 +97,14 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                   return -1;
                 })
                 .map(bracket => {
-                  const { name, rankData, bracketName } = bracket;
+                  const { rankData, bracketName } = bracket;
                   const totalPoints = rankData?.totalPoints || 0;
                   const rank = rankData?.rank;
                   const numberOfWinners = rankData?.numberOfWinners || 0;
                   const correctPicks = rankData?.correctPicks || 0;
 
                   return (
-                    <tr key={`row-${leagueData.id}-${name}`}>
+                    <tr key={`row-${leagueData.id}-${bracketName}`}>
                       <td className={tableStyles.rank}>
                         <p
                           className={tableStyles.number}

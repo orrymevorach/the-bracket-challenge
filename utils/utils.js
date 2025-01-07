@@ -45,3 +45,19 @@ export function toCamelCase(str) {
 export function removeUnderscore(key) {
   return key.replace(/_/g, '');
 }
+
+export function formatName(fullName) {
+  const nameParts = fullName.trim().split(/\s+/); // Split full name into parts
+  const firstName = nameParts[0]; // First part is the first name
+  const lastNameParts = nameParts.slice(1); // Remaining parts are the last name
+
+  const formattedLastName =
+    lastNameParts.length > 1
+      ? lastNameParts.map(word => word[0].toUpperCase()).join('') // Abbreviate if multiple words
+      : lastNameParts[0]; // Use the full last name if it's a single word
+
+  return {
+    firstName,
+    lastName: formattedLastName,
+  };
+}

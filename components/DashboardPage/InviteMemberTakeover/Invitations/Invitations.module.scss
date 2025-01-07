@@ -1,0 +1,38 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.invitationsContainer {
+  text-align: left;
+  justify-self: flex-start;
+  align-self: flex-start;
+  margin-top: 30px;
+  margin-right: auto;
+  p {
+    color: black;
+  }
+}
+
+.title {
+  @include mixins.fontSecondaryBold;
+}
+
+.list {
+  display: inline;
+}
+
+.listItem {
+  @include mixins.fontSecondary;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.status {
+  font-style: italic;
+  font-size: 12px;
+  &.pending {
+    color: #ffa500;
+  }
+  &.accepted {
+    color: variables.$green;
+  }
+}

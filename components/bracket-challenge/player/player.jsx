@@ -1,4 +1,4 @@
-import { isEven } from '@/utils/utils';
+import { isEven, formatName } from '@/utils/utils';
 import styles from './player.module.scss';
 import { useMatchups } from 'context/matchup-context/matchup-context';
 import Image from 'next/image';
@@ -33,10 +33,11 @@ export default function Player(player) {
 
   const winner = winnerName ? snowboarders[winnerName] : '';
 
-  const [firstName, lastName] =
-    name && typeof name === 'string' ? name.split(' ') : '';
-  const [winnerFirstName, winnerLastName] = winner
-    ? winner?.name.split(' ')
+  const { firstName, lastName } =
+    name && typeof name === 'string' ? formatName(name) : '';
+
+  const { firstName: winnerFirstName, lastName: winnerLastName } = winner?.name
+    ? formatName(winner.name)
     : '';
 
   const snowboarder = snowboarders[name];
@@ -88,9 +89,7 @@ export default function Player(player) {
         <div>
           {isChampion && winner && <p className={styles.trophy}>🏆</p>}
           {winner && !isCorrect && !isPositionEven && (
-            <p className={styles.strikethrough}>
-              {firstName} {lastName}
-            </p>
+            <p className={styles.strikethrough}>{fullName}</p>
           )}
           {winner && isCorrect && !isPositionEven && !isChampion && (
             <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>

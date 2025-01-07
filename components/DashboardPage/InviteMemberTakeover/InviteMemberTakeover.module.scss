@@ -34,14 +34,15 @@
 }
 
 .inviteButton {
-  width: 230px;
+  min-width: auto !important;
+  width: 260px;
   svg {
     margin-left: 8px;
   }
 }
 
 .closeButton {
-  width: 230px;
+  width: 260px;
   margin-top: 10px;
 }
 

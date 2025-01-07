@@ -9,7 +9,10 @@ export default function CreateAccountTakeover({ email, setIsCreatingNewUser }) {
     setIsCreatingNewUser(false);
     router.push({
       pathname: router.pathname,
-      query: {},
+      query: {
+        ...router.query,
+        newUser: null,
+      },
     });
   };
   return (

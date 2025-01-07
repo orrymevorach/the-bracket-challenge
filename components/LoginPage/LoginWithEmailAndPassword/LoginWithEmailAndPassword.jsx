@@ -11,6 +11,7 @@ import PromptNewUserTakeover from './PromptNewUserTakeover/PromptNewUserTakeover
 import ResetPasswordTakeover from './ResetPasswordTakeover/ResetPasswordTakeover';
 import globalStyles from '@/styles/globalStyles.module.scss';
 import clsx from 'clsx';
+import { getUser, joinLeague } from '@/lib/airtable';
 
 export default function LoginWithEmailAndPassword() {
   const [email, setEmail] = useState('');
@@ -43,6 +44,10 @@ export default function LoginWithEmailAndPassword() {
       Cookies.set(COOKIES.UID, response.user.uid);
       if (router.query.redirect === 'true') {
         router.back();
+      } else if (router.query.leagueId) {
+        const user = await getUser({ uid: response.user.uid });
+        await joinLeague({ user, leagueId: router.query.leagueId });
+        router.push(ROUTES.DASHBOARD);
       } else {
         router.push(ROUTES.DASHBOARD);
       }

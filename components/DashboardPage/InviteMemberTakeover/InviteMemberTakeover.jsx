@@ -8,23 +8,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/shared/Button/Button';
 import { validateEmail } from '@/utils/utils';
+import Invitations from './Invitations/Invitations';
 
-export default function InviteMemberTakeover({ setShowTakeover, leagueId }) {
+export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [memberEmail, setMemberEmail] = useState('');
   const [error, setError] = useState('');
+  const existingInvitations = leagueData?.invitations
+    ? JSON.parse(leagueData.invitations)
+    : [];
+  const [invitations, setInvitations] = useState(existingInvitations);
+
   const user = useUser();
+
   const handleSubmit = async () => {
     const isEmailValid = validateEmail(memberEmail);
     if (!isEmailValid) {
       setError('Please enter a valid email');
       return;
     }
+
     const res = await inviteMember({
       email: memberEmail,
-      leagueId,
+      leagueId: leagueData.id,
       admin: user.firstName,
+      invitations,
+      sport: leagueData.sport[0],
     });
+
+    setInvitations(res.invitations);
     if (res) {
       setIsSubmitted(true);
       setMemberEmail('');
@@ -49,13 +61,15 @@ export default function InviteMemberTakeover({ setShowTakeover, leagueId }) {
           setInputValue={handleChange}
           classNames={styles.container}
           error={error}
-        />
+        >
+          {invitations.length > 0 && <Invitations invitations={invitations} />}
+        </LeagueTakeoverLayout>
       ) : (
         <Takeover
           handleClose={() => setShowTakeover(false)}
           modalClassNames={styles.container}
         >
-          <FontAwesomeIcon icon={faCheckCircle} color="#fff" size="2x" />
+          <FontAwesomeIcon icon={faCheckCircle} color="#7bc9ab" size="2x" />
           <p className={styles.title}>Invite Sent!</p>
           <p className={styles.junkText}>
             (If your guest does not receive the invite, ask them to check their
@@ -77,6 +91,7 @@ export default function InviteMemberTakeover({ setShowTakeover, leagueId }) {
               Close
             </Button>
           </div>
+          {invitations.length > 0 && <Invitations invitations={invitations} />}
         </Takeover>
       )}
     </>
