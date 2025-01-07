@@ -61,9 +61,11 @@ export default function Nav({ isDark, isFixed, children = null }) {
               isDesktop && !!children ? '1fr 1fr 1fr' : '1fr 1fr',
           }}
         >
-          <Link href={ROUTES.HOME}>
-            <Image src={logo} alt="logo" className={styles.logo} />
-          </Link>
+          <div>
+            <Link href={ROUTES.HOME} className={styles.logoLink}>
+              <Image src={logo} alt="logo" className={styles.logo} />
+            </Link>
+          </div>
           {isDesktop && children}
           {isMobile && !isHomePage ? (
             <MobileNav handleSignOut={handleSignOut} />
