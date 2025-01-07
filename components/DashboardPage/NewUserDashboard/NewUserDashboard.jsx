@@ -1,81 +1,69 @@
 import Wrapper from '@/components/shared/Wrapper/Wrapper';
 import styles from './NewUserDashboard.module.scss';
-import Button from '@/components/shared/Button/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPeopleGroup, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faGlobe,
+  faPeopleGroup,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import Tile from './Tile/Tile';
+
+const getTileData = ({
+  setShowJoinLeagueTakeover,
+  setShowCreateLeagueTakeover,
+}) => [
+  {
+    title: 'Join A Private League',
+    description: [
+      'Join an existing league created by someone you know',
+      'You must receive an invite from your league administrator in order to join',
+      'Your bracket selections will automatically be entered into our public league, where you will compete for real prizes',
+    ],
+    icon: faPeopleGroup,
+    button: 'Join A League',
+    handleClick: () => setShowJoinLeagueTakeover(true),
+    color: '#f37475',
+  },
+  {
+    title: 'Create A Private League',
+    description: [
+      'Compete against your friends and family',
+      'As the league administrator, only people that you invite to your league will have the ability to join',
+      'Your bracket selections will automatically be entered into our public league, where you will compete for real prizes',
+    ],
+    icon: faPlus,
+    button: 'Create A League',
+    handleClick: () => setShowCreateLeagueTakeover(true),
+    color: '#7bc9ab',
+  },
+  {
+    title: 'Join Our Public Group',
+    description: [
+      'Join "The Open", our public group where you can create a bracket and compete against all participants of "The Bracket Challenge"',
+      'Winners of "The Open" are awarded real prizes from our sponsors',
+    ],
+    icon: faGlobe,
+    button: 'Join Group',
+    handleClick: () => setShowJoinLeagueTakeover(true),
+    color: '#65b2e3',
+  },
+];
 
 export default function NewUserDashboard({
   setShowJoinLeagueTakeover,
   setShowCreateLeagueTakeover,
 }) {
+  const tileData = getTileData({
+    setShowJoinLeagueTakeover,
+    setShowCreateLeagueTakeover,
+  });
+
   return (
     <Wrapper classNames={styles.container}>
-      <div className={styles.textContainer}>
-        {/* <p className={styles.paragraph}>
-          Step 1: Join a group or create a group
-        </p> */}
-      </div>
+      <div className={styles.textContainer}></div>
       <div className={styles.tilesContainer}>
-        <div className={styles.tile}>
-          <p className={styles.title}>Join A Private League</p>
-          <ul>
-            <li>Join an existing League created by someone you know</li>
-            <li>
-              You must receive an invite from your League administrator in order
-              to join
-            </li>
-          </ul>
-          <FontAwesomeIcon
-            icon={faPeopleGroup}
-            color="white"
-            size="3x"
-            className={styles.icon}
-          />
-          <Button
-            handleClick={() => setShowJoinLeagueTakeover(true)}
-            // isLight
-            classNames={styles.button}
-          >
-            Join A League
-          </Button>
-        </div>
-        <div className={styles.tile}>
-          <p className={styles.title}>Create A Private League</p>
-          <ul>
-            <li>Compete against your friends and family</li>
-            <li>
-              As the League administrator, only people that you invite to your
-              League will have the ability to join
-            </li>
-          </ul>
-          <FontAwesomeIcon
-            icon={faPlus}
-            color="white"
-            size="3x"
-            className={styles.icon}
-          />
-          <Button
-            handleClick={() => setShowCreateLeagueTakeover(true)}
-            // isLight
-            classNames={styles.button}
-          >
-            Create A League
-          </Button>
-        </div>
-        {/* <div className={styles.tile}>
-          <p className={styles.title}>Join Our Public Group</p>
-          <ul>
-            <li>Automatically be entered to our public group</li>
-            <li>Prove to the world that you are Taylor&apos;s #1 fan</li>
-          </ul>
-          <Button
-            handleClick={() => setShowJoinLeagueTakeover(true)}
-            isLight
-            classNames={styles.button}
-          >
-            Join Group
-          </Button>
-        </div> */}
+        {tileData.map((tile, index) => {
+          return <Tile key={tile.title} {...tile} index={index} />;
+        })}
       </div>
     </Wrapper>
   );

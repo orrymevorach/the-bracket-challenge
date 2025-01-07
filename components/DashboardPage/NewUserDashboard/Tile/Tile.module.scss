@@ -1,0 +1,63 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.tile {
+  @include mixins.fontSecondaryLight;
+  background-color: variables.$charcoal;
+  width: 100%;
+  padding: 30px 40px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  opacity: 0;
+  animation: fade 0.5s var(--delay) forwards;
+  ul {
+    margin-bottom: 50px;
+  }
+  li {
+    color: white;
+    list-style: disc;
+    margin-bottom: 7px;
+    line-height: 1.4;
+    font-size: 17px;
+  }
+}
+
+.title {
+  text-align: center;
+  @include mixins.fontSecondaryBold;
+  font-size: 34px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.button {
+  @include mixins.pulseShadow($opacity: 0.3);
+  font-family: 'Inter Bold' !important;
+  border: none !important;
+  &:hover {
+    color: white !important;
+    background-color: variables.$charcoal !important;
+  }
+}
+
+.icon {
+  margin: auto 0 20px;
+  justify-self: flex-end;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
