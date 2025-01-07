@@ -89,7 +89,9 @@ export default function Player(player) {
         <div>
           {isChampion && winner && <p className={styles.trophy}>🏆</p>}
           {winner && !isCorrect && !isPositionEven && (
-            <p className={styles.strikethrough}>{fullName}</p>
+            <p className={styles.strikethrough}>
+              {firstName} {lastName}
+            </p>
           )}
           {winner && isCorrect && !isPositionEven && !isChampion && (
             <p className={styles.pointsWon}>+{pointsWonForCorrectPick} pts</p>
@@ -138,7 +140,6 @@ export default function Player(player) {
           ) : (
             ''
           )}
-
           {winner && !isCorrect && isPositionEven && (
             <p className={styles.strikethrough}>
               {firstName} {lastName}
