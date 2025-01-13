@@ -1,16 +1,38 @@
-import { ROUTES } from '@/utils/constants';
 import styles from './OverallRankingsTable.module.scss';
-import { useRouter } from 'next/router';
-import tableStyles from '@/components/shared/Table/Table.module.scss';
-import useGetApi from '@/hooks/useGetApi';
-import { getAllBrackets } from '@/lib/airtable';
 import Loader from '@/components/shared/Loader/Loader';
+import useGetOpenLeagueData from '../useGetOpenLeagueData';
+import LeagueRankingsTable from '../LeagueRankingsTable/LeagueRankingsTable';
+import { useUser } from '@/context/user-context/user-context';
 
-export default function OverallRankingsTable({ leagues }) {
-  const { data: allBracketsRanked = [] } = useGetApi(getAllBrackets);
-  const router = useRouter();
+export default function OverallRankingsTable({ leagues, sports }) {
+  const user = useUser();
 
-  if (!leagues?.length || !allBracketsRanked)
+  const mapSportsToOpenLeagueId = sports.reduce((acc, sport) => {
+    if (!sport.openLeagueId?.length) return acc;
+    acc[sport.name] = sport.openLeagueId[0];
+    return acc;
+  }, {});
+
+  let currentContest = '';
+  const openLeague = leagues.find(league => {
+    const currentSportOpenLeagueId = mapSportsToOpenLeagueId[league.sport[0]];
+
+    if (currentSportOpenLeagueId === league.id) {
+      currentContest = sports.find(({ name }) => name === league.sport[0]);
+      return true;
+    }
+    return false;
+  });
+
+  const allBracketsRanked = useGetOpenLeagueData({ leagueId: openLeague.id });
+  const topTenBrackets = allBracketsRanked.slice(0, 10);
+  openLeague.json = topTenBrackets;
+
+  const userBrackets = allBracketsRanked.filter(bracket => {
+    return user.brackets.includes(bracket.id);
+  });
+
+  if (!leagues?.length || !openLeague)
     return (
       <div
         style={{
@@ -23,94 +45,10 @@ export default function OverallRankingsTable({ leagues }) {
       </div>
     );
 
-  const topTenBrackets = allBracketsRanked.slice(0, 10);
-
-  const filteredUserBrackets = leagues.filter(({ bracketId }) => {
-    const isBracketInTopTen = !!topTenBrackets.find(
-      ({ id }) => id === bracketId
-    );
-    if (isBracketInTopTen) return false;
-    return true;
-  });
-
   return (
-    <div className={tableStyles.container}>
-      <p className={tableStyles.title}>Overall Leaders</p>
-      <div className={tableStyles.innerContainer}>
-        <table className={tableStyles.table}>
-          <thead>
-            <tr className={tableStyles.titleRow}>
-              <th className={tableStyles.rank}>Rank</th>
-              <th>Bracket Name</th>
-              <th>Total Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allBracketsRanked
-              .sort((a, b) => {
-                if (b.selections.totalPoints > a.selections.totalPoints)
-                  return 1;
-                return -1;
-              })
-              .map(
-                (
-                  { name, id, selections: { totalPoints, overallRank } },
-                  index
-                ) => {
-                  const handleClick = () => {
-                    router.push(`${ROUTES.SONG_CHALLENGE}?bracketId=${id}`);
-                  };
-
-                  const isRanked =
-                    overallRank && typeof overallRank === 'number';
-                  if (!isRanked) return;
-                  return (
-                    <tr key={`rankings-${name}-${index}`} onClick={handleClick}>
-                      <td className={tableStyles.rank}>
-                        <span className={tableStyles.number}>
-                          {overallRank}
-                        </span>
-                      </td>
-                      <td>
-                        <p>{name}</p>
-                      </td>
-
-                      <td>{totalPoints}</td>
-                    </tr>
-                  );
-                }
-              )}
-            {filteredUserBrackets.length > 0 && (
-              <>
-                <p className={styles.dotdotdot}>...</p>
-                {filteredUserBrackets.map(({ bracketId, bracketName }) => {
-                  if (!bracketId) return;
-                  const handleClick = () => {
-                    router.push(
-                      `${ROUTES.SONG_CHALLENGE}?bracketId=${bracketId}`
-                    );
-                  };
-                  const bracketData = allBracketsRanked.find(
-                    ({ id }) => id === bracketId
-                  );
-                  if (!bracketData) return;
-                  return (
-                    <tr key={bracketId} onClick={handleClick}>
-                      <td className={tableStyles.rank}>
-                        <span className={tableStyles.number}>
-                          {overallRank}
-                        </span>
-                      </td>
-                      <td>{bracketName}</td>
-                      <td>{bracketData.totalPoints}</td>
-                    </tr>
-                  );
-                })}
-              </>
-            )}
-          </tbody>
-        </table>
-      </div>
+    <div className={styles.table}>
+      <LeagueRankingsTable leagueData={openLeague} sports={sports} />
+      <p className={styles.dotdotdot}>...</p>
     </div>
   );
 }

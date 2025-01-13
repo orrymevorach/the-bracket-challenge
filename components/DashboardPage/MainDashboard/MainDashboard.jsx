@@ -55,7 +55,7 @@ export default function MainDashboard({
           })}
       </div>
       {isDesktop && <Border />}
-      {/* <OverallRankingsTable leagues={leagueData} /> */}
+      <OverallRankingsTable leagues={leagueData} sports={sports} />
     </div>
   );
 }

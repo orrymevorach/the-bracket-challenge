@@ -6,9 +6,6 @@ import JoinLeagueTakeover from './JoinLeagueTakeover/JoinLeagueTakeover';
 import DashboardBar from './DashboardBar/DashboardBar';
 import Layout from '@/components/shared/Layout/Layout';
 import Loader from '@/components/shared/Loader/Loader';
-import SettingsButton from './SettingsButton/SettingsButton';
-import { ROUTES } from '@/utils/constants';
-import styles from './Dashboard.module.scss';
 import OpeningSoon from './OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
 import Wrapper from '../shared/Wrapper/Wrapper';
@@ -27,15 +24,7 @@ export default function Dashboard({
   if (!user) return <Loader isFullPage />;
   return (
     <Layout removeWrapper>
-      <DashboardBar>
-        {/* <SettingsButton
-          href={{
-            pathname: `${ROUTES.ACCOUNT_SETTINGS}`,
-          }}
-          classNames={styles.settingsButton}
-          text="Account"
-        /> */}
-      </DashboardBar>
+      <DashboardBar />
       {showCreateLeagueTakeover && (
         <CreateLeagueTakeover
           setShowTakeover={setShowCreateLeagueTakeover}

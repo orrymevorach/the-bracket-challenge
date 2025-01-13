@@ -8,6 +8,16 @@ import {
   signOut,
   sendPasswordResetEmail,
 } from 'firebase/auth';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  orderBy,
+  limit,
+  query,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -21,6 +31,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const initFirebaseAuth = () => app;
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
 
@@ -69,6 +80,81 @@ export const sendFirebasePasswordResetEmail = ({ email }) => {
       };
     });
 };
+
+export const fetchFirebaseData = async ({ collectionName, docName }) => {
+  const docRef = doc(db, collectionName, docName);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log('No such document!');
+  }
+};
+
+export async function fetchSubcollection({
+  collectionName,
+  docName,
+  subCollectionName,
+}) {
+  try {
+    // Reference the parent document
+    const theOpenDocRef = doc(db, collectionName, docName);
+
+    // Reference the subcollection
+    const bracketsCollectionRef = collection(theOpenDocRef, subCollectionName);
+
+    const limitedQuery = query(
+      bracketsCollectionRef,
+      orderBy('rank', 'asc') // Replace "createdAt" with a field in your documents
+      // limit(10)
+    );
+
+    // Fetch all documents in the subcollection
+    const querySnapshot = await getDocs(limitedQuery);
+
+    // Extract data from documents
+    const brackets = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return brackets; // Return the fetched data
+  } catch (error) {
+    console.error('Error fetching subcollection:', error);
+  }
+}
+
+export async function fetchBracketById({
+  collectionName,
+  docName,
+  subCollectionName,
+  bracketId, // ID of the bracket document
+}) {
+  try {
+    // Reference the specific document in the subcollection
+    const bracketDocRef = doc(
+      db,
+      collectionName,
+      docName,
+      subCollectionName,
+      bracketId
+    );
+
+    // Fetch the document
+    const docSnapshot = await getDoc(bracketDocRef);
+
+    if (docSnapshot.exists()) {
+      const bracket = { id: docSnapshot.id, ...docSnapshot.data() };
+      return bracket; // Return the bracket data
+    } else {
+      console.log('No such document found!');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching bracket by ID:', error);
+  }
+}
 
 export const errors = {
   'auth/invalid-email': {

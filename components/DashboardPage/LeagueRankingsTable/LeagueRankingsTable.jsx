@@ -20,7 +20,8 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
     ({ name }) => leagueData.sport[0] === name
   );
 
-  const brackets = leagueData.json;
+  const brackets = leagueData.json || [];
+  if (!brackets.length) return;
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
 
