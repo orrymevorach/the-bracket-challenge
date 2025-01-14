@@ -48,6 +48,11 @@
   text-align: left;
 }
 
+.editButton {
+  background: none;
+  border: none;
+}
+
 @media screen and (max-width: variables.$tablet) {
   .container {
     padding: 20px 0;

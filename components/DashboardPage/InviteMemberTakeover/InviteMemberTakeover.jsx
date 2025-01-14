@@ -9,6 +9,7 @@ import { faCheckCircle, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/shared/Button/Button';
 import { validateEmail } from '@/utils/utils';
 import Invitations from './Invitations/Invitations';
+import { COLORS } from '@/utils/constants';
 
 export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -69,7 +70,11 @@ export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
           handleClose={() => setShowTakeover(false)}
           modalClassNames={styles.container}
         >
-          <FontAwesomeIcon icon={faCheckCircle} color="#7bc9ab" size="2x" />
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            color={COLORS.GREEN}
+            size="2x"
+          />
           <p className={styles.title}>Invite Sent!</p>
           <p className={styles.junkText}>
             (If your guest does not receive the invite, ask them to check their

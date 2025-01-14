@@ -36,6 +36,7 @@ export async function getServerSideProps(context) {
   if (!leagueIds || !enableDashboardFeatureFlag) {
     return {
       props: {
+        user,
         leagues: [],
         sports,
         enableDashboardFeatureFlag,
@@ -46,7 +47,6 @@ export async function getServerSideProps(context) {
     leagueIds.map(async id => {
       const league = await getLeague({ id });
       const json = league?.json ? JSON.parse(league.json) : [];
-
       return {
         ...league,
         json,
@@ -54,10 +54,19 @@ export async function getServerSideProps(context) {
     })
   );
 
+  const mapSportToStatus = sports.reduce((acc, sport) => {
+    acc[sport.name] = sport.status;
+    return acc;
+  }, {});
+
+  const filteredLeaguesByStatus = leagues.filter(league => {
+    return mapSportToStatus[league.sport] === 'Open';
+  });
+
   return {
     props: {
       user,
-      leagues,
+      leagues: filteredLeaguesByStatus,
       sports,
       enableDashboardFeatureFlag,
     },

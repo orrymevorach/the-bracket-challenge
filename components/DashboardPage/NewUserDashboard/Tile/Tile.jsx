@@ -11,7 +11,11 @@ function breakSentenceIntoLines(sentence) {
     lines.push(words.slice(i, i + 2).join(' '));
   }
 
-  return lines.map((line, index) => <div key={index}>{line}</div>);
+  return lines.map((line, index) => (
+    <span key={`line-break-${sentence}-${index}`}>
+      {line} <br />
+    </span>
+  ));
 }
 
 export default function Tile({

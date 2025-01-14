@@ -27,7 +27,7 @@ export default function Toggle({ sports, selectedToggle, handleChange }) {
             </div>
 
             {/* Label */}
-            <span className={styles.label}>{option.name}</span>
+            <span className={styles.label}>{option.displayName}</span>
           </div>
         );
       })}

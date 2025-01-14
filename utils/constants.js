@@ -53,3 +53,7 @@ export const topDawgCompetitionLeagueId = 'recrKlmzDj22vkpf9';
 export const CONTENT_MODELS = {
   LIST_MEDIA: 'listMedia',
 };
+
+export const COLORS = {
+  GREEN: '#7bc9ab',
+};

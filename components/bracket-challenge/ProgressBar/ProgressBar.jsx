@@ -8,6 +8,7 @@ import {
 import useWindowSize from '@/hooks/useWindowSize';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { COLORS } from '@/utils/constants';
 
 const getProgressBarData = contests => {
   let numberOfMatchups = 0;
@@ -126,14 +127,18 @@ export default function ProgressBar() {
           className={styles.progressBarContainer}
           style={{
             backgroundColor,
-            border: `2px solid ${progressBarColor}`,
+            border:
+              progress === 100
+                ? `2px solid ${COLORS.GREEN}`
+                : `2px solid ${progressBarColor}`,
           }}
         >
           <div
             className={styles.progressBar}
             style={{
               width: `${progress}%`,
-              backgroundColor: progressBarColor,
+              backgroundColor:
+                progress === 100 ? COLORS.GREEN : progressBarColor,
             }}
             aria-valuenow={progress}
             aria-valuemin={0}

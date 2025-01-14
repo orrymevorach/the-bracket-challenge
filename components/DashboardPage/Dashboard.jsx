@@ -16,11 +16,10 @@ export default function Dashboard({
   enableDashboardFeatureFlag,
 }) {
   const user = useUser();
-  const leagueData = user?.leagues;
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
     useState(false);
   const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
-  const hasLeagues = leagueData && leagueData.length > 0;
+  const hasLeagues = leagues && leagues.length > 0;
   if (!user) return <Loader isFullPage />;
   return (
     <Layout removeWrapper>

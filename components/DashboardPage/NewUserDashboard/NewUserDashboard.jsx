@@ -6,6 +6,7 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import Tile from './Tile/Tile';
+import { COLORS } from '@/utils/constants';
 
 const getTileData = ({
   setShowJoinLeagueTakeover,
@@ -33,7 +34,7 @@ const getTileData = ({
     icon: faPlus,
     button: 'Create A League',
     handleClick: () => setShowCreateLeagueTakeover(true),
-    color: '#7bc9ab',
+    color: COLORS.GREEN,
   },
   {
     title: 'Join Our Public Group',
