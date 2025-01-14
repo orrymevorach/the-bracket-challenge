@@ -1,7 +1,7 @@
 import styles from './MainDashboard.module.scss';
-import OverallRankingsTable from '../OverallRankingsTable/OverallRankingsTable';
+// import OverallRankingsTable from '../OverallRankingsTable/OverallRankingsTable';
 import Border from '../Border/Border';
-import Wrapper from '@/components/shared/Wrapper/Wrapper';
+// import Wrapper from '@/components/shared/Wrapper/Wrapper';
 import Button from '@/components/shared/Button/Button';
 import LeagueRankingsTable from '@/components/DashboardPage/LeagueRankingsTable/LeagueRankingsTable';
 import { useUser } from '@/context/user-context/user-context';
@@ -55,7 +55,7 @@ export default function MainDashboard({
           })}
       </div>
       {isDesktop && <Border />}
-      <OverallRankingsTable leagues={leagueData} sports={sports} />
+      {/* <OverallRankingsTable leagues={leagueData} sports={sports} /> */}
     </div>
   );
 }
