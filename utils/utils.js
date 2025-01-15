@@ -61,3 +61,12 @@ export function formatName(fullName) {
     lastName: formattedLastName,
   };
 }
+
+export function findMatchingString(array1, array2) {
+  for (const str1 of array1) {
+    if (array2.includes(str1)) {
+      return str1; // Return the first match found
+    }
+  }
+  return null; // Return null if no match is found
+}

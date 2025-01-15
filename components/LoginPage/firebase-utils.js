@@ -15,8 +15,8 @@ import {
   collection,
   getDocs,
   orderBy,
-  limit,
   query,
+  setDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -153,6 +153,18 @@ export async function fetchBracketById({
     }
   } catch (error) {
     console.error('Error fetching bracket by ID:', error);
+  }
+}
+
+export async function addBracketToCollection({ leagueId, bracket }) {
+  try {
+    const leaguesCollection = collection(db, 'leagues');
+    const leagueDoc = doc(leaguesCollection, leagueId);
+    const bracketsCollection = collection(leagueDoc, 'brackets');
+    const bracketDoc = doc(bracketsCollection, bracket.id); // Use the `id` as the document ID
+    const docRef = await setDoc(bracketDoc, bracket);
+  } catch (error) {
+    console.error('Error adding bracket:', error);
   }
 }
 
