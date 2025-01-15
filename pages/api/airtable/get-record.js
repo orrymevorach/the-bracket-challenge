@@ -8,6 +8,11 @@ const airtableBase = new Airtable({
 }).base(process.env.AIRTABLE_BASE);
 
 export default async function handler(req, res) {
+  // Set headers to prevent caching
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   if (req.method === 'POST') {
     const { tableId, field, fieldValue } = req.body;
     try {
@@ -27,7 +32,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ record: recordObj });
     } catch (err) {
-      console.log('Error:', err);
+      console.error('Error:', err);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {

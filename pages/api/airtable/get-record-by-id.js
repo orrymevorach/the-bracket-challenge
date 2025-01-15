@@ -7,6 +7,10 @@ const airtableBase = new Airtable({
 }).base(process.env.AIRTABLE_BASE);
 
 export default async function handler(req, res) {
+  // Set headers to prevent caching
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   if (req.method === 'POST') {
     const { tableId, recordId } = req.body;
     try {
