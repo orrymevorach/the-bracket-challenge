@@ -61,7 +61,7 @@
 
 @media screen and (max-width: variables.$mobile) {
   .nav {
-    margin: 0 auto;
+    margin: 0 auto 20px;
     padding: 15px 0 0 0;
     align-items: center;
     &.fixed {
