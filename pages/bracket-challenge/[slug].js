@@ -29,69 +29,76 @@ export default function BracketChallengePage({ contests = [], snowboarders }) {
 }
 
 export async function getStaticProps(context) {
-  const sport = context.params.slug;
+  try {
+    const sport = context.params.slug;
 
-  const contests = await getContestsBySport({ sport });
-  if (!contests?.length)
-    return {
-      props: {},
-    };
+    // Fetch contests and handle missing data early
+    const contests = await getContestsBySport({ sport });
+    if (!contests?.length) return { props: {} };
 
-  const { snowboarders } = await getSnowboardersBySport({ sport });
-  if (!snowboarders?.length)
-    return {
-      props: {},
-    };
+    // Fetch snowboarders and handle missing data early
+    const { snowboarders } = await getSnowboardersBySport({ sport });
+    if (!snowboarders?.length) return { props: {} };
 
-  const contestsWithSelectedWinnersAndMatchups =
-    await populateContestsWithSelectedWinnersAndMatchups(
-      contests,
-      snowboarders
+    // Populate contests with selected winners and matchups
+    const contestsWithSelectedWinnersAndMatchups =
+      await populateContestsWithSelectedWinnersAndMatchups(
+        contests,
+        snowboarders
+      );
+
+    // Handle contests with matchups, creating placeholders for future rounds
+    const contestsWithAllMatchups = contestsWithSelectedWinnersAndMatchups.map(
+      contest => {
+        const matchups = contest.matchups || []; // Default to empty array if matchups is undefined
+        if (!matchups.length) return contest;
+        const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
+          createPlaceholdersForFutureRounds(matchups);
+        return {
+          ...contest,
+          matchups: matchupsWithExistingDataAndPlaceholdersForFutureRounds,
+        };
+      }
     );
 
-  const contestsWithAllMatchups = contestsWithSelectedWinnersAndMatchups.map(
-    contest => {
-      const matchups = contest.matchups;
-      if (!matchups?.length) return contest;
-      const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
-        createPlaceholdersForFutureRounds(matchups);
-      return {
-        ...contest,
-        matchups: matchupsWithExistingDataAndPlaceholdersForFutureRounds,
-      };
-    }
-  );
+    // Fetch trivia data for contests with questions
+    const contestsWithAllMatchupsAndTriviaData = await Promise.all(
+      contestsWithAllMatchups.map(async contest => {
+        const questions = contest.questions;
+        if (!questions) return contest;
+        const questionsData = await getQuestions({
+          recIds: questions,
+          snowboarders,
+        });
+        return { ...contest, questions: questionsData };
+      })
+    );
 
-  const contestsWithAllMatchupsAndTriviaData = await Promise.all(
-    contestsWithAllMatchups.map(async contest => {
-      const questions = contest.questions;
-      if (!questions) return contest;
-      const questionsData = await getQuestions({
-        recIds: questions,
-        snowboarders,
-      });
-      return {
-        ...contest,
-        questions: questionsData,
-      };
-    })
-  );
+    // Create a map of snowboarders by name
+    const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
+      acc[snowboarder.name] = snowboarder;
+      return acc;
+    }, {});
 
-  const snowboardersAsMap = snowboarders.reduce((acc, snowboarder) => {
-    acc[snowboarder.name] = snowboarder;
-    return acc;
-  }, {});
+    // Sort contests by order
+    const sortedContests = contestsWithAllMatchupsAndTriviaData.sort((a, b) => {
+      if (a.order < b.order) return -1;
+      if (a.order > b.order) return 1;
+      return 0; // Handles case where a.order === b.order
+    });
 
-  const sortedContests = contestsWithAllMatchupsAndTriviaData.sort((a, b) => {
-    if (a.order < b.order) return -1;
-    return 1;
-  });
-  return {
-    props: {
-      contests: sortedContests,
-      snowboarders: snowboardersAsMap,
-    },
-  };
+    // Return the props for the page
+    return {
+      props: {
+        contests: sortedContests,
+        snowboarders: snowboardersAsMap,
+      },
+    };
+  } catch (error) {
+    // Log and handle errors gracefully
+    console.error('Error in getStaticProps:', error);
+    return { props: {} }; // Optionally, return an error page or empty data
+  }
 }
 
 export async function getStaticPaths() {
