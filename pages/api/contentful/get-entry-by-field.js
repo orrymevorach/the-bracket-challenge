@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     try {
       const entry = await client.getEntries({
         content_type: contentTypeId,
-        [`fields[${fieldName}]`]: fieldValue,
+        [`fields.${fieldName}`]: fieldValue,
       });
 
       res.status(200).json({ entry: entry.items[0].fields });

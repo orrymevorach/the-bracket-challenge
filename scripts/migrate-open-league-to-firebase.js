@@ -142,7 +142,8 @@ function addRank(arr) {
 }
 
 async function run() {
-  const sport = 'nst2024';
+  const sport = 'nstsurf';
+  const openLeagueRecId = 'recf7wSTrIJ1F2gMt';
   const { snowboarders } = await getSnowboardersBySport({ sport });
 
   const snowboarderAsMap = snowboarders.reduce((acc, snowboarder) => {
@@ -166,7 +167,7 @@ async function run() {
       });
     }
   }
-  const openLeague = await airtableBase('Leagues').find('recrKlmzDj22vkpf9');
+  const openLeague = await airtableBase('Leagues').find(openLeagueRecId);
   const allBrackets = openLeague.fields['User Brackets'];
   const updatedBrackets = await Promise.all(
     allBrackets.map(async bracketId => {
@@ -242,7 +243,7 @@ async function run() {
   const db = getFirestore(app);
 
   const leaguesCollection = collection(db, 'leagues');
-  const theOpenDoc = doc(leaguesCollection, `recrKlmzDj22vkpf9`);
+  const theOpenDoc = doc(leaguesCollection, openLeagueRecId);
   const bracketsCollection = collection(theOpenDoc, 'brackets');
   for (const bracket of rankedSelections) {
     const bracketDoc = doc(bracketsCollection, bracket.id); // Use the `id` as the document ID
