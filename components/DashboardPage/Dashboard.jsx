@@ -9,6 +9,7 @@ import Loader from '@/components/shared/Loader/Loader';
 import OpeningSoon from './OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
 import Wrapper from '../shared/Wrapper/Wrapper';
+import JoinPublicLeagueTakeover from './JoinPublicLeagueTakeover/JoinPublicLeagueTakeover';
 
 export default function Dashboard({
   leagues,
@@ -19,6 +20,8 @@ export default function Dashboard({
   const [showCreateLeagueTakeover, setShowCreateLeagueTakeover] =
     useState(false);
   const [showJoinLeagueTakeover, setShowJoinLeagueTakeover] = useState(false);
+  const [showJoinPublicLeagueTakeover, setShowJoinPublicLeagueTakeover] =
+    useState(false);
   const hasLeagues = leagues && leagues.length > 0;
   if (!user) return <Loader isFullPage />;
   return (
@@ -32,6 +35,12 @@ export default function Dashboard({
       )}
       {showJoinLeagueTakeover && (
         <JoinLeagueTakeover setShowTakeover={setShowJoinLeagueTakeover} />
+      )}
+      {showJoinPublicLeagueTakeover && (
+        <JoinPublicLeagueTakeover
+          setShowTakeover={setShowJoinPublicLeagueTakeover}
+          sports={sports}
+        />
       )}
       <Wrapper>
         {!enableDashboardFeatureFlag ? (
@@ -49,6 +58,7 @@ export default function Dashboard({
             setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
             showJoinLeagueTakeover={showJoinLeagueTakeover}
             setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
+            setShowJoinPublicLeagueTakeover={setShowJoinPublicLeagueTakeover}
           />
         )}
       </Wrapper>

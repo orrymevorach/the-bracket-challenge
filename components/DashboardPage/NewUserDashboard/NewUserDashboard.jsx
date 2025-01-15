@@ -11,6 +11,7 @@ import { COLORS } from '@/utils/constants';
 const getTileData = ({
   setShowJoinLeagueTakeover,
   setShowCreateLeagueTakeover,
+  setShowJoinPublicLeagueTakeover,
 }) => [
   {
     title: 'Join A Private League',
@@ -44,7 +45,7 @@ const getTileData = ({
     ],
     icon: faGlobe,
     button: 'Join Group',
-    handleClick: () => setShowJoinLeagueTakeover(true),
+    handleClick: () => setShowJoinPublicLeagueTakeover(true),
     color: '#65b2e3',
   },
 ];
@@ -52,10 +53,12 @@ const getTileData = ({
 export default function NewUserDashboard({
   setShowJoinLeagueTakeover,
   setShowCreateLeagueTakeover,
+  setShowJoinPublicLeagueTakeover,
 }) {
   const tileData = getTileData({
     setShowJoinLeagueTakeover,
     setShowCreateLeagueTakeover,
+    setShowJoinPublicLeagueTakeover,
   });
 
   return (

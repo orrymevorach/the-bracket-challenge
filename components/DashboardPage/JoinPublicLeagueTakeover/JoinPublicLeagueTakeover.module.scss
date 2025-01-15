@@ -1,0 +1,17 @@
+@use '@mixins' as mixins;
+
+.container {
+  min-height: 400px;
+}
+
+.toggleContainer {
+  width: 100%;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-size: 17px;
+  @include mixins.fontSecondary;
+  margin-bottom: 20px;
+}
