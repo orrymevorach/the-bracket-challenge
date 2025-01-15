@@ -14,7 +14,6 @@ import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
 
 export default function BracketChallengePage({ contests = [], snowboarders }) {
   useRouteOnAuth();
-  if (!contests.length) return null;
 
   return (
     <>

@@ -6,36 +6,10 @@ import Button from '@/components/shared/Button/Button';
 import { useUser } from '@/context/user-context/user-context';
 import clsx from 'clsx';
 import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeover/InviteMemberTakeover';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { fetchBracketById } from '@/components/LoginPage/firebase-utils';
-import { findMatchingString } from '@/utils/utils';
-
-const useGetOpenLeagueBracketData = ({ sports, leagueData, user, setJson }) => {
-  const openLeagueIds = sports.map(({ openLeagueId }) => openLeagueId[0]);
-  const isOpenLeague = openLeagueIds.includes(leagueData.id);
-  let userBracket;
-  if (isOpenLeague) {
-    const userBrackets = user.brackets;
-    const openLeagueBrackets = leagueData.userBrackets;
-    userBracket = findMatchingString(userBrackets, openLeagueBrackets);
-  }
-  useEffect(() => {
-    const getData = async () => {
-      const bracketData = await fetchBracketById({
-        collectionName: 'leagues',
-        docName: leagueData.id,
-        subCollectionName: 'brackets',
-        bracketId: userBracket,
-      });
-      setJson([bracketData]);
-    };
-    if (userBracket) {
-      getData();
-    }
-  }, [leagueData.id, userBracket, setJson]);
-};
+import useGetOpenLeagueBracketData from './useGetOpenLeagueBracketData';
 
 export default function LeagueRankingsTable({ leagueData, sports }) {
   const [json, setJson] = useState(leagueData.json);

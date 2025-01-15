@@ -39,7 +39,7 @@ function addWinnerToMatchups({ player, matchups, matchupId, winner }) {
 
 export const addUpdatedBracketSelectionsToMatchups = (
   updatedBracketSelections = [],
-  contests,
+  contests = [],
   snowboarders
 ) => {
   const contestsCopy = Array.from(contests);
@@ -136,6 +136,7 @@ export function mapMatchupsAndSnowboardersToContestData(
   snowboarders,
   matchups
 ) {
+  if (!snowboarders || !matchups || !contest) return;
   const snowboardersAsMap = Object.values(snowboarders).reduce(
     (acc, snowboarder) => {
       acc[snowboarder.id] = snowboarder;

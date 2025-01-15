@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditBracketNameTakeover from './EditBracketNameTakeover/EditBracketNameTakeover';
 import Trivia from './Trivia/Trivia';
+import { useRouter } from 'next/router';
 
 const NavChildren = ({
   bracket,
@@ -60,6 +61,7 @@ export default function BracketChallengeContainer() {
 
   const user = useUser();
   const { isMobile } = useWindowSize();
+  const router = useRouter();
 
   if (!bracket || !user) return <Loader isFullPage isBrackets />;
 
@@ -68,7 +70,7 @@ export default function BracketChallengeContainer() {
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';
   const isCurrentUsersBracket = user?.brackets?.includes(bracket.id);
   const isBracketLocked = currentContest?.lockBrackets === 'True';
-  const sport = currentContest.sport[0];
+  const sport = currentContest ? currentContest.sport[0] : router.query.slug;
 
   return (
     <Layout
@@ -86,7 +88,9 @@ export default function BracketChallengeContainer() {
       <RoundButtons contests={contests} />
       <div className={styles.container}>
         {isMobile && <RotatePhoneTakeover />}
-        {isCurrentUsersBracket && !isBracketLocked && <ProgressBar />}
+        {isCurrentUsersBracket && !isBracketLocked && currentContest && (
+          <ProgressBar />
+        )}
         {isBracketLocked && isCurrentUsersBracket && <BracketsLocked />}
         {!isSelectionsEnabled && <MatchupsNotAvailable />}
         {hasMatchups && isSelectionsEnabled && <BracketChallenge />}
