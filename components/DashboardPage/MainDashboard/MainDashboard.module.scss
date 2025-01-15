@@ -70,6 +70,16 @@
     grid-template-columns: 1fr;
     gap: 0;
   }
+  .buttonsContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .button {
+    width: 200px;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 @media screen and (max-width: variables.$mobile) {

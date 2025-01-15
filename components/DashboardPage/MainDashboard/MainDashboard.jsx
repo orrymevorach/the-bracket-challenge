@@ -7,16 +7,22 @@ import LeagueRankingsTable from '@/components/DashboardPage/LeagueRankingsTable/
 import { useUser } from '@/context/user-context/user-context';
 import useWindowSize from '@/hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPeopleGroup, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { getTileData } from '../NewUserDashboard/NewUserDashboard';
 
 export default function MainDashboard({
   leagueData = [],
   setShowCreateLeagueTakeover,
   setShowJoinLeagueTakeover,
+  setShowJoinPublicLeagueTakeover,
   sports,
 }) {
   const user = useUser();
   const { isDesktop } = useWindowSize();
+  const tileData = getTileData({
+    setShowJoinLeagueTakeover,
+    setShowCreateLeagueTakeover,
+    setShowJoinPublicLeagueTakeover,
+  });
 
   return (
     <div className={styles.tablesContainer}>
@@ -24,20 +30,18 @@ export default function MainDashboard({
         <div className={styles.topContainer}>
           <p className={styles.title}>Your Leagues</p>
           <div className={styles.buttonsContainer}>
-            <Button
-              handleClick={() => setShowJoinLeagueTakeover(true)}
-              classNames={styles.button}
-            >
-              <span>Join League</span>
-              <FontAwesomeIcon icon={faPeopleGroup} />
-            </Button>
-            <Button
-              handleClick={() => setShowCreateLeagueTakeover(true)}
-              classNames={styles.button}
-            >
-              <span>Create League</span>
-              <FontAwesomeIcon icon={faPlus} />
-            </Button>
+            {tileData.map(tile => {
+              return (
+                <Button
+                  handleClick={tile.handleClick}
+                  classNames={styles.button}
+                  key={tile.button}
+                >
+                  <span>{tile.button}</span>
+                  <FontAwesomeIcon icon={tile.icon} />
+                </Button>
+              );
+            })}
           </div>
         </div>
         {leagueData

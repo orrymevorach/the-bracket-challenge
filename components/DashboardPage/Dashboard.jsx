@@ -50,6 +50,7 @@ export default function Dashboard({
             leagueData={leagues}
             setShowCreateLeagueTakeover={setShowCreateLeagueTakeover}
             setShowJoinLeagueTakeover={setShowJoinLeagueTakeover}
+            setShowJoinPublicLeagueTakeover={setShowJoinPublicLeagueTakeover}
             sports={sports}
           />
         ) : (

@@ -11,7 +11,6 @@ export default function Dashboard({
   sports,
   enableDashboardFeatureFlag,
 }) {
-  console.log('leagues', leagues);
   return (
     <>
       <Meta title="Dashboard" />

@@ -8,7 +8,7 @@ import {
 import Tile from './Tile/Tile';
 import { COLORS } from '@/utils/constants';
 
-const getTileData = ({
+export const getTileData = ({
   setShowJoinLeagueTakeover,
   setShowCreateLeagueTakeover,
   setShowJoinPublicLeagueTakeover,
@@ -44,7 +44,7 @@ const getTileData = ({
       'Winners of "The Open" are awarded real prizes from our sponsors',
     ],
     icon: faGlobe,
-    button: 'Join Group',
+    button: 'Join Public Group',
     handleClick: () => setShowJoinPublicLeagueTakeover(true),
     color: '#65b2e3',
   },
