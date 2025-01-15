@@ -27,6 +27,9 @@ export default function Dashboard({
 }
 
 export async function getServerSideProps(context) {
+  const { res } = context;
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
   let enableDashboardFeatureFlag = false;
   let user = null;
   let sports = [];
