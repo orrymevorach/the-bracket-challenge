@@ -27,47 +27,49 @@ export default function Dashboard({
 }
 
 export async function getServerSideProps(context) {
-  const enableDashboardFeatureFlag = await getFeatureFlag({
-    name: 'ENABLE_DASHBOARD',
-  });
-  const { user } = await getPageLoadData(context);
-  const sports = await getSports();
+  let enableDashboardFeatureFlag = false;
+  let user = null;
+  let sports = [];
+  let leagues = [];
 
-  const leagueIds = user.leagues;
-  if (!leagueIds || !enableDashboardFeatureFlag) {
-    return {
-      props: {
-        user,
-        leagues: [],
-        sports,
-        enableDashboardFeatureFlag,
-      },
-    };
+  try {
+    enableDashboardFeatureFlag = await getFeatureFlag({
+      name: 'ENABLE_DASHBOARD',
+    });
+    const pageLoadData = await getPageLoadData(context);
+    user = pageLoadData.user;
+    sports = await getSports();
+
+    const leagueIds = user?.leagues || [];
+    if (leagueIds.length && enableDashboardFeatureFlag) {
+      leagues = await Promise.all(
+        leagueIds.map(async id => {
+          const league = await getLeague({ id });
+          const json = league?.json ? JSON.parse(league.json) : [];
+          return {
+            ...league,
+            json,
+          };
+        })
+      );
+
+      const mapSportToStatus = sports.reduce((acc, sport) => {
+        acc[sport.name] = sport.status;
+        return acc;
+      }, {});
+
+      leagues = leagues.filter(
+        league => league.sport && mapSportToStatus[league.sport] === 'Open'
+      );
+    }
+  } catch (error) {
+    console.error('Error during data fetching:', error);
   }
-  const leagues = await Promise.all(
-    leagueIds.map(async id => {
-      const league = await getLeague({ id });
-      const json = league?.json ? JSON.parse(league.json) : [];
-      return {
-        ...league,
-        json,
-      };
-    })
-  );
-
-  const mapSportToStatus = sports.reduce((acc, sport) => {
-    acc[sport.name] = sport.status;
-    return acc;
-  }, {});
-
-  const filteredLeaguesByStatus = leagues.filter(league => {
-    return mapSportToStatus[league.sport] === 'Open';
-  });
 
   return {
     props: {
-      user,
-      leagues: filteredLeaguesByStatus,
+      user: user || {},
+      leagues,
       sports,
       enableDashboardFeatureFlag,
     },
