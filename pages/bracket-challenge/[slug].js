@@ -103,14 +103,14 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const sports = await getSports();
-  const filteredSports = sports.filter(sport => {
-    if (!sport?.contests?.length) return false;
-    if (sport.status !== 'Open') return false;
-    return true;
-  });
+  // const filteredSports = sports.filter(sport => {
+  //   if (!sport?.contests?.length) return false;
+  //   if (sport.status !== 'Open') return false;
+  //   return true;
+  // });
 
   return {
-    paths: filteredSports.map(
+    paths: sports.map(
       sport => `/bracket-challenge/${sport.name.toLowerCase()}`
     ),
     fallback: true,

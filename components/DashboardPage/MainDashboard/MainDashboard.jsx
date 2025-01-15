@@ -51,8 +51,9 @@ export default function MainDashboard({
             if (isAdmin) return -1;
           })
           .map(league => {
+            const sport = league.sport[0];
             return (
-              <div key={league.name} className={styles.table}>
+              <div key={`${sport}-${league.name}`} className={styles.table}>
                 <LeagueRankingsTable leagueData={league} sports={sports} />
               </div>
             );
