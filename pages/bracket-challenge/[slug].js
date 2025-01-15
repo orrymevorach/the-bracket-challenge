@@ -38,6 +38,10 @@ export async function getStaticProps(context) {
     };
 
   const { snowboarders } = await getSnowboardersBySport({ sport });
+  if (!snowboarders?.length)
+    return {
+      props: {},
+    };
 
   const contestsWithSelectedWinnersAndMatchups =
     await populateContestsWithSelectedWinnersAndMatchups(
