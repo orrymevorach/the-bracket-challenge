@@ -76,9 +76,15 @@
     align-items: center;
   }
   .button {
-    width: 200px;
+    width: 300px;
+    padding: 15px 0;
     margin-left: 0;
     margin-right: 0;
+    @include mixins.fontSecondaryBold;
+    border: 2px solid white;
+    span {
+      width: 50%;
+    }
   }
 }
 
@@ -88,5 +94,10 @@
   }
   .topContainer {
     margin: 20px 0 0;
+  }
+  .button {
+    span {
+      width: 45%;
+    }
   }
 }

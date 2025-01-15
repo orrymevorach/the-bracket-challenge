@@ -17,7 +17,7 @@ export default function MainDashboard({
   sports,
 }) {
   const user = useUser();
-  const { isDesktop } = useWindowSize();
+  const { isDesktop, isMobile } = useWindowSize();
   const tileData = getTileData({
     setShowJoinLeagueTakeover,
     setShowCreateLeagueTakeover,
@@ -26,24 +26,27 @@ export default function MainDashboard({
 
   return (
     <div className={styles.tablesContainer}>
-      <div className={styles.scrollContainer}>
-        <div className={styles.topContainer}>
-          <p className={styles.title}>Your Leagues</p>
-          <div className={styles.buttonsContainer}>
-            {tileData.map(tile => {
-              return (
-                <Button
-                  handleClick={tile.handleClick}
-                  classNames={styles.button}
-                  key={tile.button}
-                >
-                  <span>{tile.button}</span>
-                  <FontAwesomeIcon icon={tile.icon} />
-                </Button>
-              );
-            })}
-          </div>
+      <div className={styles.topContainer}>
+        <p className={styles.title}>Your Leagues</p>
+        <div className={styles.buttonsContainer}>
+          {tileData.map(tile => {
+            return (
+              <Button
+                handleClick={tile.handleClick}
+                classNames={styles.button}
+                key={tile.button}
+              >
+                <span>{tile.button}</span>
+                <FontAwesomeIcon
+                  icon={tile.icon}
+                  size={isMobile ? 'xl' : 'm'}
+                />
+              </Button>
+            );
+          })}
         </div>
+      </div>
+      <div className={styles.scrollContainer}>
         {leagueData
           .sort(a => {
             const leagueAdmin = a?.admin && a.admin[0];
