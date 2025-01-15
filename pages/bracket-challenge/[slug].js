@@ -96,7 +96,11 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const sports = await getSports();
-  const filteredSports = sports.filter(sport => !!sport?.contests?.length);
+  const filteredSports = sports.filter(sport => {
+    if (!!sport?.contests?.length) return true;
+    if (sport.status === 'Open') return true;
+    return false;
+  });
 
   return {
     paths: filteredSports.map(
