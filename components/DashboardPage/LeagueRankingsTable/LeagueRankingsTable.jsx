@@ -36,9 +36,9 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
   ];
 
   const isSelectionsEnabled =
-    currentContest.enableSelectionsLookup.includes('True');
+    currentContest.enableSelectionsLookup?.includes('True');
 
-  const isBracketLocked = currentContest.lockBracketsLookup.includes('True');
+  const isBracketLocked = currentContest.lockBracketsLookup?.includes('True');
   return (
     <>
       {showInviteMemberTakeover && (

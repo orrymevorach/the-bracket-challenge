@@ -96,9 +96,10 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const sports = await getSports();
+  const filteredSports = sports.filter(sport => !!sport?.contests?.length);
 
   return {
-    paths: sports.map(
+    paths: filteredSports.map(
       sport => `/bracket-challenge/${sport.name.toLowerCase()}`
     ),
     fallback: true,
