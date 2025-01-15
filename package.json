@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' && npm run clear-cache && next dev",
     "build": "npm run clear-cache && next build",
     "start": "next start",
     "lint": "next lint",

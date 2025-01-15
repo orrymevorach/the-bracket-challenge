@@ -13,6 +13,7 @@ export default function RadioButton({
   isCorrect,
   isIncorrect,
   isDisabled,
+  handleClick: handleSuccess,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const { setWinner } = useMatchups();
@@ -22,6 +23,11 @@ export default function RadioButton({
     setIsLoading(true);
     await setWinner({ player: name, matchupId });
     setIsLoading(false);
+
+    // Call the scroll callback after setting the winner
+    if (handleSuccess) {
+      handleSuccess();
+    }
   };
   const [firstName, lastName, secondLastName] = name.split(' ');
 

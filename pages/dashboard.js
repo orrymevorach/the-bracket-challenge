@@ -40,6 +40,14 @@ export async function getServerSideProps(context) {
     });
     const pageLoadData = await getPageLoadData(context);
     user = pageLoadData.user;
+    if (!user) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      };
+    }
     sports = await getSports();
 
     const leagueIds = user?.leagues || [];

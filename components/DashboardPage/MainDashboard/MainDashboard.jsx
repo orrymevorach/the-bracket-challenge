@@ -39,7 +39,7 @@ export default function MainDashboard({
                 <span>{tile.button}</span>
                 <FontAwesomeIcon
                   icon={tile.icon}
-                  size={isMobile ? 'xl' : 'm'}
+                  size={isMobile ? 'xl' : '1x'}
                 />
               </Button>
             );
