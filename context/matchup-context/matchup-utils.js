@@ -136,7 +136,7 @@ export function mapMatchupsAndSnowboardersToContestData(
   snowboarders,
   matchups
 ) {
-  if (!snowboarders || !matchups || !contest) return;
+  if (!snowboarders || !matchups || !contests) return;
   const snowboardersAsMap = Object.values(snowboarders).reduce(
     (acc, snowboarder) => {
       acc[snowboarder.id] = snowboarder;
