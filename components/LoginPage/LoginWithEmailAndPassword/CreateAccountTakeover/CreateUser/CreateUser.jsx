@@ -55,6 +55,7 @@ export default function CreateUser({ email }) {
         username,
         email: emailInput,
       });
+      Cookies.set(COOKIES.USER_RECORD_ID, newUserResponse.id);
       if (router.query.leagueId) {
         await joinLeague({
           user: newUserResponse,

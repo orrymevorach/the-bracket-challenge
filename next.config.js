@@ -23,6 +23,11 @@ const nextConfig = {
         destination: `/api/airtable/get-record`,
       },
       {
+        source: `/api/airtable/get-user-by-record-id`,
+        destination: `/api/airtable/get-record-by-id`,
+      },
+
+      {
         source: `/api/airtable/get-league-by-id`,
         destination: `/api/airtable/get-record-by-id`,
       },
