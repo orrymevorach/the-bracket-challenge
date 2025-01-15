@@ -54,7 +54,6 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
           <p className={tableStyles.title}>
             {leagueData.name}{' '}
             <span
-              className={styles.contestName}
               style={{
                 color: currentContest?.color,
                 WebkitTextStroke: currentContest?.textStrokeColor

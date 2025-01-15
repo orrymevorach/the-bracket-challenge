@@ -108,6 +108,7 @@ td.rank {
   margin-top: 49px;
   border-top: 1px solid variables.$charcoal;
   position: relative;
+  min-width: 250px;
   &:after {
     position: absolute;
     content: '';
@@ -162,12 +163,21 @@ td.rank {
     }
   }
 
-  tr {
+  .table tr {
     &.titleRow {
       &:after {
         display: none;
       }
     }
+  }
+  .table td,
+  .table th {
+    min-width: 110px;
+  }
+
+  .table th.rank,
+  .table td.rank {
+    min-width: 60px;
   }
   .topRowButtonsContainer {
     flex-direction: column;
