@@ -1,16 +1,13 @@
 import { useMatchups } from '@/context/matchup-context/matchup-context';
 import styles from './ProgressBar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronCircleLeft,
-  faChevronCircleRight,
-  faCircleLeft,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { COLORS, ROUTES } from '@/utils/constants';
 import Link from 'next/link';
+import ArrowButton from './ArrowButton/ArrowButton';
 
 export const getProgressBarData = contests => {
   let numberOfMatchups = 0;
@@ -40,25 +37,9 @@ export const getProgressBarData = contests => {
   };
 };
 
-export const getIsCurrentRoundPicksComplete = currentContest => {
-  if (!currentContest.matchups) return false;
-  let totalNumberOfPlayers = currentContest.matchups.length * 2;
-  let numberOfSelectedPlayers = 0;
-
-  for (let matchup of currentContest.matchups) {
-    if (matchup.team1) numberOfSelectedPlayers++;
-    if (matchup.team2) numberOfSelectedPlayers++;
-  }
-  return totalNumberOfPlayers === numberOfSelectedPlayers;
-};
-
 export default function ProgressBar() {
   const { isMobile } = useWindowSize();
-  const { contests, currentRoundIndex, setCurrentRoundIndex, currentContest } =
-    useMatchups();
-
-  const isCurrentRoundPicksComplete =
-    getIsCurrentRoundPicksComplete(currentContest);
+  const { contests, currentRoundIndex } = useMatchups();
 
   // used for sticky behavior
   const componentRef = useRef(null);
@@ -80,16 +61,6 @@ export default function ProgressBar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleClickPrevious = () => {
-    if (currentRoundIndex <= 0) return;
-    setCurrentRoundIndex(currentRoundIndex - 1);
-  };
-
-  const handleClickNext = () => {
-    if (currentRoundIndex === contests.length - 1) return;
-    setCurrentRoundIndex(currentRoundIndex + 1);
-  };
 
   const { numberOfMatchups, numberOfSelectedWinners } =
     getProgressBarData(contests);
@@ -113,41 +84,14 @@ export default function ProgressBar() {
         ref={componentRef}
       >
         <div className={styles.topRow}>
-          {currentRoundIndex > 0 ? (
-            <button className={styles.previous} onClick={handleClickPrevious}>
-              <div className={styles.icon}>
-                <FontAwesomeIcon
-                  icon={faChevronCircleLeft}
-                  size={isMobile ? '2x' : 'lg'}
-                />{' '}
-              </div>
-              {!isMobile && 'Previous bracket'}
-            </button>
-          ) : (
-            <div />
-          )}
+          {currentRoundIndex > 0 ? <ArrowButton direction="left" /> : <div />}
 
           <p className={styles.progressText}>
             {numberOfSelectedWinners} / {numberOfMatchups}
             <span> picks complete</span>
           </p>
           {currentRoundIndex < contests.length - 1 ? (
-            <button className={styles.next} onClick={handleClickNext}>
-              {!isMobile && 'Next bracket'}{' '}
-              <div
-                className={clsx(
-                  styles.icon,
-                  isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
-                    ? styles.glow
-                    : ''
-                )}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronCircleRight}
-                  size={isMobile ? '2x' : 'lg'}
-                />
-              </div>
-            </button>
+            <ArrowButton direction="right" />
           ) : (
             <div />
           )}

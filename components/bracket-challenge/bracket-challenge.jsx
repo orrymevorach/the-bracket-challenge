@@ -9,6 +9,7 @@ import BracketColumn from './bracket-column/bracket-column';
 import { split } from '@/utils/utils';
 import Player from './player/player';
 import useWindowSize from '@/hooks/useWindowSize';
+import BracketArrowButtons from './BracketArrowButtons/BracketArrowButtons';
 
 // Create an array of 4 objects, where each object contains a 'matchups' key, that has a list of all of the matchups in the array
 const groupMatchupsByRound = matchups =>
@@ -75,25 +76,27 @@ export default function BracketChallenge() {
   return (
     <>
       <div className={styles.bracketChallengeContainer}>
-        <div className={styles.row}>
-          {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
-          {reArrangedMatchups.map(({ matchups }, index) => {
-            return (
-              <BracketColumn matchups={matchups} key={`matchup-${index}`} />
-            );
-          })}
-          {display === 'regular' && (
-            <div className={styles.winnersColumn}>
-              <Player
-                name={winnersColumnMatchup[0].winner?.name}
-                winnerName={winnersColumnMatchup[0].actualWinner?.name}
-                position={1}
-                isChampion
-                matchupId={winnersColumnMatchupId}
-              />
-            </div>
-          )}
-        </div>
+        <BracketArrowButtons>
+          <div className={styles.row}>
+            {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
+            {reArrangedMatchups.map(({ matchups }, index) => {
+              return (
+                <BracketColumn matchups={matchups} key={`matchup-${index}`} />
+              );
+            })}
+            {display === 'regular' && (
+              <div className={styles.winnersColumn}>
+                <Player
+                  name={winnersColumnMatchup[0].winner?.name}
+                  winnerName={winnersColumnMatchup[0].actualWinner?.name}
+                  position={1}
+                  isChampion
+                  matchupId={winnersColumnMatchupId}
+                />
+              </div>
+            )}
+          </div>
+        </BracketArrowButtons>
       </div>
     </>
   );

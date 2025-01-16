@@ -1,0 +1,23 @@
+@use '@variables' as variables;
+
+.arrow {
+  position: absolute;
+}
+
+.next {
+  right: 20%;
+}
+
+.previous {
+  left: 15%;
+}
+
+@media screen and (max-width: variables.$tablet) {
+  .next {
+    right: 10%;
+  }
+
+  .previous {
+    left: 5%;
+  }
+}
