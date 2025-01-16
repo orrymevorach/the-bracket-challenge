@@ -124,7 +124,7 @@ export default function ProgressBar() {
             aria-valuemax={100}
           />
         </div>
-        {isAllRoundSelectionsComplete && isMobile && (
+        {isAllRoundSelectionsComplete && (
           <div className={styles.completeContainer}>
             <Link href={ROUTES.DASHBOARD}>
               <FontAwesomeIcon icon={faCircleLeft} size="lg" /> Dashboard

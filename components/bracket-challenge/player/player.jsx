@@ -13,6 +13,22 @@ import Loader from '@/components/shared/Loader/Loader';
 import { useUser } from '@/context/user-context/user-context';
 import { useRouter } from 'next/router';
 
+const scrollToNextMatchup = ({ matchups, matchupId, matchupRefs }) => {
+  const currentIndex = matchups.findIndex(
+    matchup => matchup.matchupId === matchupId
+  );
+  const nextIndex = currentIndex + 1;
+  const nextMatchup = matchups[nextIndex];
+  const nextMatchupId = nextMatchup?.matchupId;
+  if (nextMatchup && matchupRefs.current[nextMatchupId]) {
+    matchupRefs.current[nextMatchup.matchupId].scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+};
+
 export default function Player(player) {
   const user = useUser();
   const router = useRouter();
@@ -23,7 +39,8 @@ export default function Player(player) {
     setWinner,
     snowboarders,
     currentRoundIndex,
-    currentContest: { lockBrackets, enableSelections },
+    currentContest: { lockBrackets, enableSelections, matchups },
+    matchupRefs,
   } = useMatchups();
   const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -63,6 +80,7 @@ export default function Player(player) {
       setIsLoading(true);
       await setWinner({ player: name, matchupId, currentRoundIndex });
       setIsLoading(false);
+      scrollToNextMatchup({ matchups, matchupId, matchupRefs });
     }
     return;
   };

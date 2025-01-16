@@ -7,7 +7,13 @@ import useGetApi from '@/hooks/useGetApi';
 import { getBracket, getMatchupsBySport } from '@/lib/airtable';
 import { updateRecord } from '@/lib/airtable-utils';
 
-const { createContext, useContext, useState, useEffect } = require('react');
+const {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} = require('react');
 const MatchupContext = createContext();
 
 export const useMatchups = () => {
@@ -24,6 +30,7 @@ export const MatchupDataProvider = ({
   const currentContest = contests[currentRoundIndex];
   const [bracket, setBracket] = useState(null);
   const router = useRouter();
+  const matchupRefs = useRef({}); // used to scroll to next matchup
 
   // Get bracket data
   const bracketId = router.query.bracketId;
@@ -129,6 +136,7 @@ export const MatchupDataProvider = ({
     currentContest,
     bracket,
     snowboarders,
+    matchupRefs,
   };
 
   return (
