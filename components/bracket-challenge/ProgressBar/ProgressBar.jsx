@@ -131,16 +131,19 @@ export default function ProgressBar() {
             <span> picks complete</span>
           </p>
           {currentRoundIndex < contests.length - 1 ? (
-            <button className={styles.next} onClick={handleClickNext}>
+            <button
+              className={clsx(
+                styles.next,
+                isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
+                  ? styles.glow
+                  : ''
+              )}
+              onClick={handleClickNext}
+            >
               {!isMobile && 'Next bracket'}{' '}
               <FontAwesomeIcon
                 icon={faChevronCircleRight}
                 size={isMobile ? '2x' : 'lg'}
-                className={
-                  isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
-                    ? styles.glow
-                    : ''
-                }
               />
             </button>
           ) : (
