@@ -22,7 +22,12 @@ export const getIsCurrentRoundPicksComplete = currentContest => {
   return totalNumberOfPlayers === numberOfSelectedPlayers;
 };
 
-export default function ArrowButton({ direction = 'left', classNames = {} }) {
+export default function ArrowButton({
+  direction = 'left',
+  classNames = {},
+  hideTextOnMobile = true,
+  hideGlowAnimation,
+}) {
   const { isMobile } = useWindowSize();
   const { contests, currentRoundIndex, setCurrentRoundIndex, currentContest } =
     useMatchups();
@@ -58,12 +63,15 @@ export default function ArrowButton({ direction = 'left', classNames = {} }) {
       )}
       onClick={handleClick}
     >
-      {direction === 'right' && !isMobile && text}
+      {direction === 'right' && !hideTextOnMobile
+        ? text
+        : direction === 'right' && !isMobile && text}
 
       <div
         className={clsx(
           styles.icon,
           direction === 'right' &&
+            !hideGlowAnimation &&
             isCurrentRoundPicksComplete &&
             !isAllRoundSelectionsComplete
             ? styles.glow

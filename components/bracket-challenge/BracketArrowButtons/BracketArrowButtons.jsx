@@ -19,6 +19,7 @@ export default function BracketArrowButtons({ children }) {
         <ArrowButton
           direction="left"
           classNames={clsx(styles.arrow, styles.previous)}
+          hideGlowAnimation={isMobile}
         />
       ) : (
         <div />

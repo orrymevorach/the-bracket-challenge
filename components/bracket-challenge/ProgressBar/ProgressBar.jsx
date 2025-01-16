@@ -7,7 +7,9 @@ import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { COLORS, ROUTES } from '@/utils/constants';
 import Link from 'next/link';
-import ArrowButton from './ArrowButton/ArrowButton';
+import ArrowButton, {
+  getIsCurrentRoundPicksComplete,
+} from './ArrowButton/ArrowButton';
 
 export const getProgressBarData = contests => {
   let numberOfMatchups = 0;
@@ -39,7 +41,7 @@ export const getProgressBarData = contests => {
 
 export default function ProgressBar() {
   const { isMobile } = useWindowSize();
-  const { contests, currentRoundIndex } = useMatchups();
+  const { contests, currentRoundIndex, currentContest } = useMatchups();
 
   // used for sticky behavior
   const componentRef = useRef(null);
@@ -72,6 +74,9 @@ export default function ProgressBar() {
 
   const isAllRoundSelectionsComplete = progress === 100;
 
+  const isCurrentRoundPicksComplete =
+    getIsCurrentRoundPicksComplete(currentContest);
+
   return (
     <>
       <div
@@ -91,7 +96,7 @@ export default function ProgressBar() {
             <span> picks complete</span>
           </p>
           {currentRoundIndex < contests.length - 1 ? (
-            <ArrowButton direction="right" />
+            <ArrowButton direction="right" hideGlowAnimation={isMobile} />
           ) : (
             <div />
           )}
@@ -126,6 +131,17 @@ export default function ProgressBar() {
             </Link>
           </div>
         )}
+        {!isAllRoundSelectionsComplete &&
+          isCurrentRoundPicksComplete &&
+          isMobile && (
+            <div className={styles.completeContainer}>
+              <ArrowButton
+                direction="right"
+                hideTextOnMobile={false}
+                classNames={styles.arrowButton}
+              />
+            </div>
+          )}
       </div>
     </>
   );

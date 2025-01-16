@@ -55,6 +55,10 @@
   }
 }
 
+.arrowButton {
+  margin: 0 auto !important;
+}
+
 @media screen and (max-width: variables.$mobile) {
   .container {
     margin: 15px 15px 50px;
