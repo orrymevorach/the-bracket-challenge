@@ -59,9 +59,11 @@
 }
 
 .glow {
-  animation: glow 1.3s infinite ease-out;
+  position: relative;
   background: none;
   border-radius: 50%;
+  animation: glow 1.3s infinite ease-out;
+  will-change: transform, box-shadow;
 }
 
 .next {

@@ -137,9 +137,10 @@ export default function ProgressBar() {
                 icon={faChevronCircleRight}
                 size={isMobile ? '2x' : 'lg'}
                 className={
-                  isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
-                    ? styles.glow
-                    : ''
+                  styles.glow
+                  // isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
+                  // ? styles.glow
+                  // : ''
                 }
               />
             </button>
