@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { COLORS, ROUTES } from '@/utils/constants';
 import Link from 'next/link';
 
-const getProgressBarData = contests => {
+export const getProgressBarData = contests => {
   let numberOfMatchups = 0;
   let numberOfSelectedWinners = 0;
   for (let contest of contests) {
@@ -40,7 +40,7 @@ const getProgressBarData = contests => {
   };
 };
 
-const getIsCurrentRoundPicksComplete = currentContest => {
+export const getIsCurrentRoundPicksComplete = currentContest => {
   if (!currentContest.matchups) return false;
   let totalNumberOfPlayers = currentContest.matchups.length * 2;
   let numberOfSelectedPlayers = 0;
@@ -81,9 +81,6 @@ export default function ProgressBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const { numberOfMatchups, numberOfSelectedWinners } =
-    getProgressBarData(contests);
-
   const handleClickPrevious = () => {
     if (currentRoundIndex <= 0) return;
     setCurrentRoundIndex(currentRoundIndex - 1);
@@ -94,6 +91,8 @@ export default function ProgressBar() {
     setCurrentRoundIndex(currentRoundIndex + 1);
   };
 
+  const { numberOfMatchups, numberOfSelectedWinners } =
+    getProgressBarData(contests);
   const progress = (numberOfSelectedWinners / numberOfMatchups) * 100;
   const progressBarColor = contests[0].textStrokeColor || contests[0].color;
   const backgroundColor = contests[0].textStrokeColor
@@ -116,10 +115,12 @@ export default function ProgressBar() {
         <div className={styles.topRow}>
           {currentRoundIndex > 0 ? (
             <button className={styles.previous} onClick={handleClickPrevious}>
-              <FontAwesomeIcon
-                icon={faChevronCircleLeft}
-                size={isMobile ? '2x' : 'lg'}
-              />{' '}
+              <div className={styles.icon}>
+                <FontAwesomeIcon
+                  icon={faChevronCircleLeft}
+                  size={isMobile ? '2x' : 'lg'}
+                />{' '}
+              </div>
               {!isMobile && 'Previous bracket'}
             </button>
           ) : (
@@ -131,20 +132,21 @@ export default function ProgressBar() {
             <span> picks complete</span>
           </p>
           {currentRoundIndex < contests.length - 1 ? (
-            <button
-              className={clsx(
-                styles.next,
-                isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
-                  ? styles.glow
-                  : ''
-              )}
-              onClick={handleClickNext}
-            >
+            <button className={styles.next} onClick={handleClickNext}>
               {!isMobile && 'Next bracket'}{' '}
-              <FontAwesomeIcon
-                icon={faChevronCircleRight}
-                size={isMobile ? '2x' : 'lg'}
-              />
+              <div
+                className={clsx(
+                  styles.icon,
+                  isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
+                    ? styles.glow
+                    : ''
+                )}
+              >
+                <FontAwesomeIcon
+                  icon={faChevronCircleRight}
+                  size={isMobile ? '2x' : 'lg'}
+                />
+              </div>
             </button>
           ) : (
             <div />
