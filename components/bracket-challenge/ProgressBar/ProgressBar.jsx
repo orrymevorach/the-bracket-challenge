@@ -134,9 +134,10 @@ export default function ProgressBar() {
             <button
               className={clsx(
                 styles.next,
-                isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
-                  ? styles.glow
-                  : ''
+                styles.glow
+                // isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
+                // ? styles.glow
+                // : ''
               )}
               onClick={handleClickNext}
             >
