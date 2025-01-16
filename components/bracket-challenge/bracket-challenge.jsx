@@ -57,18 +57,12 @@ export default function BracketChallenge() {
 
   const display = currentContest.display;
 
-  // "Mirror" and "short" display types only show the first two rounds
-  const matchupsInRound =
-    display !== 'regular'
-      ? matchupsGroupedByRound.slice(0, 2)
-      : matchupsGroupedByRound;
-
   // If matchups are meant to be mirrored, split up the columns re-order them
   // On mobile do not split columns because it is too wide on the screen
   const reArrangedMatchups =
     display === 'mirror' && !isMobile
-      ? splitAndRearrangeColumns(matchupsInRound)
-      : matchupsInRound;
+      ? splitAndRearrangeColumns(matchupsGroupedByRound)
+      : matchupsGroupedByRound;
 
   // For regular bracket - the only scenario with a final player at the end (i.e. not a full bracket), add a column for the winners
   const winnersColumnMatchup =

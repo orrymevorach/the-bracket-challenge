@@ -51,8 +51,10 @@ export async function getStaticProps(context) {
       contest => {
         const matchups = contest.matchups || []; // Default to empty array if matchups is undefined
         if (!matchups.length) return contest;
+        const displayConfig = contest.display;
         const matchupsWithExistingDataAndPlaceholdersForFutureRounds =
-          createPlaceholdersForFutureRounds(matchups);
+          createPlaceholdersForFutureRounds(matchups, displayConfig);
+
         return {
           ...contest,
           matchups: matchupsWithExistingDataAndPlaceholdersForFutureRounds,

@@ -89,14 +89,21 @@ export const addUpdatedBracketSelectionsToMatchups = (
 };
 
 // Creates placeholders for future rounds of the bracket that do not come from the data
-export function createPlaceholdersForFutureRounds(allMatchups = []) {
+export function createPlaceholdersForFutureRounds(
+  allMatchups = [],
+  displayConfig
+) {
   if (!allMatchups?.length) return [];
   const firstRoundMatchups = allMatchups.filter(({ matchupId }) => {
     if (matchupId?.includes('R1')) return true;
     return false;
   });
 
-  const totalRounds = Math.ceil(Math.log2(firstRoundMatchups.length)) + 1;
+  // "Mirror" and "short" display types only show the first two rounds
+  const totalRounds =
+    displayConfig === 'regular'
+      ? Math.ceil(Math.log2(firstRoundMatchups.length)) + 1
+      : 2;
 
   const matchupsAsMap = allMatchups.reduce((acc, curr) => {
     acc[curr.matchupId] = curr;
