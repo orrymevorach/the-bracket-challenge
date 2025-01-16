@@ -75,9 +75,10 @@
     height: 100%;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
-    animation: glow 1.3s infinite ease-out;
+    animation: grow 1.3s infinite ease-out;
     z-index: -1;
     will-change: box-shadow;
+    filter: blur(3px);
   }
 }
 
