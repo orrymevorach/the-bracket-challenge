@@ -38,13 +38,13 @@ export const getTileData = ({
     color: COLORS.GREEN,
   },
   {
-    title: 'Join Our Public Group',
+    title: 'Join Our Public League',
     description: [
-      'Join "The Open", our public group where you can create a bracket and compete against all participants of "The Bracket Challenge"',
+      'Join "The Open", our public league where you can create a bracket and compete against all participants of "The Bracket Challenge"',
       'Winners of "The Open" are awarded real prizes from our sponsors',
     ],
     icon: faGlobe,
-    button: 'Join Public Group',
+    button: 'Join Public League',
     handleClick: () => setShowJoinPublicLeagueTakeover(true),
     color: '#65b2e3',
   },
