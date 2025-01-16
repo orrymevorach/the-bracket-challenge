@@ -8,9 +8,9 @@ import useWindowSize from '@/hooks/useWindowSize';
 
 export default function BracketArrowButtons({ children }) {
   const { isMobile } = useWindowSize();
-  if (isMobile) return children;
   const { contests, currentRoundIndex, currentContest } = useMatchups();
 
+  if (isMobile) return children;
   const isCurrentRoundPicksComplete =
     getIsCurrentRoundPicksComplete(currentContest);
   return (
