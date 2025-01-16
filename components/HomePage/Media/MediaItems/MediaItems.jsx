@@ -35,13 +35,13 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
             >
               {!isMobile && <p className={styles.title}>{item.title}</p>}
               <ProgressBar isActive={isActive} duration={duration} />
-              {!isMobile && (
+              {/* {!isMobile && (
                 <div className={styles.bottomRow}>
                   <p>{createdAtFormatted}</p>
                   <div className={styles.dot}></div>
                   <p>{item.tag}</p>
                 </div>
-              )}
+              )} */}
             </div>
           );
         })}

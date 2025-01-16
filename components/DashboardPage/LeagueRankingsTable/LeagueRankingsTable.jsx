@@ -10,11 +10,13 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import useGetOpenLeagueBracketData from './useGetOpenLeagueBracketData';
+import useWindowSize from '@/hooks/useWindowSize';
 
 export default function LeagueRankingsTable({ leagueData, sports }) {
   const [json, setJson] = useState(leagueData.json);
   const router = useRouter();
   const user = useUser();
+  const { isMobile } = useWindowSize();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
 
@@ -28,18 +30,24 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
 
-  const titleHeadings = [
-    { title: 'Rank', classNames: tableStyles.rank },
-    { title: 'Team Name' },
-    { title: 'Total Points' },
-    { title: 'Correct Picks' },
-    // { title: 'Dark Horse' },
-  ];
-
   const isSelectionsEnabled =
     currentContest.enableSelectionsLookup?.includes('True');
 
   const isBracketLocked = currentContest.lockBracketsLookup?.includes('True');
+
+  const titleHeadings =
+    isMobile && isSelectionsEnabled
+      ? [
+          { title: 'Rank', classNames: tableStyles.rank },
+          { title: 'Team Name' },
+        ]
+      : [
+          { title: 'Rank', classNames: tableStyles.rank },
+          { title: 'Team Name' },
+          { title: 'Total Points' },
+          { title: 'Correct Picks' },
+          // { title: 'Dark Horse' },
+        ];
   return (
     <>
       {showInviteMemberTakeover && (
@@ -121,11 +129,14 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                       <td>
                         <p>{bracketName}</p>
                       </td>
-                      <td>{totalPoints}</td>
-                      <td>
-                        {correctPicks}/{numberOfWinners}
-                      </td>
-                      {/* <td></td> */}
+                      {!isMobile && isSelectionsEnabled && (
+                        <>
+                          <td>{totalPoints}</td>
+                          <td>
+                            {correctPicks}/{numberOfWinners}
+                          </td>
+                        </>
+                      )}
                     </tr>
                   );
                 })}

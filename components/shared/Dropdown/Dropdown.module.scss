@@ -18,11 +18,12 @@
     font-size: 14px;
     width: 200px;
     margin: 0 auto;
+    @include mixins.fontSecondary;
   }
 }
 
 .heading {
-  @include mixins.fontSecondary;
+  @include mixins.fontSecondaryMedium;
   text-align: center;
   font-size: 22px;
   color: white;
@@ -34,8 +35,12 @@
 }
 
 @media screen and (max-width: variables.$mobile) {
+  .heading {
+    font-size: 32px;
+  }
   .dropdown div {
     width: 300px;
     text-align: center;
+    font-size: 24px;
   }
 }

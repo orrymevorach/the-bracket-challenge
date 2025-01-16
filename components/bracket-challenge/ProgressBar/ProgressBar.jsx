@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronCircleLeft,
   faChevronCircleRight,
+  faCircleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { COLORS } from '@/utils/constants';
+import { COLORS, ROUTES } from '@/utils/constants';
+import Link from 'next/link';
 
 const getProgressBarData = contests => {
   let numberOfMatchups = 0;
@@ -38,9 +40,25 @@ const getProgressBarData = contests => {
   };
 };
 
+const getIsCurrentRoundPicksComplete = currentContest => {
+  if (!currentContest.matchups) return false;
+  let totalNumberOfPlayers = currentContest.matchups.length * 2;
+  let numberOfSelectedPlayers = 0;
+
+  for (let matchup of currentContest.matchups) {
+    if (matchup.team1) numberOfSelectedPlayers++;
+    if (matchup.team2) numberOfSelectedPlayers++;
+  }
+  return totalNumberOfPlayers === numberOfSelectedPlayers;
+};
+
 export default function ProgressBar() {
   const { isMobile } = useWindowSize();
-  const { contests, currentRoundIndex, setCurrentRoundIndex } = useMatchups();
+  const { contests, currentRoundIndex, setCurrentRoundIndex, currentContest } =
+    useMatchups();
+
+  const isCurrentRoundPicksComplete =
+    getIsCurrentRoundPicksComplete(currentContest);
 
   // used for sticky behavior
   const componentRef = useRef(null);
@@ -82,6 +100,8 @@ export default function ProgressBar() {
     ? contests[0].color
     : '#f3f3f3';
 
+  const isAllRoundSelectionsComplete = progress === 100;
+
   return (
     <>
       <div
@@ -116,6 +136,11 @@ export default function ProgressBar() {
               <FontAwesomeIcon
                 icon={faChevronCircleRight}
                 size={isMobile ? '2x' : 'lg'}
+                className={
+                  isCurrentRoundPicksComplete && !isAllRoundSelectionsComplete
+                    ? styles.glow
+                    : ''
+                }
               />
             </button>
           ) : (
@@ -127,24 +152,31 @@ export default function ProgressBar() {
           className={styles.progressBarContainer}
           style={{
             backgroundColor,
-            border:
-              progress === 100
-                ? `2px solid ${COLORS.GREEN}`
-                : `2px solid ${progressBarColor}`,
+            border: isAllRoundSelectionsComplete
+              ? `2px solid ${COLORS.GREEN}`
+              : `2px solid ${progressBarColor}`,
           }}
         >
           <div
             className={styles.progressBar}
             style={{
               width: `${progress}%`,
-              backgroundColor:
-                progress === 100 ? COLORS.GREEN : progressBarColor,
+              backgroundColor: isAllRoundSelectionsComplete
+                ? COLORS.GREEN
+                : progressBarColor,
             }}
             aria-valuenow={progress}
             aria-valuemin={0}
             aria-valuemax={100}
           />
         </div>
+        {isAllRoundSelectionsComplete && isMobile && (
+          <div className={styles.completeContainer}>
+            <Link href={ROUTES.DASHBOARD}>
+              <FontAwesomeIcon icon={faCircleLeft} size="lg" /> Dashboard
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );

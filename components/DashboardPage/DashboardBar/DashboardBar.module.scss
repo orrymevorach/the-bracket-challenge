@@ -46,11 +46,15 @@
   text-transform: uppercase;
   margin-left: 0;
   text-align: left;
+  position: relative;
 }
 
 .editButton {
   background: none;
   border: none;
+  position: absolute;
+  bottom: 9px;
+  right: -30px;
 }
 
 @media screen and (max-width: variables.$tablet) {
