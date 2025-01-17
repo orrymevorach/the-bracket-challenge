@@ -142,6 +142,7 @@ td.rank {
 .button {
   text-align: center;
   width: 200px;
+  color: black;
   &.pulse {
     @include mixins.pulseShadow($color: white);
   }

@@ -22,7 +22,7 @@ export default function MediaHighlightTitle({ media, currentIndex }) {
                 className={styles.title}
                 style={{ animationDuration: `${duration}s` }}
               >
-                {item.title}{' '}
+                {item.bigTitle}{' '}
                 {item.link && <FontAwesomeIcon icon={faLongArrowRight} />}
               </p>
 

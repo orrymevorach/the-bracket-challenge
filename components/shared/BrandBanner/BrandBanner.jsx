@@ -2,7 +2,8 @@ import Image from 'next/image';
 import styles from './BrandBanner.module.scss';
 import { getMedia } from '@/lib/contentful-utils';
 
-export default function BrandBanner({ brandLogos }) {
+export default function BrandBanner({ brandLogos = [] }) {
+  if (!brandLogos.length) return;
   return (
     <div className={styles.container}>
       {brandLogos.map(({ fields }) => {

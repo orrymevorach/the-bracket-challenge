@@ -120,7 +120,9 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                         <p
                           className={tableStyles.number}
                           style={{
-                            backgroundColor: currentContest?.color,
+                            backgroundColor:
+                              currentContest?.secondaryColor ||
+                              currentContest?.color,
                           }}
                         >
                           {rank}
@@ -171,8 +173,13 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                         isBracketEditable && tableStyles.pulse
                       )}
                       style={{
-                        backgroundColor: currentContest?.color,
-                        border: `1px solid ${currentContest?.color}`,
+                        backgroundColor:
+                          currentContest?.secondaryColor ||
+                          currentContest?.color,
+                        border: `1px solid ${
+                          currentContest?.secondaryColor ||
+                          currentContest?.color
+                        }`,
                       }}
                       handleClick={() =>
                         router.push({
