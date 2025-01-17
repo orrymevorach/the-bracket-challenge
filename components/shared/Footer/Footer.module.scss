@@ -40,12 +40,12 @@
 
 @media screen and (max-width: variables.$mobile) {
   .footer {
-    padding: 15px;
     margin-top: 30px;
   }
   .innerContainer {
     padding: 0;
     flex-direction: column;
+    padding: 15px;
   }
   .column {
     text-align: center;

@@ -17,7 +17,6 @@ export default function Layout({
   isFixed = false,
   removeWrapper = false,
   NavChildren = null,
-  brandLogos = [],
 }) {
   const user = useUser();
   const { isMobile } = useWindowSize();
@@ -46,7 +45,7 @@ export default function Layout({
 
         {children}
       </WrapperComponent>
-      <Footer brandLogos={brandLogos} />
+      <Footer />
     </div>
   );
 }
