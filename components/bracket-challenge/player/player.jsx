@@ -140,7 +140,7 @@ export default function Player(player) {
                     <p className={styles.playerName}>{lastName}</p>
                   </div>
                 )}
-                {flagToShow && (
+                {flagToShow?.url && (
                   <Image
                     src={flagToShow.url}
                     alt="hometown flag"
