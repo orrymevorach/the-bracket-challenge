@@ -8,6 +8,18 @@
   background-color: variables.$black;
 }
 
+.isNav {
+  background: none;
+  padding: 0;
+  gap: 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .logoContainer {
+    width: 70px;
+  }
+}
+
 .logoContainer {
   display: flex;
   justify-content: center;
