@@ -168,6 +168,21 @@ export async function addBracketToCollection({ leagueId, bracket }) {
   }
 }
 
+export const getUser = async ({ uid }) => {
+  if (uid) {
+    const memberRef = doc(db, 'members', uid);
+    const memberSnap = await getDoc(memberRef);
+
+    if (memberSnap.exists()) {
+      return memberSnap.data();
+    } else {
+      console.log('No member data found!');
+    }
+  } else {
+    console.log('User is not logged in.');
+  }
+};
+
 export const errors = {
   'auth/invalid-email': {
     type: 'email',
