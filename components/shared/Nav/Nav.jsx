@@ -47,7 +47,6 @@ export default function Nav({ isDark, isFixed, children = null }) {
   const handleSignOut = async () => {
     await signOutOfFirebase();
     Cookies.remove(COOKIES.UID);
-    Cookies.remove(COOKIES.USER_RECORD_ID);
     window.location = ROUTES.HOME;
   };
 
@@ -90,7 +89,7 @@ export default function Nav({ isDark, isFixed, children = null }) {
                     <p className={styles.signInText}>Sign In</p>
                     <FontAwesomeIcon icon={faSignIn} color="white" />
                   </Button>
-                  {!user?.id && (
+                  {!user?.emailAddress && (
                     <Button
                       href={{
                         pathname: ROUTES.LOGIN,

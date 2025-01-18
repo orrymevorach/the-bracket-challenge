@@ -51,9 +51,24 @@ export const signInWithFirebaseEmailAndPassword = ({ email, password }) => {
     });
 };
 
-export const createFirebaseUser = ({ email, password }) => {
+export const createFirebaseUser = ({
+  email,
+  password,
+  firstName,
+  lastName,
+  username,
+}) => {
   return createUserWithEmailAndPassword(auth, email, password)
-    .then(response => response)
+    .then(async response => {
+      const memberRef = doc(db, 'members', response.user.uid);
+      await setDoc(memberRef, {
+        firstName,
+        lastName,
+        username,
+        emailAddress: email,
+      });
+      return response;
+    })
     .catch(error => {
       return {
         error,

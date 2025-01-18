@@ -3,7 +3,7 @@ import styles from './CreateUser.module.scss';
 import { useState } from 'react';
 import Button from '@/components/shared/Button/Button';
 import { createFirebaseUser, errors } from '../../../firebase-utils';
-import { createUser, joinLeague } from '@/lib/airtable';
+import { joinLeague } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import Cookies from 'js-cookie';
@@ -38,6 +38,9 @@ export default function CreateUser({ email }) {
       const response = await createFirebaseUser({
         email: emailInput,
         password,
+        firstName,
+        lastName,
+        username,
       });
       if (response.error) {
         const errorCode = response.error.code;
@@ -48,14 +51,6 @@ export default function CreateUser({ email }) {
         return;
       }
       Cookies.set(COOKIES.UID, response.user.uid);
-      const newUserResponse = await createUser({
-        uid: response.user.uid,
-        firstName,
-        lastName,
-        username,
-        email: emailInput,
-      });
-      Cookies.set(COOKIES.USER_RECORD_ID, newUserResponse.id);
       if (router.query.leagueId) {
         await joinLeague({
           user: newUserResponse,

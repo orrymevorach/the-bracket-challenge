@@ -10,6 +10,8 @@
   @include mixins.fontSecondary;
 }
 
-.takeover {
-  padding-bottom: 120px;
+@media screen and (max-width: variables.$mobile) {
+  .takeover {
+    padding-bottom: 120px;
+  }
 }
