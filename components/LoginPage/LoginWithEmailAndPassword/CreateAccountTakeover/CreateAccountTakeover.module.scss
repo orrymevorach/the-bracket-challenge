@@ -9,3 +9,7 @@
   color: variables.$black;
   @include mixins.fontSecondary;
 }
+
+.takeover {
+  padding-bottom: 100px;
+}
