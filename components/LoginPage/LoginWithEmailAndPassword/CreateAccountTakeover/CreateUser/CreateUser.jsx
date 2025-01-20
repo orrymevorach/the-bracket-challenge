@@ -50,7 +50,7 @@ export default function CreateUser({ email }) {
         setIsLoading(false);
         return;
       }
-      Cookies.set(COOKIES.UID, response.user.id);
+      Cookies.set(COOKIES.UID, response.id);
       if (router.query.leagueId) {
         await joinLeague({
           user: newUserResponse,
