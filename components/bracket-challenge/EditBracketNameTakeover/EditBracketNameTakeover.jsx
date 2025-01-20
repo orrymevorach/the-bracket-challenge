@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { editBracketName, getLeague } from '@/lib/airtable';
+import { editBracketName, getLeague } from '@/lib/firebase';
 import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
-import { updateRecord } from '@/components/LoginPage/firebase-utils';
+import { updateRecord } from '@/lib/firebase-utils';
 import { TABLES } from '@/utils/constants';
 
 export default function EditBracketNameTakeover({ setShowTakeover, bracket }) {

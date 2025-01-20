@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createLeague } from '@/lib/airtable';
+import { createLeague } from '@/lib/firebase';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
 import Takeover from '@/components/shared/Takeover/Takeover';

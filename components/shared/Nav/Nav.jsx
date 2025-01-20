@@ -13,7 +13,7 @@ import mobileLightLogo from '@/public/logo-bracket-white.png';
 import clsx from 'clsx';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useRouter } from 'next/router';
-import { signOutOfFirebase } from '@/components/LoginPage/firebase-utils';
+import { signOutOfFirebase } from '@/lib/firebase-utils';
 import Cookies from 'js-cookie';
 import MobileNav from '@/components/shared/Nav/MobileNav/MobileNav';
 import Wrapper from '../Wrapper/Wrapper';

@@ -1,4 +1,4 @@
-import { joinLeague } from '@/lib/airtable';
+import { joinLeague } from '@/lib/firebase';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
 import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
@@ -9,7 +9,7 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
   const user = useUser();
 
   const handleSubmit = async () => {
-    const response = await joinLeague({
+    await joinLeague({
       leagueId,
       user,
     });

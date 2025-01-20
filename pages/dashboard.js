@@ -1,9 +1,9 @@
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
-import { getLeague, getSports } from '@/lib/airtable';
+import { getSports } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';
-import { getPageLoadData } from '@/lib/airtable';
 import { getFeatureFlag } from '@/lib/contentful';
+import { getLeague, getPageLoadData } from '@/lib/firebase';
 
 export default function Dashboard({
   user,

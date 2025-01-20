@@ -2,12 +2,9 @@ import {
   addRank,
   mapRoundToPoints,
 } from '@/pages/api/rankings/bracket-ranking-utils';
-import {
-  getBracket,
-  getMatchupsBySport,
-  getSnowboardersBySport,
-} from '@/lib/airtable';
+import { getMatchupsBySport, getSnowboardersBySport } from '@/lib/airtable';
 import { getRecordsByFieldValue, updateRecord } from '@/lib/airtable-utils';
+import { getBracket } from '@/lib/firebase';
 
 export default async function handler(req, res) {
   const { sport, subBracket } = { ...req.body, ...req.query };

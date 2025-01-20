@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { fetchBracketById } from '@/components/LoginPage/firebase-utils';
+import { fetchBracketById } from '@/lib/firebase-utils';
 import { findMatchingString } from '@/utils/utils';
 
 export default function useGetOpenLeagueBracketData({

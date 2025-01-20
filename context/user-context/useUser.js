@@ -3,7 +3,7 @@ import { isEmpty } from '@/utils/utils';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getUser } from '@/components/LoginPage/firebase-utils';
+import { getUser } from '@/lib/firebase-utils';
 
 export default function useUser({ user }) {
   const [userData, setUserData] = useState(user || {});
