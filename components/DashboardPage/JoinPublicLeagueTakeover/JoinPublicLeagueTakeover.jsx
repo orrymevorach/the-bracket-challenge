@@ -26,7 +26,7 @@ export default function JoinPublicLeagueTakeover({ setShowTakeover, sports }) {
     const currentSport = sports.find(({ name }) => name === selectedToggle);
     const openLeagueId = currentSport?.openLeagueId[0];
 
-    await joinLeague({
+    const bracket = await joinLeague({
       leagueId: openLeagueId,
       user,
     });

@@ -9,22 +9,18 @@ import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeove
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import useGetOpenLeagueBracketData from './useGetOpenLeagueBracketData';
 import useWindowSize from '@/hooks/useWindowSize';
 
 export default function LeagueRankingsTable({ leagueData, sports }) {
-  const [json, setJson] = useState(leagueData.json);
   const router = useRouter();
   const user = useUser();
   const { isMobile } = useWindowSize();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
 
-  useGetOpenLeagueBracketData({ sports, leagueData, user, setJson });
-
   const currentContest = sports?.find(({ name }) => leagueData.sport === name);
 
-  const brackets = json || [];
+  const brackets = leagueData.json || [];
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
 

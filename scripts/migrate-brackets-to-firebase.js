@@ -62,7 +62,9 @@ async function run() {
   });
   const formattedBrackets = filteredLeagues.map(bracket => {
     return {
-      ...bracket,
+      created: bracket.created,
+      name: bracket.name,
+      id: bracket.id,
       memberId: bracket.memberID?.[0],
       leagueId: bracket.leagueId?.[0],
       selections: bracket.selections ? JSON.parse(bracket.selections) : {},
