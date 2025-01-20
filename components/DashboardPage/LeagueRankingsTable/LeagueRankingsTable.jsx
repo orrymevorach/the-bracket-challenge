@@ -22,18 +22,16 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
 
   useGetOpenLeagueBracketData({ sports, leagueData, user, setJson });
 
-  const currentContest = sports?.find(
-    ({ name }) => leagueData.sport[0] === name
-  );
+  const currentContest = sports?.find(({ name }) => leagueData.sport === name);
 
   const brackets = json || [];
   const leagueAdmin = leagueData?.admin && leagueData.admin[0];
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
 
   const isSelectionsEnabled =
-    currentContest.enableSelectionsLookup?.includes('True');
+    currentContest?.enableSelectionsLookup?.includes('True');
 
-  const isBracketLocked = currentContest.lockBracketsLookup?.includes('True');
+  const isBracketLocked = currentContest?.lockBracketsLookup?.includes('True');
 
   const titleHeadings =
     isMobile && isSelectionsEnabled
@@ -185,7 +183,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
                         router.push({
                           pathname: `${
                             ROUTES.BRACKET_CHALLENGE
-                          }/${leagueData.sport[0].toLowerCase()}`,
+                          }/${leagueData.sport.toLowerCase()}`,
                           query: {
                             leagueId: leagueData.id,
                             bracketId: bracket.id,

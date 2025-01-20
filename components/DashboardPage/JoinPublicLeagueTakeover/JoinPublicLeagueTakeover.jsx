@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { joinPublicLeague } from '@/lib/airtable';
+import { joinLeague } from '@/lib/firebase';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
 import Takeover from '@/components/shared/Takeover/Takeover';
@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import Button from '@/components/shared/Button/Button';
 import styles from './JoinPublicLeagueTakeover.module.scss';
 import Toggle from '@/components/shared/Toggle/Toggle';
-import { addBracketToCollection } from '@/components/LoginPage/firebase-utils';
 
 export default function JoinPublicLeagueTakeover({ setShowTakeover, sports }) {
   const [selectedToggle, setSelectedToggle] = useState(null);
@@ -27,17 +26,9 @@ export default function JoinPublicLeagueTakeover({ setShowTakeover, sports }) {
     const currentSport = sports.find(({ name }) => name === selectedToggle);
     const openLeagueId = currentSport?.openLeagueId[0];
 
-    const { bracket } = await joinPublicLeague({
+    await joinLeague({
       leagueId: openLeagueId,
       user,
-    });
-
-    await addBracketToCollection({
-      leagueId: openLeagueId,
-      bracket: {
-        bracketName: bracket.name,
-        id: bracket.id,
-      },
     });
 
     window.location = `${ROUTES.BRACKET_CHALLENGE}/${currentSport.name}?leagueId=${openLeagueId}&bracketId=${bracket.id}`;

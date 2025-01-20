@@ -1,7 +1,6 @@
 import styles from './league-page-layout.module.scss';
 import Loader from '@/components/shared/Loader/Loader';
 import Layout from '@/components/shared/Layout/Layout';
-import { useLeagueConfig } from '@/context/league-config-context/league-config-context';
 import SettingsButton from '../../DashboardPage/SettingsButton/SettingsButton';
 import { useUser } from '@/context/user-context/user-context';
 import Button from '@/components/shared/Button/Button';
@@ -20,7 +19,6 @@ export default function LeaguePageLayout({
 }) {
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
-  const { name: leagueName, admin, id } = useLeagueConfig();
   const user = useUser();
   const router = useRouter();
   const pathname = router.pathname;

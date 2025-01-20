@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
-import { updateRecord } from '@/lib/airtable-utils';
+import { TABLES } from '@/utils/constants';
+import { updateRecord } from '@/lib/firebase-utils';
 
 export default function DashboardBar({ title = 'Dashboard', children }) {
   const [showEditBracketNameTakeover, setShowEditBracketNameTakeover] =
@@ -15,10 +16,10 @@ export default function DashboardBar({ title = 'Dashboard', children }) {
 
   const handleSubmit = async e => {
     await updateRecord({
-      tableId: 'Members',
+      tableId: TABLES.MEMBERS,
       recordId: user.id,
       newFields: {
-        Username: newUsername,
+        username: newUsername,
       },
     });
     window.location.reload();

@@ -5,7 +5,6 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import PageNotFound from './404';
 import PasswordProtectionTakeover from '@/components/shared/PasswordProtectionTakeover/PasswordProtectionTakeover';
 import GoogleAnalytics from '@/components/shared/google-analytics/google-analytics';
-import { ConfigProvider } from '@/context/config-context/config-context';
 import { WindowSizeProvider } from '@/context/window-size-context/window-size-context';
 import Loader from '@/components/shared/Loader/Loader';
 import useRouteChange from '@/hooks/useRouteChange';
@@ -29,9 +28,7 @@ export default function App({ Component, pageProps }) {
     <>
       <GoogleAnalytics />
       <WindowSizeProvider>
-        <ConfigProvider>
-          <Component {...pageProps} />
-        </ConfigProvider>
+        <Component {...pageProps} />
       </WindowSizeProvider>
     </>
   );

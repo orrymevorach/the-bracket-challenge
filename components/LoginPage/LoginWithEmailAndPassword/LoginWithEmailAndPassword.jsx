@@ -3,7 +3,11 @@ import styles from './LoginWithEmailAndPassword.module.scss';
 import { useRouter } from 'next/router';
 import { COOKIES, ROUTES } from 'utils/constants';
 import Button from '@/components/shared/Button/Button';
-import { errors, signInWithFirebaseEmailAndPassword } from '../firebase-utils';
+import {
+  errors,
+  getUser,
+  signInWithFirebaseEmailAndPassword,
+} from '../../../lib/firebase-utils';
 import Input from '@/components/shared/Input/Input';
 import CreateAccountTakeover from './CreateAccountTakeover/CreateAccountTakeover';
 import Cookies from 'js-cookie';
@@ -11,7 +15,7 @@ import PromptNewUserTakeover from './PromptNewUserTakeover/PromptNewUserTakeover
 import ResetPasswordTakeover from './ResetPasswordTakeover/ResetPasswordTakeover';
 import globalStyles from '@/styles/globalStyles.module.scss';
 import clsx from 'clsx';
-import { getUser, joinLeague } from '@/lib/airtable';
+import { joinLeague } from '@/lib/firebase';
 
 export default function LoginWithEmailAndPassword() {
   const [email, setEmail] = useState('');

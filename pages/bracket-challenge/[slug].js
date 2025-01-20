@@ -6,11 +6,11 @@ import {
   populateContestsWithSelectedWinnersAndMatchups,
   getSports,
   getContestsBySport,
-  getSnowboardersBySport,
   getQuestions,
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
+import { getSnowboardersBySport } from '@/lib/firebase';
 
 export default function BracketChallengePage({ contests = [], snowboarders }) {
   useRouteOnAuth();
@@ -36,7 +36,7 @@ export async function getStaticProps(context) {
     if (!contests?.length) return { props: {} };
 
     // Fetch snowboarders and handle missing data early
-    const { snowboarders } = await getSnowboardersBySport({ sport });
+    const snowboarders = await getSnowboardersBySport({ sport });
     if (!snowboarders?.length) return { props: {} };
 
     // Populate contests with selected winners and matchups

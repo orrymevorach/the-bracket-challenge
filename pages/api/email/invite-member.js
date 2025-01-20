@@ -1,5 +1,5 @@
 let nodemailer = require('nodemailer');
-import { updateRecord } from '@/lib/airtable-utils';
+import { updateRecord } from '@/lib/firebase-utils';
 
 export default async function handler(req, res) {
   const { email, admin, leagueId, invitations, sport } = {
@@ -17,14 +17,12 @@ export default async function handler(req, res) {
       { email, status: 'pending' },
     ];
 
-    const stringifiedInvitations = JSON.stringify(invitationsWithUserEmail);
-
     // Add the updated invitations to the league record
     await updateRecord({
       tableId: 'Leagues',
       recordId: leagueId,
       newFields: {
-        Invitations: stringifiedInvitations,
+        invitations: invitationsWithUserEmail,
       },
     });
 

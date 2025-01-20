@@ -4,8 +4,10 @@ import {
 } from './matchup-utils';
 import { useRouter } from 'next/router';
 import useGetApi from '@/hooks/useGetApi';
-import { getBracket, getMatchupsBySport } from '@/lib/airtable';
-import { updateRecord } from '@/lib/airtable-utils';
+import { getMatchupsBySport } from '@/lib/airtable';
+import { getBracket } from '@/lib/firebase';
+import { TABLES } from '@/utils/constants';
+import { updateRecord } from '@/lib/firebase-utils';
 
 const {
   createContext,
@@ -38,7 +40,7 @@ export const MatchupDataProvider = ({
     getBracket({ recId: bracketId })
   );
 
-  const sport = currentContest?.sport[0];
+  const sport = currentContest?.sport;
   const { data: matchups } = useGetApi(() =>
     getMatchupsBySport({
       sport,
@@ -48,9 +50,7 @@ export const MatchupDataProvider = ({
   // On page load, add saved bracket selections to matchups
   useEffect(() => {
     if (bracketData && !bracket?.selections && matchups) {
-      const bracketSelections = bracketData?.selections
-        ? JSON.parse(bracketData.selections)
-        : [];
+      const bracketSelections = bracketData?.selections || [];
 
       const contestsWithData = mapMatchupsAndSnowboardersToContestData(
         contests,
@@ -107,10 +107,10 @@ export const MatchupDataProvider = ({
 
     // Update the airtable record with the new selections
     await updateRecord({
-      tableId: 'User Brackets',
+      tableId: TABLES.BRACKETS,
       recordId: bracketId,
       newFields: {
-        Selections: JSON.stringify(bracketSelections),
+        selections: bracketSelections,
       },
     });
 

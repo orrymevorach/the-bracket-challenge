@@ -2,12 +2,9 @@ import {
   addRank,
   mapRoundToPoints,
 } from '@/pages/api/rankings/bracket-ranking-utils';
-import {
-  getBracket,
-  getMatchupsBySport,
-  getSnowboardersBySport,
-} from '@/lib/airtable';
+import { getMatchupsBySport, getSnowboardersBySport } from '@/lib/airtable';
 import { getRecordsByFieldValue, updateRecord } from '@/lib/airtable-utils';
+import { getBracket } from '@/lib/firebase';
 
 export default async function handler(req, res) {
   const { sport, subBracket } = { ...req.body, ...req.query };
@@ -59,9 +56,7 @@ export default async function handler(req, res) {
           recId: bracketId,
         });
         // Bracket selections
-        const selections = bracketData.selections
-          ? JSON.parse(bracketData.selections)
-          : [];
+        const selections = bracketData.selections || [];
 
         const rankData = {
           correctPicks: 0,
@@ -101,7 +96,7 @@ export default async function handler(req, res) {
       tableId: 'Leagues',
       recordId: leagueId,
       newFields: {
-        json: JSON.stringify(bracketsRanked),
+        json: bracketsRanked,
       },
     });
     res.status(200).json({ bracketsRanked });

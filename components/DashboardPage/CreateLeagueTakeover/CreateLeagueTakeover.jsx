@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createLeague } from '@/lib/airtable';
+import { createLeague } from '@/lib/firebase';
 import { useUser } from 'context/user-context/user-context';
 import { ROUTES } from '@/utils/constants';
 import Takeover from '@/components/shared/Takeover/Takeover';
@@ -26,11 +26,10 @@ export default function CreateLeagueTakeover({ setShowTakeover, sports }) {
     }
     setIsLoading(true);
     const currentSport = sports.find(({ name }) => name === selectedToggle);
-    const currentSportRecId = currentSport?.id;
     await createLeague({
       name: leagueName,
       user,
-      sportRecId: currentSportRecId,
+      sport: currentSport.name,
     });
     window.location = `${ROUTES.DASHBOARD}`;
   };

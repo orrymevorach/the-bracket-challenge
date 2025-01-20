@@ -1,9 +1,9 @@
-import { getUser } from '@/lib/airtable';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import { isEmpty } from '@/utils/utils';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { getUser } from '@/lib/firebase-utils';
 
 export default function useUser({ user }) {
   const [userData, setUserData] = useState(user || {});

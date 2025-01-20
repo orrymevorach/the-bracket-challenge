@@ -1,9 +1,9 @@
 import Meta from '@/components/shared/Head/Head';
 import { UserProvider } from '@/context/user-context/user-context';
-import { getLeague, getSports } from '@/lib/airtable';
+import { getSports } from '@/lib/airtable';
 import DashboardPage from '@/components/DashboardPage/Dashboard';
-import { getPageLoadData } from '@/lib/airtable';
 import { getFeatureFlag } from '@/lib/contentful';
+import { getLeague, getPageLoadData } from '@/lib/firebase';
 
 export default function Dashboard({
   user,
@@ -55,11 +55,7 @@ export async function getServerSideProps(context) {
       leagues = await Promise.all(
         leagueIds.map(async id => {
           const league = await getLeague({ id });
-          const json = league?.json ? JSON.parse(league.json) : [];
-          return {
-            ...league,
-            json,
-          };
+          return league;
         })
       );
 
@@ -68,9 +64,10 @@ export async function getServerSideProps(context) {
         return acc;
       }, {});
 
-      leagues = leagues.filter(
-        league => league.sport && mapSportToStatus[league.sport] === 'Open'
-      );
+      leagues = leagues.filter(league => {
+        if (!league) return false; // applies to leagues that have not been imgrated to firebase
+        return league.sport && mapSportToStatus[league.sport] === 'Open';
+      });
     }
   } catch (error) {
     console.error('Error during data fetching:', error);

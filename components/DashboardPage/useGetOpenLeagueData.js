@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchSubcollection } from '../LoginPage/firebase-utils';
+import { fetchSubcollection } from '@/lib/firebase-utils';
 
 export default function useGetOpenLeagueData({ leagueId }) {
   const [data, setData] = useState([]);

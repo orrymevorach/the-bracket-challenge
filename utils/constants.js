@@ -14,7 +14,6 @@ export const ROUTES = {
 
 export const COOKIES = {
   UID: 'uid',
-  USER_RECORD_ID: 'user_record_id',
 };
 
 export const ROUND_NAMES = {
@@ -56,4 +55,11 @@ export const CONTENT_MODELS = {
 
 export const COLORS = {
   GREEN: '#7bc9ab',
+};
+
+export const TABLES = {
+  LEAGUES: 'leagues-2025',
+  MEMBERS: 'members',
+  SNOWBOARDERS: 'snowboarders',
+  BRACKETS: 'brackets-2025',
 };
