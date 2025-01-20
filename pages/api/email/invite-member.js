@@ -1,5 +1,6 @@
 let nodemailer = require('nodemailer');
 import { updateRecord } from '@/lib/firebase-utils';
+import { TABLES } from '@/utils/constants';
 
 export default async function handler(req, res) {
   const { email, admin, leagueId, invitations, sport } = {
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
 
     // Add the updated invitations to the league record
     await updateRecord({
-      tableId: 'Leagues',
+      tableId: TABLES.LEAGUES,
       recordId: leagueId,
       newFields: {
         invitations: invitationsWithUserEmail,

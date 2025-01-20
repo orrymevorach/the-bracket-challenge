@@ -32,7 +32,7 @@ export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
       leagueId: leagueData.id,
       admin: user.firstName,
       invitations,
-      sport: leagueData.sport[0],
+      sport: leagueData.sport,
     });
 
     setInvitations(res.invitations);
