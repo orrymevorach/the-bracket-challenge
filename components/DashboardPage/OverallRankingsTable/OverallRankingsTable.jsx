@@ -15,10 +15,10 @@ export default function OverallRankingsTable({ leagues, sports }) {
 
   let currentContest = '';
   const openLeague = leagues.find(league => {
-    const currentSportOpenLeagueId = mapSportsToOpenLeagueId[league.sport[0]];
+    const currentSportOpenLeagueId = mapSportsToOpenLeagueId[league.sport];
 
     if (currentSportOpenLeagueId === league.id) {
-      currentContest = sports.find(({ name }) => name === league.sport[0]);
+      currentContest = sports.find(({ name }) => name === league.sport);
       return true;
     }
     return false;

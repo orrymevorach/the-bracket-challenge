@@ -38,7 +38,7 @@ export const MatchupDataProvider = ({
     getBracket({ recId: bracketId })
   );
 
-  const sport = currentContest?.sport[0];
+  const sport = currentContest?.sport;
   const { data: matchups } = useGetApi(() =>
     getMatchupsBySport({
       sport,

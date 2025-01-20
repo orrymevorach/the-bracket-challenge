@@ -1,19 +1,22 @@
 import { useState } from 'react';
 import { editBracketName, getLeague } from '@/lib/airtable';
 import LeagueTakeoverLayout from '@/components/shared/LeagueTakeoverLayout/LeagueTakeoverLayout';
-import { updateRecord } from '@/lib/airtable-utils';
+import { updateRecord } from '@/components/LoginPage/firebase-utils';
+import { TABLES } from '@/utils/constants';
 
 export default function EditBracketNameTakeover({ setShowTakeover, bracket }) {
   const [bracketName, setBracketName] = useState('');
 
-  const handleSubmit = async e => {
+  const handleSubmit = async () => {
     await editBracketName({
       id: bracket.id,
       bracketName,
     });
     const leagueId = bracket.leagueId[0];
-    const league = await getLeague({ id: leagueId });
-    const leagueJson = league.json ? JSON.parse(league.json) : {};
+    const league = await getLeague({
+      id: leagueId,
+    });
+    const leagueJson = league?.json;
     const updatedJson = leagueJson.map(currentBracket => {
       if (currentBracket.id === bracket.id) {
         return {
@@ -24,12 +27,13 @@ export default function EditBracketNameTakeover({ setShowTakeover, bracket }) {
       return currentBracket;
     });
     await updateRecord({
-      tableId: 'Leagues',
+      tableId: TABLES.LEAGUES,
       recordId: leagueId,
       newFields: {
-        json: JSON.stringify(updatedJson),
+        json: updatedJson,
       },
     });
+
     window.location.reload();
   };
 

@@ -55,11 +55,7 @@ export async function getServerSideProps(context) {
       leagues = await Promise.all(
         leagueIds.map(async id => {
           const league = await getLeague({ id });
-          const json = league?.json ? JSON.parse(league.json) : [];
-          return {
-            ...league,
-            json,
-          };
+          return league;
         })
       );
 
@@ -68,9 +64,10 @@ export async function getServerSideProps(context) {
         return acc;
       }, {});
 
-      leagues = leagues.filter(
-        league => league.sport && mapSportToStatus[league.sport] === 'Open'
-      );
+      leagues = leagues.filter(league => {
+        if (!league) return false; // applies to leagues that have not been imgrated to firebase
+        return league.sport && mapSportToStatus[league.sport] === 'Open';
+      });
     }
   } catch (error) {
     console.error('Error during data fetching:', error);

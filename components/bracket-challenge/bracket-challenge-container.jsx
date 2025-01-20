@@ -70,7 +70,7 @@ export default function BracketChallengeContainer() {
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';
   const isCurrentUsersBracket = user?.brackets?.includes(bracket.id);
   const isBracketLocked = currentContest?.lockBrackets === 'True';
-  const sport = currentContest ? currentContest.sport[0] : router.query.slug;
+  const sport = currentContest ? currentContest.sport : router.query.slug;
 
   return (
     <Layout

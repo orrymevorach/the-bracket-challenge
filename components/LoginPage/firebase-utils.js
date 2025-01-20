@@ -17,6 +17,8 @@ import {
   orderBy,
   query,
   setDoc,
+  addDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -197,6 +199,53 @@ export const getUser = async ({ uid }) => {
     console.log('User is not logged in.');
   }
 };
+
+export const getRecord = async ({ tableId, recordId }) => {
+  if (tableId && recordId) {
+    const recordRef = doc(db, tableId, recordId);
+    const snap = await getDoc(recordRef);
+
+    if (snap.exists()) {
+      return snap.data();
+    } else {
+      console.log('No member data found!');
+    }
+  } else {
+    console.log('User is not logged in.');
+  }
+};
+
+export async function updateRecord({ tableId, recordId, newFields }) {
+  try {
+    const docRef = doc(db, tableId, recordId);
+    await updateDoc(docRef, newFields);
+    console.log(`Document with ID '${recordId}' updated successfully!`);
+  } catch (error) {
+    console.error('Error updating document:', error.message);
+    throw error;
+  }
+}
+
+export async function createRecord({ tableId, newFields, recordId = null }) {
+  try {
+    let docRef;
+
+    if (recordId) {
+      // Use a specific document ID
+      const docReference = doc(collection(db, tableId), recordId);
+      await setDoc(docReference, newFields);
+      docRef = { id: recordId }; // Mock docRef for consistency
+    } else {
+      // Use an auto-generated document ID
+      docRef = await addDoc(collection(db, tableId), newFields);
+    }
+
+    return docRef;
+  } catch (error) {
+    console.error('Error creating document:', error.message);
+    throw error;
+  }
+}
 
 export const errors = {
   'auth/invalid-email': {
