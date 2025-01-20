@@ -15,9 +15,7 @@ export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [memberEmail, setMemberEmail] = useState('');
   const [error, setError] = useState('');
-  const existingInvitations = leagueData?.invitations
-    ? JSON.parse(leagueData.invitations)
-    : [];
+  const existingInvitations = leagueData?.invitations || [];
   const [invitations, setInvitations] = useState(existingInvitations);
 
   const user = useUser();

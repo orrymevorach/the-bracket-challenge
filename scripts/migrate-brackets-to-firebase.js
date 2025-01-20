@@ -1,4 +1,3 @@
-const { TABLES } = require('@/utils/constants');
 const Airtable = require('airtable');
 require('dotenv').config({ path: `.env.local` });
 
@@ -74,7 +73,7 @@ async function run() {
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const bracketsCollection = collection(db, TABLES.BRACKETS);
+  const bracketsCollection = collection(db, 'brackets-2025');
   for (let bracket of formattedBrackets) {
     const bracketDoc = doc(bracketsCollection, bracket.id);
     await setDoc(bracketDoc, bracket);
