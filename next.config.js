@@ -14,6 +14,11 @@ const nextConfig = {
         hostname: 'images.ctfassets.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        port: '',
+      },
     ],
   },
   async rewrites() {
