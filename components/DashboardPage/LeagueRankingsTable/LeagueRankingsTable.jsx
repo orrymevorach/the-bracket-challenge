@@ -21,7 +21,7 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
   const currentContest = sports?.find(({ name }) => leagueData.sport === name);
 
   const brackets = leagueData.json || [];
-  const leagueAdmin = leagueData?.admin && leagueData.admin[0];
+  const leagueAdmin = leagueData?.admin;
   const isAdmin = leagueAdmin && user.id === leagueAdmin;
 
   const isSelectionsEnabled =
