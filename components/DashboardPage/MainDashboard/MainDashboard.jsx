@@ -23,6 +23,7 @@ export default function MainDashboard({
     setShowCreateLeagueTakeover,
     setShowJoinPublicLeagueTakeover,
   });
+  const openLeagueIds = sports.map(({ openLeagueId }) => openLeagueId[0]);
 
   return (
     <div className={styles.tablesContainer}>
@@ -55,6 +56,19 @@ export default function MainDashboard({
           })
           .map(league => {
             const sport = league.sport;
+            const isOpenLeague = openLeagueIds.includes(league.id);
+            // only show users bracket for the open league
+            if (isOpenLeague) {
+              const userBrackets = user.brackets;
+              const openLeagueBrackets = league.userBrackets;
+              const userBracket = userBrackets.find(bracketId =>
+                openLeagueBrackets.includes(bracketId)
+              );
+              const filteredJson = league.json.filter(bracket => {
+                return userBracket === bracket.id;
+              });
+              league.json = filteredJson;
+            }
             return (
               <div key={`${sport}-${league.name}`} className={styles.table}>
                 <LeagueRankingsTable leagueData={league} sports={sports} />
@@ -63,7 +77,6 @@ export default function MainDashboard({
           })}
       </div>
       {isDesktop && <Border />}
-      {/* <OverallRankingsTable leagues={leagueData} sports={sports} /> */}
     </div>
   );
 }

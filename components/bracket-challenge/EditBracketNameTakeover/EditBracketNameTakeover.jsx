@@ -12,11 +12,11 @@ export default function EditBracketNameTakeover({ setShowTakeover, bracket }) {
       id: bracket.id,
       bracketName,
     });
-    const leagueId = bracket.leagueId[0];
+    const leagueId = bracket.leagueId;
     const league = await getLeague({
       id: leagueId,
     });
-    const leagueJson = league?.json;
+    const leagueJson = league?.json || [];
     const updatedJson = leagueJson.map(currentBracket => {
       if (currentBracket.id === bracket.id) {
         return {

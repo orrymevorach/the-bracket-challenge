@@ -55,14 +55,32 @@ async function getRecords({ tableId, view }) {
 
 async function run() {
   const members = await getRecords({ tableId: 'Members', view: 'Grid view' });
+  const formattedMembers = members.map(member => {
+    return {
+      uid: member.uID,
+      id: member.id,
+      firstName: member.firstName,
+      lastName: member.lastName || '',
+      username: member.username,
+      emailAddress: member.emailAddress,
+      leagues: member.leagues || [],
+      brackets: member.brackets || [],
+      adminLeagues: member.adminLeagues || [],
+      created: member.created,
+    };
+  });
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const membersCollection = collection(db, 'members');
-  for (let member of members) {
-    const memberDoc = doc(membersCollection, member.uID);
+  for (let member of formattedMembers) {
+    const memberDoc = doc(membersCollection, member.uid);
     await setDoc(memberDoc, member);
-    console.log('Member added: ', member.name, member.uID);
+    console.log(
+      'Member added: ',
+      member.firstName + member.lastName,
+      member.uid
+    );
   }
 }
 run();
