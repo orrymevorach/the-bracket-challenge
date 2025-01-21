@@ -1,6 +1,5 @@
 import styles from './OverallRankingsTable.module.scss';
 import Loader from '@/components/shared/Loader/Loader';
-import useGetOpenLeagueData from '../useGetOpenLeagueData';
 import LeagueRankingsTable from '../LeagueRankingsTable/LeagueRankingsTable';
 import { useUser } from '@/context/user-context/user-context';
 
@@ -24,8 +23,7 @@ export default function OverallRankingsTable({ leagues, sports }) {
     return false;
   });
 
-  const allBracketsRanked = useGetOpenLeagueData({ leagueId: openLeague.id });
-  const topTenBrackets = allBracketsRanked.slice(0, 10);
+  const topTenBrackets = openLeague.slice(0, 10);
   openLeague.json = topTenBrackets;
 
   const userBrackets = allBracketsRanked.filter(bracket => {
