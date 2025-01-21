@@ -9,19 +9,17 @@ const tmp = require('tmp'); // For handling temp files
 const fs = require('fs');
 
 const serviceAccount = {
-  type: process.env.FIREBASE_SERVICE_ACCOUNT_type,
-  project_id: process.env.FIREBASE_SERVICE_ACCOUNT_project_id,
+  type: 'service_account',
+  project_id: 'natural-selection-35f10',
   private_key_id: process.env.FIREBASE_SERVICE_ACCOUNT_private_key_id,
   private_key: process.env.FIREBASE_SERVICE_ACCOUNT_private_key,
   client_email: process.env.FIREBASE_SERVICE_ACCOUNT_client_email,
-  client_id: process.env.FIREBASE_SERVICE_ACCOUNT_client_id,
-  auth_uri: process.env.FIREBASE_SERVICE_ACCOUNT_auth_uri,
-  token_uri: process.env.FIREBASE_SERVICE_ACCOUNT_token_uri,
-  auth_provider_x509_cert_url:
-    process.env.FIREBASE_SERVICE_ACCOUNT_auth_provider_x509_cert_url,
+  auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+  token_uri: 'https://oauth2.googleapis.com/token',
+  auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
   client_x509_cert_url:
-    process.env.FIREBASE_SERVICE_ACCOUNT_client_x509_cert_url,
-  universe_domain: process.env.FIREBASE_SERVICE_ACCOUNT_universe_domain,
+    'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-irs5t%40natural-selection-35f10.iam.gserviceaccount.com',
+  universe_domain: 'googleapis.com',
 };
 
 initializeApp({
