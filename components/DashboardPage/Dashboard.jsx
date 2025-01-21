@@ -10,6 +10,7 @@ import OpeningSoon from './OpeningSoon/OpeningSoon';
 import { useUser } from '@/context/user-context/user-context';
 import Wrapper from '../shared/Wrapper/Wrapper';
 import JoinPublicLeagueTakeover from './JoinPublicLeagueTakeover/JoinPublicLeagueTakeover';
+import BrandBanner from '../shared/BrandBanner/BrandBanner';
 
 export default function Dashboard({
   leagues,
@@ -25,7 +26,7 @@ export default function Dashboard({
   const hasLeagues = leagues && leagues.length > 0;
   if (!user) return <Loader isFullPage />;
   return (
-    <Layout removeWrapper>
+    <Layout removeWrapper NavChildren={() => <BrandBanner isNav />}>
       <DashboardBar />
       {showCreateLeagueTakeover && (
         <CreateLeagueTakeover

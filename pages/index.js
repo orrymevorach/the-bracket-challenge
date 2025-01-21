@@ -5,6 +5,7 @@ import Footer from '@/components/shared/Footer/Footer';
 import Meta from '@/components/shared/Head/Head';
 import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
+import BrandBanner from '@/components/shared/BrandBanner/BrandBanner';
 
 export default function HomePage({ media = [] }) {
   return (
@@ -12,7 +13,9 @@ export default function HomePage({ media = [] }) {
       <Meta />
       <UserProvider>
         <HomePageLayout>
-          <Nav isFixed isDark />
+          <Nav isFixed isDark>
+            <BrandBanner isNav isBlack />
+          </Nav>
           <Media media={media} />
         </HomePageLayout>
         <Footer hideMarginTop />
