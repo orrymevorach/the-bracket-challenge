@@ -8,7 +8,7 @@ const axios = require('axios');
 const tmp = require('tmp'); // For handling temp files
 const fs = require('fs');
 
-const serviceAccount = require('../../../firebase/natural-selection-35f10-firebase-adminsdk-irs5t-4d69211e58.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 initializeApp({
   credential: cert(serviceAccount),
