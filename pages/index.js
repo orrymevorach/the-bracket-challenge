@@ -6,15 +6,17 @@ import Meta from '@/components/shared/Head/Head';
 import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
 import BrandBanner from '@/components/shared/BrandBanner/BrandBanner';
+import useWindowSize from '@/hooks/useWindowSize';
 
 export default function HomePage({ media = [] }) {
+  const { isDesktop } = useWindowSize();
   return (
     <div>
       <Meta />
       <UserProvider>
         <HomePageLayout>
           <Nav isFixed isDark>
-            <BrandBanner isNav isBlack />
+            {isDesktop && <BrandBanner isNav isBlack />}
           </Nav>
           <Media media={media} />
         </HomePageLayout>
