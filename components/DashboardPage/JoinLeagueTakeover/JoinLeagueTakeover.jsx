@@ -7,13 +7,23 @@ import { useState } from 'react';
 export default function JoinLeagueTakeover({ setShowTakeover }) {
   const [leagueId, setLeagueId] = useState('');
   const user = useUser();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async () => {
-    await joinLeague({
+    const { error } = await joinLeague({
       leagueId,
       user,
     });
+    if (error) {
+      setErrorMessage(error);
+      return;
+    }
     window.location = `${ROUTES.DASHBOARD}`;
+  };
+
+  const handleChange = value => {
+    setErrorMessage('');
+    setLeagueId(value);
   };
 
   return (
@@ -24,7 +34,8 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
       label="Enter the ID for the league you would like to join"
       buttonLabel="Join League"
       inputValue={leagueId}
-      setInputValue={setLeagueId}
+      setInputValue={handleChange}
+      error={errorMessage}
     />
   );
 }

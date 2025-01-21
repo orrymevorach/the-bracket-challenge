@@ -1,5 +1,5 @@
 import Loader from '@/components/shared/Loader/Loader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './LeagueTakeoverLayout.module.scss';
 import Takeover from '@/components/shared/Takeover/Takeover';
 import Input from '@/components/shared/Input/Input';
@@ -25,6 +25,10 @@ export default function LeagueTakeoverLayout({
     setIsLoading(true);
     await handleSubmit();
   };
+
+  useEffect(() => {
+    if (error) setIsLoading(false);
+  }, [error]);
 
   return (
     <Takeover

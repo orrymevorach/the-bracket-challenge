@@ -62,14 +62,14 @@ async function run() {
   });
   const formattedBrackets = filteredLeagues.map(bracket => {
     return {
-      created: bracket.created,
       name: bracket.name,
       id: bracket.id,
       memberId: bracket.memberID?.[0],
+      userName: bracket.userName?.[0],
       leagueId: bracket.leagueId?.[0],
       selections: bracket.selections ? JSON.parse(bracket.selections) : {},
-      usename: bracket.userName?.[0],
       sport: bracket.sport?.[0],
+      created: bracket.created,
     };
   });
 

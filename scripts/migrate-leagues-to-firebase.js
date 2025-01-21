@@ -61,10 +61,15 @@ async function run() {
   });
   const formattedLeagues = filteredLeagues.map(league => {
     return {
-      ...league,
+      name: league.name,
+      id: league.id,
+      members: league.members || [],
+      userBrackets: league.userBrackets || [],
+      created: league.created,
       invitations: league.invitations ? JSON.parse(league.invitations) : [],
       json: league.json ? JSON.parse(league.json) : [],
       sport: league.sport[0],
+      admin: league.admin ? league.admin[0] : '',
     };
   });
 
