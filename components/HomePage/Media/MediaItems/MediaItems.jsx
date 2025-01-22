@@ -2,6 +2,7 @@ import styles from './MediaItems.module.scss';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import clsx from 'clsx';
 import useWindowSize from '@/hooks/useWindowSize';
+import { getDuration } from '../Media';
 
 function timeAgo(timestamp) {
   const now = new Date();
@@ -26,7 +27,7 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
         {media.items.map((item, index) => {
           const isActive = index === currentIndex;
           const createdAtFormatted = timeAgo(item.createdAt);
-          const duration = item.duration || 7;
+          const duration = getDuration({ currentItem: item, isMobile }) / 1000;
           return (
             <div
               key={`row-${item.title}-${index}`}
