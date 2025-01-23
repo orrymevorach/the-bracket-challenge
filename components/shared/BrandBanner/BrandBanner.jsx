@@ -12,7 +12,7 @@ async function getBrandLogos({ fieldValue }) {
     fieldName: 'title',
     fieldValue: fieldValue,
   });
-  return logos.media;
+  return logos?.media;
 }
 
 export default function BrandBanner({ isNav, isBlack = false }) {
