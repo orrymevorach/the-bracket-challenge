@@ -47,21 +47,6 @@ export default function MediaItems({ media, currentIndex, setCurrentIndex }) {
           );
         })}
       </div>
-      {isMobile &&
-        media.items.map((item, index) => {
-          const isNextItem = index === currentIndex + 1;
-          const currentItem = media.items[currentIndex];
-          const duration = currentItem.duration || 7;
-          if (isNextItem)
-            return (
-              <p
-                className={styles.next}
-                style={{ animationDuration: `${duration}s` }}
-              >
-                Next: {item.title}
-              </p>
-            );
-        })}
     </div>
   );
 }
