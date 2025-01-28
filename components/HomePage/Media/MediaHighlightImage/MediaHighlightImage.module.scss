@@ -4,6 +4,7 @@
 .container {
   height: 100%;
   width: 100%;
+  height: calc(100vh - 100px);
   img {
     width: 100%;
     height: auto;
@@ -23,6 +24,7 @@
 .mediaItem {
   position: relative;
   z-index: 1;
+  height: 100%;
 }
 
 .nextSlide {
@@ -35,7 +37,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   animation: zoomAndFadeIn linear forwards;
   // animation duration set in JS
 }

@@ -25,7 +25,7 @@ const mapDeviceToLogo = {
   },
   desktop: {
     light: desktopLightLogo,
-    dark: desktopDarkLogo,
+    dark: desktopLightLogo,
   },
 };
 

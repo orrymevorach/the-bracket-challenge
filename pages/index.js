@@ -5,10 +5,13 @@ import Footer from '@/components/shared/Footer/Footer';
 import Meta from '@/components/shared/Head/Head';
 import { getMedia } from '@/lib/contentful';
 import { UserProvider } from 'context/user-context/user-context';
-import BrandBanner from '@/components/shared/BrandBanner/BrandBanner';
+import BrandBanner, {
+  getBrandLogos,
+} from '@/components/shared/BrandBanner/BrandBanner';
 import useWindowSize from '@/hooks/useWindowSize';
+import { getEntryByField } from '@/lib/contentful-utils';
 
-export default function HomePage({ media = [] }) {
+export default function HomePage({ media = [], brandLogos }) {
   const { isDesktop } = useWindowSize();
   return (
     <div>
@@ -16,7 +19,7 @@ export default function HomePage({ media = [] }) {
       <UserProvider>
         <HomePageLayout>
           <Nav isFixed isDark>
-            {isDesktop && <BrandBanner isNav isBlack />}
+            {isDesktop && <BrandBanner isNav brandLogos={brandLogos} />}
           </Nav>
           <Media media={media} />
         </HomePageLayout>
@@ -28,7 +31,8 @@ export default function HomePage({ media = [] }) {
 
 export async function getStaticProps() {
   const media = await getMedia();
+  const brandLogos = await getBrandLogos({ fieldValue: 'BRAND_LOGOS' });
   return {
-    props: { media },
+    props: { media, brandLogos },
   };
 }

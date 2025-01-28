@@ -6,7 +6,7 @@ import { CONTENT_MODELS } from '@/utils/constants';
 import clsx from 'clsx';
 import Link from 'next/link';
 
-async function getBrandLogos({ fieldValue }) {
+export async function getBrandLogos({ fieldValue }) {
   const logos = await getEntryByField({
     contentTypeId: CONTENT_MODELS.LIST_MEDIA,
     fieldName: 'title',
@@ -15,13 +15,20 @@ async function getBrandLogos({ fieldValue }) {
   return logos?.media;
 }
 
-export default function BrandBanner({ isNav, isBlack = false }) {
+export default function BrandBanner({
+  isNav,
+  isBlack = false,
+  brandLogos: brandLogosOnPageLoad,
+}) {
   const fieldValue = isBlack ? 'BRAND_LOGOS_BLACK' : 'BRAND_LOGOS';
   const { data: brandLogos } = useGetApi(() => getBrandLogos({ fieldValue }));
-  if (!brandLogos?.length) return <div />;
+  if (!brandLogosOnPageLoad?.length && !brandLogos?.length) return <div />;
+  const logos = brandLogosOnPageLoad?.length
+    ? brandLogosOnPageLoad
+    : brandLogos;
   return (
     <div className={clsx(styles.container, isNav && styles.isNav)}>
-      {brandLogos.map(({ fields }) => {
+      {logos.map(({ fields }) => {
         const { src, alt, height, width } = getMedia(fields.image);
         if (fields.link) {
           return (
