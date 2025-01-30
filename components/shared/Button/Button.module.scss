@@ -96,8 +96,12 @@
   &.naked {
     background: none;
     border: none;
-    padding: 0;
     min-width: auto;
+    border: 1px solid transparent;
+    &:hover {
+      border: 1px solid white;
+      color: white !important;
+    }
   }
   &.round {
     border-radius: 20px;

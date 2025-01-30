@@ -115,8 +115,8 @@ export default function Nav({ isDark, isFixed, children = null }) {
                 </>
               )}
               {isDashboardPage && (
-                <Button handleClick={handleSignOut} isSmall isNaked>
-                  <p>Sign Out</p>
+                <Button handleClick={handleSignOut} isNaked>
+                  Sign Out
                 </Button>
               )}
             </div>

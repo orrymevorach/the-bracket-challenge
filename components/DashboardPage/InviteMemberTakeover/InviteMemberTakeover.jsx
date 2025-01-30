@@ -10,6 +10,7 @@ import Button from '@/components/shared/Button/Button';
 import { validateEmail } from '@/utils/utils';
 import Invitations from './Invitations/Invitations';
 import { COLORS } from '@/utils/constants';
+import CopyToClipboard from '@/components/shared/CopyToClipboard/CopyToClipboard';
 
 export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -61,6 +62,14 @@ export default function InviteMemberTakeover({ setShowTakeover, leagueData }) {
           classNames={styles.container}
           error={error}
         >
+          <div className={styles.groupInvite}>
+            <p className={styles.or}>Or</p>
+            <p>Copy and paste your League ID into the group chat</p>
+            <CopyToClipboard
+              text={leagueData.id}
+              classNames={styles.copyToClipboard}
+            />
+          </div>
           {invitations.length > 0 && <Invitations invitations={invitations} />}
         </LeagueTakeoverLayout>
       ) : (

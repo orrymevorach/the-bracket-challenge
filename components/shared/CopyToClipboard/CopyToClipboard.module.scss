@@ -1,0 +1,24 @@
+@use '@mixins' as mixins;
+
+.container {
+  user-select: 'none';
+  position: relative;
+  display: inline-block;
+  cursor: 'pointer';
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  font-style: italic;
+  @include mixins.fontSecondary;
+  span {
+    position: absolute;
+    right: -60px;
+    font-size: 12px;
+    top: 3px;
+    color: green;
+  }
+}
+
+.icon {
+  margin-left: 5px;
+}
