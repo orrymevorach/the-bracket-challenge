@@ -85,9 +85,14 @@ export default function Nav({ isDark, isFixed, children = null }) {
                     href={loginHref}
                     isSmall={!isDesktop}
                     classNames={styles.button}
+                    isInverted
                   >
-                    <p className={styles.signInText}>Sign In</p>
-                    <FontAwesomeIcon icon={faSignIn} color="white" />
+                    Sign In
+                    <FontAwesomeIcon
+                      icon={faSignIn}
+                      color="white"
+                      className={styles.icon}
+                    />
                   </Button>
                   {!user?.emailAddress && (
                     <Button
@@ -99,8 +104,12 @@ export default function Nav({ isDark, isFixed, children = null }) {
                       isSmall={!isDesktop}
                       isSecondary
                     >
-                      <p className={styles.signInText}>Sign Up</p>
-                      <FontAwesomeIcon icon={faUser} color="black" />
+                      Sign Up
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        color="black"
+                        className={styles.icon}
+                      />
                     </Button>
                   )}
                 </>

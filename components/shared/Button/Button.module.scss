@@ -102,6 +102,14 @@
   &.round {
     border-radius: 20px;
   }
+  &.inverted {
+    border: 1px solid white;
+    background-color: black;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
 }
 
 @media screen and (max-width: variables.$mobile) {
