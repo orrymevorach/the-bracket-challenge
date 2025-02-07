@@ -40,8 +40,7 @@
 
 .groupInvite {
   margin-top: 30px;
-  border-bottom: 1px solid black;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
   width: 400px;
   text-align: center;
   p {
@@ -52,7 +51,7 @@
 
 .or {
   @include mixins.fontSecondaryBold;
-  margin-bottom: 7px;
+  margin-bottom: 15px;
 }
 
 .copyToClipboard {

@@ -80,7 +80,9 @@ export default function Player(player) {
       setIsLoading(true);
       await setWinner({ player: name, matchupId, currentRoundIndex });
       setIsLoading(false);
-      scrollToNextMatchup({ matchups, matchupId, matchupRefs });
+      if (isMobile) {
+        scrollToNextMatchup({ matchups, matchupId, matchupRefs });
+      }
     }
     return;
   };
