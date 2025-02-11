@@ -10,15 +10,16 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async () => {
-    const { error } = await joinLeague({
+    const bracket = await joinLeague({
       leagueId,
       user,
     });
-    if (error) {
-      setErrorMessage(error);
+
+    if (bracket.error) {
+      setErrorMessage(bracket.error);
       return;
     }
-    window.location = `${ROUTES.DASHBOARD}`;
+    window.location = `${ROUTES.BRACKET_CHALLENGE}/${bracket.sport}?leagueId=${leagueId}&bracketId=${bracket.id}`;
   };
 
   const handleChange = value => {
