@@ -62,4 +62,5 @@ export const TABLES = {
   MEMBERS: 'members',
   SNOWBOARDERS: 'snowboarders',
   BRACKETS: 'brackets-2025',
+  CHATROOMS: 'chatrooms',
 };

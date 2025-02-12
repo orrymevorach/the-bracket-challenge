@@ -71,7 +71,11 @@ export default function MainDashboard({
             }
             return (
               <div key={`${sport}-${league.name}`} className={styles.table}>
-                <LeagueRankingsTable leagueData={league} sports={sports} />
+                <LeagueRankingsTable
+                  leagueData={league}
+                  sports={sports}
+                  isOpenLeague={isOpenLeague}
+                />
               </div>
             );
           })}

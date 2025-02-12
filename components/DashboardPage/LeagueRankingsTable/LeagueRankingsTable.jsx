@@ -8,15 +8,21 @@ import clsx from 'clsx';
 import InviteMemberTakeover from '@/components/DashboardPage/InviteMemberTakeover/InviteMemberTakeover';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faMessage, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
+import ChatroomTakeover from '../ChatroomTakeover/ChatroomTakeover';
 
-export default function LeagueRankingsTable({ leagueData, sports }) {
+export default function LeagueRankingsTable({
+  leagueData,
+  sports,
+  isOpenLeague,
+}) {
   const router = useRouter();
   const user = useUser();
   const { isMobile } = useWindowSize();
   const [showInviteMemberTakeover, setShowInviteMemberTakeover] =
     useState(false);
+  const [showChatroomTakeover, setShowChatroomTakeover] = useState(false);
 
   const currentContest = sports?.find(({ name }) => leagueData.sport === name);
 
@@ -50,6 +56,12 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
           leagueData={leagueData}
         />
       )}
+      {showChatroomTakeover && (
+        <ChatroomTakeover
+          leagueData={leagueData}
+          handleClose={() => setShowChatroomTakeover(false)}
+        />
+      )}
 
       <div className={tableStyles.container}>
         <div className={tableStyles.topRow}>
@@ -66,15 +78,26 @@ export default function LeagueRankingsTable({ leagueData, sports }) {
               {leagueData.sport}
             </span>
           </p>
-          {isAdmin && (
-            <Button
-              isPurple
-              classNames={tableStyles.inviteButton}
-              handleClick={() => setShowInviteMemberTakeover(true)}
-            >
-              Invite Member <FontAwesomeIcon icon={faPaperPlane} />
-            </Button>
-          )}
+          <div className={tableStyles.topRowButtonsContainer}>
+            {isAdmin && (
+              <Button
+                isPurple
+                classNames={tableStyles.inviteButton}
+                handleClick={() => setShowInviteMemberTakeover(true)}
+              >
+                Invite Member <FontAwesomeIcon icon={faPaperPlane} />
+              </Button>
+            )}
+            {!isOpenLeague && (
+              <Button
+                isPurple
+                classNames={clsx(tableStyles.inviteButton)}
+                handleClick={() => setShowChatroomTakeover(true)}
+              >
+                Chatroom <FontAwesomeIcon icon={faMessage} />
+              </Button>
+            )}
+          </div>
         </div>
         <div className={tableStyles.innerContainer}>
           <table className={tableStyles.table}>
