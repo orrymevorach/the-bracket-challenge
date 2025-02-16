@@ -65,7 +65,7 @@
   }
 }
 
-@media screen and (max-width: variables.$mobile) {
+@media screen and (max-width: variables.$tablet) {
   .grid {
     align-items: flex-start;
   }
@@ -80,15 +80,18 @@
     }
   }
 
-  .logo {
-    width: 29px;
-    background: none;
-  }
   .button {
     margin-left: 0;
     width: 100px;
     &:first-of-type {
       margin-top: 0 !important;
     }
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .logo {
+    width: 29px;
+    background: none;
   }
 }
