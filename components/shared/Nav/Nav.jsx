@@ -57,7 +57,7 @@ export default function Nav({ isDark, isFixed, children = null }) {
           className={styles.grid}
           style={{
             gridTemplateColumns:
-              isDesktop && !!children ? '1fr minmax(0, auto) 1fr' : '1fr 1fr',
+              isDesktop && !!children ? '1fr 1fr 1fr' : '1fr 1fr',
           }}
         >
           <div>
