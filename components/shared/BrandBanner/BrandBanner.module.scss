@@ -1,9 +1,13 @@
 @use '@mixins' as mixins;
 @use '@variables' as variables;
 .container {
-  padding: 0 80px;
   margin: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 150px 100px;
+  padding: 80px;
 }
+
 .isNav {
   background: none;
   padding: 0;
@@ -21,7 +25,7 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  width: 300px;
+  width: 200px;
   img {
     width: 100%;
     height: auto;
@@ -33,9 +37,6 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 100px;
   }
-  .logoContainer {
-    width: 220px;
-  }
 }
 
 @media screen and (max-width: variables.$tablet) {
@@ -45,6 +46,6 @@
     margin: 0;
   }
   .logoContainer {
-    width: 100%;
+    width: 60%;
   }
 }
