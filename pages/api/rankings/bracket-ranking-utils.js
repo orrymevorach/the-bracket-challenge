@@ -15,7 +15,7 @@ export function addRank(arr) {
 
   // Loop through the sorted array and assign ranks
   for (let i = 0; i < arr.length; i++) {
-    if (!arr[i].rankData) {
+    if (!arr[i]?.rankData) {
       arr[i].rankData = { totalPoints: 0 };
     }
     if (

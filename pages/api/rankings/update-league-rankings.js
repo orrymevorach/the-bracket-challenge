@@ -2,15 +2,20 @@ import {
   addRank,
   mapRoundToPoints,
 } from '@/pages/api/rankings/bracket-ranking-utils';
-import { getMatchupsBySport, getSnowboardersBySport } from '@/lib/airtable';
-import { getRecordsByFieldValue, updateRecord } from '@/lib/airtable-utils';
-import { getBracket } from '@/lib/firebase';
+import {
+  getBracket,
+  getLeaguesBySport,
+  getSnowboardersBySport,
+} from '@/lib/firebase';
+import { getMatchupsBySport } from '@/lib/airtable';
+import { updateRecord } from '@/lib/firebase-utils';
+import { TABLES } from '@/utils/constants';
 
 export default async function handler(req, res) {
   const { sport, subBracket } = { ...req.body, ...req.query };
 
   //   Get snowboarders
-  const { snowboarders } = await getSnowboardersBySport({ sport });
+  const snowboarders = await getSnowboardersBySport({ sport });
   const snowboarderAsMap = snowboarders.reduce((acc, snowboarder) => {
     acc[snowboarder.id] = snowboarder.name;
     return acc;
@@ -32,17 +37,8 @@ export default async function handler(req, res) {
       });
     }
   }
-
   //   Get all leagues for the sport, get all brackets for each league, and update rankings
-  const { records: leagues } = await getRecordsByFieldValue({
-    tableId: 'Leagues',
-    formulaArray: [
-      {
-        fieldName: 'Sport',
-        fieldValue: sport,
-      },
-    ],
-  });
+  const leagues = await getLeaguesBySport({ sport });
   for (let leagueData of leagues) {
     const bracketIds = leagueData?.userBrackets;
 
@@ -88,17 +84,16 @@ export default async function handler(req, res) {
         };
       })
     );
-
     // Add rankings to each bracket based on the total points
     const bracketsRanked = addRank(bracketsWithScoringData);
     const leagueId = leagueData.id;
     await updateRecord({
-      tableId: 'Leagues',
+      tableId: TABLES.LEAGUES,
       recordId: leagueId,
       newFields: {
         json: bracketsRanked,
       },
     });
-    res.status(200).json({ bracketsRanked });
   }
+  res.status(200).json({});
 }
