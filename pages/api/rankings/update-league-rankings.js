@@ -12,7 +12,7 @@ import { updateRecord } from '@/lib/firebase-utils';
 import { TABLES } from '@/utils/constants';
 
 export default async function handler(req, res) {
-  const { sport, subBracket } = { ...req.body, ...req.query };
+  const { sport } = { ...req.body, ...req.query };
 
   //   Get snowboarders
   const snowboarders = await getSnowboardersBySport({ sport });
@@ -34,6 +34,7 @@ export default async function handler(req, res) {
         matchupId: matchup.matchupId,
         winner: snowboarderAsMap[matchup.actualWinner[0]],
         points,
+        subBracket: matchup.subBracket[0],
       });
     }
   }
@@ -63,8 +64,8 @@ export default async function handler(req, res) {
 
         // Calculate the points and number of correct picks for each bracket
         const selectionsWithRankings = selections.map(subBracketData => {
-          if (subBracketData.subBracket === subBracket) {
-            for (let winner of winners) {
+          for (let winner of winners) {
+            if (winner.subBracket === subBracketData.subBracket) {
               const { matchupId, winner: actualWinner, points } = winner;
               if (subBracketData[matchupId] === actualWinner) {
                 rankData.correctPicks += 1;
@@ -99,10 +100,10 @@ export default async function handler(req, res) {
           json: bracketsRanked,
         },
       });
-      results.push(`Successfuly updated ${leagueId}`);
+      results.push(`Successfuly updated league ${leagueId}`);
     } catch (error) {
-      console.error(`Error updating ${leagueId} rankings:`, error);
-      results.push(`Failed to update ${leagueId}`);
+      console.error(`Error updating league ${leagueId} rankings:`, error);
+      results.push(`Failed to update league ${leagueId}`);
     }
   }
   res.status(200).json(results);
