@@ -39,6 +39,7 @@ export default async function handler(req, res) {
   }
   //   Get all leagues for the sport, get all brackets for each league, and update rankings
   const leagues = await getLeaguesBySport({ sport });
+  let results = [];
   for (let leagueData of leagues) {
     const bracketIds = leagueData?.userBrackets;
 
@@ -87,13 +88,22 @@ export default async function handler(req, res) {
     // Add rankings to each bracket based on the total points
     const bracketsRanked = addRank(bracketsWithScoringData);
     const leagueId = leagueData.id;
-    await updateRecord({
-      tableId: TABLES.LEAGUES,
-      recordId: leagueId,
-      newFields: {
-        json: bracketsRanked,
-      },
-    });
+    if (!leagueId) {
+      continue;
+    }
+    try {
+      await updateRecord({
+        tableId: TABLES.LEAGUES,
+        recordId: leagueId,
+        newFields: {
+          json: bracketsRanked,
+        },
+      });
+      results.push(`Successfuly updated ${leagueId}`);
+    } catch (error) {
+      console.error(`Error updating ${leagueId} rankings:`, error);
+      results.push(`Failed to update ${leagueId}`);
+    }
   }
-  res.status(200).json({});
+  res.status(200).json(results);
 }

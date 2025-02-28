@@ -11,7 +11,7 @@ export default function JoinLeagueTakeover({ setShowTakeover }) {
 
   const handleSubmit = async () => {
     const bracket = await joinLeague({
-      leagueId,
+      leagueId: leagueId.trim(),
       user,
     });
 
