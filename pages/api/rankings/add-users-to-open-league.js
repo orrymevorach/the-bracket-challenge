@@ -1,8 +1,8 @@
 import { getBracket, getLeague } from '@/lib/firebase';
-import { getAllRecords } from '@/lib/firebase-utils';
+import { getAllRecords, updateRecord } from '@/lib/firebase-utils';
 import { TABLES } from '@/utils/constants';
 
-export default async function handler(req, res) {
+export default async function addUsersToOpenLeague() {
   const users = await getAllRecords(TABLES.MEMBERS);
   const openLeagueId = 'recffMjjlVePQsbfb';
   const openLeagueData = await getLeague({ id: openLeagueId });
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     if (!userBrackets?.length) {
       continue;
     }
-    // Bring this back
+
     for (let bracketId of userBrackets) {
       const isInOpenLeague = openLeagueBrackets.includes(bracketId);
       if (isInOpenLeague) {
@@ -27,13 +27,16 @@ export default async function handler(req, res) {
       // Add bracket to open league
       updatedOpenLeagueBrackets.push(bracketId);
     }
-    // await updateRecord({
-    //   tableId: TABLES.LEAGUES,
-    //   recordId: openLeagueId,
-    //   newFields: {
-    //     userBrackets: updatedOpenLeagueBrackets,
-    //   },
-    // });
   }
-  res.status(200).json({ number: updatedOpenLeagueBrackets.length });
+  try {
+    await updateRecord({
+      tableId: TABLES.LEAGUES,
+      recordId: openLeagueId,
+      newFields: {
+        userBrackets: updatedOpenLeagueBrackets,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
