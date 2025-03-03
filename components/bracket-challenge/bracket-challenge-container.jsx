@@ -100,6 +100,7 @@ export default function BracketChallengeContainer() {
         <EditBracketNameTakeover
           setShowTakeover={setShowEditBracketNameTakeover}
           bracket={bracket}
+          sport={sport}
         />
       )}
     </Layout>
