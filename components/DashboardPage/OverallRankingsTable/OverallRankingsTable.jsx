@@ -90,62 +90,67 @@ export default function OverallRankingsTable({ leagueData, sports }) {
                 })}
             </tbody>
           </table>
-          <div>
-            {userBrackets.map(bracket => {
-              const isCurrentUsersBracket = user.brackets?.includes(bracket.id);
-              const isBracketEditable =
-                isCurrentUsersBracket &&
-                isSelectionsEnabled &&
-                !isBracketLocked;
-              const buttonText = isBracketEditable
-                ? 'Edit Bracket'
-                : 'View Bracket';
 
-              const showButton =
-                (isCurrentUsersBracket && isSelectionsEnabled) ||
-                (!isCurrentUsersBracket &&
+          {userBrackets?.length && (
+            <div>
+              {userBrackets.map(bracket => {
+                const isCurrentUsersBracket = user.brackets?.includes(
+                  bracket.id
+                );
+                const isBracketEditable =
+                  isCurrentUsersBracket &&
                   isSelectionsEnabled &&
-                  isBracketLocked);
+                  !isBracketLocked;
+                const buttonText = isBracketEditable
+                  ? 'Edit Bracket'
+                  : 'View Bracket';
 
-              return (
-                <div
-                  className={tableStyles.buttonContainer}
-                  key={`button-${bracket.id}-${bracket.name}`}
-                >
-                  {showButton && (
-                    <Button
-                      classNames={clsx(
-                        tableStyles.button,
-                        isBracketEditable && tableStyles.pulse
-                      )}
-                      style={{
-                        backgroundColor:
-                          currentContest?.secondaryColor ||
-                          currentContest?.color,
-                        border: `1px solid ${
-                          currentContest?.secondaryColor ||
-                          currentContest?.color
-                        }`,
-                      }}
-                      handleClick={() =>
-                        router.push({
-                          pathname: `${
-                            ROUTES.BRACKET_CHALLENGE
-                          }/${leagueData.sport.toLowerCase()}`,
-                          query: {
-                            leagueId: leagueData.id,
-                            bracketId: bracket.id,
-                          },
-                        })
-                      }
-                    >
-                      {buttonText}
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                const showButton =
+                  (isCurrentUsersBracket && isSelectionsEnabled) ||
+                  (!isCurrentUsersBracket &&
+                    isSelectionsEnabled &&
+                    isBracketLocked);
+
+                return (
+                  <div
+                    className={tableStyles.buttonContainer}
+                    key={`button-${bracket.id}-${bracket.name}`}
+                  >
+                    {showButton && (
+                      <Button
+                        classNames={clsx(
+                          tableStyles.button,
+                          isBracketEditable && tableStyles.pulse
+                        )}
+                        style={{
+                          backgroundColor:
+                            currentContest?.secondaryColor ||
+                            currentContest?.color,
+                          border: `1px solid ${
+                            currentContest?.secondaryColor ||
+                            currentContest?.color
+                          }`,
+                        }}
+                        handleClick={() =>
+                          router.push({
+                            pathname: `${
+                              ROUTES.BRACKET_CHALLENGE
+                            }/${leagueData.sport.toLowerCase()}`,
+                            query: {
+                              leagueId: leagueData.id,
+                              bracketId: bracket.id,
+                            },
+                          })
+                        }
+                      >
+                        {buttonText}
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
