@@ -2,51 +2,150 @@ import styles from './OverallRankingsTable.module.scss';
 import Loader from '@/components/shared/Loader/Loader';
 import LeagueRankingsTable from '../LeagueRankingsTable/LeagueRankingsTable';
 import { useUser } from '@/context/user-context/user-context';
+import tableStyles from '@/components/shared/Table/Table.module.scss';
+import useWindowSize from '@/hooks/useWindowSize';
+import Button from '@/components/shared/Button/Button';
+import clsx from 'clsx';
 
-export default function OverallRankingsTable({ leagues, sports }) {
+export default function OverallRankingsTable({ leagueData, sports }) {
   const user = useUser();
+  const { isMobile } = useWindowSize();
+  const currentContest = sports?.find(({ name }) => leagueData.sport === name);
+  const isSelectionsEnabled =
+    currentContest?.enableSelectionsLookup?.includes('True');
+  const isBracketLocked = currentContest?.lockBracketsLookup?.includes('True');
 
-  const mapSportsToOpenLeagueId = sports.reduce((acc, sport) => {
-    if (!sport.openLeagueId?.length) return acc;
-    acc[sport.name] = sport.openLeagueId[0];
-    return acc;
-  }, {});
-
-  let currentContest = '';
-  const openLeague = leagues.find(league => {
-    const currentSportOpenLeagueId = mapSportsToOpenLeagueId[league.sport];
-
-    if (currentSportOpenLeagueId === league.id) {
-      currentContest = sports.find(({ name }) => name === league.sport);
+  const bracketsRanked = leagueData.json
+    .filter(bracket => {
+      if (!bracket.rankData) return false;
       return true;
-    }
-    return false;
-  });
+    })
+    .sort((a, b) => {
+      let aRank = a.rankData?.rank;
+      let bRank = b.rankData?.rank;
+      if (aRank > bRank) return 1;
+      return -1;
+    });
 
-  const topTenBrackets = openLeague.slice(0, 10);
-  openLeague.json = topTenBrackets;
+  const topTenBrackets = bracketsRanked.slice(0, 10);
 
-  const userBrackets = allBracketsRanked.filter(bracket => {
+  const userBrackets = leagueData.json.filter(bracket => {
     return user.brackets.includes(bracket.id);
   });
 
-  if (!leagues?.length || !openLeague)
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '80px',
-        }}
-      >
-        <Loader isDotted />
-      </div>
-    );
-
   return (
     <div className={styles.table}>
-      <LeagueRankingsTable leagueData={openLeague} sports={sports} />
+      <LeagueRankingsTable
+        leagueData={{ ...leagueData, json: topTenBrackets }}
+        sports={sports}
+      />
       <p className={styles.dotdotdot}>...</p>
+      <div className={tableStyles.container}>
+        <div className={tableStyles.innerContainer}>
+          <table className={tableStyles.table}>
+            <tbody>
+              {userBrackets
+                .sort((a, b) => {
+                  let aRank = a.rankData?.rank;
+                  let bRank = b.rankData?.rank;
+                  if (aRank > bRank) return 1;
+                  return -1;
+                })
+                .map(bracket => {
+                  const { rankData, bracketName } = bracket;
+                  const totalPoints = rankData?.totalPoints || 0;
+                  const rank = rankData?.rank;
+                  const numberOfWinners = rankData?.numberOfWinners || 0;
+                  const correctPicks = rankData?.correctPicks || 0;
+
+                  return (
+                    <tr key={`row-${leagueData.id}-${bracketName}`}>
+                      <td className={tableStyles.rank}>
+                        <p
+                          className={tableStyles.number}
+                          style={{
+                            backgroundColor:
+                              currentContest?.secondaryColor ||
+                              currentContest?.color,
+                          }}
+                        >
+                          {rank}
+                        </p>
+                      </td>
+                      <td>
+                        <p>{bracketName}</p>
+                      </td>
+                      {!isMobile && isSelectionsEnabled && (
+                        <>
+                          <td>{totalPoints}</td>
+                          <td>
+                            {correctPicks}/{numberOfWinners}
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+          <div>
+            {userBrackets.map(bracket => {
+              const isCurrentUsersBracket = user.brackets?.includes(bracket.id);
+              const isBracketEditable =
+                isCurrentUsersBracket &&
+                isSelectionsEnabled &&
+                !isBracketLocked;
+              const buttonText = isBracketEditable
+                ? 'Edit Bracket'
+                : 'View Bracket';
+
+              const showButton =
+                (isCurrentUsersBracket && isSelectionsEnabled) ||
+                (!isCurrentUsersBracket &&
+                  isSelectionsEnabled &&
+                  isBracketLocked);
+
+              return (
+                <div
+                  className={tableStyles.buttonContainer}
+                  key={`button-${bracket.id}-${bracket.name}`}
+                >
+                  {showButton && (
+                    <Button
+                      classNames={clsx(
+                        tableStyles.button,
+                        isBracketEditable && tableStyles.pulse
+                      )}
+                      style={{
+                        backgroundColor:
+                          currentContest?.secondaryColor ||
+                          currentContest?.color,
+                        border: `1px solid ${
+                          currentContest?.secondaryColor ||
+                          currentContest?.color
+                        }`,
+                      }}
+                      handleClick={() =>
+                        router.push({
+                          pathname: `${
+                            ROUTES.BRACKET_CHALLENGE
+                          }/${leagueData.sport.toLowerCase()}`,
+                          query: {
+                            leagueId: leagueData.id,
+                            bracketId: bracket.id,
+                          },
+                        })
+                      }
+                    >
+                      {buttonText}
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

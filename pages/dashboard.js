@@ -51,6 +51,15 @@ export async function getServerSideProps(context) {
     sports = await getSports();
 
     const leagueIds = user?.leagues || [];
+
+    // Use this code AFTER duels airs. Show everyone the league ID, even if they are not in it
+    const openLeagueId = 'recffMjjlVePQsbfb';
+    const isInOpenLeague = leagueIds.includes(openLeagueId);
+    if (!isInOpenLeague) {
+      leagueIds.push(openLeagueId);
+    }
+
+    // Fetch league data
     if (leagueIds.length && enableDashboardFeatureFlag) {
       leagues = await Promise.all(
         leagueIds.map(async id => {

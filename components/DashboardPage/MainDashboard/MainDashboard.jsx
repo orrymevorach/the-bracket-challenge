@@ -8,6 +8,7 @@ import { useUser } from '@/context/user-context/user-context';
 import useWindowSize from '@/hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getTileData } from '../NewUserDashboard/NewUserDashboard';
+import OverallRankingsTable from '../OverallRankingsTable';
 
 export default function MainDashboard({
   leagueData = [],
@@ -53,22 +54,35 @@ export default function MainDashboard({
             const leagueAdmin = a?.admin && a.admin[0];
             const isAdmin = leagueAdmin && user.id === leagueAdmin;
             if (isAdmin) return -1;
+            const isOpenLeague = openLeagueIds.includes(a.id);
+            if (isOpenLeague) return 1;
           })
           .map(league => {
             const sport = league.sport;
             const isOpenLeague = openLeagueIds.includes(league.id);
-            // only show users bracket for the open league
+            // Use this code to show the top ten brackets in the open league, AFTER Duels air
             if (isOpenLeague) {
-              const userBrackets = user.brackets;
-              const openLeagueBrackets = league.userBrackets;
-              const userBracket = userBrackets.find(bracketId =>
-                openLeagueBrackets.includes(bracketId)
+              return (
+                <OverallRankingsTable
+                  key={`${sport}-${league.name}`}
+                  leagueData={league}
+                  sports={sports}
+                />
               );
-              const filteredJson = league.json.filter(bracket => {
-                return userBracket === bracket.id;
-              });
-              league.json = filteredJson;
             }
+            // Use this code to show only the user's bracket in the open league, once brackets open but BEFORE Duels air
+            // if (isOpenLeague) {
+            // only show users bracket for the open league
+            // const userBrackets = user.brackets;
+            // const openLeagueBrackets = league.userBrackets;
+            // const userBracket = userBrackets.find(bracketId =>
+            //   openLeagueBrackets.includes(bracketId)
+            // );
+            // const filteredJson = league.json.filter(bracket => {
+            //   return userBracket === bracket.id;
+            // });
+            // league.json = filteredJson;
+            // }
             return (
               <div key={`${sport}-${league.name}`} className={styles.table}>
                 <LeagueRankingsTable
