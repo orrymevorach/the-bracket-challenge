@@ -6,9 +6,11 @@ import tableStyles from '@/components/shared/Table/Table.module.scss';
 import useWindowSize from '@/hooks/useWindowSize';
 import Button from '@/components/shared/Button/Button';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 export default function OverallRankingsTable({ leagueData, sports }) {
   const user = useUser();
+  const router = useRouter();
   const { isMobile } = useWindowSize();
   const currentContest = sports?.find(({ name }) => leagueData.sport === name);
   const isSelectionsEnabled =
@@ -29,8 +31,8 @@ export default function OverallRankingsTable({ leagueData, sports }) {
 
   const topTenBrackets = bracketsRanked.slice(0, 10);
 
-  const userBrackets = leagueData.json.filter(bracket => {
-    return user.brackets.includes(bracket.id);
+  const userBrackets = leagueData?.json?.filter(bracket => {
+    return user?.brackets?.includes(bracket.id);
   });
 
   return (
