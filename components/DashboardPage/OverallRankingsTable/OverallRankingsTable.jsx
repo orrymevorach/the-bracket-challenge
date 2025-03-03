@@ -7,6 +7,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import Button from '@/components/shared/Button/Button';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
+import { ROUTES } from '@/utils/constants';
 
 export default function OverallRankingsTable({ leagueData, sports }) {
   const user = useUser();
