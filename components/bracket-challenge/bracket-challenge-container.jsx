@@ -88,9 +88,10 @@ export default function BracketChallengeContainer() {
       <RoundButtons contests={contests} />
       <div className={styles.container}>
         {isMobile && <RotatePhoneTakeover />}
-        {isCurrentUsersBracket && !isBracketLocked && currentContest && (
-          <ProgressBar />
-        )}
+        {isCurrentUsersBracket &&
+          !isBracketLocked &&
+          currentContest &&
+          isSelectionsEnabled && <ProgressBar />}
         {isBracketLocked && isCurrentUsersBracket && <BracketsLocked />}
         {!isSelectionsEnabled && <MatchupsNotAvailable />}
         {hasMatchups && isSelectionsEnabled && <BracketChallenge />}
