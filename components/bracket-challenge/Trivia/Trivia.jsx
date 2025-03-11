@@ -16,9 +16,16 @@ export default function Trivia() {
   // Function to scroll to the next question
   const scrollToNextQuestion = currentIndex => {
     if (currentIndex < questionRefs.current.length - 1) {
-      questionRefs.current[currentIndex + 1]?.scrollIntoView({
+      const targetElement = questionRefs.current[currentIndex + 1];
+
+      // Get the Y position of the element relative to the viewport
+      const elementPosition =
+        targetElement.getBoundingClientRect().top + window.pageYOffset;
+
+      // Scroll to that position with an offset
+      window.scrollTo({
+        top: elementPosition - 150, // Scroll to the element position minus 150px
         behavior: 'smooth',
-        block: 'start',
       });
     }
   };
