@@ -1,6 +1,13 @@
 const contentful = require('contentful');
 
 export default async function handler(req, res) {
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://staging--thebracketchallenge.netlify.app/'
+  ); // Replace '*' with your staging URL to restrict access
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
   if (req.method === 'POST') {
     const { contentTypeId } = req.body;
     // Initialize the Contentful client
