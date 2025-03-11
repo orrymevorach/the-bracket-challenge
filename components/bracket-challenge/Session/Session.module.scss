@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.removeButton {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: -5px;
+  right: -10px;
+}
+
+.selectionContainer {
+  position: relative;
+}
+
+.selectionsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}

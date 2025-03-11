@@ -8,6 +8,7 @@
   color: white;
   position: relative;
   margin: 0 30px;
+  width: 150px;
   &:first-child {
     margin-left: 0;
   }
@@ -37,5 +38,5 @@
   margin-bottom: 10px;
   font-size: 14px;
   @include mixins.fontPrimary;
-  height: 14px;
+  // height: 14px;
 }

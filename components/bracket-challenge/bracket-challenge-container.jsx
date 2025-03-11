@@ -16,6 +16,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditBracketNameTakeover from './EditBracketNameTakeover/EditBracketNameTakeover';
 import Trivia from './Trivia/Trivia';
 import { useRouter } from 'next/router';
+import Session from './Session/Session';
 
 const NavChildren = ({
   bracket,
@@ -67,6 +68,7 @@ export default function BracketChallengeContainer() {
 
   const hasMatchups = currentContest?.matchups?.length > 0;
   const hasTrivia = currentContest?.questions?.length > 0;
+  const hasSessions = !!currentContest?.session;
   const isSelectionsEnabled = currentContest?.enableSelections === 'True';
   const isCurrentUsersBracket = user?.brackets?.includes(bracket.id);
   const isBracketLocked = currentContest?.lockBrackets === 'True';
@@ -96,6 +98,7 @@ export default function BracketChallengeContainer() {
         {!isSelectionsEnabled && <MatchupsNotAvailable />}
         {hasMatchups && isSelectionsEnabled && <BracketChallenge />}
         {hasTrivia && isSelectionsEnabled && <Trivia />}
+        {hasSessions && isSelectionsEnabled && <Session />}
       </div>
       {showEditBracketNameTakeover && (
         <EditBracketNameTakeover

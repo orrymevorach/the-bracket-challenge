@@ -29,11 +29,17 @@ const scrollToNextMatchup = ({ matchups, matchupId, matchupRefs }) => {
   }
 };
 
-export default function Player(player) {
+export default function Player({
+  name,
+  matchupId,
+  isChampion,
+  winnerName,
+  position,
+  handleClick = null,
+}) {
   const user = useUser();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { name, matchupId, isChampion, winnerName, position } = player;
 
   const {
     setWinner,
@@ -75,10 +81,14 @@ export default function Player(player) {
   const bracketId = router.query.bracketId;
   const isCurrentUsersBracket = userBrackets?.includes(bracketId);
 
-  const handleClick = async () => {
+  const handleClickPlayer = async () => {
     if (isCurrentUsersBracket && isSelectionsEnabled) {
       setIsLoading(true);
-      await setWinner({ player: name, matchupId, currentRoundIndex });
+      if (handleClick) {
+        await handleClick({ player: name });
+      } else {
+        await setWinner({ player: name, matchupId, currentRoundIndex });
+      }
       setIsLoading(false);
       if (isMobile) {
         scrollToNextMatchup({ matchups, matchupId, matchupRefs });
@@ -125,7 +135,7 @@ export default function Player(player) {
                 isSelectionsEnabled &&
                 styles.isSelectionsEnabled
             )}
-            onClick={handleClick}
+            onClick={handleClickPlayer}
           >
             {isLoading ? (
               <Loader />

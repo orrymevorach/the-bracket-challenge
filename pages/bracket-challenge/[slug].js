@@ -7,6 +7,7 @@ import {
   getSports,
   getContestsBySport,
   getQuestions,
+  getSession,
 } from '@/lib/airtable';
 import { createPlaceholdersForFutureRounds } from '@/context/matchup-context/matchup-utils';
 import useRouteOnAuth from '@/components/LoginPage/useRouteOnAuth';
@@ -66,12 +67,22 @@ export async function getStaticProps(context) {
     const contestsWithAllMatchupsAndTriviaData = await Promise.all(
       contestsWithAllMatchups.map(async contest => {
         const questions = contest.questions;
-        if (!questions) return contest;
-        const questionsData = await getQuestions({
-          recIds: questions,
-          snowboarders,
-        });
-        return { ...contest, questions: questionsData };
+        const session = contest.session;
+        if (questions) {
+          const questionsData = await getQuestions({
+            recIds: questions,
+            snowboarders,
+          });
+          return { ...contest, questions: questionsData };
+        }
+        if (session) {
+          const sessionData = await getSession({
+            recIds: session,
+            snowboarders,
+          });
+          return { ...contest, session: sessionData };
+        }
+        return contest;
       })
     );
 
