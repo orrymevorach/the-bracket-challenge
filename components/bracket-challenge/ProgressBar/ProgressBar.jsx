@@ -34,8 +34,10 @@ export const getProgressBarData = contests => {
     }
     if (contest.session) {
       numberOfMatchups = numberOfMatchups + contest.session.options.length / 2;
-      numberOfSelectedWinners =
-        numberOfSelectedWinners + contest.session.selectedWinner.length;
+      if (contest.session.selectedWinner) {
+        numberOfSelectedWinners =
+          numberOfSelectedWinners + contest.session?.selectedWinner?.length;
+      }
     }
   }
 

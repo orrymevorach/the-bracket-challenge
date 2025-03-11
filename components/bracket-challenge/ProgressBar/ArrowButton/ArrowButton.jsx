@@ -13,7 +13,7 @@ import clsx from 'clsx';
 export const getIsCurrentRoundPicksComplete = currentContest => {
   if (currentContest.session) {
     return (
-      currentContest.session.selectedWinner.length ===
+      currentContest.session.selectedWinner?.length ===
       currentContest.session.options.length / 2
     );
   }
