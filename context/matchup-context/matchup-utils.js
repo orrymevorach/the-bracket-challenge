@@ -66,6 +66,20 @@ export const addUpdatedBracketSelectionsToMatchups = (
       contest.questions = updatedQuestions;
       continue;
     }
+    if (contest.session) {
+      const session = { ...contest.session };
+      // Loop through each question and add the selected winner to the question
+      const selectedWinner = bracketSelectionsInCurrentRound
+        ? bracketSelectionsInCurrentRound[session.name]
+        : '';
+
+      if (selectedWinner) {
+        session.selectedWinner = selectedWinner;
+      }
+
+      contest.session = session;
+      continue;
+    }
     // If the contest is not trivia, it is a bracket challenge
     if (contest.matchups) {
       // Loop through each matchup and add the winners to the matchups
