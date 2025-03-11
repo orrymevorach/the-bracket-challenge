@@ -1,6 +1,21 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
+.contestName {
+  @include mixins.fontPrimary;
+  font-size: 40px;
+  margin-bottom: 50px;
+  line-height: 0.5;
+  span {
+    font-size: 14px;
+  }
+}
+
+.peach {
+  color: variables.$peach;
+  @include mixins.fontPrimary;
+}
+
 .questionContainer {
   margin-bottom: 80px;
 }
@@ -10,11 +25,12 @@
   @include mixins.fontSecondaryMedium;
   font-size: 22px;
   letter-spacing: -0.5px;
+  color: variables.$green;
 }
 
 .radioButtonForm {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
 }
 
 @media screen and (max-width: variables.$tablet) {

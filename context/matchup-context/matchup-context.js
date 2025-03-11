@@ -27,10 +27,12 @@ export const MatchupDataProvider = ({
   contests: initialContestsData,
   snowboarders,
 }) => {
-  const [currentRoundIndex, setCurrentRoundIndex] = useState(
+  const firstOpenContestIndex =
     initialContestsData?.findIndex(
       obj => obj.lockBrackets === 'False' && obj.enableSelections === 'True'
-    )
+    ) || 0;
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(
+    firstOpenContestIndex
   );
   const [contests, setContests] = useState(initialContestsData);
   const currentContest = contests[currentRoundIndex];

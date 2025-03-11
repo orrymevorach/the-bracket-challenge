@@ -23,8 +23,20 @@ export default function Trivia() {
     }
   };
 
+  const highlightTextInsideAsterisks = text => {
+    const updatedText = text.replace(
+      /\*\*(.*?)\*\*/g,
+      `<span class=${styles.peach}>$1</span>`
+    );
+    return <div dangerouslySetInnerHTML={{ __html: updatedText }} />;
+  };
+
   return (
     <div className={styles.container}>
+      <h2 className={styles.contestName}>
+        {currentContest.name} <br />
+        <span>{currentContest.subBracket}</span>
+      </h2>
       {questions.map((question, index) => {
         const winner = question.winner?.length ? question.winner[0] : null;
         return (
@@ -33,7 +45,9 @@ export default function Trivia() {
             className={styles.questionContainer}
             ref={e => (questionRefs.current[index] = e)}
           >
-            <h2 className={styles.question}>{question.question}</h2>
+            <h2 className={styles.question}>
+              {highlightTextInsideAsterisks(question.question)}
+            </h2>
             <form className={styles.radioButtonForm}>
               {question.options.map(optionData => {
                 return (
