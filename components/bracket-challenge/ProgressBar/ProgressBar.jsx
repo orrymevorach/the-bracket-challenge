@@ -16,6 +16,7 @@ export const getProgressBarData = contests => {
   let numberOfSelectedWinners = 0;
   for (let contest of contests) {
     if (contest.enableSelections === 'False') continue;
+    if (contest.lockBrackets === 'True') continue;
     if (contest.questions) {
       for (let question of contest.questions) {
         numberOfMatchups++;
@@ -30,6 +31,11 @@ export const getProgressBarData = contests => {
         if (matchup.winner) numberOfSelectedWinners++;
         continue;
       }
+    }
+    if (contest.session) {
+      numberOfMatchups = numberOfMatchups + contest.session.options.length / 2;
+      numberOfSelectedWinners =
+        numberOfSelectedWinners + contest.session.selectedWinner.length;
     }
   }
 

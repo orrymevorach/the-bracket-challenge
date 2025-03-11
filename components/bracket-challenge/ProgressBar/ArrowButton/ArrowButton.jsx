@@ -11,6 +11,12 @@ import styles from './ArrowButton.module.scss';
 import clsx from 'clsx';
 
 export const getIsCurrentRoundPicksComplete = currentContest => {
+  if (currentContest.session) {
+    return (
+      currentContest.session.selectedWinner.length ===
+      currentContest.session.options.length / 2
+    );
+  }
   if (!currentContest.matchups) return false;
   let totalNumberOfPlayers = currentContest.matchups.length * 2;
   let numberOfSelectedPlayers = 0;

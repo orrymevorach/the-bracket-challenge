@@ -3,6 +3,7 @@ import Player from '../player/player';
 import styles from './Session.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import BracketArrowButtons from '../BracketArrowButtons/BracketArrowButtons';
 
 const addPlaceholders = ({ numberOfSelections, contestants, selections }) => {
   const placeholdersNeeded = contestants.length / 2 - numberOfSelections;
@@ -84,39 +85,41 @@ export default function Session() {
 
   return (
     <div className={styles.container}>
-      <div>
-        {contestants.map(contestant => {
-          return (
-            <div key={`contestants-${contestant.id}`}>
-              <Player
-                name={contestant.name}
-                handleClick={() =>
-                  handleClick({ playerName: contestant?.name })
-                }
-              />
-            </div>
-          );
-        })}
-      </div>
-      <div className={styles.selectionsContainer}>
-        {selections.map((selection, index) => {
-          if (!selection) return;
-          return (
-            <div
-              key={`selections-${selection.id}-${index}`}
-              className={styles.selectionContainer}
-            >
-              <Player name={selection?.name} />
-              <button
-                className={styles.removeButton}
-                onClick={() => handleRemove({ name: selection?.name })}
+      <BracketArrowButtons>
+        <div>
+          {contestants.map(contestant => {
+            return (
+              <div key={`contestants-${contestant.id}`}>
+                <Player
+                  name={contestant.name}
+                  handleClick={() =>
+                    handleClick({ playerName: contestant?.name })
+                  }
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.selectionsContainer}>
+          {selections.map((selection, index) => {
+            if (!selection) return;
+            return (
+              <div
+                key={`selections-${selection.id}-${index}`}
+                className={styles.selectionContainer}
               >
-                <FontAwesomeIcon icon={faMinusCircle} color="white" />
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                <Player name={selection?.name} />
+                <button
+                  className={styles.removeButton}
+                  onClick={() => handleRemove({ name: selection?.name })}
+                >
+                  <FontAwesomeIcon icon={faMinusCircle} color="white" />
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </BracketArrowButtons>
     </div>
   );
 }
