@@ -36,10 +36,15 @@ export default function Player({
   winnerName,
   position,
   handleClick = null,
+  isLoading: isLoadingProp,
+  setIsLoading: setIsLoadingProp,
 }) {
   const user = useUser();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingState, setIsLoadingState] = useState(false);
+
+  const isLoading = isLoadingProp || isLoadingState;
+  const setIsLoading = setIsLoadingProp || setIsLoadingState;
 
   const {
     setWinner,

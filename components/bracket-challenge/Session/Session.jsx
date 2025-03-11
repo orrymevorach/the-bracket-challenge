@@ -4,6 +4,7 @@ import styles from './Session.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import BracketArrowButtons from '../BracketArrowButtons/BracketArrowButtons';
+import { useState } from 'react';
 
 const addPlaceholders = ({ numberOfSelections, contestants, selections }) => {
   const placeholdersNeeded = contestants.length / 2 - numberOfSelections;
@@ -11,6 +12,32 @@ const addPlaceholders = ({ numberOfSelections, contestants, selections }) => {
     id: `placeholder-${String(i + 1)}`, // Convert index to string
   }));
   return [...selections, ...placeholders];
+};
+
+const SelectedPlayer = ({ selection, index, handleRemove }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleClick = async () => {
+    setIsLoading(true);
+    await handleRemove({ name: selection?.name });
+    setIsLoading(false);
+  };
+  return (
+    <div
+      key={`selections-${selection.id}-${index}`}
+      className={styles.selectionContainer}
+    >
+      <Player
+        name={selection?.name}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
+      {selection.name && (
+        <button className={styles.removeButton} onClick={handleClick}>
+          <FontAwesomeIcon icon={faMinusCircle} color="white" />
+        </button>
+      )}
+    </div>
+  );
 };
 
 export default function Session() {
@@ -52,7 +79,7 @@ export default function Session() {
       return 0; // Keep current order if both or neither have "name"
     });
     const removeLast = sorted.slice(0, -1);
-    setWinner({
+    await setWinner({
       player: removeLast
         .filter(answer => !!answer.name)
         .map(answer => answer.name),
@@ -60,7 +87,7 @@ export default function Session() {
     });
   };
 
-  const handleRemove = ({ name }) => {
+  const handleRemove = async ({ name }) => {
     if (!name) return;
     const updatedSelections = selections.map((selection, index) => {
       if (selection.name === name) {
@@ -77,7 +104,7 @@ export default function Session() {
       return 0; // Keep current order if both or neither have "name"
     });
 
-    setWinner({
+    await setWinner({
       player: sorted.filter(answer => !!answer.name).map(answer => answer.name),
       matchupId: session.name,
     });
@@ -102,20 +129,13 @@ export default function Session() {
         </div>
         <div className={styles.selectionsContainer}>
           {selections.map((selection, index) => {
-            if (!selection) return;
             return (
-              <div
+              <SelectedPlayer
+                selection={selection}
+                index={index}
+                handleRemove={handleRemove}
                 key={`selections-${selection.id}-${index}`}
-                className={styles.selectionContainer}
-              >
-                <Player name={selection?.name} />
-                <button
-                  className={styles.removeButton}
-                  onClick={() => handleRemove({ name: selection?.name })}
-                >
-                  <FontAwesomeIcon icon={faMinusCircle} color="white" />
-                </button>
-              </div>
+              />
             );
           })}
         </div>
