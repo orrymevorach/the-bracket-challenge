@@ -83,7 +83,7 @@ export const MatchupDataProvider = ({
 
     // If user has no previous selections, create an array of objects with the name and subBracket data for each contest in this sport
     // This happens if the user is making selections for the first time
-    if (!bracketSelections) {
+    if (!bracketSelections?.length) {
       bracketSelections = Array.from(contests).map(contest => ({
         name: contest.name,
         subBracket: contest.subBracket,
