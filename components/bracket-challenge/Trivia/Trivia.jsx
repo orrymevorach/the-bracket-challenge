@@ -31,10 +31,9 @@ export default function Trivia() {
   };
 
   const highlightTextInsideAsterisks = text => {
-    const updatedText = text.replace(
-      /\*\*(.*?)\*\*/g,
-      `<span class=${styles.peach}>$1</span>`
-    );
+    const updatedText = text
+      .replace(/\*\*(.*?)\*\*/g, `<span class=${styles.peach}>$1</span>`)
+      .replace(' - ', '<br />');
     return <div dangerouslySetInnerHTML={{ __html: updatedText }} />;
   };
 

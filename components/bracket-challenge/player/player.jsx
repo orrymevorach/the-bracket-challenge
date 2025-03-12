@@ -14,6 +14,7 @@ import { useUser } from '@/context/user-context/user-context';
 import { useRouter } from 'next/router';
 
 const scrollToNextMatchup = ({ matchups, matchupId, matchupRefs }) => {
+  if (!matchups?.length) return;
   const currentIndex = matchups.findIndex(
     matchup => matchup.matchupId === matchupId
   );

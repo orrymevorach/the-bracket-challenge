@@ -35,6 +35,12 @@
 
 @media screen and (max-width: variables.$tablet) {
   .radioButtonForm {
-    justify-content: center;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .radioButtonForm {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

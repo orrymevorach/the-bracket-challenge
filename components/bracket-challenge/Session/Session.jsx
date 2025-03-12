@@ -115,8 +115,10 @@ export default function Session() {
       <BracketArrowButtons>
         <div>
           {contestants.map(contestant => {
+            const id = contestant.name || contestant.id;
+            if (!id) return;
             return (
-              <div key={`contestants-${contestant.id}`}>
+              <div key={`contestants-${id}`}>
                 <Player
                   name={contestant.name}
                   handleClick={() =>
