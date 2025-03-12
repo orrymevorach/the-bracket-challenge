@@ -1,7 +1,7 @@
 import { useMatchups } from '@/context/matchup-context/matchup-context';
 import styles from './ProgressBar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -10,6 +10,8 @@ import Link from 'next/link';
 import ArrowButton, {
   getIsCurrentRoundPicksComplete,
 } from './ArrowButton/ArrowButton';
+import Takeover from '@/components/shared/Takeover/Takeover';
+import Button from '@/components/shared/Button/Button';
 
 export const getProgressBarData = contests => {
   let numberOfMatchups = 0;
@@ -50,6 +52,7 @@ export const getProgressBarData = contests => {
 export default function ProgressBar() {
   const { isMobile } = useWindowSize();
   const { contests, currentRoundIndex, currentContest } = useMatchups();
+  const [showCompletePopup, setShowCompletePopup] = useState(false);
 
   // used for sticky behavior
   const componentRef = useRef(null);
@@ -85,8 +88,48 @@ export default function ProgressBar() {
   const isCurrentRoundPicksComplete =
     getIsCurrentRoundPicksComplete(currentContest);
 
+  useEffect(() => {
+    if (isAllRoundSelectionsComplete) {
+      setShowCompletePopup(true);
+    }
+  }, [isAllRoundSelectionsComplete]);
+
   return (
     <>
+      {isAllRoundSelectionsComplete && showCompletePopup && (
+        <Takeover
+          handleClose={() => setShowCompletePopup(false)}
+          classNames={styles.takeover}
+        >
+          <div className={styles.completePopup}>
+            <div className={styles.headerContainer}>
+              <h2 className={styles.header}>Nice work! </h2>
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                color={COLORS.GREEN}
+                size="xl"
+              />
+            </div>
+            <p className={styles.text}>
+              Your picks are complete for this round.
+            </p>
+            <p className={styles.text}>
+              We will notify you when the next round is ready.
+            </p>
+            <p className={styles.text}>Good luck!</p>
+            <div className={styles.buttons}>
+              <Button
+                isSecondary
+                handleClick={() => setShowCompletePopup(false)}
+              >
+                Close
+              </Button>
+              <Button href={ROUTES.DASHBOARD}>Dashboard</Button>
+            </div>
+          </div>
+        </Takeover>
+      )}
+
       <div
         ref={placeholderRef}
         style={{ height: isSticky ? componentRef.current?.offsetHeight : 0 }}
