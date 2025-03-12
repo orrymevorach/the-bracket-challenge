@@ -89,7 +89,7 @@ export default function BracketChallengeContainer() {
     >
       <RoundButtons contests={contests} />
       <div className={styles.container}>
-        {isMobile && <RotatePhoneTakeover />}
+        {/* {isMobile && <RotatePhoneTakeover />} */}
         {isCurrentUsersBracket &&
           !isBracketLocked &&
           currentContest &&
