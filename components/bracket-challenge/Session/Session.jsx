@@ -110,38 +110,53 @@ export default function Session() {
     });
   };
 
+  const highlightTextInsideAsterisks = text => {
+    const updatedText = text
+      .replace(/\*\*\*(.*?)\*\*\*/g, `<span class=${styles.yellow}>$1</span>`)
+      .replace(' - ', '<br />');
+    return <div dangerouslySetInnerHTML={{ __html: updatedText }} />;
+  };
+
   return (
-    <div className={styles.container}>
-      <BracketArrowButtons>
-        <div>
-          {contestants.map(contestant => {
-            const id = contestant.name || contestant.id;
-            if (!id) return;
-            return (
-              <div key={`contestants-${id}`}>
-                <Player
-                  name={contestant.name}
-                  handleClick={() =>
-                    handleClick({ playerName: contestant?.name })
-                  }
+    <div className={styles.outerContainer}>
+      {currentContest.instructions && (
+        <p className={styles.instructions}>
+          {highlightTextInsideAsterisks(currentContest.instructions)}
+        </p>
+      )}
+
+      <div className={styles.container}>
+        <BracketArrowButtons>
+          <div>
+            {contestants.map(contestant => {
+              const id = contestant.name || contestant.id;
+              if (!id) return;
+              return (
+                <div key={`contestants-${id}`}>
+                  <Player
+                    name={contestant.name}
+                    handleClick={() =>
+                      handleClick({ playerName: contestant?.name })
+                    }
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.selectionsContainer}>
+            {selections.map((selection, index) => {
+              return (
+                <SelectedPlayer
+                  selection={selection}
+                  index={index}
+                  handleRemove={handleRemove}
+                  key={`selections-${selection.id}-${index}`}
                 />
-              </div>
-            );
-          })}
-        </div>
-        <div className={styles.selectionsContainer}>
-          {selections.map((selection, index) => {
-            return (
-              <SelectedPlayer
-                selection={selection}
-                index={index}
-                handleRemove={handleRemove}
-                key={`selections-${selection.id}-${index}`}
-              />
-            );
-          })}
-        </div>
-      </BracketArrowButtons>
+              );
+            })}
+          </div>
+        </BracketArrowButtons>
+      </div>
     </div>
   );
 }
