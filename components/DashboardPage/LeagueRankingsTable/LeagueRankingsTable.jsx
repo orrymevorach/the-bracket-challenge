@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import useWindowSize from '@/hooks/useWindowSize';
 import ChatroomTakeover from '../ChatroomTakeover/ChatroomTakeover';
+import { compareArrays } from '@/utils/utils';
 
 export default function LeagueRankingsTable({
   leagueData,
@@ -33,7 +34,10 @@ export default function LeagueRankingsTable({
   const isSelectionsEnabled =
     currentContest?.enableSelectionsLookup?.includes('True');
 
-  const isBracketLocked = currentContest?.lockBracketsLookup?.includes('True');
+  const isBracketLocked = compareArrays(
+    currentContest?.enableSelectionsLookup,
+    currentContest?.lockBracketsLookup
+  );
 
   const titleHeadings =
     isMobile && isSelectionsEnabled

@@ -8,6 +8,7 @@ import Button from '@/components/shared/Button/Button';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
+import { compareArrays } from '@/utils/utils';
 
 export default function OverallRankingsTable({ leagueData, sports }) {
   const user = useUser();
@@ -16,7 +17,10 @@ export default function OverallRankingsTable({ leagueData, sports }) {
   const currentContest = sports?.find(({ name }) => leagueData.sport === name);
   const isSelectionsEnabled =
     currentContest?.enableSelectionsLookup?.includes('True');
-  const isBracketLocked = currentContest?.lockBracketsLookup?.includes('True');
+  const isBracketLocked = compareArrays(
+    currentContest?.enableSelectionsLookup,
+    currentContest?.lockBracketsLookup
+  );
 
   const bracketsRanked = leagueData.json
     .filter(bracket => {

@@ -70,3 +70,12 @@ export function findMatchingString(array1, array2) {
   }
   return null; // Return null if no match is found
 }
+
+export function compareArrays(arr1, arr2) {
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] === 'True' && arr2[i] === 'False') {
+      return false;
+    }
+  }
+  return true;
+}
