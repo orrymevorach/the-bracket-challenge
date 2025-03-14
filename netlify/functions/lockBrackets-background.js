@@ -19,10 +19,10 @@ const handler = async function (event, context) {
       },
       body: JSON.stringify({
         records: [
-          { id: 'rec6Bo638LqnaCtx3', fields: { 'Lock Brackets': 'False' } },
-          { id: 'recvLoL2payK7901n', fields: { 'Lock Brackets': 'False' } },
-          { id: 'recq7aE672G7eJUzx', fields: { 'Lock Brackets': 'False' } },
-          { id: 'reciulRlhQoChDpwS', fields: { 'Lock Brackets': 'False' } },
+          { id: 'rec6Bo638LqnaCtx3', fields: { 'Lock Brackets': 'True' } },
+          { id: 'recvLoL2payK7901n', fields: { 'Lock Brackets': 'True' } },
+          { id: 'recq7aE672G7eJUzx', fields: { 'Lock Brackets': 'True' } },
+          { id: 'reciulRlhQoChDpwS', fields: { 'Lock Brackets': 'True' } },
         ],
       }),
     });
@@ -57,4 +57,4 @@ const handler = async function (event, context) {
   }
 };
 
-module.exports.handler = schedule('49 9 * * *', handler);
+module.exports.handler = schedule('30 19 * * *', handler);
