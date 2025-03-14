@@ -2,7 +2,7 @@ name: Scheduled Airtable Update and Netlify Deploy
 
 on:
   schedule:
-    - cron: '25 9 14 3 *' # Runs at 1:25 AM PST (9:25 AM UTC)
+    - cron: '28 9 14 3 *' # Runs at 1:28 AM PST (9:28 AM UTC)
 
 jobs:
   update_airtable_and_deploy:
