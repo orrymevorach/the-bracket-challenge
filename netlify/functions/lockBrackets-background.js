@@ -7,7 +7,6 @@ const handler = async function (event, context) {
     process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN;
   const AIRTABLE_BASE = process.env.AIRTABLE_BASE;
   const AIRTABLE_TABLE_NAME = 'Contests';
-  const NETLIFY_BUILD_HOOK = process.env.NETLIFY_BUILD_HOOK;
 
   try {
     // Update Airtable records
@@ -35,10 +34,13 @@ const handler = async function (event, context) {
     console.log('Airtable records updated successfully!');
 
     // Trigger Netlify build
-    await fetch(`https://api.netlify.com/build_hooks/${NETLIFY_BUILD_HOOK}`, {
-      method: 'POST',
-      body: JSON.stringify({}),
-    });
+    await fetch(
+      `https://thebracketchallenge.com/api/netlify/deploy?secret=${process.env.DEPLOY_SECRET}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({}),
+      }
+    );
 
     console.log('Netlify deployment triggered!');
 
@@ -55,4 +57,4 @@ const handler = async function (event, context) {
   }
 };
 
-module.exports.handler = schedule('32 9 * * *', handler);
+module.exports.handler = schedule('38 9 * * *', handler);
