@@ -30,10 +30,13 @@ export default function Trivia() {
     }
   };
 
-  const highlightTextInsideAsterisks = text => {
+  const highlightTextInsideAsterisks = ({ text, points }) => {
     const updatedText = text
-      .replace(/\*\*(.*?)\*\*/g, `<span class=${styles.peach}>$1</span>`)
-      .replace(' - ', '<br />');
+      .replace(
+        /\*\*(.*?)\*\*/g,
+        `<span class=${styles.peach}>$1 <span class=${styles.points}>(+${points} points)</span></span>`
+      )
+      .replace(' - ', `<br />`);
     return <div dangerouslySetInnerHTML={{ __html: updatedText }} />;
   };
 
@@ -45,6 +48,7 @@ export default function Trivia() {
       </h2>
       {questions.map((question, index) => {
         const winner = question.winner?.length ? question.winner[0] : null;
+        const points = question.points;
         return (
           <div
             key={index}
@@ -52,7 +56,10 @@ export default function Trivia() {
             ref={e => (questionRefs.current[index] = e)}
           >
             <h2 className={styles.question}>
-              {highlightTextInsideAsterisks(question.question)}
+              {highlightTextInsideAsterisks({
+                text: question.question,
+                points,
+              })}
             </h2>
             <form className={styles.radioButtonForm}>
               {question.options.map(optionData => {

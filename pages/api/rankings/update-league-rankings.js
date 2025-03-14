@@ -7,7 +7,11 @@ import {
   getLeaguesBySport,
   getSnowboardersBySport,
 } from '@/lib/firebase';
-import { getMatchupsBySport, getSessionsBySport } from '@/lib/airtable';
+import {
+  getMatchupsBySport,
+  getQuestionsBySport,
+  getSessionsBySport,
+} from '@/lib/airtable';
 import { updateRecord } from '@/lib/firebase-utils';
 import { TABLES } from '@/utils/constants';
 
@@ -24,6 +28,7 @@ export default async function handler(req, res) {
   //   Get matchups in current sport
   const matchups = await getMatchupsBySport({ sport });
   const sessions = await getSessionsBySport({ sport });
+  const questions = await getQuestionsBySport({ sport });
 
   //   get winners for each matchup
   let winners = [];
@@ -40,6 +45,20 @@ export default async function handler(req, res) {
         subBracket: matchup.subBracket[0],
         contest: matchup.contest[0],
         display: 'matchup',
+      });
+    }
+  }
+
+  for (let question of questions) {
+    if (question.winner) {
+      numberOfWinners += 1;
+      winners.push({
+        matchupId: question.question,
+        winner: question.winner[0],
+        points: question.points,
+        subBracket: question.subBracket[0],
+        contest: question.contest[0],
+        display: 'question',
       });
     }
   }
@@ -117,6 +136,12 @@ export default async function handler(req, res) {
                       rankData.totalPoints += points;
                     }
                   }
+                }
+              }
+              if (display === 'question') {
+                if (subBracketData[matchupId] === actualWinner) {
+                  rankData.correctPicks += 1;
+                  rankData.totalPoints += points;
                 }
               }
             }

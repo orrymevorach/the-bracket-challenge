@@ -33,6 +33,10 @@
   grid-template-columns: repeat(8, 1fr);
 }
 
+.points {
+  font-size: 16px;
+}
+
 @media screen and (max-width: variables.$tablet) {
   .radioButtonForm {
     grid-template-columns: repeat(4, 1fr);
