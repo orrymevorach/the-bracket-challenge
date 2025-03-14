@@ -1,0 +1,2 @@
+[functions.scheduled-deploy]
+  schedule = "43 9 14 3 *"
