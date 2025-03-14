@@ -7,7 +7,7 @@ import {
   getLeaguesBySport,
   getSnowboardersBySport,
 } from '@/lib/firebase';
-import { getMatchupsBySport } from '@/lib/airtable';
+import { getMatchupsBySport, getSessionsBySport } from '@/lib/airtable';
 import { updateRecord } from '@/lib/firebase-utils';
 import { TABLES } from '@/utils/constants';
 
@@ -23,31 +23,55 @@ export default async function handler(req, res) {
 
   //   Get matchups in current sport
   const matchups = await getMatchupsBySport({ sport });
+  const sessions = await getSessionsBySport({ sport });
 
   //   get winners for each matchup
   let winners = [];
+  let numberOfWinners = 0;
   for (let matchup of matchups) {
     if (matchup.actualWinner) {
       const round = parseFloat(matchup.round);
       const points = mapRoundToPoints[round];
+      numberOfWinners += 1;
       winners.push({
         matchupId: matchup.matchupId,
         winner: snowboarderAsMap[matchup.actualWinner[0]],
         points,
         subBracket: matchup.subBracket[0],
+        contest: matchup.contest[0],
+        display: 'matchup',
       });
     }
   }
+
+  for (let session of sessions) {
+    if (session.winners) {
+      const sessionWinners = [];
+      for (let winner of session.winners) {
+        const snowboarder = snowboarderAsMap[winner];
+        sessionWinners.push(snowboarder);
+        numberOfWinners += 1;
+      }
+      const points = 15;
+      winners.push({
+        matchupId: session.name,
+        winner: sessionWinners,
+        points,
+        subBracket: session.subBracket[0],
+        contest: session.contest[0],
+        display: 'session',
+      });
+    }
+  }
+
   //   Get all leagues for the sport, get all brackets for each league, and update rankings
   const leagues = await getLeaguesBySport({ sport });
   let results = [];
   for (let leagueData of leagues) {
     const bracketIds = leagueData?.userBrackets;
-
     if (!bracketIds) {
       return leagueData;
     }
-
     const bracketsWithScoringData = await Promise.all(
       bracketIds.map(async bracketId => {
         const bracketData = await getBracket({
@@ -55,24 +79,45 @@ export default async function handler(req, res) {
         });
         // Bracket selections
         const selections = bracketData.selections || [];
-
         const rankData = {
           correctPicks: 0,
           totalPoints: 0,
-          numberOfWinners: 0,
+          numberOfWinners,
         };
-
         // Calculate the points and number of correct picks for each bracket
         const selectionsWithRankings = selections.map(subBracketData => {
+          const subBracketMatchupId =
+            Object.keys(subBracketData).find(
+              key => key !== 'name' && key !== 'subBracket'
+            ) || null;
+
           for (let winner of winners) {
-            if (winner.subBracket === subBracketData.subBracket) {
-              const { matchupId, winner: actualWinner, points } = winner;
-              if (subBracketData[matchupId] === actualWinner) {
-                rankData.correctPicks += 1;
-                rankData.totalPoints += points;
-                rankData.numberOfWinners += 1;
-              } else {
-                rankData.numberOfWinners += 1;
+            if (
+              winner.contest === subBracketData.name &&
+              winner.subBracket === subBracketData.subBracket
+            ) {
+              const {
+                matchupId,
+                winner: actualWinner,
+                points,
+                display,
+              } = winner;
+              if (display === 'matchup') {
+                if (subBracketData[matchupId] === actualWinner) {
+                  rankData.correctPicks += 1;
+                  rankData.totalPoints += points;
+                }
+              }
+              if (display === 'session') {
+                if (subBracketMatchupId && subBracketMatchupId === matchupId) {
+                  const sessionWinners = subBracketData[matchupId];
+                  for (let winnerName of actualWinner) {
+                    if (sessionWinners.includes(winnerName)) {
+                      rankData.correctPicks += 1;
+                      rankData.totalPoints += points;
+                    }
+                  }
+                }
               }
             }
           }
@@ -86,7 +131,7 @@ export default async function handler(req, res) {
         };
       })
     );
-    // Add rankings to each bracket based on the total points
+    //   // Add rankings to each bracket based on the total points
     const bracketsRanked = addRank(bracketsWithScoringData);
     const leagueId = leagueData.id;
     if (!leagueId) {
