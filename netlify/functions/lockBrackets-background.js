@@ -1,4 +1,4 @@
-// netlify/functions/scheduled-deploy.js
+const { schedule } = require('@netlify/functions');
 const fetch = require('node-fetch');
 
 const handler = async function (event, context) {
@@ -55,4 +55,4 @@ const handler = async function (event, context) {
   }
 };
 
-module.exports.handler = schedule('50 9 * * *', handler);
+module.exports.handler = schedule('05 10 * * *', handler);
