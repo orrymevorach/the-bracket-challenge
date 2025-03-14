@@ -14,13 +14,30 @@ const addPlaceholders = ({ numberOfSelections, contestants, selections }) => {
   return [...selections, ...placeholders];
 };
 
-const SelectedPlayer = ({ selection, index, handleRemove }) => {
+const SelectedPlayer = ({
+  selection,
+  index,
+  handleRemove,
+  winners,
+  points,
+  lockBrackets,
+  enableSelections,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = async () => {
     setIsLoading(true);
     await handleRemove({ name: selection?.name });
     setIsLoading(false);
   };
+
+  const winnerName =
+    winners?.length && winners.includes(selection?.name)
+      ? selection?.name
+      : false;
+
+  const isSelectionsEnabled =
+    lockBrackets === 'False' && enableSelections === 'True';
+
   return (
     <div
       key={`selections-${selection.id}-${index}`}
@@ -30,8 +47,10 @@ const SelectedPlayer = ({ selection, index, handleRemove }) => {
         name={selection?.name}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        points={points}
+        winnerName={winnerName}
       />
-      {selection.name && (
+      {isSelectionsEnabled && selection.name && (
         <button className={styles.removeButton} onClick={handleClick}>
           <FontAwesomeIcon icon={faMinusCircle} color="white" />
         </button>
@@ -42,13 +61,31 @@ const SelectedPlayer = ({ selection, index, handleRemove }) => {
 
 export default function Session() {
   const { currentContest, snowboarders, setWinner } = useMatchups();
+  const { lockBrackets, enableSelections } = currentContest;
+
   const session = currentContest.session;
   const contestants = session.options;
+  const points = session.points;
+  const numberOfWinners = session.numberOfWinners;
+
+  const mapSnowboardersById = Object.values(snowboarders).reduce(
+    (acc, snowboarder) => {
+      acc[snowboarder.id] = snowboarder.name;
+      return acc;
+    },
+    {}
+  );
+
   const selectedWinners = session.selectedWinner?.length
     ? session.selectedWinner.map(snowboarderName => {
         return snowboarders[snowboarderName];
       })
     : [];
+
+  const winners = session.winners?.length
+    ? session.winners.map(snowboarderId => mapSnowboardersById[snowboarderId])
+    : [];
+
   const numberOfSelections = selectedWinners.reduce((acc, selection) => {
     if (selection.name) {
       return acc + 1;
@@ -61,6 +98,25 @@ export default function Session() {
     contestants,
     selections: selectedWinners,
   });
+
+  const isSessionComplete = numberOfWinners === winners?.length;
+  const selectedWinnerNames = selectedWinners?.map(winner => winner.name);
+
+  const correctSelections = selectedWinnerNames?.filter(selection =>
+    winners.includes(selection)
+  );
+
+  const incorrectSelections = selectedWinnerNames?.filter(
+    selection => !winners.includes(selection)
+  );
+
+  const remainingCorrectWinners =
+    winners?.filter(winner => !selectedWinnerNames.includes(winner)) || [];
+
+  const incorrectPicks = incorrectSelections?.map((incorrect, index) => ({
+    incorrect,
+    correct: remainingCorrectWinners[index], // Assign correct pick sequentially
+  }));
 
   const handleClick = async ({ playerName }) => {
     if (numberOfSelections === contestants.length / 2) return;
@@ -144,16 +200,57 @@ export default function Session() {
             })}
           </div>
           <div className={styles.selectionsContainer}>
-            {selections.map((selection, index) => {
-              return (
-                <SelectedPlayer
-                  selection={selection}
-                  index={index}
-                  handleRemove={handleRemove}
-                  key={`selections-${selection.id}-${index}`}
-                />
-              );
-            })}
+            {isSessionComplete &&
+            selectedWinnerNames?.length === numberOfWinners ? (
+              <>
+                {correctSelections.map(pick => {
+                  return (
+                    <Player
+                      name={pick}
+                      winnerName={pick}
+                      key={`correct-picks-${pick}`}
+                      points={points}
+                    />
+                  );
+                })}
+                {incorrectPicks.map(pick => {
+                  return (
+                    <Player
+                      name={pick.incorrect}
+                      winnerName={pick.correct}
+                      key={`correct-picks-${pick}`}
+                      points={points}
+                    />
+                  );
+                })}
+              </>
+            ) : isSessionComplete &&
+              selectedWinnerNames?.length !== numberOfWinners ? (
+              remainingCorrectWinners.map((selection, index) => {
+                return (
+                  <Player
+                    winnerName={selection}
+                    key={`correct-picks-${selection}`}
+                    points={points}
+                  />
+                );
+              })
+            ) : (
+              selections.map((selection, index) => {
+                return (
+                  <SelectedPlayer
+                    selection={selection}
+                    index={index}
+                    handleRemove={handleRemove}
+                    key={`selections-${selection.id}-${index}`}
+                    winners={winners}
+                    points={points}
+                    lockBrackets={lockBrackets}
+                    enableSelections={enableSelections}
+                  />
+                );
+              })
+            )}
           </div>
         </BracketArrowButtons>
       </div>

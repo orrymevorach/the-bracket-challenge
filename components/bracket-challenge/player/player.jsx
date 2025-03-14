@@ -39,6 +39,7 @@ export default function Player({
   handleClick = null,
   isLoading: isLoadingProp,
   setIsLoading: setIsLoadingProp,
+  points = null,
 }) {
   const user = useUser();
   const router = useRouter();
@@ -81,7 +82,7 @@ export default function Player({
 
   //
   const round = matchupId?.split('_M')[0].replace('R', '');
-  const pointsWonForCorrectPick = mapRoundToPoints[round - 1];
+  const pointsWonForCorrectPick = points || mapRoundToPoints[round - 1];
 
   const userBrackets = user?.brackets;
   const bracketId = router.query.bracketId;
