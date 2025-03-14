@@ -1,7 +1,7 @@
 // netlify/functions/scheduled-deploy.js
 const fetch = require('node-fetch');
 
-exports.handler = async event => {
+const handler = async function (event, context) {
   // Airtable API details from environment variables
   const AIRTABLE_PERSONAL_ACCESS_TOKEN =
     process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN;
@@ -54,3 +54,5 @@ exports.handler = async event => {
     };
   }
 };
+
+module.exports.handler = schedule('50 9 * * *', handler);

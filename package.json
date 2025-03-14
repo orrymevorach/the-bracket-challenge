@@ -21,6 +21,7 @@
     "@mui/base": "^5.0.0-beta.27",
     "@mui/joy": "^5.0.0-beta.18",
     "@mui/material": "^5.15.0",
+    "@netlify/functions": "^3.0.1",
     "@next/font": "13.1.6",
     "@sentry/nextjs": "^8.42.0",
     "@tsparticles/react": "^3.0.0",
