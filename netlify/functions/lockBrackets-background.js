@@ -19,10 +19,8 @@ const handler = async function (event, context) {
       },
       body: JSON.stringify({
         records: [
-          { id: 'rec6Bo638LqnaCtx3', fields: { 'Lock Brackets': 'True' } },
-          { id: 'recvLoL2payK7901n', fields: { 'Lock Brackets': 'True' } },
-          { id: 'recq7aE672G7eJUzx', fields: { 'Lock Brackets': 'True' } },
-          { id: 'reciulRlhQoChDpwS', fields: { 'Lock Brackets': 'True' } },
+          { id: 'recxoHiOxodDhwqyI', fields: { 'Lock Brackets': 'True' } },
+          { id: 'recAf23xWlRh51mMV', fields: { 'Lock Brackets': 'True' } },
         ],
       }),
     });
@@ -34,13 +32,13 @@ const handler = async function (event, context) {
     console.log('Airtable records updated successfully!');
 
     // Trigger Netlify build
-    await fetch(
-      `https://thebracketchallenge.com/api/netlify/deploy?secret=${process.env.DEPLOY_SECRET}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({}),
-      }
-    );
+    // await fetch(
+    //   `https://thebracketchallenge.com/api/netlify/deploy?secret=${process.env.DEPLOY_SECRET}`,
+    //   {
+    //     method: 'POST',
+    //     body: JSON.stringify({}),
+    //   }
+    // );
 
     console.log('Netlify deployment triggered!');
 
@@ -57,4 +55,5 @@ const handler = async function (event, context) {
   }
 };
 
-module.exports.handler = schedule('30 19 * * *', handler);
+// module.exports.handler = schedule('30 17 * * *', handler);
+module.exports.handler = schedule('12 07 * * *', handler);
