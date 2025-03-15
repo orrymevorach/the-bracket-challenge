@@ -35,10 +35,10 @@
 }
 
 .leftArrow {
-  left: 5%;
+  left: 5% !important;
 }
 .rightArrow {
-  right: 5%;
+  right: 5% !important;
 }
 
 @media screen and (max-width: variables.$mobile) {
