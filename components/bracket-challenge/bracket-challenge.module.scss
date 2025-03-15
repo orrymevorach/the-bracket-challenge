@@ -34,6 +34,13 @@
   justify-content: space-around;
 }
 
+.leftArrow {
+  left: 5%;
+}
+.rightArrow {
+  right: 5%;
+}
+
 @media screen and (max-width: variables.$mobile) {
   .bracketChallengeContainer {
     display: block;

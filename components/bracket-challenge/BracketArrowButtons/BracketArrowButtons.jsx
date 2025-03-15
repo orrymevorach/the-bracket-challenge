@@ -6,7 +6,11 @@ import ArrowButton, {
 import clsx from 'clsx';
 import useWindowSize from '@/hooks/useWindowSize';
 
-export default function BracketArrowButtons({ children }) {
+export default function BracketArrowButtons({
+  children,
+  rightArrowClassNames = {},
+  leftArrowClassNames,
+}) {
   const { isMobile } = useWindowSize();
   const { contests, currentRoundIndex, currentContest } = useMatchups();
 
@@ -18,7 +22,7 @@ export default function BracketArrowButtons({ children }) {
       {currentRoundIndex > 0 && isCurrentRoundPicksComplete ? (
         <ArrowButton
           direction="left"
-          classNames={clsx(styles.arrow, styles.previous)}
+          classNames={clsx(styles.arrow, styles.previous, leftArrowClassNames)}
           hideGlowAnimation={isMobile}
         />
       ) : (
@@ -29,7 +33,7 @@ export default function BracketArrowButtons({ children }) {
       isCurrentRoundPicksComplete ? (
         <ArrowButton
           direction="right"
-          classNames={clsx(styles.arrow, styles.next)}
+          classNames={clsx(styles.arrow, styles.next, rightArrowClassNames)}
         />
       ) : (
         <div />

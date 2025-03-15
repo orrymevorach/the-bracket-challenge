@@ -76,7 +76,10 @@ export default function BracketChallenge() {
   return (
     <>
       <div className={styles.bracketChallengeContainer}>
-        <BracketArrowButtons>
+        <BracketArrowButtons
+          leftArrowClassNames={display === 'regular' && styles.leftArrow}
+          rightArrowClassNames={display === 'regular' && styles.rightArrow}
+        >
           <div className={styles.row}>
             {/* Loop through the array of rounds, and render a column of brackets for each matchup in the round */}
             {reArrangedMatchups.map(({ matchups }, index) => {

@@ -7,7 +7,7 @@
   border: none;
   color: white;
   position: relative;
-  margin: 0 30px;
+  margin: 0 10px;
   width: 150px;
   &:first-child {
     margin-left: 0;
@@ -36,7 +36,6 @@
 
 .roundText {
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 13px;
   @include mixins.fontPrimary;
-  // height: 14px;
 }
